@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+	
+	<!-- Redes Sociales -->
+	<div class="botones-redes-sociales-content">
+		<!-- Facebook boton like-->
+		<div style="display: inline-block;padding: 0 25px 0 0;">
+			<div class="fb-like" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+		</div>
+		
+		<!-- Twitter boton seguir -->
+		<div style="display: inline-block;">
+			<a href="https://twitter.com/share" class="twitter-share-button" data-lang="es">Twittear</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+		</div>
+		
+		<!-- Google +1 boton -->
+		<div style="display: inline-block;">
+			<!-- Inserta esta etiqueta donde quieras que aparezca Botón +1. -->
+			<div class="g-plusone" style="vertical-align: middle;" data-size="medium"></div>
+			
+			<!-- Inserta esta etiqueta después de la última etiqueta de Botón +1. -->
+			<script type="text/javascript">
+			  window.___gcfg = {lang: 'es'};
+			
+			  (function() {
+			    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			    po.src = 'https://apis.google.com/js/platform.js';
+			    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			  })();
+			</script>
+		</div>
+	</div>
+</ui:composition>

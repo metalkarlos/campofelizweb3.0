@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+ <!-- <factory>
+  <exception-handler-factory>com.web.faces.exceptions.ViewExpiredExceptionExceptionHandlerFactory</exception-handler-factory>
+ </factory> -->
+ <lifecycle>
+  <phase-listener>com.web.faces.listeners.SecurityPhaseListener</phase-listener>
+ </lifecycle>
+ <!-- <managed-bean>
+ 	<managed-bean-name>navigationBean</managed-bean-name>
+ 	<managed-bean-class>com.web.pet.bean.NavigationBean</managed-bean-class>
+ 	<managed-bean-scope>request</managed-bean-scope>
+ 	<managed-property>
+ 		<property-name>target</property-name>
+ 		<value>#{param.targetPage}</value>
+ 	</managed-property>
+ 	<managed-property>
+ 		<property-name>param1</property-name>
+ 		<value>#{param.param1}</value>
+ 	</managed-property>
+ 	<managed-property>
+ 		<property-name>param2</property-name>
+ 		<value>#{param.param2}</value>
+ 	</managed-property>
+ </managed-bean> -->
+</faces-config>

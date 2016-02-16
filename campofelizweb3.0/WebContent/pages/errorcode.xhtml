@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	template="/WEB-INF/templates/default_others.xhtml">
+
+	<ui:define name="head">
+
+		<meta name="robots" content="noindex" />
+		<meta content="no-cache" http-equiv="Cache-Control" />
+		<meta content="no-cache" http-equiv="Pragma" />
+
+		<title>#{errorCodeBean.statusCode} - Error</title>
+    	
+    	<style type="text/css">
+			.error-content {
+				padding-left: 30px;
+				list-style:inherit;
+				
+			}
+		</style>
+	</ui:define>
+	
+	<ui:define name="post-menu">
+		<br />
+	</ui:define>
+	
+	<ui:define name="contenido">
+		<div style="margin: 0px 5px;padding: 10px;">
+			<h1 style="border-bottom: 5px solid;line-height: 45px;" class="str-3">Error #{errorCodeBean.statusCode} <h:outputText value="#{errorCodeBean.descripcionError}" /></h1>
+			<br />
+			<h:outputText value="#{errorCodeBean.message}"></h:outputText>
+			
+			<div class="error-content">
+				<p><strong>Puede que no seas capaz de visitar esta página por:</strong></p>
+				<ol>
+					<li>Un bookmark / favorito fuera de fecha</li>
+					<li>Un buscador que tiene un listado fuera de fecha para este sitio</li>
+					<li>Una dirección mal escrita</li>
+					<li>Usted no tiene acceso a esta página</li>
+					<li>No se encuentra el recurso solicitado</li>
+					<li>Se ha producido un error al procesar su solicitud</li>
+				</ol>
+			</div>
+		</div>
+	</ui:define>
+
+</ui:composition>

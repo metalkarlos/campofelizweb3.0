@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default_admin.xhtml">
+	
+	
+	<ui:define name="head">
+	
+		<meta name="robots" content="noindex" />
+		
+		<title>Campo Feliz - Oficinas</title>
+		
+		<style type="text/css">
+			
+		   .ui-datatable table {
+			    border-collapse: collapse;
+			    width: 100%;
+			    /*margin-left: 20px;*/
+			    }
+		   .ui-datatable .ui-datatable-data td{
+		       border-color: #D3D3D3;
+		       vertical-align: middle;
+		   }	
+		      
+		  .ui-state-default{
+		    background-color: #eeeaea;
+		    font-weight: bold;
+		  }	    
+		 	    
+		</style>
+	</ui:define>
+	
+
+	<ui:define name="content_page">
+	<div  class="content-page">
+	 <h:form id="form-contentpage" enctype="multipart/form-data">
+        <!-- <p:growl id="mensajes" showDetail="false" /> -->
+        <p:messages id="mensajes" showDetail="false" autoUpdate="true" />
+        
+        <h1 class="title ui-widget-header">Oficinas</h1>
+        <span class="clear" />
+        <br/>
+        <div style="text-align: right;">
+			<h:link value="[Nueva Oficina]" outcome="empresa-admin" styleClass="link2" rendered="#{usuarioBean.autenticado}" >
+				<f:param name="idoficina" value="0"></f:param>
+			</h:link>
+		</div>
+        <div>
+		   <p:dataTable id="idTablaOficinas" value="#{empresasBean.lisCotoficina}" var="oficina" rowKey="#{oficina.idoficina}"  
+				paginator="false" 
+				selection="#{empresasBean.cotoficinaseleccionada}" selectionMode="single"  emptyMessage="No se encontraron registros"  paginatorPosition="bottom">
+
+			   <p:ajax event="rowSelect" listener="#{empresasBean.onUserRowSelect}"  process="@this" update=":form-contentpage:idTablaOficinas" />
+			  	       
+		       <p:column >
+			       <f:facet name="header">  
+		            <h:outputText value="Código" />
+		           </f:facet>
+		           <h:outputText value="#{oficina.idoficina}" />
+		       </p:column>
+	
+	           <p:column >
+			       <f:facet name="header">  
+		            <h:outputText value="Nombre" />
+		           </f:facet>
+		           <h:outputText value="#{oficina.nombre}" />
+		       </p:column>				      
+					        
+			   <p:column >
+			       <f:facet name="header">  
+		            <h:outputText value="Dirección" />
+		           </f:facet>
+		           <h:outputText value="#{oficina.direccion}" />
+		       </p:column>	
+		       
+		        <p:column >
+			       <f:facet name="header">  
+		            <h:outputText value="Teléfono" />
+		           </f:facet>
+		           <h:outputText value="#{oficina.telefono}" />
+		       </p:column>	
+	       
+		   </p:dataTable>
+		</div>
+      </h:form>
+     </div>
+     </ui:define>
+</ui:composition>     
+        

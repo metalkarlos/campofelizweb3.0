@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default_admin.xhtml"
+	xmlns:my="http://xmlns.jcp.org/jsf/composite/components/buttons">
+
+	<ui:define name="head">
+
+		<meta name="robots" content="noindex" />
+
+		<title>Administración - Homenaje Póstumo</title>
+
+		<style type="text/css">
+			.inner-content {
+				padding: 30px 0;
+			}
+			
+			.label {
+				font-weight: bold;
+				font-size: 15px;
+				line-height: 300%;
+			}
+			
+			.ui-panelgrid tr,.ui-panelgrid td {
+				border: none;
+				padding: 0px;
+			}
+			
+			.area-botones {
+				margin: 0px;
+			}
+			
+			.panel-previa .ui-panel-content {
+				padding: 0px;
+			}
+			
+			.imagenprincipal {
+				border-radius: 15px;
+				vertical-align: top;
+				padding: 5px 10px 5px 10px;
+				width: 420px;
+				height: 300px;
+			}
+			
+			.inner-content .imagen {
+				height: 170px;
+				width: 110px;
+				padding: 5px 5px 5px 5px;
+				margin: 0px 3px 10px 0;
+				box-shadow: 1px 0px 5px #BBB;
+				border-radius: 5px;
+			}
+			
+			.col1 {
+				
+			}
+			
+			.col2 {
+				width: 15px
+			}
+		</style>
+
+	</ui:define>
+
+	<ui:define name="content_page">
+		<div class="content-page">
+			<h:form id="form-contentpage" enctype="multipart/form-data">
+				<!-- <p:growl id="mensajes" showDetail="false" /> -->
+				<p:messages id="mensajes" showDetail="false" autoUpdate="true" />
+
+				<h1 class="title ui-widget-header">Administración - Homenaje
+					Póstumo</h1>
+
+				<div class="inner-content">
+					<p:panelGrid id="idgridcontenido" columnClasses="col1,col2">
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Código" for="txtCodigo" styleClass="label" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputText id="txtCodigo"
+									value="#{mascotaHomenajeAdminBean.petmascotahomenaje.idmascota}"
+									style="width: 100px;" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+							<h:panelGroup id="idpanelgaleria" >
+								<center>
+									<p:galleria id="idgalleria"
+										value="#{mascotaHomenajeAdminBean.listpetfotomascota}"
+										var="item" transitionInterval="0" panelWidth="500"
+										panelHeight="400" styleClass="ui-widget-content ui-corner-all">
+
+										<p:graphicImage id="idfotos"
+											value="#{parametro.servletImagenes}#{item.ruta}?w=70"
+											style="max-height: 70px;" />
+
+										<p:galleriaContent>
+											<h:panelGrid cellpadding="0" cellspacing="0" border="0" columns="1" style="background-color: #eaeaea;height: 300px;" >  
+			        					<f:facet name="header">
+													<p:graphicImage styleClass="imagenprincipal" id="idfoto"
+														value="#{parametro.servletImagenes}#{item.ruta}?w=420"
+														style="max-width:420px; max-height: 320px;" />
+													<p:commandButton id="idbuttonprincipal"
+														title="Colocar como foto principal"
+														icon="ui-icon ui-icon-person"
+														onclick="vardialogprincipal.show()"
+														style="position:absolute;right:0px;top:30px;"
+														update=":form-contentpage:idpanelprincipal">
+														<f:setPropertyActionListener value="#{item}"
+															target="#{mascotaHomenajeAdminBean.petfotomascotaselected}" />
+													</p:commandButton>
+													<p:commandButton id="idbuttondelete"
+														title="Eliminar foto permanentemente"
+														icon="ui-icon ui-icon-trash"
+														onclick="vardialogdelete.show()"
+														style="position:absolute;right:0px;top:60px;"
+														update=":form-contentpage:idpaneldelete">
+														<f:setPropertyActionListener value="#{item}"
+															target="#{mascotaHomenajeAdminBean.petfotomascotaselected}" />
+													</p:commandButton>
+												</f:facet>
+											</h:panelGrid>
+											<h:outputLabel value="Descripción de la Foto"
+												for="txtObservacionFotoItem" />
+											<p:inputTextarea id="txtObservacionFotoItem"
+												value="#{item.descripcion}" maxlength="500"
+												style="width: 400px;max-width:400px;min-width: 400px;max-height: 45px;height: 45px;min-height: 45px;" />
+										</p:galleriaContent>
+
+									</p:galleria>
+								</center>
+							</h:panelGroup>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Agregar Foto" for="idSubeFotos"
+									styleClass="label" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:panel id="pnlPrevia" styleClass="panel-previa">
+									<p:graphicImage id="idfotoseleccionada"
+										value="#{usuarioBean.streamedContent}"
+										rendered="#{mascotaHomenajeAdminBean.fotoSubida}" />
+									<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash"
+										action="#{mascotaHomenajeAdminBean.borrarFotoSubida()}"
+										update="pnlPrevia,pnlObservacionFoto,pnlObservacionFoto2"
+										rendered="#{mascotaHomenajeAdminBean.fotoSubida}" />
+								</p:panel>
+								<p:fileUpload id="idSubeFotos"
+									fileUploadListener="#{mascotaHomenajeAdminBean.handleFileUpload}"
+									mode="advanced" cancelLabel="Cancelar" uploadLabel="Subir Foto"
+									label="Elegir Foto" showButtons="false"
+									update="mensajes, pnlPrevia,pnlObservacionFoto,pnlObservacionFoto2"
+									allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:panelGroup id="pnlObservacionFoto">
+									<h:outputLabel value="Descripción de la Foto"
+										styleClass="label" for="txtObservacionFoto"
+										rendered="#{mascotaHomenajeAdminBean.fotoSubida}" />
+								</h:panelGroup>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:panelGroup id="pnlObservacionFoto2">
+									<p:inputTextarea id="txtObservacionFoto"
+										value="#{mascotaHomenajeAdminBean.descripcionFoto}"
+										maxlength="500" autoResize="false"
+										rendered="#{mascotaHomenajeAdminBean.fotoSubida}" />
+								</h:panelGroup>
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtObservacionFoto" for="txtObservacionFoto"
+									display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Código Veterinaria" styleClass="label"
+									for="txtCodigoVeterinaria" />
+								<span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:inputText id="txtCodigoVeterinaria" maxlength="10"
+									required="true" requiredMessage="Ingrese Código Veterinaria"
+									value="#{mascotaHomenajeAdminBean.petmascotahomenaje.idmascotaveterinaria}"
+									style="width: 120pxpx;" />
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtCodigoVeterinaria"
+									for="txtCodigoVeterinaria" display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Nombre" for="txtNombre" styleClass="label" />
+								<span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:inputText id="txtNombre" maxlength="100" required="true"
+									requiredMessage="Ingrese Nombre"
+									value="#{mascotaHomenajeAdminBean.petmascotahomenaje.nombre}"
+									style="width: 550px;  text-transform:uppercase;"></p:inputText>
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtNombre" for="txtNombre" display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Especie" for="cmbEspeciemascota"
+									styleClass="label" />
+								<span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:selectOneMenu id="cmbEspeciemascota" required="true"
+									requiredMessage="Ingrese Especie"
+									style="width: 165px; align: center;"
+									value="#{mascotaHomenajeAdminBean.petmascotahomenaje.petespecie.idespecie}">
+									<f:selectItem itemLabel="Seleccione" itemValue="" />
+									<f:selectItems value="#{petespecieBean.listPetespecie}"
+										var="especie" itemLabel="#{especie.nombre}"
+										itemValue="#{especie.idespecie}"></f:selectItems>
+								</p:selectOneMenu>
+							</p:column>
+							<p:column>
+								<p:message id="msgcmbEspeciemascota" for="cmbEspeciemascota"
+									display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Fecha de Nacimiento"
+									for="calFechaNacimiento" styleClass="label" />
+								<span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:calendar id="calFechaNacimiento" required="true"
+									requiredMessage="Ingrese Fecha Nacimiento"
+									value="#{mascotaHomenajeAdminBean.petmascotahomenaje.fechanacimiento}"
+									yearRange="c-110:c" locale="es" pattern="dd/MM/yyyy"
+									navigator="true" />
+							</p:column>
+							<p:column>
+								<p:message id="msgcalFechaNacimiento" for="calFechaNacimiento"
+									display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Fecha de Fallecimiento" styleClass="label"
+									for="calFechaFallecimiento" />
+								<span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:calendar id="calFechaFallecimiento"
+									value="#{mascotaHomenajeAdminBean.petmascotahomenaje.fechafallecimiento}"
+									yearRange="c-110:c" locale="es" pattern="dd/MM/yyyy"
+									navigator="true" />
+							</p:column>
+							<p:column>
+								<p:message id="msgcalFechaFallecimiento"
+									for="calFechaFallecimiento" display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Fecha de Publicación" styleClass="label"
+									for="calFechaPublicacion" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:calendar id="calFechaPublicacion"
+									value="#{mascotaHomenajeAdminBean.petmascotahomenaje.fechapublicacion}"
+									yearRange="c-110:c" locale="es" pattern="dd/MM/yyyy"
+									navigator="true" />
+							</p:column>
+							<p:column>
+								<p:message id="msgcalFechaPublicacion" for="calFechaPublicacion"
+									display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Dueño" for="txtFamilia" styleClass="label" />
+								<span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:inputText id="txtFamilia" maxlength="100" required="true"
+									requiredMessage="Ingrese el Dueño"
+									value="#{mascotaHomenajeAdminBean.petmascotahomenaje.familia}"
+									style="width: 550px; text-transform:uppercase;"></p:inputText>
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtFamilia" for="txtFamilia" display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Dedicatoria" for="txtDedicatoria"
+									styleClass="label" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:editor id="txtDedicatoria" maxlength="1000" autoResize="true"
+									value="#{mascotaHomenajeAdminBean.petmascotahomenaje.dedicatoria}"
+									width="550"
+									controls="bold italic underline  undo redo  cut copy  center  removeformat" />
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtDedicatoria" for="txtDedicatoria"
+									display="icon" />
+							</p:column>
+						</p:row>
+
+					</p:panelGrid>
+				</div>
+				<div class="area-botones">
+					<my:buttons renderedButtonAceptar="true"
+						labelButtonAceptar="Grabar"
+						onclickButtonAceptar="vardialoggrabar.show()"
+						immediateButtonAceptar="true"
+						renderedButtonEliminar="#{mascotaHomenajeAdminBean.idmascota > 0}"
+						onclickButtonEliminar="vardialogdeletemascota.show()"
+						immediateButtonEliminar="true" renderedButtonCancelar="true"
+						labelButtonCancelar="Cancelar"
+						onclickButtonCancelar="redirect('../pages/mascotashomenaje.jsf');"
+						renderedButtonNewItem="false" />
+				</div>
+				<p:dialog id="iddialogprincipal" header="Foto Principal"
+					closable="true" widgetVar="vardialogprincipal" modal="true"
+					style="min-height: 80px; width: 450px">
+					<h:panelGrid id="idpanelprincipal" columns="2" width="100%">
+						<p:graphicImage
+							value="#{parametro.servletImagenes}#{mascotaHomenajeAdminBean.petfotomascotaselected.ruta}"
+							style="max-height: 50px" />
+						<h:outputText id="idlabelprincipal"
+							value="¿Seleccionar imágen como foto principal?" />
+						<h:outputText value="" />
+						<p:panelGrid id="idpanel2principal"
+							style="width: 100%; text-align: right;">
+							<p:row>
+								<p:column>
+									<p:commandButton id="idconfirmarprincipal" value="Confirmar"
+										action="#{mascotaHomenajeAdminBean.ponerFotoperfil()}"
+										onclick="vardialogprincipal.hide()"
+										update=":form-contentpage:mensajes" />
+									<p:commandButton id="idcancelarprincipal" value="Cancelar"
+										onclick="vardialogprincipal.hide()" immediate="true" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</h:panelGrid>
+				</p:dialog>
+
+				<p:dialog id="iddialogdelete" header="Eliminar Foto" closable="true"
+					widgetVar="vardialogdelete" modal="true"
+					style="min-height: 80px; width: 450px">
+					<h:panelGrid id="idpaneldelete" columns="2" width="100%">
+						<p:graphicImage
+							value="#{parametro.servletImagenes}#{mascotaHomenajeAdminBean.petfotomascotaselected.ruta}"
+							style="max-height: 50px" />
+						<h:outputText id="idlabeldelete" value="¿Quitar foto?" />
+						<h:outputText value="" />
+						<p:panelGrid id="idpanel2delete"
+							style="width: 100%; text-align: right;">
+							<p:row>
+								<p:column>
+									<p:commandButton id="idconfirmardelete" value="Confirmar"
+										action="#{mascotaHomenajeAdminBean.quitarFoto()}"
+										onclick="vardialogdelete.hide()"
+										update=":form-contentpage:mensajes, :form-contentpage:idgalleria" />
+									<p:commandButton id="idcancelardelete" value="Cancelar"
+										onclick="vardialogdelete.hide()" immediate="true" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</h:panelGrid>
+				</p:dialog>
+
+				<p:dialog id="iddialoggrabar" header="Grabar" closable="true"
+					widgetVar="vardialoggrabar" modal="true"
+					style="min-height: 80px; width: 450px">
+					<h:panelGrid id="idpanelgrabar" columns="2" width="100%">
+						<h:outputText id="idlabelgrabar"
+							value="Confirme si desea grabar el registro" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<p:panelGrid id="idpanel2grabar"
+							style="width: 100%; text-align: right;">
+							<p:row>
+								<p:column>
+									<p:commandButton id="idconfirmargrabar" value="Confirmar"
+										action="#{mascotaHomenajeAdminBean.grabar()}"
+										onclick="vardialoggrabar.hide()"
+										update="mensajes,txtCodigoVeterinaria,msgtxtCodigoVeterinaria,txtNombre,msgtxtNombre,cmbEspeciemascota,msgcmbEspeciemascota,calFechaNacimiento,msgcalFechaNacimiento,txtFamilia,msgtxtFamilia, " />
+									<p:commandButton id="idcancelargrabar" value="Cancelar"
+										onclick="vardialoggrabar.hide()" immediate="true" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</h:panelGrid>
+				</p:dialog>
+
+				<p:dialog id="iddialogdeletemascota" header="Eliminar Mascota"
+					closable="true" widgetVar="vardialogdeletemascota" modal="true"
+					style="min-height: 80px; width: 450px">
+					<h:panelGrid id="idpaneldeletenoticia" columns="2" width="100%">
+						<h:outputText id="idlabeldeletemascota"
+							value="Confirme si desea eliminar el registro" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<p:panelGrid id="idpanel2deletemascota"
+							style="width: 100%; text-align: right;">
+							<p:row>
+								<p:column>
+									<p:commandButton id="idconfirmardeletemascota"
+										value="Confirmar"
+										action="#{mascotaHomenajeAdminBean.eliminar()}"
+										onclick="vardialogdeletemascota.hide()"
+										update=":form-contentpage:mensajes" />
+									<p:commandButton id="idcancelardeletenmascota" value="Cancelar"
+										onclick="vardialogdeletemascota.hide()" immediate="true" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</h:panelGrid>
+				</p:dialog>
+
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

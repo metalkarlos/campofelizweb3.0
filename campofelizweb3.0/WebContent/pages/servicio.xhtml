@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="slider">
+	</ui:define>
+
+	<ui:define name="content_page">
+		<!--start-content-->
+		<div class="blog">
+			<div class="container">
+				<div class="blog-top">
+					<div class="col-md-9 blog-grid">
+						<h3 class="tittle">Servicios</h3>
+						<div class="blog-grid3">
+							<div class=" blog-grid2">
+								<a href="#"><img src="#{request.contextPath}/resources/images/bl.jpg"
+									class="img-responsive" alt="" /></a>
+								<div class="blog-text">
+									<h5>
+										<a href="#">#{servicioBean.petservicio.nombre}</a>
+									</h5>
+									<p>Cum sociis natoque penatibus et magnis dis parturient
+										montes, nascetur ridiculus mus. Maecenas tristique orci ac
+										sem. Duis ultricies pharetra magna. Donec accumsan malesuada
+										orci. Donec sit amet eros. Lorem ipsum dolor sit amet, con
+										sectetuer adipiscing elit. Mauris fermentum dictum magna.</p>
+									<p>There are many variations of passages of Lorem Ipsum
+										available, but the majority have suffered alteration in some
+										form, by injected humour, or randomised words which don't look
+										even slightly believable. If you are going to use a passage of
+										Lorem Ipsum, you need to be sure there isn't anything
+										embarrassing hidden in the middle of text. All the Lorem Ipsum
+										generators on the Internet tend to repeat predefined chunks as
+										necessary, making this the first true generator on the
+										Internet. It uses a dictionary of over 200 Latin words</p>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+
+
+					</div>
+					<div class="col-md-3 categories-grid">
+						<div class="search-in">
+							<h2>Búsqueda</h2>
+							<div class="blog-search">
+								<form>
+									<input type="text"/> <input type="submit" value=" " />
+								</form>
+							</div>
+						</div>
+						<div class="blog-bottom">
+							<h4>Otros Servicios</h4>
+							<div class="product-go">
+								<a href="#" class="fashion"><img 
+									class="img-responsive " src="#{request.contextPath}/resources/images/bi.jpg" alt="" /></a>
+								<div class="grid-product">
+									<a href="single.html" class="elit">Consectetuer adipiscing</a>
+									<p>Lorem ipsum dolor sit amet, consectetuer</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="product-go">
+								<a href="#" class="fashion"><img 
+									class="img-responsive " src="#{request.contextPath}/resources/images/bi1.jpg" alt="" /></a>
+								<div class="grid-product">
+									<a href="#" class="elit">Consectetuer adipiscing</a>
+									<p>Lorem ipsum dolor sit amet, consectetuer</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="product-go">
+								<a href="#" class="fashion"><img 
+									class="img-responsive " src="#{request.contextPath}/resources/images/bi2.jpg" alt="" /></a>
+								<div class="grid-product">
+									<a href="#" class="elit">Consectetuer adipiscing</a>
+									<p>Lorem ipsum dolor sit amet, consectetuer</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+
+					</div>
+					<div class="clearfix"></div>
+				</div>
+
+			</div>
+		</div>
+		<!--end-content-->
+	</ui:define>
+</ui:composition>

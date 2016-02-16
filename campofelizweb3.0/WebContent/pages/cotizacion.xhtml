@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default_others.xhtml">
+	
+	<ui:define name="head">
+			
+		<title>Cotización - Campo Feliz</title>
+		
+		<meta name="description" content="Solicítanos una cotización y te responderemos a tu email." />
+		<meta name="keywords" content="cotización" />
+		
+		<style type="text/css">
+			.inner-content textarea {
+				max-width: 100%;
+				min-width: 100%;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+			}
+			.ui-panelgrid tr, .ui-panelgrid td {
+				border: none;
+				padding: 0 10px;
+			}
+		</style>
+		<script type="text/javascript">
+			function setCorreo() {
+				var correo = $('#form-contentpage\\:txtEmail').val();
+				$('#form-contentpage\\:iddialogmensaje').text(correo);
+			}	
+		</script>
+	</ui:define>
+	
+	<ui:define name="content_page">
+		<h:form id="form-contentpage">
+			<div class="content-page">
+				<div class="inner-content">
+					<p:messages id="mensajes" showDetail="true"></p:messages>
+					<p:focus for="txtNombres"></p:focus>
+				
+					<h2>Solicita una Cotización</h2>
+					<div class="contact-form">
+						<fieldset>
+		                    <label class="name">
+		                        <span class="span">Nombres:</span>
+		                        <p:inputText id="txtNombres" value="#{cotizacionBean.nombres}" required="true" requiredMessage="Ingrese sus Nombres" label="Nombres"></p:inputText>
+		                    </label>
+		                    <label class="lastname">
+		                        <span class="span">Apellidos:</span>
+		                        <p:inputText id="txtApellidos" value="#{cotizacionBean.apellidos}" required="true" requiredMessage="Ingrese sus Apellidos" label="Apellidos"></p:inputText>
+		                    </label>
+		                    <label class="email">
+		                      <span class="span">Email:</span>
+		                      <p:inputText id="txtEmail" value="#{cotizacionBean.correo}" required="true" requiredMessage="Ingresar Email" label="Email"
+								validatorMessage="Formato de Correo Electrónico incorrecto">
+		                      	<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+		                      </p:inputText>
+		                    </label>
+						</fieldset>
+					</div>
+					<br />
+					
+					<label>Servicios Campo Feliz:</label>
+	        <h:selectManyCheckbox value="#{cotizacionBean.lisPetservicioCampoSeleccionado}" layout="pageDirection" style="margin-left: 15px;">
+	        	<f:selectItems value="#{cotizacionBean.lisPetservicioCampo}" var="serviciocampo" itemLabel="#{serviciocampo}" itemValue="#{serviciocampo}" />
+	        </h:selectManyCheckbox>
+			    <br />
+			    
+			    <label>Servicios Veterinaria Burgos:</label>
+	        <h:selectManyCheckbox value="#{cotizacionBean.lisPetservicioVeteSeleccionado}" layout="pageDirection" style="margin-left: 15px;">
+	        	<f:selectItems value="#{cotizacionBean.lisPetservicioVete}" var="serviciovete" itemLabel="#{serviciovete}" itemValue="#{serviciovete}" />
+	        </h:selectManyCheckbox>
+			    <br />
+			    
+			    <label>Otros Servicios:</label>
+					<p:inputTextarea id="txtOtrosServicios" value="#{cotizacionBean.otrosServicios}" maxlength="1000" autoResize="false" />
+					
+					<div align="right" style="padding:15px 0 0 0;">
+						<p:captcha id="idcaptcha" label="Captcha" language="es" theme="white" required="true" requiredMessage="Ingrese el código captcha en el recuadro" />
+					</div>
+					
+					<div class="btns">
+						<h:link value="Enviar" style="color: #EC8F23;" onclick="vardialogconfirm.show()"/>
+					</div>
+				</div>
+			</div>
+			<p:dialog id="iddialogconfirm" header="Confirmar correo" closable="false" widgetVar="vardialogconfirm" modal="true" onShow="setCorreo();" style="min-height: 130px; width: 400px">
+				<h:panelGrid id="idpanelconfirm" columns="1" width="100%">
+					<h:outputText value="Favor confirme su correo para poder enviarle la respuesta" />
+					<h:outputText id="iddialogmensaje" value="#{cotizacionBean.correo}" />
+					<h:outputText value="" />
+					<p:panelGrid style="width: 100%; text-align: right;">
+						<p:row>
+						<p:column>
+						<p:commandLink id="idconfirmar" style="color: #EC8F23;" value="Confirmar" action="#{cotizacionBean.enviar()}" update="mensajes" onclick="vardialogconfirm.hide()" oncomplete="Recaptcha.reload();" />
+						<h:outputText value="  " />
+						<p:commandLink id="idcancelar" style="color: #EC8F23;" value="Cancelar" immediate="true" onclick="vardialogconfirm.hide()" oncomplete="Recaptcha.reload();" />
+						</p:column>
+						</p:row>
+					</p:panelGrid>
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

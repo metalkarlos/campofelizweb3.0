@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	template="/WEB-INF/templates/default_others.xhtml">
+
+	<ui:define name="head">
+
+		<title>Noticias - Campo Feliz</title>
+
+		<meta name="description"
+			content="Entérate de eventos, notas curiosas, noticias y mucho más." />
+		<meta name="keywords" content="noticias" />
+
+		<style type="text/css">
+		.inner-content {
+			padding: 0px;
+		}
+		
+		.inner-content h1 {
+			color: #66ad23;
+		}
+		
+		.gridNoticias {
+			padding: 10px 0;
+		}
+		
+		.inner-content img {
+			padding: 4px;
+			border: 1px solid rgb(221, 221, 221);
+			background-color: rgb(245, 245, 245);
+		}
+		</style>
+	</ui:define>
+
+	<ui:define name="content_page">
+
+		<h:form id="form-contentpage" prependId="false">
+			<div class="content-page">
+				<p:messages id="mensajes" showDetail="false" autoUpdate="true" />
+				<p:defaultCommand target="lnkbuscar"></p:defaultCommand>
+
+				<div style="float: right; margin: 0px 15px 0 0;">
+					<div id="search-form">
+						<p:inputText id="txtbusqueda"
+							value="#{noticiasBean.descripcionParam}"
+							onblur="if(this.value==''){this.value='buscar'}"
+							onfocus="if(this.value=='buscar'){this.value=''}"
+							validatorMessage="Ingrese sólo letras. Corrija y reintente.">
+							<f:validateRegex pattern="[a-zA-Z ]*" />
+						</p:inputText>
+						<h:commandLink id="lnkbuscar" styleClass="search-form-submit" >
+							<f:ajax render="gridNoticias mensajes" execute="txtbusqueda"></f:ajax>
+						</h:commandLink>
+					</div>
+				</div>
+				<span class="clear" /> <br />
+				<h:link value="[Nueva Noticia]" outcome="/admin/noticia-admin"
+					styleClass="link2" style="float: right;margin: 0 20px 20px 0;"
+					rendered="#{usuarioBean.autenticado}">
+					<f:param name="idnoticia" value="0"></f:param>
+				</h:link>
+				<p:dataGrid styleClass="gridNoticias" id="gridNoticias"
+					value="#{noticiasBean.lisPetnoticia}" var="noticia" columns="1"
+					rows="3" paginator="true" effect="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					emptyMessage="No se encontraron registros"
+					paginatorPosition="bottom">
+					<p:column>
+						<div class="inner-content">
+							<div class="titulo3">#{noticia.titulo}</div>
+							<div class="imagen centrar">
+								<h:link outcome="/pages/noticia">
+									<h:graphicImage alt="foto-noticia"
+										value="#{parametro.servletImagenes}#{noticia.rutafoto}?w=140"
+										style="max-height: 140px; max-width: 150px;" />
+									<f:param name="idnoticia" value="#{noticia.idnoticia}"></f:param>
+								</h:link>
+							</div>
+							<div class="cuerpo">
+								<div class="fecha">
+									<h:outputText id="fechaNoticia"
+										value="#{noticia.fecharegistro}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputText>
+								</div>
+								<div>
+									<p class="parrafo">
+										<h:outputText
+											value="#{fn:substring(noticia.descripcionNoTags, 0, 300)} [...]"
+											escape="false" />
+									</p>
+									<h:link style="float: right;" value="Leer Más"
+										outcome="/pages/noticia">
+										<f:param name="idnoticia" value="#{noticia.idnoticia}"></f:param>
+									</h:link>
+								</div>
+							</div>
+						</div>
+					</p:column>
+				</p:dataGrid>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

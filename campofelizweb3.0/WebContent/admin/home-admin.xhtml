@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default_admin.xhtml"
+	xmlns:my="http://xmlns.jcp.org/jsf/composite/components/buttons">
+
+	<ui:define name="head">
+
+		<meta name="robots" content="noindex" />
+
+		<title>Administración - Home</title>
+
+		<style type="text/css">
+			.inner-content {
+				padding: 30px 0;
+			}
+			
+			.label {
+				font-weight: bold;
+				font-size: 15px;
+				line-height: 300%;
+			}
+			
+			.ui-panelgrid tr,.ui-panelgrid td {
+				border: none;
+				padding: 0px;
+			}
+			
+			.ui-panelgrid .alto-columna {
+				padding-bottom: 15px;
+			}
+			
+			.area-botones {
+				margin: 0px;
+			}
+			
+			.col1 {
+				
+			}
+			
+			.col2 {
+				width: 15px
+			}
+		</style>
+	</ui:define>
+	<table cellpadding="" cellspacing=""></table>
+	<ui:define name="content_page">
+		<div class="content-page">
+			<h:form id="form-contentpage">
+				<!-- <p:growl id="mensajes" showDetail="false" /> -->
+				<p:messages id="mensajes" showDetail="false" autoUpdate="true" />
+				<p:focus for="txtEncabezado"></p:focus>
+
+				<h1 class="title ui-widget-header">Administración - Home</h1>
+
+				<div class="inner-content">
+					<p:panelGrid id="idgridcontenido" columnClasses="col1,col2">
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Encabezado del video" for="txtEncabezado" styleClass="label" /><span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:editor id="txtEncabezado" required="true" requiredMessage="Ingrese Encabezado del video"
+									value="#{homeAdminBean.pethome.encabezado}" width="550"
+									controls="bold italic underline bullets numbering center undo redo link unlink cut copy paste source removeformat" />
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtEncabezado" for="txtEncabezado" display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Url del Video" for="txtUrl" styleClass="label" /><span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+								
+						<p:row>
+							<p:column>
+								<p:inputText id="txtUrl" required="true" requiredMessage="Ingrese Url del Video"
+									value="#{homeAdminBean.pethome.urlvideo}" style="width: 550px;"></p:inputText>
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtUrl" for="txtUrl" display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Orden" for="txtOrden" styleClass="label" /><span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+								
+						<p:row>
+							<p:column>
+								<p:spinner id="txtOrden" value="#{homeAdminBean.pethome.orden}" min="1"></p:spinner>
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtOrden" for="txtOrden" display="icon" />
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</div>
+				<div class="area-botones">
+					<my:buttons renderedButtonAceptar="true"
+						labelButtonAceptar="Grabar"
+						onclickButtonAceptar="vardialoggrabar.show()"
+						immediateButtonAceptar="true"
+						renderedButtonEliminar="#{homeAdminBean.idhome > 0}"
+						onclickButtonEliminar="vardialogdelete.show()"
+						immediateButtonEliminar="true"
+						renderedButtonCancelar="true" labelButtonCancelar="Cancelar"
+						onclickButtonCancelar="redirect('../pages/home.jsf');"
+						renderedButtonNewItem="false" />
+				</div>
+
+				<p:dialog id="iddialoggrabar" header="Grabar" closable="true"
+					widgetVar="vardialoggrabar" modal="true"
+					style="min-height: 80px; width: 450px">
+					<h:panelGrid id="idpanelgrabar" columns="2" width="100%">
+						<h:outputText id="idlabelgrabar"
+							value="Confirme si desea grabar el registro" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<p:panelGrid id="idpanel2grabar"
+							style="width: 100%; text-align: right;">
+							<p:row>
+								<p:column>
+									<p:commandButton id="idconfirmargrabar" value="Confirmar"
+										action="#{homeAdminBean.grabar()}"
+										onclick="vardialoggrabar.hide()"
+										update="mensajes,txtEncabezado,msgtxtEncabezado,txtUrl,msgtxtUrl" />
+									<p:commandButton id="idcancelargrabar" value="Cancelar" immediate="true"
+										onclick="vardialoggrabar.hide()"  />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</h:panelGrid>
+				</p:dialog>
+				<p:dialog id="iddialogdelete" header="Eliminar Sección"
+					closable="true" widgetVar="vardialogdelete" modal="true"
+					style="min-height: 80px; width: 450px">
+					<h:panelGrid id="idpaneldelete" columns="2" width="100%">
+						<h:outputText id="idlabeldelete"
+							value="Confirme si desea eliminar la sección" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<p:panelGrid id="idpanel2delete"
+							style="width: 100%; text-align: right;">
+							<p:row>
+								<p:column>
+									<p:commandButton id="idconfirmardelete" value="Confirmar"
+										action="#{homeAdminBean.eliminar()}"
+										onclick="vardialogdelete.hide()"
+										update=":form-contentpage:mensajes" />
+									<p:commandButton id="idcancelardelete" value="Cancelar" immediate="true"
+										onclick="vardialogdelete.hide()" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</h:panelGrid>
+				</p:dialog>
+			</h:form>
+		</div>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	template="/WEB-INF/templates/default_others.xhtml">
+
+
+	<ui:define name="head">
+
+		<title>Homenaje Póstumo - Campo Feliz</title>
+
+		<meta name="description"
+			content="Les ofrecemos a nuestras mascotas ausentes un merecido homenaje con foto y dedicatoria en nuestro sitio web." />
+		<meta name="keywords" content="homenaje póstumo" />
+
+		<style type="text/css">
+		.ui-widget-content {
+			border: 0px;
+		}
+		
+		.ui-panelgrid td {
+			border: 0px;
+		}
+		
+		.ui-widget-content a {
+			color: #ec8f23;
+			font-weight: bold;
+		}
+		
+		.grid {
+			padding: 10px 0;
+		}
+		
+		.imagendatagrid {
+			border-radius: 10px;
+			box-shadow: 6px 6px 5px #BBB;
+		}
+		
+		.nombremascota {
+			font-weight: normal;
+			/*font-family: 'Open Sans', sans-serif;*/
+			font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+			text-shadow: 1px 1px #fbfbfb;
+			letter-spacing: -1px;
+			font-size: 18px;
+			color: #66AD23;
+			text-align: center;
+		}
+		</style>
+	</ui:define>
+
+	<ui:define name="content_page">
+		<h:form id="form-contentpage" enctype="multipart/form-data" prependId="false" >
+			<div class="content-page">
+				<p:messages id="mensajes" showDetail="false" autoUpdate="true" />
+				<p:defaultCommand target="lnkbuscar"></p:defaultCommand>
+				
+				<div style="float: right; margin: 10px 15px 0 0;">
+					<div id="search-form">
+						<p:inputText id="txtbusqueda"
+							value="#{mascotasHomenajeBean.descripcionParam}"
+							onblur="if(this.value==''){this.value='buscar por nombre de mascota'}"
+							onfocus="if(this.value=='buscar por nombre de mascota'){this.value=''}"
+							validatorMessage="Ingrese sólo letras. Corrija y reintente.">
+							<f:validateRegex pattern="[a-zA-Z ]*" />
+						</p:inputText>
+						<h:commandLink id="lnkbuscar" styleClass="search-form-submit" >
+							<f:ajax render="resultadomascota mensajes" execute="txtbusqueda"></f:ajax>
+						</h:commandLink>
+					</div>
+				</div>
+				<span class="clear" /> <br />
+				<h:link value="[Nueva Mascota]" styleClass="link2"
+					style="float: right;margin: 0 20px 20px 0;"
+					outcome="/admin/mascotahomenaje-admin"
+					rendered="#{usuarioBean.autenticado}">
+					<f:param name="idmascota" value="0"></f:param>
+				</h:link>
+				<div class="mascotas-content">
+					<p:dataGrid styleClass="grid" id="resultadomascota" var="mascota"
+						value="#{mascotasHomenajeBean.listpetmascotahomenaje}" columns="3"
+						rows="6" efect="true" paginator="true" paginatorPosition="bottom"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						emptyMessage="No se encontraron registros">
+						<p:column>
+							<p:panel style="text-align:center;">
+								<h:panelGrid columns="1" style="width:150px">
+									<table>
+										<tr>
+											<td><h:outputText style="height:40px;"
+													value="#{mascota.nombre}" styleClass="nombremascota" /></td>
+										</tr>
+										<tr>
+											<td style="padding-bottom: 10px;"><h:link
+													outcome="/pages/mascotahomenaje">
+													<p:graphicImage alt="#{mascota.nombre}"
+														title="#{mascota.nombre}"
+														value="#{parametro.servletImagenes}#{mascota.rutafoto}?w=140"
+														style="height: 145px; width: 140px; max-height: 145px; max-width: 150px;"
+														styleClass="imagendatagrid" />
+													<f:param name="idmascota" value="#{mascota.idmascota}"></f:param>
+												</h:link></td>
+											<td style="padding-bottom: 10px;"><h:outputText
+													style="height:40px;"
+													value="#{fn:substring(mascota.dedicatoria, 0, 60)} [...]"
+													escape="false" /> <h:link
+													style="float: center; padding: 10px 0 0" value="Leer Más"
+													outcome="/pages/mascotahomenaje">
+													<f:param name="idmascota" value="#{mascota.idmascota}"></f:param>
+												</h:link></td>
+										</tr>
+									</table>
+								</h:panelGrid>
+							</p:panel>
+						</p:column>
+					</p:dataGrid>
+				</div>
+				<br />
+			</div>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

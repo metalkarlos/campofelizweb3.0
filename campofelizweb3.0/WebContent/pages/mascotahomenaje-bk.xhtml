@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	template="/WEB-INF/templates/default_others.xhtml">
+
+	<ui:define name="head">
+	
+		<title>Homenaje Póstumo	#{mascotaHomenajeBean.petmascotahomenaje.nombre}</title>
+		
+		<meta name="description" content="#{fn:substring(mascotaHomenajeBean.petmascotahomenaje.dedicatoriaNoTags, 0, 200)}" />
+		<meta name="keywords" content="#{mascotaHomenajeBean.petmascotahomenaje.tag}" />
+
+		<style type="text/css">
+		.inner-content {
+			padding-top: 0px;
+		}
+		
+		.ui-panelgrid .alto-columna {
+			padding-bottom: 15px;
+		}
+		
+		.ui-widget-content a {
+			color: #7B7B7B;
+		}
+		
+		.ui-panelgrid td {
+			border: none;
+		}
+		
+		.ui-galleria-panel-content {
+			background-color: #ffffff;
+		}
+		
+		.ancho {
+			width: 150px;
+		}
+		
+		.imagenprincipal {
+			border-radius: 15px;
+			vertical-align: top;
+			padding: 5px 10px 5px 10px;
+			height: 355px;
+			width: 380px;
+		}
+		
+		.imagenrecordatorio {
+			max-height: 22px;
+			max-width: 22px;
+			padding: 0px 5px 0px 0px;
+		}
+		
+		.nombremascota {
+			font-weight: normal;
+			/*font-family: 'Open Sans', sans-serif;*/
+			/*font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;*/
+			font-family: Times New Roman, Arial, Helvetica;
+			font-style: oblique;
+			text-shadow: 1px 1px #fbfbfb;
+			letter-spacing: -1px;
+			font-size: 30px;
+			color: #66AD23;
+			text-align: center;
+		}
+		
+		.texto-dedicatoria {
+			font-style: oblique;
+			font-family: Times New Roman, Arial, Helvetica;
+			font-size: 18px;
+			/*font-weight: bold;*/
+			padding-bottom: 12px;
+			letter-spacing: 0.4px;
+			line-height: 150%;
+			color: #222;
+			text-shadow: 0px 0px 0.6px #BBB;
+		}
+		
+		.textolabel {
+			/*text-align: right;*/
+			font-style: oblique;
+			font-family: Times New Roman,Arial,Helvetica;
+			color: #222;
+			font-size: 13px;
+			font-weight: bold;
+			text-shadow: 0.6px 0px #BBB;
+			letter-spacing: 0px;
+		}
+		
+		.textocontenido {
+			font-size: 13px;
+			letter-spacing: 0px;
+			font-style: oblique;
+		}
+		</style>
+
+	</ui:define>
+
+	<ui:define name="content_page">
+		<div class="content-page">
+			<h:form id="form-contentpage" enctype="multipart/form-data">
+				<p:growl id="mensajes" showDetail="false" />
+
+				<div class="inner-content">
+					<div class="cuerpo">
+						<div class="nombremascota">#{mascotaHomenajeBean.petmascotahomenaje.nombre}</div>
+					</div>
+
+					<div style="text-align: right;">
+						<h:link value="[Editar]" styleClass="link2"	outcome="/admin/mascotahomenaje-admin" rendered="#{usuarioBean.autenticado}">
+							<f:param name="idmascota" value="#{mascotaHomenajeAdminBean.petmascotahomenaje.idmascota}"></f:param>
+						</h:link>
+					</div>
+
+					<center>
+						<p:galleria id="idgalleria"	value="#{mascotaHomenajeBean.listpetfotomascota}" var="item" panelWidth="500" panelHeight="380"	styleClass="ui-widget-content ui-corner-all">
+							<p:graphicImage id="idfotos" value="#{parametro.servletImagenes}#{item.ruta}?w=70" style="max-height: 70px; max-width: 90px;" />
+							<p:galleriaContent>
+								<h:panelGrid columns="1" style="box-shadow: 1px 2px 5px #BBB;">
+									<h:outputLink styleClass="grupo1" value="#{request.contextPath}#{parametro.servletImagenes}#{item.ruta}"	title="#{mascotaHomenajeBean.petmascotahomenaje.nombre}">
+										<p:graphicImage styleClass="imagenprincipal" id="idfoto" value="#{parametro.servletImagenes}#{item.ruta}?w=380" style="max-width:480px;height: 360px;padding-top: 10px" />
+									</h:outputLink>
+								</h:panelGrid>
+							</p:galleriaContent>
+						</p:galleria>
+					</center>
+					<br />
+
+					<center>
+						<div style="width: 550px;">
+							<p:panelGrid id="panelgridcontenido">
+								<p:row>
+									<p:column colspan="2" styleClass="alto-columna"	style="text-align:center;">
+										<h:outputText styleClass="texto-dedicatoria" style="text-align:justify;" id="txtdedicatoria" value="#{mascotaHomenajeBean.petmascotahomenaje.dedicatoria}" escape="false" />
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+						</div>
+					</center>
+					
+					<center>
+					<table style="width: 200px; text-align: center;" >
+					<tr>
+					<td><p:graphicImage value="../resources/images/estrella.png" styleClass="imagenrecordatorio" /></td>
+					<td></td>
+					<td><p:graphicImage value="../resources/images/cruz.png" styleClass="imagenrecordatorio" /></td>
+					</tr>
+					<tr>
+					<td>
+					<h:outputText styleClass="textocontenido" value="#{mascotaHomenajeBean.petmascotahomenaje.fechanacimiento}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+					</td>
+					<td>-</td>
+					<td>
+					<h:outputText styleClass="textocontenido" value="#{mascotaHomenajeBean.petmascotahomenaje.fechafallecimiento}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+					</td>
+					</tr>
+					<tr><td style="height: 15px;"></td></tr>
+					<tr>
+					<td colspan="3">
+					<h:outputLabel styleClass="texto-dedicatoria" value="FAMILIA"	for="txtFamilia" />
+					</td>
+					</tr>
+					<tr>
+					<td colspan="3">
+					<h:outputText styleClass="textocontenido" id="txtFamilia" value="#{mascotaHomenajeBean.petmascotahomenaje.familia}" />
+					</td>
+					</tr>
+					</table>
+					</center>
+					<br /><br />
+					
+					<!-- Botones Redes Sociales -->
+					<ui:include src="/WEB-INF/includes/botones-sociales.xhtml" />
+					
+					<!-- Facebook Comentarios -->
+					<center>
+						<div class="fb-comments" data-href="#{request.requestURL}?#{request.queryString}" data-numposts="5" data-colorscheme="light"></div>
+					</center>
+				</div>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

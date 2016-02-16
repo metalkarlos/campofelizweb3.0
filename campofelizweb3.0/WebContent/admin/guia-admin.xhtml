@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default_admin.xhtml"
+	xmlns:my="http://xmlns.jcp.org/jsf/composite/components/buttons">
+
+	<ui:define name="head">
+
+		<meta name="robots" content="noindex" />
+
+		<title>Administración - Cómo decir Adiós</title>
+
+		<style type="text/css">
+			.inner-content {
+				padding: 30px 0;
+			}
+			.label {
+				font-weight: bold;
+				font-size: 15px;
+				line-height: 300%;
+			}
+			.ui-panelgrid tr,.ui-panelgrid td {
+				border: none;
+				padding: 0px;
+			}
+			.ui-panelgrid .alto-columna {
+				padding-bottom: 15px;
+			}
+			.area-botones {
+				margin: 0px;
+			}
+			.panel-previa .ui-panel-content {
+				padding: 0;
+			}
+			.ui-galleria textarea {
+				max-width: 400px;
+				min-width: 400px;
+				/*margin-top: 10px;*/
+			}
+			.col1 {
+				
+			}
+			.col2 {
+				width: 15px
+			}
+		</style>
+	</ui:define>
+
+	<ui:define name="content_page">
+		<div class="content-page">
+			<h:form id="form-contentpage" enctype="multipart/form-data">
+				<!-- <p:growl id="mensajes" showDetail="false" /> -->
+				<p:messages id="mensajes" showDetail="false" autoUpdate="true" />
+				<h1 class="title ui-widget-header">Administración - Cómo decir
+					Adiós</h1>
+					
+				<div class="inner-content">
+					<p:panelGrid id="idgridcontenido" columnClasses="col1,col2">
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Título del Artículo" for="txtTitulo" styleClass="label" /><span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+								
+						<p:row>
+							<p:column>
+								<p:inputText id="txtTitulo"
+									value="#{guiaAdminBean.petguia.titulo}" style="width: 550px;" required="true" requiredMessage="Ingrese el Título del Artículo"></p:inputText>
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtTitulo" for="txtTitulo" display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:panelGroup id="idpanellabelgaleria">
+									<h:outputLabel id="lblFotos" value="Fotos" for="idgalleria"
+										rendered="#{guiaAdminBean.lisPetfotoguia.size() > 0}" styleClass="label" />
+								</h:panelGroup>
+								<h:panelGroup id="idpanelgaleria">
+									<center>
+									<p:galleria id="idgalleria"
+										value="#{guiaAdminBean.lisPetfotoguia}" var="item"
+										transitionInterval="0" panelWidth="500" panelHeight="400"
+										rendered="#{guiaAdminBean.lisPetfotoguia.size() > 0}">
+										<p:graphicImage id="idfotos"
+											value="#{parametro.servletImagenes}#{item.ruta}?w=70"
+											style="max-height: 70px;" />
+										<p:galleriaContent>
+											<h:panelGrid cellpadding="0" cellspacing="0" border="0" columns="1" style="background-color: #eaeaea;height: 300px;">
+												<f:facet name="header">
+													<p:graphicImage id="idfoto"
+														value="#{parametro.servletImagenes}#{item.ruta}?w=300"
+														style="max-width:300px; max-height: 300px; padding-top: 10px" />
+												</f:facet>
+												<p:commandButton id="idbuttonprincipal"
+													title="Colocar como foto principal"
+													icon="ui-icon ui-icon-person"
+													onclick="vardialogprincipal.show()"
+													style="position:absolute;right:0px;top:30px;"
+													update=":form-contentpage:idpanelprincipal">
+													<f:setPropertyActionListener value="#{item}"
+														target="#{guiaAdminBean.petfotoguiaSeleccionada}" />
+												</p:commandButton>
+												<p:commandButton id="idbuttondelete"
+													title="Eliminar foto permanentemente"
+													icon="ui-icon ui-icon-trash"
+													onclick="vardialogdelete.show()"
+													style="position:absolute;right:0px;top:60px;"
+													update=":form-contentpage:idpaneldelete">
+													<f:setPropertyActionListener value="#{item}"
+														target="#{guiaAdminBean.petfotoguiaSeleccionada}" />
+												</p:commandButton>
+											</h:panelGrid>
+											<h:outputLabel value="Descripción de la Foto"
+													for="txtObservacionFotoItem" />
+											<p:inputTextarea id="txtObservacionFotoItem"
+												value="#{item.descripcion}" maxlength="500" />
+										</p:galleriaContent>
+									</p:galleria>
+								</center>
+								</h:panelGroup>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Agregar Foto" for="idSubeFotos" styleClass="label" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+								
+						<p:row>
+							<p:column>
+								<p:panel id="pnlPrevia" styleClass="panel-previa">
+									<p:graphicImage id="idfotoseleccionada"
+										value="#{usuarioBean.streamedContent}"
+										style="height:100px; width:120px; max-height:100px; max-width:120px"
+										rendered="#{guiaAdminBean.fotoSubida}" />
+									<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash"
+										action="#{guiaAdminBean.borrarFotoSubida()}"
+										update="pnlPrevia, pnldescfoto1, pnldescfoto2"
+										rendered="#{guiaAdminBean.fotoSubida}" />
+								</p:panel>
+								<p:fileUpload id="idSubeFotos"
+									fileUploadListener="#{guiaAdminBean.handleFileUpload}"
+									mode="advanced" showButtons="false" label="Elegir Foto"
+									cancelLabel="Cancelar" uploadLabel="Subir  Foto"
+									update="mensajes, pnlPrevia, pnldescfoto1, pnldescfoto2"
+									allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:panelGroup id="pnldescfoto1">
+									<h:outputLabel value="Descripción de la Foto"
+										for="txtObservacionFoto"
+										rendered="#{guiaAdminBean.fotoSubida}" styleClass="label" />
+								</h:panelGroup>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+										
+						<p:row>
+							<p:column>
+								<h:panelGroup id="pnldescfoto2">
+									<p:inputTextarea id="txtObservacionFoto"
+										value="#{guiaAdminBean.descripcionFoto}" maxlength="550"
+										autoResize="false" rendered="#{guiaAdminBean.fotoSubida}" />
+								</h:panelGroup>
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtObservacionFoto" for="txtObservacionFoto" display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Contenido del Artículo" for="txtContenido" styleClass="label" /><span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+								
+						<p:row>
+							<p:column>
+								<p:editor id="txtContenido"
+									value="#{guiaAdminBean.petguia.descripcion}" width="550"
+									controls="bold italic underline bullets numbering center undo redo link unlink cut copy paste source removeformat outdent indent" 
+									required="true" requiredMessage="Ingrese el Contenido del Artículo"/>
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtContenido" for="txtContenido" display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Fecha de Publicación"
+									for="txtFechaPublicacion" styleClass="label" /><span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+								
+						<p:row>
+							<p:column>
+								<p:calendar id="txtFechaPublicacion"
+									value="#{guiaAdminBean.petguia.fechapublicacion}"
+									yearRange="c-20:c" locale="es" pattern="dd/MM/yyyy"
+									navigator="true" required="true" requiredMessage="Ingrese la Fecha de Publicación" />
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtFechaPublicacion" for="txtFechaPublicacion" display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Tags" for="txtTags" styleClass="label" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column>
+								<p:inputText id="txtTags" value="#{guiaAdminBean.petguia.tag}"
+									style="width: 550px;"></p:inputText>
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtTags" for="txtTags" display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="¿Aparecerá la imágen en la galería?"
+									for="txtprincipal" styleClass="label" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+								
+						<p:row>
+							<p:column>
+								<p:selectBooleanCheckbox id="txtprincipal" itemLabel="Sí"
+									value="#{guiaAdminBean.petguia.principal}"></p:selectBooleanCheckbox>
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtprincipal" for="txtprincipal" display="icon" />
+							</p:column>
+						</p:row>
+
+					</p:panelGrid>
+
+
+				</div>
+				<div class="area-botones">
+					<my:buttons renderedButtonAceptar="true"
+						labelButtonAceptar="Grabar"
+						onclickButtonAceptar="vardialoggrabar.show()"
+						immediateButtonAceptar="true"
+						renderedButtonEliminar="#{guiaAdminBean.idguia> 0}"
+						onclickButtonEliminar="vardialogdeleteguia.show()"
+						immediateButtonEliminar="true"
+						renderedButtonCancelar="true" labelButtonCancelar="Cancelar"
+						onclickButtonCancelar="redirect('../pages/guiageneral.jsf')"
+						renderedButtonNewItem="false" />
+				</div>
+
+
+				<p:dialog id="iddialogprincipal" header="Foto Principal"
+					closable="true" widgetVar="vardialogprincipal" modal="true"
+					style="min-height: 80px; width: 450px">
+					<h:panelGrid id="idpanelprincipal" columns="2" width="100%">
+						<p:graphicImage
+							value="#{parametro.servletImagenes}#{guiaAdminBean.petfotoguiaSeleccionada.ruta}"
+							style="max-height: 50px" />
+						<h:outputText id="idlabelprincipal"
+							value="¿Seleccionar imágen como foto principal?" />
+						<h:outputText value="" />
+						<p:panelGrid id="idpanel2principal"
+							style="width: 100%; text-align: right;">
+							<p:row>
+								<p:column>
+									<p:commandButton id="idconfirmarprincipal" value="Confirmar"
+										action="#{guiaAdminBean.ponerFotoPrincipal()}"
+										onclick="vardialogprincipal.hide()"
+										update=":form-contentpage:mensajes" />
+									<p:commandButton id="idcancelarprincipal" value="Cancelar"
+										onclick="vardialogprincipal.hide()" immediate="true" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</h:panelGrid>
+				</p:dialog>
+
+				<p:dialog id="iddialogdelete" header="Eliminar Foto" closable="true"
+					widgetVar="vardialogdelete" modal="true"
+					style="min-height: 80px; width: 450px">
+					<h:panelGrid id="idpaneldelete" columns="2" width="100%">
+						<p:graphicImage
+							value="#{parametro.servletImagenes}#{guiaAdminBean.petfotoguiaSeleccionada.ruta}"
+							style="max-height: 50px" />
+						<h:outputText id="idlabeldelete" value="¿Quitar foto?" />
+						<h:outputText value="" />
+						<p:panelGrid id="idpanel2delete"
+							style="width: 100%; text-align: right;">
+							<p:row>
+								<p:column>
+									<p:commandButton id="idconfirmardelete" value="Confirmar"
+										action="#{guiaAdminBean.quitarFotoGaleria()}"
+										onclick="vardialogdelete.hide()"
+										update=":form-contentpage:mensajes, :form-contentpage:idpanellabelgaleria, :form-contentpage:idpanelgaleria" />
+									<p:commandButton id="idcancelardelete" value="Cancelar" immediate="true"
+										onclick="vardialogdelete.hide()" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</h:panelGrid>
+				</p:dialog>
+
+				<p:dialog id="iddialoggrabar" header="Grabar" closable="true"
+					widgetVar="vardialoggrabar" modal="true"
+					style="min-height: 80px; width: 450px">
+					<h:panelGrid id="idpanelgrabar" columns="2" width="100%">
+						<h:outputText id="idlabelgrabar"
+							value="Confirme si desea grabar el registro" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<p:panelGrid id="idpanel2grabar"
+							style="width: 100%; text-align: right;">
+							<p:row>
+								<p:column>
+									<p:commandButton id="idconfirmargrabar" value="Confirmar"
+										action="#{guiaAdminBean.grabar()}"
+										onclick="vardialoggrabar.hide()"
+										update="mensajes,txtTitulo,msgtxtTitulo,txtContenido,msgtxtContenido,txtFechaPublicacion,msgtxtFechaPublicacion," />
+									<p:commandButton id="idcancelargrabar" value="Cancelar" immediate="true"
+										onclick="vardialoggrabar.hide()" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</h:panelGrid>
+				</p:dialog>
+				<p:dialog id="iddialogdeleteguia" header="Eliminar Guia"
+					closable="true" widgetVar="vardialogdeleteguia" modal="true"
+					style="min-height: 80px; width: 450px">
+					<h:panelGrid id="idpaneldeleteguia" columns="2" width="100%">
+						<h:outputText id="idlabeldeleteguia"
+							value="Confirme si desea eliminar el registro" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<p:panelGrid id="idpanel2deleteguia"
+							style="width: 100%; text-align: right;">
+							<p:row>
+								<p:column>
+									<p:commandButton id="idconfirmardeleteguia" value="Confirmar"
+										action="#{guiaAdminBean.eliminar()}"
+										onclick="vardialogdeleteguia.hide()"
+										update=":form-contentpage:mensajes" />
+									<p:commandButton id="idcancelardeleteguia" value="Cancelar" immediate="true"
+										onclick="vardialogdeleteguia.hide()" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</h:panelGrid>
+				</p:dialog>
+			</h:form>
+		</div>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default_admin.xhtml"
+	xmlns:my="http://xmlns.jcp.org/jsf/composite/components/buttons">
+
+	<ui:define name="head">
+
+		<meta name="robots" content="noindex" />
+
+		<title>Administración - Quienes Somos</title>
+
+		<style type="text/css">
+			.inner-content {
+				padding: 30px 0;
+			}
+			
+			.label {
+				font-weight: bold;
+				font-size: 15px;
+				line-height: 300%;
+			}
+			
+			.ui-panelgrid tr,.ui-panelgrid td {
+				border: none;
+				padding: 0px;
+			}
+			
+			.area-botones {
+				margin: 0px;
+			}
+			
+			.panel-previa .ui-panel-content {
+				padding: 0px;
+			}
+			
+			.ui-galleria textarea {
+				max-width: 400px;
+				min-width: 400px;
+				/*margin-top: 10px;*/
+			}
+		</style>
+	</ui:define>
+
+	<ui:define name="content_page">
+		<div class="content-page">
+			<h:form id="form-contentpage" enctype="multipart/form-data">
+				<!-- <p:growl id="mensajes" showDetail="false" /> -->
+				<p:messages id="mensajes" showDetail="false" autoUpdate="true" />
+				<h1 class="title ui-widget-header">Administración - Quienes
+					Somos</h1>
+
+				<div class="inner-content">
+					<p:panelGrid id="idgridcontenido" columnClasses="col1,col2">
+
+						<p:row>
+							<p:column>
+								<h:panelGroup id="idpanelgaleria">
+									<center>
+										<p:galleria id="idgalleria"
+											value="#{quienesSomosAdminBean.listpetfotoinformacion}"
+											var="item" panelWidth="500" transitionInterval="0"
+											panelHeight="400"
+											styleClass="ui-widget-content ui-corner-all">
+											<p:graphicImage id="idfotos"
+												value="#{parametro.servletImagenes}#{item.ruta}?w=60"
+												style="max-height: 58px;" />
+											<p:galleriaContent>
+												<h:panelGrid cellpadding="0" cellspacing="0" border="0"
+													columns="1"
+													style="background-color: #eaeaea;height: 300px;">
+													<f:facet name="header">
+														<p:graphicImage styleClass="imagenprincipal" id="idfoto"
+															value="#{parametro.servletImagenes}#{item.ruta}?w=400"
+															style="max-height: 300px;padding-top: 10px" />
+														<p:commandButton id="idbuttondelete"
+															title="Eliminar foto permanentemente"
+															icon="ui-icon ui-icon-trash"
+															onclick="vardialogdelete.show()"
+															style="position:absolute;right:0px;top:30px;"
+															update=":form-contentpage:idpaneldelete">
+															<f:setPropertyActionListener value="#{item}"
+																target="#{quienesSomosAdminBean.petfotoinformacionselected}" />
+														</p:commandButton>
+													</f:facet>
+												</h:panelGrid>
+												<h:outputLabel value="Descripción de la Foto"
+													for="txtObservacionFotoItem" />
+												<p:inputTextarea id="txtObservacionFotoItem"
+													value="#{item.descripcion}" maxlength="500" />
+											</p:galleriaContent>
+										</p:galleria>
+									</center>
+								</h:panelGroup>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Agregar Foto" for="idSubeFotos"
+									styleClass="label" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:panel id="pnlPrevia" styleClass="panel-previa">
+									<p:graphicImage id="idfotoseleccionada"
+										value="#{usuarioBean.streamedContent}"
+										style="max-height: 70px;"
+										rendered="#{quienesSomosAdminBean.fotoSubida}" />
+									<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash"
+										action="#{quienesSomosAdminBean.borrarFotoSubida()}"
+										update="pnlPrevia,pnlObservacionFoto,pnlObservacionFoto2"
+										rendered="#{quienesSomosAdminBean.fotoSubida}" />
+								</p:panel>
+								<p:fileUpload id="idSubeFotos"
+									fileUploadListener="#{quienesSomosAdminBean.handleFileUpload}"
+									mode="advanced" label="Elegir Foto" cancelLabel="Cancelar"
+									uploadLabel="Subir  Foto"
+									update="mensajes, pnlPrevia,pnlObservacionFoto,pnlObservacionFoto2"
+									showButtons="false" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+									widgetVar="widgetVar" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:panelGroup id="pnlObservacionFoto">
+									<h:outputLabel value="Descripción de la Foto"
+										styleClass="label" for="txtObservacionFoto"
+										rendered="#{quienesSomosAdminBean.fotoSubida}" />
+								</h:panelGroup>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:panelGroup id="pnlObservacionFoto2">
+									<p:inputTextarea id="txtObservacionFoto"
+										value="#{quienesSomosAdminBean.descripcionImagen}"
+										maxlength="550" autoResize="false"
+										rendered="#{quienesSomosAdminBean.fotoSubida}" />
+								</h:panelGroup>
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtObservacionFoto" for="txtObservacionFoto"
+									display="icon" />
+							</p:column>
+						</p:row>
+
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Quienes Somos" for="txtquienessomos"
+									styleClass="label" />
+								<span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:editor id="txtquienessomos" width="550"
+									value="#{quienesSomosAdminBean.petinformacion.quienessomos}"
+									required="true"
+									requiredMessage="Ingrese texto para Quienes Somos"
+									controls="bold italic underline bullets numbering  undo redo link unlink cut copy paste source removeformat" />
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtquienessomos" for="txtquienessomos"
+									display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Misión" for="txtmision" styleClass="label" />
+								<span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:editor id="txtmision" width="550" required="true"
+									requiredMessage="Ingrese Misión"
+									value="#{quienesSomosAdminBean.petinformacion.mision}"
+									controls="bold italic underline bullets numbering  undo redo link unlink cut copy paste source removeformat" />
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtmision" for="txtmision" display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Visión" for="txtvision" styleClass="label" />
+								<span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:editor id="txtvision" width="550" required="true"
+									requiredMessage="Ingrese Visión"
+									value="#{quienesSomosAdminBean.petinformacion.vision}"
+									controls="bold italic underline bullets numbering  undo redo link unlink cut copy paste source removeformat" />
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtvision" for="txtvision" display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Tags" for="txtTags" styleClass="label" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:inputText id="txtTags"
+									value="#{quienesSomosAdminBean.petinformacion.tag}"
+									style="width: 600px;"></p:inputText>
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtTags" for="txtTags" display="icon" />
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</div>
+
+				<div class="area-botones">
+					<my:buttons renderedButtonAceptar="true"
+						labelButtonAceptar="Grabar"
+						onclickButtonAceptar="vardialoggrabar.show()"
+						immediateButtonAceptar="true"
+						renderedButtonEliminar="false" renderedButtonCancelar="true"
+						labelButtonCancelar="Cancelar"
+						onclickButtonCancelar="redirect('../pages/quienessomos.jsf');"
+						renderedButtonNewItem="false" />
+				</div>
+
+				<p:dialog id="iddialogdelete" header="Eliminar Foto" closable="true"
+					widgetVar="vardialogdelete" modal="true"
+					style="min-height: 80px; width: 450px">
+					<h:panelGrid id="idpaneldelete" columns="2" width="100%">
+						<p:graphicImage
+							value="#{parametro.servletImagenes}#{quienesSomosAdminBean.petfotoinformacionselected.ruta}"
+							style="max-height: 50px" />
+						<h:outputText id="idlabeldelete" value="¿Quitar foto?" />
+						<h:outputText value="" />
+						<p:panelGrid id="idpanel2delete"
+							style="width: 100%; text-align: right;">
+							<p:row>
+								<p:column>
+									<p:commandButton id="idconfirmardelete" value="Confirmar"
+										action="#{quienesSomosAdminBean.quitarFoto()}"
+										onclick="vardialogdelete.hide()"
+										update=":form-contentpage:mensajes, :form-contentpage:idgridcontenido" />
+									<p:commandButton id="idcancelardelete" value="Cancelar"
+										onclick="vardialogdelete.hide()" immediate="true" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</h:panelGrid>
+				</p:dialog>
+
+
+				<p:dialog id="iddialoggrabar" header="Grabar" closable="true"
+					widgetVar="vardialoggrabar" modal="true"
+					style="min-height: 80px; width: 450px">
+					<h:panelGrid id="idpanelgrabar" columns="2" width="100%">
+						<h:outputText id="idlabelgrabar"
+							value="Confirme si desea grabar el registro" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<p:panelGrid id="idpanel2grabar"
+							style="width: 100%; text-align: right;">
+							<p:row>
+								<p:column>
+									<p:commandButton id="idconfirmargrabar" value="Confirmar"
+										action="#{quienesSomosAdminBean.grabar()}"
+										onclick="vardialoggrabar.hide()"
+										update="mensajes,txtquienessomos,msgtxtquienessomos,txtmision,msgtxtmision,txtvision,msgtxtvision" />
+									<p:commandButton id="idcancelargrabar" value="Cancelar"
+										onclick="vardialoggrabar.hide()" immediate="true" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</h:panelGrid>
+				</p:dialog>
+
+			</h:form>
+		</div>
+	</ui:define>
+
+</ui:composition>

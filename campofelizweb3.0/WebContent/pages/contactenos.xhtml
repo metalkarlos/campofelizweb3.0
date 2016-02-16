@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default_others.xhtml">
+	
+	<ui:define name="head">
+			
+		<title>Contáctenos - Campo Feliz</title>
+		
+		<meta name="description" content="Si tienes alguna consulta contáctate con nosotros a nuestros teléfonos o visítanos en nuestra oficina. Para visitar nuestro campo santo puedes hacerlo mediante previa cita." />
+		<meta name="keywords" content="contáctenos" />
+		
+		<style type="text/css">
+			.inner-content {
+				padding-top: 14px;
+			}
+			iframe {
+				width:268px;
+				height:206px;
+				border:1px solid #cfcfcf;
+				border-radius:6px;
+				margin:0;
+			}
+		</style>
+		<script type="text/javascript">
+			function setCorreo() {
+				var correo = $('#form-contentpage\\:txtEmail').val();
+				$('#form-contentpage\\:iddialogmensaje').text(correo);
+			}	
+		</script>
+	</ui:define>
+	
+	<ui:define name="contenido">
+		<h:form id="form-contentpage" >
+			<p:messages id="mensajes" showDetail="true"></p:messages>
+		        
+			<div class="wrapper">
+	        	<article class="grid_7 suffix_1">
+	        		<div style="text-align: left;">
+						<h:link value="[Editar]" styleClass="link2" outcome="/admin/empresas" rendered="#{usuarioBean.autenticado}"/>
+					</div>
+	            	<h2>Campo Feliz - Oficina:</h2>
+	                <div class="map-container img-box">
+	                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d866.6472923997682!2d-79.92230999999995!3d-2.1431379999999978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x902d72830168ac29%3A0x9466d07e18e5ed9c!2sVeterinaria+Burgos!5e1!3m2!1ses!2sus!4v1400711704528" width="400" height="300" frameborder="0" style="border:0"></iframe>
+	                </div>
+	                <strong class="str-4">#{contactenosBean.cotoficinaVeterinaria.nombre}</strong>
+	                <table>
+	                <tr><td colspan="2" style="font-weight: normal;font-size: 12px;line-height: 18px;text-transform: uppercase;">#{contactenosBean.cotoficinaVeterinaria.direccion}</td></tr>
+	                <tr><td align="right" style="width: 75px;text-transform: uppercase;padding: 0 10px 0 0;">Horario:</td><td><strong>#{contactenosBean.cotoficinaVeterinaria.descripcion}</strong></td></tr>
+	                <tr><td align="right" style="width: 75px;text-transform: uppercase;padding: 0 10px 0 0;">Teléfono:</td><td><strong>#{contactenosBean.cotoficinaVeterinaria.telefono}</strong></td></tr>
+	                <tr><td align="right" style="width: 75px;text-transform: uppercase;padding: 0 10px 0 0;">Celular:</td><td><strong>#{contactenosBean.cotoficinaVeterinaria.celular}</strong></td></tr>
+	                <tr><td align="right" style="width: 75px;text-transform: uppercase;padding: 0 10px 0 0;">Email:</td><td><a href="#">#{contactenosBean.cotoficinaVeterinaria.email}</a></td></tr>
+	                </table>
+	            </article>
+	            <article class="grid_16">
+	            	<h2>Contáctenos - Campo Feliz:</h2>
+	                <div id="form-mail" class="contact-form" >
+	                	<p:focus for="txtNombres"></p:focus>
+						
+						<fieldset>
+		                    <label class="name">
+		                        <span class="span">Nombres:</span>
+		                        <p:inputText id="txtNombres" value="#{contactenosBean.nombres}" required="true" requiredMessage="Ingrese sus Nombres" label="Nombres"></p:inputText>
+		                    </label>
+		                    <label class="email">
+		                      <span class="span">Email:</span>
+		                      <p:inputText id="txtEmail" widgetVar="varEmail" value="#{contactenosBean.correo}" required="true" requiredMessage="Ingresar Email" label="Email"
+								validatorMessage="Formato de Correo Electrónico incorrecto" >
+		                      	<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+		                      </p:inputText>
+		                    </label>
+		                    <label class="message">
+		                      <span class="span">Mensaje:</span>	
+		                      <p:inputTextarea id="txtMensaje" value="#{contactenosBean.mensaje}" maxlength="500" autoResize="false" required="true" requiredMessage="Ingrese su Mensaje" />
+		                    </label>
+		                    <div align="right" style="padding:15px 0 0 0;">
+		                    <p:captcha id="idcaptcha" label="Captcha" theme="white" language="es" required="true" requiredMessage="Ingrese el código captcha en el recuadro" />
+		                    </div>
+							<div class="btns">
+								<h:link value="Enviar" style="color: #EC8F23;" onclick="vardialogconfirm.show()"/>
+							</div>
+						</fieldset>
+	                </div>
+	            </article>
+	        </div>
+	        <br />
+	        <div class="wrapper">
+	        	<article class="grid_7 suffix_1">
+	        		<div style="text-align: left;">
+						<h:link value="[Editar]" styleClass="link2" outcome="/admin/empresas" rendered="#{usuarioBean.autenticado}"/>
+					</div>
+	            	<h2>Campo Feliz - Campo Santo:</h2>
+	                <div class="map-container img-box">
+	                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d805.0151998310921!2d-79.96522458132559!3d-2.0362027932313422!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x902d0c2ac13fff07%3A0x9d1b016dd4a497f5!2sCampo+Feliz+Cementerio+de+Mascotas!5e1!3m2!1ses-419!2s!4v1401652722863" width="400" height="300" frameborder="0" style="border:0"></iframe>
+	                </div>
+	                <strong class="str-4">#{contactenosBean.cotoficina.nombre}</strong>
+	                <table>
+	                <tr><td colspan="2" style="font-weight: normal;font-size: 12px;line-height: 18px;text-transform: uppercase;">#{contactenosBean.cotoficina.direccion}</td></tr>
+	                <tr><td align="right" style="width: 75px;text-transform: uppercase;padding: 0 10px 0 0;">Horario:</td><td><strong>#{contactenosBean.cotoficina.descripcion}</strong></td></tr>
+	                <tr><td align="right" style="width: 75px;text-transform: uppercase;padding: 0 10px 0 0;">Teléfono:</td><td><strong>#{contactenosBean.cotoficina.telefono}</strong></td></tr>
+	                <tr><td align="right" style="width: 75px;text-transform: uppercase;padding: 0 10px 0 0;">Celular:</td><td><strong>#{contactenosBean.cotoficina.celular}</strong></td></tr>
+	                <tr><td align="right" style="width: 75px;text-transform: uppercase;padding: 0 10px 0 0;">Email:</td><td><a href="#">#{contactenosBean.cotoficina.email}</a></td></tr>
+	                </table>
+	            </article>
+	            <article class="grid_16">
+	                <h2>Para mayor información:</h2>
+	                <p>Acérquese a nuestra oficina y estaremos gustosos de atenderle.<br/>Para visitar el Campo Santo hacerlo bajo previa cita a los teléfonos: (04)6014815 - 0993211106 - 0986092471.</p>
+	            </article>
+	        </div>
+	        <p:dialog id="iddialogconfirm" header="Confirmar correo" closable="false" widgetVar="vardialogconfirm" modal="true" onShow="setCorreo();" style="min-height: 130px; width: 400px">
+				<h:panelGrid id="idpanelconfirm" columns="1" width="100%">
+					<h:outputText value="Favor confirme su correo para poder enviarle la respuesta" />
+					<h:outputText id="iddialogmensaje" value="#{contactenosBean.correo}" />
+					<h:outputText value="" />
+					<p:panelGrid style="width: 100%; text-align: right;">
+						<p:row>
+						<p:column>
+						<p:commandLink id="idconfirmar" style="color: #EC8F23;" value="Confirmar" action="#{contactenosBean.enviar()}" update="mensajes" onclick="vardialogconfirm.hide()" oncomplete="Recaptcha.reload();" />
+						<h:outputText value="  " />
+						<p:commandLink id="idcancelar" style="color: #EC8F23;" value="Cancelar" immediate="true" onclick="vardialogconfirm.hide()" oncomplete="Recaptcha.reload();" />
+						</p:column>
+						</p:row>
+					</p:panelGrid>
+				</h:panelGrid>
+			</p:dialog>
+	    </h:form>
+	</ui:define>
+</ui:composition>

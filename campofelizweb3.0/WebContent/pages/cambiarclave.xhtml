@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<h:head>
+	
+		<meta name="robots" content="noindex" />
+		
+		<title>Administrador - Cambio de Clave</title>
+		
+		<h:outputStylesheet library="themes/smoothness" name="skin.css" />
+		
+		<link rel="shortcut icon" href="#{request.contextPath}/resources/images/logo_m.ico" />
+		
+		<style type="text/css">
+			body {
+				background-color: white;
+				line-height: 1.4;
+				margin: auto;
+				color: #7b7b7b;
+				font:12px/18px Arial, Helvetica, sans-serif;
+			}
+			.separator {
+				margin: 8px 15px 8px 4px;
+				border-bottom: 1px solid #e2e2e2;
+			}
+			.header-logging{
+				/*padding: 15px 0;*/
+				text-shadow: 0 1px 0 #fff;
+				border-bottom: 1px solid #e5e5e5;
+				min-width: 1000px;
+				min-height: 50px;
+				/*font: 13px Helvetica, arial, freesans, clean, sans-serif;*/
+				font-size: 32px;
+				text-align: center;
+			}
+			.footer-logging{
+				/*background-color: #c0c0c0;*/
+				/*height: 33px;*/
+				width: 80%;
+				margin: auto;
+				border-bottom: 1px solid #e5e5e5;
+				/*border-radius: 7px;
+				-webkit-border-radius: 7px;
+				-moz-border-radius: 7px;*/
+			}
+			.box-loggin{
+				width: 400px;
+				margin: 60px auto;
+			}
+			.box-loggin-header{
+				position: relative;
+				padding: 10px 20px;
+				margin: 0;
+				color: #fff;
+				text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
+				background-color: #569e3d;
+				/*background-image: -moz-linear-gradient(#93FA32, #66ad23);
+				background-image: -webkit-linear-gradient(#93FA32, #66ad23);
+				background-image: linear-gradient(#93FA32, #66ad23);*/
+				background-repeat: repeat-x;
+				border: 1px solid #66ad23;
+				/*border-bottom-color: #586873;*/
+				border-radius: 4px 4px 0 0;
+			}
+			.box-loggin-header h1 {
+				margin-top: 0;
+				margin-bottom: 0;
+				font-size: 1.3em;
+				line-height: 1.1;
+				text-align: center;
+			}
+			.box-loggin-body{
+				display: block;
+				padding: 30px 20px;
+				font-size: 14px;
+				background-color: #fff;
+				border: 1px solid #66ad23;
+				/*border-top-color: white;*/
+				border-radius: 0 0 4px 4px;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+			}
+			label {
+				font-weight: bold;
+				font-size: 15px;
+				color: #ec8f23;
+			}
+			.ui-inputfield {
+				min-height: 20px;
+				padding: 7px 8px;
+				outline: none;
+				color: #333333;
+				background-color: #fff;
+				background-repeat: no-repeat;
+				background-position: right center;
+				border: 1px solid #ccc;
+				border-radius: 3px;
+				box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
+				vertical-align: middle;
+				display: block;
+				width: 200px;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;    
+				box-sizing: border-box;
+				margin-top: 5px;
+				margin-bottom: 15px;
+			}
+			.link, .ui-widget-content a {
+				text-decoration: underline;
+				color:#ec8f23;
+				text-transform:uppercase;
+				font-size:11px;
+			}
+			.link:hover {
+				text-decoration: none;
+			}
+		</style>
+		
+		<!-- Google Analytics (unicamente para campofeliz, reemplazalo con tu propio codigo)-->
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		
+		  ga('create', 'UA-53471676-1', 'auto');
+		  ga('send', 'pageview');
+		
+		</script>
+	</h:head>
+		
+	<h:body>
+		<h:form id="form-content">
+		
+		<p:focus for="txtclavenueva"></p:focus>
+		<div class="header-logging">
+		</div>
+		<div class="box-loggin">
+			<p:messages id="mensajes" showDetail="false"></p:messages>
+			<div class="box-loggin-header">
+				<h1>Cambio de Clave</h1>
+			</div>
+			<div class="box-loggin-body">
+				<h:outputLabel value="Nueva Clave:" for="txtclavenueva" />
+				<p:password id="txtclavenueva" value="#{cambiarClaveBean.claveNueva}" required="true" requiredMessage="Ingrese Clave Nueva" label="Nueva Clave" feedback="true" match="txtclavenuevarep" weakLabel="Bajo" goodLabel="Medio" strongLabel="Excelente" promptLabel="Por favor ingrese clave" ></p:password>
+				
+				<h:outputLabel value="Repetir Clave:" for="txtclavenuevarep" />
+				<p:password id="txtclavenuevarep" value="#{cambiarClaveBean.claveNuevaRep}" required="true" requiredMessage="Vuelva a Ingresar la Clave" label="Repetir Clave" feedback="true" weakLabel="Bajo" goodLabel="Medio" strongLabel="Excelente" promptLabel="Por favor ingrese clave" ></p:password>
+				
+				<p:commandButton id="btnenviar" value="Enviar" action="#{cambiarClaveBean.cambiarClave()}" update=":form-content:mensajes" ></p:commandButton>
+			</div>
+		</div>
+		<div class="footer-logging">
+		</div>
+
+		<p:ajaxStatus
+			style="width:32px;height:32px;display:block;position:fixed;right:0;top:0;">
+			<f:facet name="start">
+				<h:graphicImage alt="loading.gif" library="images" name="loading.gif" />
+			</f:facet>
+			<f:facet name="complete">
+				<h:outputText value="" />
+			</f:facet>
+		</p:ajaxStatus>
+		</h:form>
+	</h:body>
+
+</html>

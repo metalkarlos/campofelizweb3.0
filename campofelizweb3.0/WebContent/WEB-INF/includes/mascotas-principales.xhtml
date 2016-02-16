@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+	<center>
+		<div class="slider-mascotas-p">
+			 <p:imageSwitch id="slider-small" style="height: 285px;width: 246px;" effect="scrollLeft"  speed="1000">
+				<ui:repeat value="#{mascotasPrincipalBean.lisPetmascotahomenaje}" var="imagen" >
+			        <h:link outcome="mascotahomenaje" title="Nuestro Homenaje Póstumo">
+			        	<p:graphicImage value="#{parametro.servletImagenes}#{imagen.rutafoto}?w=230" style="max-width:235px;height:235px;padding: 4px;border: 1px solid rgb(221, 221, 221);background-color: rgb(245, 245, 245);"/>
+			        	<div class="texto-slider">#{imagen.nombre}</div>
+			        	<f:param name="idmascota" value="#{imagen.idmascota}"></f:param>
+			        </h:link>
+			    </ui:repeat>
+			</p:imageSwitch>
+		</div>
+	</center>
+</ui:composition>	

@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default_admin.xhtml"
+	xmlns:my="http://xmlns.jcp.org/jsf/composite/components/buttons">
+
+	<ui:define name="head">
+
+		<meta name="robots" content="noindex" />
+
+		<title>Administración - Noticias</title>
+
+		<style type="text/css">
+			.inner-content {
+				padding: 30px 0;
+			}
+			
+			.label {
+				font-weight: bold;
+				font-size: 15px;
+				line-height: 300%;
+			}
+			
+			.ui-panelgrid tr,.ui-panelgrid td {
+				border: none;
+				padding: 0px;
+			}
+			
+			.area-botones {
+				margin: 0px;
+			}
+			
+			.panel-previa .ui-panel-content {
+				padding: 0px;
+			}
+			
+			.ui-galleria textarea {
+				max-width: 400px;
+				min-width: 400px;
+			}
+			
+			.col1 {
+				
+			}
+			
+			.col2 {
+				width: 15px
+			}
+		</style>
+	</ui:define>
+	<table cellpadding="" cellspacing=""></table>
+	<ui:define name="content_page">
+		<div class="content-page">
+			<h:form id="form-contentpage" enctype="multipart/form-data">
+				<!-- <p:growl id="mensajes" showDetail="false" /> -->
+				<p:messages id="mensajes" showDetail="false" autoUpdate="true" />
+				<p:focus for="txtTitulo"></p:focus>
+				<h1 class="title ui-widget-header">Administración - Noticias</h1>
+
+				<div class="inner-content">
+					<p:panelGrid id="idgridcontenido">
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Título de la Noticia" for="txtTitulo" styleClass="label" /><span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+								
+						<p:row>
+							<p:column>
+								<p:inputText id="txtTitulo" required="true" requiredMessage="Ingrese Título de la Noticia"
+									value="#{noticiaAdminBean.petnoticia.titulo}"
+									style="width: 550px;"></p:inputText>
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtTitulo" for="txtTitulo" display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:panelGroup id="idpanellabelgaleria">
+									<h:outputLabel id="lblFotos" value="Fotos" for="idgalleria"
+										rendered="#{noticiaAdminBean.lisPetfotonoticia.size() > 0}" />
+								</h:panelGroup>
+								<h:panelGroup id="idpanelgaleria">
+									<center>
+										<p:galleria id="idgalleria"
+											value="#{noticiaAdminBean.lisPetfotonoticia}" var="item"
+											transitionInterval="0" panelWidth="500" panelHeight="400"
+											rendered="#{noticiaAdminBean.lisPetfotonoticia.size() > 0}">
+											<p:graphicImage id="idfotos"
+												value="#{parametro.servletImagenes}#{item.ruta}?w=60"
+												style="max-height: 58px;" />
+											<p:galleriaContent>
+												<h:panelGrid cellpadding="0" cellspacing="0" border="0"
+													columns="1" style="background-color: #eaeaea;">
+													<f:facet name="header">
+														<p:graphicImage id="idfoto"
+															value="#{parametro.servletImagenes}#{item.ruta}?w=400"
+															style="max-height: 300px; padding-top: 10px" />
+
+														<p:commandButton id="idbuttonprincipal"
+															title="Colocar como foto principal"
+															icon="ui-icon ui-icon-person"
+															onclick="vardialogprincipal.show()"
+															style="position:absolute;right:0px;top:30px;"
+															update=":form-contentpage:idpanelprincipal">
+															<f:setPropertyActionListener value="#{item}"
+																target="#{noticiaAdminBean.petfotonoticiaSeleccionada}" />
+														</p:commandButton>
+														<p:commandButton id="idbuttondelete"
+															title="Eliminar foto permanentemente"
+															icon="ui-icon ui-icon-trash"
+															onclick="vardialogdelete.show()"
+															style="position:absolute;right:0px;top:60px;"
+															update=":form-contentpage:idpaneldelete">
+															<f:setPropertyActionListener value="#{item}"
+																target="#{noticiaAdminBean.petfotonoticiaSeleccionada}" />
+														</p:commandButton>
+													</f:facet>
+												</h:panelGrid>
+												<h:outputLabel value="Descripción de la Foto" for="txtObservacionFoto" />
+												<p:inputTextarea id="txtObservacionFoto"
+													value="#{item.descripcion}" />
+											</p:galleriaContent>
+										</p:galleria>
+									</center>
+								</h:panelGroup>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Agregar Foto" for="idSubeFotos" styleClass="label" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column>
+								<p:panel id="pnlPrevia" styleClass="panel-previa">
+									<p:graphicImage id="idfotoseleccionada"
+										value="#{usuarioBean.streamedContent}"
+										rendered="#{noticiaAdminBean.fotoSubida}" />
+									<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash"
+										action="#{noticiaAdminBean.borrarFotoSubida()}"
+										update="pnlPrevia, pnlObservacionFoto, pnlObservacionFoto2"
+										rendered="#{noticiaAdminBean.fotoSubida}" />
+								</p:panel>
+								<p:fileUpload id="idSubeFotos"
+									fileUploadListener="#{noticiaAdminBean.handleFileUpload}"
+									mode="advanced" style="width: 100%;" cancelLabel="Cancelar"
+									uploadLabel="Subir Foto" label="Elegir Foto"
+									sizeLimit="#{noticiaAdminBean.maxfilesize}" showButtons="false"
+									update="mensajes, pnlPrevia, pnlObservacionFoto, pnlObservacionFoto2"
+									allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:panelGroup id="pnlObservacionFoto">
+									<h:outputLabel value="Descripción de la Foto" styleClass="label"
+										for="txtObservacionFoto"
+										rendered="#{noticiaAdminBean.fotoSubida}" />
+								</h:panelGroup>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+										
+						<p:row>
+							<p:column>
+								<h:panelGroup id="pnlObservacionFoto2">
+									<p:inputTextarea id="txtObservacionFoto"
+										value="#{noticiaAdminBean.descripcionFoto}" maxlength="500"
+										autoResize="false" rendered="#{noticiaAdminBean.fotoSubida}" />
+								</h:panelGroup>
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtObservacionFoto" for="txtObservacionFoto" display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Contenido de la Noticia" styleClass="label"
+									for="txtContenido" /><span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+								
+						<p:row>
+							<p:column>
+								<p:editor id="txtContenido" required="true" requiredMessage="Ingrese Contenido de la Noticia"
+									value="#{noticiaAdminBean.petnoticia.descripcion}" width="550"
+									controls="bold italic underline bullets numbering center undo redo link unlink cut copy paste source removeformat" />
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtContenido" for="txtContenido" display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Fecha de Publicación" styleClass="label"
+									for="txtFechaPublicacion" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+								
+						<p:row>
+							<p:column>
+								<p:calendar id="txtFechaPublicacion"
+									value="#{noticiaAdminBean.petnoticia.fechapublicacion}"
+									yearRange="c-20:c" locale="es" pattern="dd/MM/yyyy"
+									navigator="true" />
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtFechaPublicacion" for="txtFechaPublicacion" display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Tags" for="txtTags" styleClass="label" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+								
+						<p:row>
+							<p:column>
+								<p:inputText id="txtTags"
+									value="#{noticiaAdminBean.petnoticia.tag}"
+									style="width: 550px;"></p:inputText>
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtTags" for="txtTags" display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Orden" for="txtOrden" styleClass="label" />
+								<span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+								
+						<p:row>
+							<p:column>
+								<p:spinner id="txtOrden" required="true" requiredMessage="Ingrese Orden"
+									value="#{noticiaAdminBean.petnoticia.orden}" min="1"></p:spinner>
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtOrden" for="txtOrden" display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="¿Aparece en las noticias destacadas?" styleClass="label"
+									for="txtprincipal" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+								
+						<p:row>
+							<p:column>
+								<p:selectBooleanCheckbox id="txtprincipal" itemLabel="Sí"
+									value="#{noticiaAdminBean.petnoticia.principal}"></p:selectBooleanCheckbox>
+							</p:column>
+							<p:column>
+								<p:message id="msgtxtprincipal" for="txtprincipal" display="icon" />
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+				</div>
+				<div class="area-botones">
+					<my:buttons renderedButtonAceptar="true"
+						labelButtonAceptar="Grabar"
+						onclickButtonAceptar="vardialoggrabar.show()"
+						immediateButtonAceptar="true"
+						renderedButtonEliminar="#{noticiaAdminBean.idnoticia > 0}"
+						onclickButtonEliminar="vardialogdeletenoticia.show()"
+						immediateButtonEliminar="true"
+						renderedButtonCancelar="true" labelButtonCancelar="Cancelar"
+						onclickButtonCancelar="redirect('../pages/noticias.jsf');"
+						renderedButtonNewItem="false" />
+				</div>
+				<p:dialog id="iddialogprincipal" header="Foto Principal"
+					closable="true" widgetVar="vardialogprincipal" modal="true"
+					style="min-height: 80px; width: 450px">
+					<h:panelGrid id="idpanelprincipal" columns="2" width="100%">
+						<p:graphicImage
+							value="#{parametro.servletImagenes}#{noticiaAdminBean.petfotonoticiaSeleccionada.ruta}?w=150"
+							style="max-height: 50px" />
+						<h:outputText id="idlabelprincipal"
+							value="¿Seleccionar imágen como foto principal?" />
+						<h:outputText value="" />
+						<p:panelGrid id="idpanel2principal"
+							style="width: 100%; text-align: right;">
+							<p:row>
+								<p:column>
+									<p:commandButton id="idconfirmarprincipal" value="Confirmar"
+										action="#{noticiaAdminBean.ponerFotoPrincipal()}"
+										onclick="vardialogprincipal.hide()"
+										update=":form-contentpage:mensajes" />
+									<p:commandButton id="idcancelarprincipal" value="Cancelar"
+										onclick="vardialogprincipal.hide()" immediate="true" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</h:panelGrid>
+				</p:dialog>
+				<p:dialog id="iddialogdelete" header="Eliminar Foto" closable="true"
+					widgetVar="vardialogdelete" modal="true"
+					style="min-height: 80px; width: 450px">
+					<h:panelGrid id="idpaneldelete" columns="2" width="100%">
+						<p:graphicImage
+							value="#{parametro.servletImagenes}#{noticiaAdminBean.petfotonoticiaSeleccionada.ruta}?w=150"
+							style="max-height: 50px" />
+						<h:outputText id="idlabeldelete" value="¿Quitar foto?" />
+						<h:outputText value="" />
+						<p:panelGrid id="idpanel2delete"
+							style="width: 100%; text-align: right;">
+							<p:row>
+								<p:column>
+									<p:commandButton id="idconfirmardelete" value="Confirmar"
+										action="#{noticiaAdminBean.quitarFotoGaleria()}"
+										onclick="vardialogdelete.hide()"
+										update=":form-contentpage:mensajes, :form-contentpage:idpanellabelgaleria, :form-contentpage:idpanelgaleria" />
+									<p:commandButton id="idcancelardelete" value="Cancelar"
+										onclick="vardialogdelete.hide()" immediate="true" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</h:panelGrid>
+				</p:dialog>
+				<p:dialog id="iddialoggrabar" header="Grabar" closable="true"
+					widgetVar="vardialoggrabar" modal="true"
+					style="min-height: 80px; width: 450px">
+					<h:panelGrid id="idpanelgrabar" columns="2" width="100%">
+						<h:outputText id="idlabelgrabar"
+							value="Confirme si desea grabar el registro" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<p:panelGrid id="idpanel2grabar"
+							style="width: 100%; text-align: right;">
+							<p:row>
+								<p:column>
+									<p:commandButton id="idconfirmargrabar" value="Confirmar"
+										action="#{noticiaAdminBean.grabar()}"
+										onclick="vardialoggrabar.hide()"
+										update="mensajes,txtTitulo,msgtxtTitulo,txtContenido,msgtxtContenido,txtOrden,msgtxtOrden" />
+									<p:commandButton id="idcancelargrabar" value="Cancelar"
+										onclick="vardialoggrabar.hide()" immediate="true" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</h:panelGrid>
+				</p:dialog>
+				<p:dialog id="iddialogdeletenoticia" header="Eliminar Noticia"
+					closable="true" widgetVar="vardialogdeletenoticia" modal="true"
+					style="min-height: 80px; width: 450px">
+					<h:panelGrid id="idpaneldeletenoticia" columns="2" width="100%">
+						<h:outputText id="idlabeldeletenoticia"
+							value="Confirme si desea eliminar la noticia" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<p:panelGrid id="idpanel2deletenoticia"
+							style="width: 100%; text-align: right;">
+							<p:row>
+								<p:column>
+									<p:commandButton id="idconfirmardeletenoticia"
+										value="Confirmar" action="#{noticiaAdminBean.eliminar()}"
+										onclick="vardialogdeletenoticia.hide()"
+										update=":form-contentpage:mensajes" />
+									<p:commandButton id="idcancelardeletenoticia" value="Cancelar"
+										onclick="vardialogdeletenoticia.hide()" immediate="true" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</h:panelGrid>
+				</p:dialog>
+			</h:form>
+		</div>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	template="/WEB-INF/templates/default_others.xhtml">
+
+	<ui:define name="head">
+	
+		<title>Instalaciones - Campo Feliz</title>
+		
+		<meta name="description" content="Héchale un vistazo a nuestras instalaciones, anímate a visitarnos y te llevaremos a conocer nuestro campo santo con previa cita." />
+		<meta name="keywords" content="cementerio virtual, instalaciones" />
+		
+		<h:outputStylesheet library="css/responsiveImageGallery" name="demo.css" />
+		<h:outputStylesheet library="css/responsiveImageGallery" name="style.css" />
+		<h:outputStylesheet library="css/responsiveImageGallery" name="elastislide.css" />
+		
+		<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow&v1;' rel='stylesheet' type='text/css' />
+		<link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css' />
+		
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<h:outputScript library="js/responsiveImageGallery" name="jquery.tmpl.min.js" />
+		<h:outputScript library="js/responsiveImageGallery" name="jquery.elastislide.js" />
+		<h:outputScript library="js/responsiveImageGallery" name="gallery.js" />
+		
+		<noscript>
+			<style>
+				.es-carousel ul{
+					display:block;
+				}
+			</style>
+		</noscript>
+		
+		<script id="img-wrapper-tmpl" type="text/x-jquery-tmpl">	
+			<div class="rg-image-wrapper">
+				{{if itemsCount > 1}}
+					<div class="rg-image-nav">
+						<a href="#" class="rg-image-nav-prev">Previous Image</a>
+						<a href="#" class="rg-image-nav-next">Next Image</a>
+					</div>
+				{{/if}}
+				<div class="rg-image"></div>
+				<div class="rg-loading"></div>
+				<div class="rg-caption-wrapper">
+					<div class="rg-caption" style="display:none;">
+						<p></p>
+					</div>
+				</div>
+			</div>
+		</script>
+	</ui:define>
+	
+	<ui:define name="post-menu">
+		<center><h2 style="padding: 30px 0 15px 0;"><span class="str-3" style="font-size: 30px">INSTALACIONES</span> en Campo Feliz</h2></center>
+	</ui:define>
+	
+	<ui:define name="contenido">
+		<p:messages id="mensajes" showDetail="false"></p:messages>
+		<div style="text-align: right;">
+		  <h:link value="[Nueva Foto]" styleClass="link2"	outcome="/admin/cementeriovirtual-admin-nuevo" rendered="#{usuarioBean.autenticado}">
+		      <f:param name="idfoto" value="0"></f:param>
+		  </h:link>
+		  <h:link value="[Editar]" styleClass="link2"	outcome="/admin/cementeriovirtual-admin-editar" rendered="#{usuarioBean.autenticado}">
+		      <f:param name="idfoto" value="1"></f:param>
+		  </h:link>
+		</div>
+		<div id="rg-gallery" class="rg-gallery">
+			<div class="rg-thumbs">
+				<!-- Elastislide Carousel Thumbnail Viewer -->
+				<div class="es-carousel-wrapper">
+					<div class="es-nav">
+						<span class="es-nav-prev">Previous</span>
+						<span class="es-nav-next">Next</span>
+					</div>
+					<div class="es-carousel">
+						<ul>
+							<ui:repeat value="#{cementerioVirtualBean.lisPetfotoinstalacion}" var="foto">
+								<li><a href="#" ><h:graphicImage value="#{parametro.servletImagenes}#{foto.ruta}?w=70" alt="#{foto.ruta}" height="65" >
+									<f:passThroughAttribute name="data-large" value="#{request.contextPath}#{parametro.servletImagenes}#{foto.ruta}"/>
+									<f:passThroughAttribute name="data-description" value="#{foto.descripcion}" />
+								</h:graphicImage>
+								</a>
+								</li>
+								
+							</ui:repeat>
+						</ul>
+					</div>
+				</div>
+				<!-- End Elastislide Carousel Thumbnail Viewer -->
+			</div><!-- rg-thumbs -->
+		</div><!-- rg-gallery -->
+	</ui:define>
+
+</ui:composition>

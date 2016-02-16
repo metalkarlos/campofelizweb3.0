@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/default_admin.xhtml"
+	xmlns:my="http://xmlns.jcp.org/jsf/composite/components/buttons">
+
+	<ui:define name="head">
+
+		<meta name="robots" content="noindex" />
+
+		<title>Administración - Contáctenos</title>
+
+		<style type="text/css">
+			.inner-content {
+				padding: 30px 0;
+			}
+			.label {
+				font-weight: bold;
+				font-size: 15px;
+				line-height: 300%;
+			}
+			.ui-panelgrid tr,.ui-panelgrid td {
+				border: none;
+				padding: 0px;
+			}
+			.area-botones {
+				margin: 0px;
+			}
+			.panel-previa .ui-panel-content {
+				padding: 0px;
+			}
+			.col1 {
+				
+			}
+			.col2 {
+				width: 15px
+			}
+		</style>
+	</ui:define>
+
+	<ui:define name="content_page">
+		<div class="content-page">
+			<h:form id="form-contentpage" enctype="multipart/form-data">
+				<!-- <p:growl id="mensajes" showDetail="false" /> -->
+				<p:messages id="mensajes" showDetail="false" autoUpdate="true" />
+				
+				<h1 class="title ui-widget-header">Administración - Oficina</h1>
+				
+				<div class="inner-content">
+					<p:panelGrid id="idgridcontenido" columnClasses="col1,col2">
+					
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Código" for="idoficina" styleClass="label" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column>
+								<h:outputText id="idoficina" value="#{empresaAdminBean.cotoficina.idoficina}" style="width: 100px;" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Empresa" for="cmbEmpresa" styleClass="label" /><span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<p:selectOneMenu id="cmbEmpresa"
+									value="#{empresaAdminBean.cotoficina.cotempresa.idempresa}"
+									required="true" requiredMessage="Seleccione Empresa">
+									<f:selectItem itemLabel="Seleccione" itemValue="" />
+									<f:selectItems value="#{empresaAdminBean.lisCotempresa}"
+										var="cotempresa" itemLabel="#{cotempresa.nombre}"
+										itemValue="#{cotempresa.idempresa}"></f:selectItems>
+								</p:selectOneMenu>
+							</p:column>
+							<p:column>
+								<p:message id="msgcmbEmpresa" for="cmbEmpresa" display="icon" />
+							</p:column>
+						</p:row>
+
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Tipo de Oficina" for="listipo" styleClass="label" /><span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column>
+								<p:selectOneMenu id="cmbtipo"
+									style="width: 165px; align: center;"
+									value="#{empresaAdminBean.cotoficina.tipooficina}" required="true" requiredMessage="Seleccione Tipo de Oficina">
+									<f:selectItem itemLabel="Seleccione" itemValue="" />
+									<f:selectItem itemLabel="Matriz" itemValue="1" />
+									<f:selectItem itemLabel="Sucursal" itemValue="2" />
+								</p:selectOneMenu>
+							</p:column>
+							<p:column>
+								<p:message id="msgcmbtipo" for="cmbtipo" display="icon" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column >
+								<h:outputLabel value="Nombre" for="nombre" styleClass="label" /><span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column >
+								<p:inputText id="nombre" maxlength="200" value="#{empresaAdminBean.cotoficina.nombre}" style="width: 550px;" required="true" requiredMessage="Ingrese Nombre de la Oficina" />
+							</p:column>
+							<p:column>
+								<p:message id="msgnombre" for="nombre" display="icon" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Dirección" for="direccion" styleClass="label" /><span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column>
+								<p:inputTextarea id="direccion" maxlength="500" required="true"
+									requiredMessage="Ingresar Dirección" autoResize="true"
+									style="width: 550px; height:85px;"
+									value="#{empresaAdminBean.cotoficina.direccion}" />
+							</p:column>
+							<p:column>
+								<p:message id="msgdireccion" for="direccion" display="icon" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Horario de Atención" for="descripcion" styleClass="label" /><span class="label" style="color: red;">*</span>
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column>
+								<p:editor id="descripcion" maxlength="500" width="550"
+									value="#{empresaAdminBean.cotoficina.descripcion}"
+									controls="bold italic underline  undo redo  cut copy paste" required="true" requiredMessage="Ingrese Horario de Atención" />
+							</p:column>
+							<p:column>
+								<p:message id="msgdescripcion" for="descripcion" display="icon" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Teléfono" for="telefono" styleClass="label" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column>
+								<p:inputText id="telefono" maxlength="40" value="#{empresaAdminBean.cotoficina.telefono}" style="width: 300px;" />
+							</p:column>
+							<p:column>
+								<p:message id="msgtelefono" for="telefono" display="icon" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Celular" for="celular" styleClass="label" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column>
+								<p:inputText id="celular" maxlength="40" value="#{empresaAdminBean.cotoficina.celular}" style="width: 300px;" />
+							</p:column>
+							<p:column>
+								<p:message id="msgcelular" for="celular" display="icon" />
+							</p:column>
+						</p:row>
+						
+						<!-- <p:row>
+		          <p:column>
+		             <h:outputLabel value="Página web" for="paginaweb" /><br/><br/>
+		             <p:inputText id="paginaweb" maxlength="200" value="#{eempresaAdminBean.petempresa.paginaweb}" style="width: 600px;" />
+		          </p:column>
+		        </p:row> -->
+		        
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Correo electrónico" for="email" styleClass="label" />
+							</p:column>
+							<p:column>
+								<h:outputText value="" />
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column>
+								<p:inputText id="email" maxlength="100"
+									value="#{empresaAdminBean.cotoficina.email}"
+									style="width: 300px;"
+									validatorMessage="Formato de Correo Electrónico incorrecto">
+									<f:validateRegex
+										pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]|^$" />
+								</p:inputText>
+							</p:column>
+							<p:column>
+								<p:message id="msgemail" for="email" display="icon" />
+							</p:column>
+						</p:row>
+
+					</p:panelGrid>
+				</div>
+				<div class="area-botones">
+					<my:buttons renderedButtonAceptar="true"
+						labelButtonAceptar="Grabar"
+						onclickButtonAceptar="vardialoggrabar.show()"
+						immediateButtonAceptar="true"
+						renderedButtonEliminar="#{empresaAdminBean.idoficina > 0 }" 
+						onclickButtonEliminar="vardialogdeleteempresa.show()" 
+						immediateButtonEliminar="true"
+						renderedButtonCancelar="true"	labelButtonCancelar="Cancelar"
+						onclickButtonCancelar="redirect('empresas.jsf');"
+						renderedButtonNewItem="false" />
+				</div>
+
+				<p:dialog id="iddialoggrabar" header="Grabar" closable="true"
+					widgetVar="vardialoggrabar" modal="true"
+					style="min-height: 80px; width: 450px">
+					<h:panelGrid id="idpanelgrabar" columns="2" width="100%">
+						<h:outputText id="idlabelgrabar"
+							value="Confirme si desea grabar el registro" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<p:panelGrid id="idpanel2grabar"
+							style="width: 100%; text-align: right;">
+							<p:row>
+								<p:column>
+									<p:commandButton id="idconfirmargrabar" value="Confirmar"
+										action="#{empresaAdminBean.grabar()}"
+										onclick="vardialoggrabar.hide()" update="mensajes,cmbEmpresa,msgcmbEmpresa,cmbtipo,msgcmbtipo,nombre,msgnombre,direccion,msgdireccion,descripcion,msgdescripcion,telefono,msgtelefono,celular,msgcelular,email,msgemail" />
+									<p:commandButton id="idcancelargrabar" value="Cancelar" immediate="true"
+										onclick="vardialoggrabar.hide()" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</h:panelGrid>
+				</p:dialog>
+				<p:dialog id="iddialogdelete" header="Eliminar Empresa"
+					closable="true" widgetVar="vardialogdeleteempresa" modal="true"
+					style="min-height: 80px; width: 450px">
+					<h:panelGrid id="idpaneldeleteempresa" columns="2" width="100%">
+						<h:outputText id="idlabeldeleteempresa"
+							value="Confirme si desea eliminar el registro" />
+						<h:outputText value="" />
+						<h:outputText value="" />
+						<p:panelGrid id="idpanel2deleteempresa"
+							style="width: 100%; text-align: right;">
+							<p:row>
+								<p:column>
+									<p:commandButton id="idconfirmardeleteempresa"
+										value="Confirmar" action="#{empresaAdminBean.eliminar()}"
+										onclick="vardialogdeleteempresa.hide()" update="mensajes" />
+									<p:commandButton id="idcancelardeleteempresa" value="Cancelar" immediate="true"
+										onclick="vardialogdeleteempresa.hide()" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</h:panelGrid>
+				</p:dialog>
+
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	template="/WEB-INF/templates/default_others.xhtml">
+
+	<ui:define name="head">
+
+		<title>Nuestros Servicios - Campo Feliz</title>
+
+		<meta name="description"
+			content="Contamos con los mejores servicios excequiales para su mascota." />
+		<meta name="keywords" content="servicios" />
+
+		<style type="text/css">
+		.inner-content h1 {
+			color: #66ad23;
+		}
+		
+		.gridServicios {
+			padding: 10px 0;
+		}
+		
+		.str-1 {
+			font-weight: bold;
+		}
+		
+		.inner-content {
+			width: 295px;
+			padding: 0px;
+		}
+		
+		.img-indent-1 {
+			margin: 0 10px 10px 0;
+		}
+		
+		.p2,.p1 {
+			font-size: 13px;
+		}
+		</style>
+	</ui:define>
+
+	<ui:define name="content_page">
+		<h:form id="form-contentpage" prependId="false">
+			<div class="content-page">
+				<p:messages id="mensajes" showDetail="false" autoUpdate="true" />
+				<p:defaultCommand target="lnkbuscar"></p:defaultCommand>
+
+				<div style="float: right; margin: 0px 15px 0 0;">
+					<div id="search-form">
+						<p:inputText id="txtbusqueda"
+							value="#{serviciosBean.descripcionParam}"
+							onblur="if(this.value==''){this.value='buscar'}"
+							onfocus="if(this.value=='buscar'){this.value=''}"
+							validatorMessage="Ingrese sólo letras. Corrija y reintente.">
+							<f:validateRegex pattern="[a-zA-Z ]*" />
+						</p:inputText>
+						<h:commandLink id="lnkbuscar" styleClass="search-form-submit" >
+							<f:ajax render="gridServicios mensajes" execute="txtbusqueda"></f:ajax>
+						</h:commandLink>
+					</div>
+				</div>
+				<span class="clear" /> <br />
+				<h:link value="[Nuevo Servicio]" outcome="/admin/servicio-admin"
+					styleClass="link2" style="float: right;margin: 0 20px 20px 0;"
+					rendered="#{usuarioBean.autenticado}">
+					<f:param name="idservicio" value="0"></f:param>
+					<f:param name="idempresa" value="#{serviciosBean.idempresa}"></f:param>
+				</h:link>
+				<p:dataGrid styleClass="gridServicios" id="gridServicios"
+					value="#{serviciosBean.lisPetservicio}" var="servicio"
+					columns="#{serviciosBean.columnsGrid}"
+					rows="#{serviciosBean.rowsGrid}" paginator="true" effect="true"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					emptyMessage="No se encontraron registros"
+					paginatorPosition="bottom">
+					<p:column>
+						<div class="inner-content">
+							<div class="cuerpo">
+								<div class="wrapper">
+									<h:link outcome="/pages/servicio">
+										<p:graphicImage id="idfoto" title="#{servicio.nombre}"
+											value="#{parametro.servletImagenes}#{servicio.rutafoto}?w=150"
+											style="max-height: 150px; max-width: 150px;"
+											styleClass="img-indent-1" />
+										<f:param name="idservicio" value="#{servicio.idservicio}"></f:param>
+										<f:param name="idempresa"
+											value="#{servicio.cotempresa.idempresa}"></f:param>
+									</h:link>
+									<p class="p2">
+										<strong class="str-1">#{servicio.nombre}</strong>
+									</p>
+									<p class="p1" style="text-align: justify;">
+										<h:outputText
+											value="#{fn:substring(servicio.descripcionNoTags, 0, 200)} [...]"
+											escape="false" />
+									</p>
+								</div>
+								<div class="alignright p3">
+									<h:link value="Leer Más" outcome="/pages/servicio">
+										<f:param name="idservicio" value="#{servicio.idservicio}"></f:param>
+										<f:param name="idempresa"
+											value="#{servicio.cotempresa.idempresa}"></f:param>
+									</h:link>
+								</div>
+							</div>
+						</div>
+					</p:column>
+				</p:dataGrid>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

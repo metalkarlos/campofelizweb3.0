@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+  <display-name>campofelizweb3.0</display-name>
+  <context-param>
+    <description>Parameter required by Mojarra 2.0</description>
+    <param-name>com.sun.faces.allowTextChildren</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <description>verify if library http://xmlns.jcp.org/jsf/composite/components/buttons actually exists</description>
+    <param-name>com.sun.faces.enableMissingResourceLibraryDetection</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>imagesDirectory</param-name>
+    <param-value>C:/repositorio/</param-value>
+  </context-param>
+  <context-param>
+    <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+    <param-value>.xhtml</param-value>
+  </context-param>
+  <context-param>
+    <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
+    <param-value>2</param-value>
+  </context-param>
+  <context-param>
+    <description>Process comments content or skip</description>
+    <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+    <param-value>false</param-value>
+  </context-param>
+  <context-param>
+    <description>Development, Production</description>
+    <param-name>javax.faces.PROJECT_STAGE</param-name>
+    <param-value>Production</param-value>
+  </context-param>
+  <context-param>
+    <description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
+    <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+    <param-value>server</param-value>
+  </context-param>
+  <context-param>
+    <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+    <param-value>resources.application</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.apache.myfaces.STRICT_JSF_2_ALLOW_SLASH_LIBRARY_NAME</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <description>Clave publica de www.gruposintra.com</description>
+    <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
+    <param-value>6LebpPUSAAAAAAMMmeQjSsprbxemI4Mja7rbZKUy</param-value>
+  </context-param>
+  <context-param>
+    <description>Clave privada de www.gruposintra.com</description>
+    <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
+    <param-value>6LebpPUSAAAAAJiM7jJuzaR6Ns6br4dABVtVfMyL</param-value>
+  </context-param>
+  <context-param>
+    <param-name>primefaces.THEME</param-name>
+    <param-value>cupertino</param-value>
+  </context-param>
+  <context-param>
+    <param-name>primefaces.LEGACY_WIDGET_NAMESPACE</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <filter>
+    <filter-name>PrimeFaces FileUpload Filter</filter-name>
+    <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+  </filter>
+  <filter>
+    <description>Clase con la validacion para accesar a las paginas de administrador</description>
+    <filter-name>Acceso Paginas Admin</filter-name>
+    <filter-class>com.web.faces.filters.AdminPagesAccessFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>PrimeFaces FileUpload Filter</filter-name>
+    <servlet-name>Faces Servlet</servlet-name>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>Acceso Paginas Admin</filter-name>
+    <url-pattern>/admin/*</url-pattern>
+  </filter-mapping>
+  <servlet>
+    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>*.jsf</url-pattern>
+  </servlet-mapping>
+  <session-config>
+    <session-timeout>5</session-timeout>
+  </session-config>
+  <mime-mapping>
+    <extension>pdf</extension>
+    <mime-type>application/pdf</mime-type>
+  </mime-mapping>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/pages/errorcode.jsf</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/pages/errorcode.jsf</location>
+  </error-page>
+  <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/pages/errorcode.jsf</location>
+  </error-page>
+  <context-param>
+    <description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
+    <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+    <param-value>client</param-value>
+  </context-param>
+  <context-param>
+    <description>
+	This parameter tells MyFaces if javascript code should be allowed in
+	the rendered HTML output.
+	If javascript is allowed, command_link anchors will have javascript code
+	that submits the corresponding form.
+	If javascript is not allowed, the state saving info and nested parameters
+	will be added as url parameters.
+	Default is 'true'</description>
+    <param-name>org.apache.myfaces.ALLOW_JAVASCRIPT</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <description>
+	If true, rendered HTML code will be formatted, so that it is 'human-readable'
+	i.e. additional line separators and whitespace will be written, that do not
+	influence the HTML code.
+	Default is 'true'</description>
+    <param-name>org.apache.myfaces.PRETTY_HTML</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.apache.myfaces.DETECT_JAVASCRIPT</param-name>
+    <param-value>false</param-value>
+  </context-param>
+  <context-param>
+    <description>
+	If true, a javascript function will be rendered that is able to restore the
+	former vertical scroll on every request. Convenient feature if you have pages
+	with long lists and you do not want the browser page to always jump to the top
+	if you trigger a link or button action that stays on the same page.
+	Default is 'false'
+</description>
+    <param-name>org.apache.myfaces.AUTO_SCROLL</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
+  </listener>
+</web-app>
