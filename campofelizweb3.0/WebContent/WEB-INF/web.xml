@@ -13,6 +13,8 @@
   </context-param>
   <context-param>
     <param-name>imagesDirectory</param-name>
+    <!-- <param-value>/var/www/user_campofeliz/data/repositorio</param-value> -->
+		<!-- <param-value>/var/www/sintra_adminweb/data/repositorio</param-value> -->
     <param-value>C:/repositorio/</param-value>
   </context-param>
   <context-param>
@@ -50,6 +52,17 @@
     <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
     <param-value>true</param-value>
   </context-param>
+  <!-- <context-param>
+    <description>Clave publica de www.campofeliz.com</description>
+    <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
+    <param-value>6LfmtPMSAAAAAE___SISFO_uBTM_L3wIrJk1-0og</param-value>
+  </context-param>
+  <context-param>
+    <description>Clave privada de www.campofeliz.com</description>
+    <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
+    <param-value>6LfmtPMSAAAAAAh-656nLMj3oHSXuNlAq_p0baJ1</param-value>
+  </context-param>
+   -->
   <context-param>
     <description>Clave publica de www.gruposintra.com</description>
     <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
