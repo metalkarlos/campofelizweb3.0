@@ -26,12 +26,13 @@ public class Petfotoinstalacion implements java.io.Serializable, Cloneable {
 	private Date fechamodificacion;
 	private int orden;
 	private String iplog;
+	private int grupo;
 
 	public Petfotoinstalacion() {
 	}
 
 	public Petfotoinstalacion(int idfotoinstalacion, Setestado setestado, Setusuario setusuario, String descripcion,
-			String ruta, String nombrearchivo, Date fecharegistro, Date fechamodificacion, int orden, String iplog) {
+			String ruta, String nombrearchivo, Date fecharegistro, Date fechamodificacion, int orden, String iplog, int grupo) {
 		this.idfotoinstalacion = idfotoinstalacion;
 		this.setestado = setestado;
 		this.setusuario = setusuario;
@@ -42,6 +43,7 @@ public class Petfotoinstalacion implements java.io.Serializable, Cloneable {
 		this.fechamodificacion = fechamodificacion;
 		this.orden = orden;
 		this.iplog = iplog;
+		this.grupo = grupo;
 	}
 
 	@Id
@@ -121,6 +123,7 @@ public class Petfotoinstalacion implements java.io.Serializable, Cloneable {
 		this.fechamodificacion = fechamodificacion;
 	}
 
+	@Column(name = "orden")
 	public int getOrden() {
 		return orden;
 	}
@@ -138,6 +141,15 @@ public class Petfotoinstalacion implements java.io.Serializable, Cloneable {
 		this.iplog = iplog;
 	}
 	
+	@Column(name = "grupo")
+	public int getGrupo() {
+		return grupo;
+	}
+
+	public void setGrupo(int grupo) {
+		this.grupo = grupo;
+	}
+
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		Petfotoinstalacion petfotoinstalacion = (Petfotoinstalacion)super.clone();
@@ -170,6 +182,7 @@ public class Petfotoinstalacion implements java.io.Serializable, Cloneable {
 				+ ((setestado == null) ? 0 : setestado.getIdestado());
 		result = prime * result
 				+ ((setusuario == null) ? 0 : setusuario.getIdusuario());
+		result = prime * result + grupo;
 		return result;
 	}
 
@@ -225,6 +238,8 @@ public class Petfotoinstalacion implements java.io.Serializable, Cloneable {
 			if (other.setusuario != null)
 				return false;
 		} else if (setusuario.getIdusuario() != other.setusuario.getIdusuario())
+			return false;
+		if (grupo != other.grupo)
 			return false;
 		return true;
 	}

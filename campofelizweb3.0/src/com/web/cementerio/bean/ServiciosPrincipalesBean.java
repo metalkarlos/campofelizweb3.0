@@ -29,7 +29,7 @@ public class ServiciosPrincipalesBean implements Serializable {
 	public void consultarServiciosPrincipales(){
 		try {
 			PetservicioBO petservicioBO = new PetservicioBO();
-			lisPetservicio = petservicioBO.lisPetservicioPrincipales();
+			lisPetservicio = petservicioBO.lisPetservicioPrincipales(3);
 		} catch (Exception e) {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");

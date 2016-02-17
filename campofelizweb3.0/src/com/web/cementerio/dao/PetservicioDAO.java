@@ -36,7 +36,7 @@ public class PetservicioDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Petservicio> lisPetservicioPrincipales(Session session) throws Exception {
+	public List<Petservicio> lisPetservicioPrincipales(Session session, int cantidad) throws Exception {
 		List<Petservicio> lisPetservicio = null;
 		
 		String hql = " from Petservicio ser inner join fetch ser.cotempresa emp ";
@@ -46,7 +46,8 @@ public class PetservicioDAO {
 		
 		Query query = session.createQuery(hql)
 				.setInteger("idestado", 1)
-				.setBoolean("principal", true);
+				.setBoolean("principal", true)
+				.setMaxResults(cantidad);
 		
 		lisPetservicio = (List<Petservicio>) query.list();
 		

@@ -42,13 +42,13 @@ public class PetservicioBO {
 		return orden;
 	}
 	
-	public List<Petservicio> lisPetservicioPrincipales() throws Exception {
+	public List<Petservicio> lisPetservicioPrincipales(int cantidad) throws Exception {
 		List<Petservicio> lisPetservicio = null;
 		Session session = null;
 		
 		try{
 			session = HibernateUtil.getSessionFactory().openSession();
-			lisPetservicio = petservicioDAO.lisPetservicioPrincipales(session);
+			lisPetservicio = petservicioDAO.lisPetservicioPrincipales(session, cantidad);
 		}catch(Exception e){
 			throw new Exception(e.getMessage(),e.getCause());
 		}finally{

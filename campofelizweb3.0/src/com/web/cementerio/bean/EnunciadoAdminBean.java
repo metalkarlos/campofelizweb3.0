@@ -92,7 +92,7 @@ public class EnunciadoAdminBean implements Serializable {
 				
 				if(idenunciado ==0){
 				   listpetenunciado.add(0,petenunciadopregunta);
-				   petenunciadorespuesta.setOrden(petenunciadopregunta.getOrden());
+				   petenunciadorespuesta.setOrden(petenunciadopregunta.getOrden() + 1);
 				   listpetenunciado.add(1,petenunciadorespuesta);
 				   ok = petenunciadoBO.grabar(listpetenunciado, 1);	
 				   if(ok){
