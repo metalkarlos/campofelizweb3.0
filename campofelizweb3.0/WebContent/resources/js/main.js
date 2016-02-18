@@ -82,7 +82,7 @@ Author URI: http://themeforest.net/user/ingridk
 		//Google Map
 
 		var mapCanvas = document.getElementById('map-canvas');
-		var myLatlng = new google.maps.LatLng(60.391263,5.322054);
+		var myLatlng = new google.maps.LatLng(-2.0362106,-79.9675337);
 		var mapOptions = {
 		zoom: 16,
 		scrollwheel: true,
@@ -93,7 +93,7 @@ Author URI: http://themeforest.net/user/ingridk
 		var map = new google.maps.Map(mapCanvas, mapOptions)
 		var marker = new google.maps.Marker({
 		position: myLatlng,
-		 icon: 'img/mapmarker.png',
+		 icon: document.getElementById('customicon'),
 		map: map,
 		title: 'Hello World!'
 		});

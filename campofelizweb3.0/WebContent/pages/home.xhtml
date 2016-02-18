@@ -586,7 +586,7 @@
 				   		<c:choose>
 								<c:when test="#{enunciado.tipo == 'P'.charAt(0)}">
 									<!-- Question -->
-									<div class="panel-heading" jsfc="h:panelGroup" layout="block" >
+									<div class="panel-heading">
 									<h5 class="panel-title">
 									   <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse#{enunciado.idenunciado}">#{enunciado.descripcion}</a>
 									</h5>
@@ -626,12 +626,12 @@
 								  <!-- List -->
 								  <ul class="list-unstyled">
 									 <li><strong>Sexo:</strong> #{homenaje.sexo == 1 ? 'Macho' : 'Hembra'}</li>
-									 <li><strong>Pedigree: </strong> #{homenaje.pedigree ? 'Sí' : 'No'}</li>
+									 <li><strong>Especie: </strong> #{homenaje.petespecie.nombre}</li>
 									 <li><strong>Edad:</strong> 5 years</li>
 								  </ul>	
 								  <!-- Buttons -->								  
 								  <div class="toggle-btn page-scroll text-center">
-									 <a href="##{loop.index+1}" class=" btn btn-default">More Info</a>
+									 <a href="##{loop.index+1}" class=" btn btn-default">Leer Más</a>
 								  </div>
 							   </div>
 							</div><!-- /thumbnail -->
@@ -647,12 +647,12 @@
 					  <div class="cd-panel-container">
 						 <div class="cd-panel-content">
 							<div class="col-md-7 col-centered">
-							   <img src="#{request.contextPath}/resources/img/adoption1.jpg" class="img-responsive" alt="" />
+							   <img src="#{request.contextPath}#{parametro.servletImagenes}#{homenaje.rutafoto}?w=600&amp;h=600" class="img-responsive" alt="" />
 							</div>
 							<h3 class="text-center">#{homenaje.nombre}</h3>
 							<p style="text-align: justify;">#{homenaje.dedicatoria}</p>
 							<div class="page-scroll text-center">
-							   <a href="#contact" class="cd-close btn btn-default">Contáctos</a>  <a class="cd-close btn btn-danger m-left"><i class="fa fa-times"></i>Cerrar</a>
+							   <a href="#contact" class="cd-close btn btn-default">Contáctanos</a>  <a class="cd-close btn btn-danger m-left"><i class="fa fa-times"></i>Cerrar</a>
 							</div>
 						 </div><!-- /cd-panel-content -->
 					  </div><!-- /cd-panel-container -->
@@ -718,33 +718,36 @@
 	   	<div class="row">
 		  <div class="margin col-md-4 col-sm-6 wow fadeInLeft" data-wow-delay="0.2s">
 			 <!-- Contact info -->
-			 <h4>Information</h4>
-			 <p>Contact for additional information:</p>
-			 <p><i class="fa fa-envelope"></i><a href="mailto:youremailaddress">petshop@site.com</a> or call us</p>
-			 <p><i class="fa fa-phone"></i>+1 (123) 456 7890</p>
+			 <h4>Información</h4>
+			 <p>Contáctanos a nuestro correo:</p>
+			 <p><i class="fa fa-envelope"></i><a href="mailto:#{contactenosBean.cotoficinaVeterinaria.email}">#{contactenosBean.cotoficinaVeterinaria.email}</a> o llámanos</p>
+			 <p><i class="fa fa-phone"></i><a href="callto:#">#{contactenosBean.cotoficinaVeterinaria.celular}</a></p>
 			 <!-- Adress info -->
-			 <h4>Location &amp; Time</h4>
-			 <p><i class="fa fa-map-marker"></i>We are located at Pet City, 304.</p>
-			 <p><i class="fa fa-clock-o"></i>Open from 9 a.m to 10 p.m on weekdays and from 9 a.m to 2 p.m in weekends.</p>
+			 <h4>Dirección y Horario</h4>
+			 <p><i class="fa fa-map-marker"></i>#{contactenosBean.cotoficinaVeterinaria.direccion}</p>
+			 <p><i class="fa fa-clock-o"></i>#{contactenosBean.cotoficinaVeterinaria.descripcion}</p>
 		  </div>
 		  <div class="col-md-7 col-md-offset-1 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-delay="0.2s">
 			 <!-- Contact form -->
 			 <div class="form-style" id="contact_form">
 				<div id="contact_results"></div>
 				<div class="form-group">
-				   <input type="text" name="name" class="form-control input-field" placeholder="Name" required="true"></input>
+				   <input type="text" name="name" class="form-control input-field" placeholder="Nombre" required="true"></input>
 				</div>
 				<div class="form-group">
-				   <input type="email" name="email" class="form-control input-field"  placeholder="Email ID" required="true"></input>
+				   <input type="email" name="email" class="form-control input-field"  placeholder="E-mail" required="true"></input>
 				</div>
 				<div class="form-group">
-				   <input type="text" name="subject" class="form-control input-field" placeholder="Subject" required="true"></input>
+				   <input type="text" name="subject" class="form-control input-field" placeholder="Cédula" required="true"></input>
 				</div>
 				<div class="form-group">
-				   <textarea name="message" id="message" class="textarea-field form-control" rows="4" placeholder="Enter your message" required="true"></textarea>
+				   <input type="text" name="phone" class="form-control input-field" placeholder="Teléfono" required="true"></input>
 				</div>
 				<div class="form-group">
-				   <button type="submit" id="submit_btn" value="Submit" class="btn btn-default pull-right">Send message</button>
+				   <textarea name="message" id="message" class="textarea-field form-control" rows="4" placeholder="Mensaje" required="true"></textarea>
+				</div>
+				<div class="form-group">
+				   <button type="submit" id="submit_btn" value="Submit" class="btn btn-default pull-right">Enviar mensaje</button>
 				</div>				
 			 </div><!--/Contact form -->	
 		  </div><!-- /col-md-6 -->
@@ -754,6 +757,8 @@
 	
 	<!--Map -->
 	<div class="wow fadeInTop" data-wow-delay="0.2s">
+			<input id="customicon" type="hidden" value="'#{fn:replace(request.requestURL,request.servletPath,'')}/resources/img/mapmarker.png'" />
+			<input id="customicon2" type="hidden" value="#{request.servletPath}/resources/img/mapmarker.png" />
 	   <div id="map-canvas"></div>
 	</div>
 	<!-- Section ends -->

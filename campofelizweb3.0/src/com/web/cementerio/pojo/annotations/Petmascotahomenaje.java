@@ -3,9 +3,13 @@ package com.web.cementerio.pojo.annotations;
 // Generated 05/03/2014 11:20:16 AM by Hibernate Tools 3.4.0.CR1
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.annotation.PostConstruct;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -56,6 +60,7 @@ public class Petmascotahomenaje implements java.io.Serializable, Cloneable {
 	private String idmascotaveterinaria;
 	private Set<Petfotomascota> petfotomascotas = new HashSet<Petfotomascota>(0);
 	private Set<Petmascotacolor> petmascotacolors = new HashSet<Petmascotacolor>(0);
+	private String edad;
 
 	public Petmascotahomenaje() {
 	}
@@ -99,6 +104,26 @@ public class Petmascotahomenaje implements java.io.Serializable, Cloneable {
 		this.pedigree = pedigree;
 		this.microchip = microchip;
 		this.numeroidentificacion = numeroidentificacion;
+	}
+	
+	@PostConstruct
+	public void PetmascotahomenajePostConstruct(){
+		
+		//calculo de la edad
+		/*if(fechanacimiento != null){
+			
+			Calendar hoy = Calendar.getInstance();
+			Calendar fnacimiento = Calendar.getInstance();
+			fnacimiento.setTime(fechanacimiento);
+			long diferencia = hoy.getTimeInMillis() - fnacimiento.getTimeInMillis();//milisegundos de vida
+			
+			long residuo = diferencia % 86400000;//se dejan los dias exactos
+			diferencia -= residuo;//se dejan los dias exactos
+			long dias = diferencia / 86400000;//dias
+
+			long me
+			long anios = dias / 365;
+		}*/
 	}
 
 	@Id
@@ -374,6 +399,15 @@ public class Petmascotahomenaje implements java.io.Serializable, Cloneable {
 
 	public void setIdmascotaveterinaria(String idmascotaveterinaria) {
 		this.idmascotaveterinaria = idmascotaveterinaria;
+	}
+
+	@Transient
+	public String getEdad() {
+		return edad;
+	}
+
+	public void setEdad(String edad) {
+		this.edad = edad;
 	}
 
 	@Override
