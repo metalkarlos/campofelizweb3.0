@@ -583,20 +583,26 @@
 				   	<!-- Questions -->
 				   	<c:forEach items="#{enunciadosBean.listpetvenunciado}" var="enunciado">
 				   	<div class="panel panel-default">
-				   	 <!-- Question -->
-						 <div class="panel-heading" jsfc="h:panelGroup" layout="block" rendered="#{enunciado.tipo == 'P'}">
-							<h5 class="panel-title">
-							   <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">#{enunciado.descripcion}</a>
-							</h5>
-						 </div>
-						 <!-- End Question -->
-						 <!-- Answer -->
-						 <div id="collapseOne" class="panel-collapse collapse in" jsfc="h:panelGroup" layout="block" rendered="#{enunciado.tipo == 'R'}">
-							<div class="panel-body">
-							   <p>#{enunciado.descripcion}</p>
-							</div>
-						 </div>
-						 <!-- End Answer -->
+				   		<c:choose>
+								<c:when test="#{enunciado.tipo == 'P'.charAt(0)}">
+									<!-- Question -->
+									<div class="panel-heading" jsfc="h:panelGroup" layout="block" >
+									<h5 class="panel-title">
+									   <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse#{enunciado.idenunciado}">#{enunciado.descripcion}</a>
+									</h5>
+									</div>
+									<!-- End Question -->
+							  </c:when>
+							  <c:otherwise>
+							    <!-- Answer -->
+									<div id="collapse#{enunciado.idpadre}" class="panel-collapse collapse #{enunciado.orden == 2 ? 'in' : ''}" >
+									<div class="panel-body">
+									   <p style="text-align: justify;"><h:outputText value="#{enunciado.descripcion}" escape="false"/></p>
+									</div>
+									</div>
+									<!-- End Answer -->
+							  </c:otherwise>
+							</c:choose>
 					  </div>
 				   	</c:forEach>
 				   	<!-- End Questions -->
@@ -607,252 +613,52 @@
 				<div class="col-md-7 col-sm-6">
 				  <h4 class="text-center">Homenaje Póstumo</h4>				  				 				   
 				   <div id="owl-adopt" class="owl-carousel owl-theme">
-					  <!-- Animal 1 -->
-					  <div>
+				   <!-- Animals -->
+				   	<c:forEach items="#{mascotasPrincipalBean.lisPetmascotahomenaje}" var="homenaje" varStatus="loop">
+				   	<div>
 						 <div class="col-md-12">
 							<div class="thumbnail text-center">
 							<!-- Image -->
-							   <img src="#{request.contextPath}/resources/img/adoption1.jpg" class="img-circle img-responsive" alt="" />
+							   <img src="#{request.contextPath}#{parametro.servletImagenes}#{homenaje.rutafoto}?w=600&amp;h=600" class="img-circle img-responsive" alt="" />
 							   <!-- Name -->
 							   <div class="caption-adoption">
-								  <h6>Lilica</h6>
+								  <h6>#{homenaje.nombre}</h6>
 								  <!-- List -->
 								  <ul class="list-unstyled">
-									 <li><strong>Gender:</strong> Female</li>
-									 <li><strong>Neutered: </strong> Yes</li>
-									 <li><strong>Age:</strong> 5 years</li>
+									 <li><strong>Sexo:</strong> #{homenaje.sexo == 1 ? 'Macho' : 'Hembra'}</li>
+									 <li><strong>Pedigree: </strong> #{homenaje.pedigree ? 'Sí' : 'No'}</li>
+									 <li><strong>Edad:</strong> 5 years</li>
 								  </ul>	
 								  <!-- Buttons -->								  
 								  <div class="toggle-btn page-scroll text-center">
-									 <a href="#1" class=" btn btn-default">More Info</a>
+									 <a href="##{loop.index+1}" class=" btn btn-default">More Info</a>
 								  </div>
 							   </div>
 							</div><!-- /thumbnail -->
 						 </div><!-- /col-md-12 -->
 					  </div><!-- /div -->
-					  <!-- /Animal 1 -->
-					  
-					  <!-- Animal 2 -->
-					  <div>
-						 <div class="col-md-12">
-							<div class="thumbnail text-center">
-							<!-- Image -->
-							   <img src="#{request.contextPath}/resources/img/adoption2.jpg" class="img-circle img-responsive" alt="" />
-							   <!-- Name -->
-							   <div class="caption-adoption">
-								  <h6>Charlie</h6>
-								  <!-- List -->
-								  <ul class="list-unstyled">
-									 <li><strong>Gender:</strong> Male</li>
-									 <li><strong>Neutered: </strong> No</li>
-									 <li><strong>Age:</strong> 4 months</li>
-								  </ul>	
-								  <!-- Buttons -->								  
-								  <div class="toggle-btn page-scroll text-center">
-									 <a href="#2" class=" btn btn-default">More Info</a>
-								  </div>
-							   </div>
-							</div><!-- /thumbnail -->
-						 </div><!-- /col-md-12 -->
-					  </div><!-- /div -->
-					  <!-- /Animal 2 -->
-					  
-					  <!-- Animal 3 -->
-					  <div>
-						 <div class="col-md-12">
-							<div class="thumbnail text-center">
-							<!-- Image -->
-							   <img src="#{request.contextPath}/resources/img/adoption3.jpg" class="img-circle img-responsive" alt="" />
-							   <!-- Name -->
-							   <div class="caption-adoption">
-								  <h6>Lucky</h6>
-								  <!-- List -->
-								  <ul class="list-unstyled">
-									 <li><strong>Gender:</strong> Male</li>
-									 <li><strong>Neutered: </strong> Yes</li>
-									 <li><strong>Age:</strong> 1 year</li>
-								  </ul>	
-								  <!-- Buttons -->								  
-								  <div class="toggle-btn page-scroll text-center">
-									 <a href="#3" class=" btn btn-default">More Info</a>
-								  </div>
-							   </div>
-							</div><!-- /thumbnail -->
-						 </div><!-- /col-md-12 -->
-					  </div><!-- /div -->
-					  <!-- /Animal 3 -->
-					  
-					   <!-- Animal 4 -->
-					  <div>
-						 <div class="col-md-12">
-							<div class="thumbnail text-center">
-							<!-- Image -->
-							   <img src="#{request.contextPath}/resources/img/adoption4.jpg" class="img-circle img-responsive" alt="" />
-							   <!-- Name -->
-							   <div class="caption-adoption">
-								  <h6>Madalene</h6>
-								  <!-- List -->
-								  <ul class="list-unstyled">
-									 <li><strong>Gender:</strong> Female</li>
-									 <li><strong>Neutered: </strong> No</li>
-									 <li><strong>Age:</strong> 2 years</li>
-								  </ul>	
-								  <!-- Buttons -->								  
-								  <div class="toggle-btn page-scroll text-center">
-									 <a href="#4" class=" btn btn-default">More Info</a>
-								  </div>
-							   </div>
-							</div><!-- /thumbnail -->
-						 </div><!-- /col-md-12 -->
-					  </div><!-- /div -->
-					  <!-- /Animal 4 -->
-					  
-					  <!-- Animal 5 -->
-					  <div>
-						 <div class="col-md-12">
-							<div class="thumbnail text-center">
-							<!-- Image -->
-							   <img src="#{request.contextPath}/resources/img/adoption5.jpg" class="img-circle img-responsive" alt="" />
-							   <!-- Name -->
-							   <div class="caption-adoption">
-								  <h6>Joanne</h6>
-								  <!-- List -->
-								  <ul class="list-unstyled">
-									 <li><strong>Gender:</strong> Female</li>
-									 <li><strong>Neutered: </strong> Yes</li>
-									 <li><strong>Age:</strong> 5 years</li>
-								  </ul>	
-								  <!-- Buttons -->								  
-								  <div class="toggle-btn page-scroll text-center">
-									 <a href="#5" class=" btn btn-default">More Info</a>
-								  </div>
-							   </div>
-							</div><!-- /thumbnail -->
-						 </div><!-- /col-md-12 -->
-					  </div><!-- /div -->
-					  <!-- /Animal 5 --> 
-
-					 <!-- Animal 6 -->
-					  <div>
-						 <div class="col-md-12">
-							<div class="thumbnail text-center">
-							<!-- Image -->
-							   <img src="#{request.contextPath}/resources/img/adoption6.jpg" class="img-circle img-responsive" alt="" />
-							   <!-- Name -->
-							   <div class="caption-adoption">
-								  <h6>Cutesy</h6>
-								  <!-- List -->
-								  <ul class="list-unstyled">
-									 <li><strong>Gender:</strong> Male</li>
-									 <li><strong>Neutered: </strong> Yes</li>
-									 <li><strong>Age:</strong> 2 years</li>
-								  </ul>	
-								  <!-- Buttons -->								  
-								  <div class="toggle-btn page-scroll text-center">
-									 <a href="#6" class=" btn btn-default">More Info</a>
-								  </div>
-							   </div>
-							</div><!-- /thumbnail -->
-						 </div><!-- /col-md-12 -->
-					  </div><!-- /div -->
-					 <!-- /Animal 6 -->  					  					 					  
+				   	</c:forEach>
+				   	<!-- /Animals -->
 				 </div><!-- /owl-adopt -->
 				 
-				 <!-- Slide In Panel Animal 1 -->
-				   <div class="cd-panel from-right" id="1">
+				 <!-- Slide In Panel Animals -->
+				 <c:forEach items="#{mascotasPrincipalBean.lisPetmascotahomenaje}" var="homenaje" varStatus="loop">
+				 	<div class="cd-panel from-right" id="#{loop.index+1}">
 					  <div class="cd-panel-container">
 						 <div class="cd-panel-content">
 							<div class="col-md-7 col-centered">
 							   <img src="#{request.contextPath}/resources/img/adoption1.jpg" class="img-responsive" alt="" />
 							</div>
-							<h3 class="text-center">Adopt Lilica</h3>
-							<p>Beatae expedita, itaque assumenda libero voluptatem adipisci maiores voluptas accusantium, blanditiis saepe culpa laborum iusto maxime quae aperiam fugiat odit consequatur soluta hic. Sed quasi beatae quia repellendus, adipisci facilis ipsa vel, aperiam, consequatur eaque mollitia quaerat. Iusto fugit inventore eveniet velit.</p>
+							<h3 class="text-center">#{homenaje.nombre}</h3>
+							<p style="text-align: justify;">#{homenaje.dedicatoria}</p>
 							<div class="page-scroll text-center">
-							   <a href="#contact" class="cd-close btn btn-default">Adopt Now</a>  <a class="cd-close btn btn-danger m-left"><i class="fa fa-times"></i>Close</a>
+							   <a href="#contact" class="cd-close btn btn-default">Contáctos</a>  <a class="cd-close btn btn-danger m-left"><i class="fa fa-times"></i>Cerrar</a>
 							</div>
 						 </div><!-- /cd-panel-content -->
 					  </div><!-- /cd-panel-container -->
 				   </div><!-- /cd-panel -->
-				   
-				   <!-- Slide In Panel Animal 2 -->
-				   <div class="cd-panel from-right" id="2">
-					  <div class="cd-panel-container">
-						 <div class="cd-panel-content">
-							<div class="col-md-7 col-centered">
-							   <img src="#{request.contextPath}/resources/img/adoption2.jpg" class="img-responsive" alt="" />
-							</div>
-							<h3 class="text-center">Adopt Charlie</h3>
-							<p>Beatae expedita, itaque assumenda libero voluptatem adipisci maiores voluptas accusantium, blanditiis saepe culpa laborum iusto maxime quae aperiam fugiat odit consequatur soluta hic. Sed quasi beatae quia repellendus, adipisci facilis ipsa vel, aperiam, consequatur eaque mollitia quaerat. Iusto fugit inventore eveniet velit.</p>
-							<div class="page-scroll text-center">
-							   <a href="#contact" class="cd-close btn btn-default">Adopt Now</a>  <a class="cd-close btn btn-danger m-left"><i class="fa fa-times"></i>Close</a>
-							</div>
-						 </div><!-- /cd-panel-content -->
-					  </div><!-- /cd-panel-container -->
-				   </div><!-- /cd-panel -->		
-
-				   <!-- Slide In Panel Animal 3 -->
-				   <div class="cd-panel from-right" id="3">
-					  <div class="cd-panel-container">
-						 <div class="cd-panel-content">
-							<div class="col-md-7 col-centered">
-							   <img src="#{request.contextPath}/resources/img/adoption3.jpg" class="img-responsive" alt="" />
-							</div>
-							<h3 class="text-center">Adopt Lucky</h3>
-							<p>Beatae expedita, itaque assumenda libero voluptatem adipisci maiores voluptas accusantium, blanditiis saepe culpa laborum iusto maxime quae aperiam fugiat odit consequatur soluta hic. Sed quasi beatae quia repellendus, adipisci facilis ipsa vel, aperiam, consequatur eaque mollitia quaerat. Iusto fugit inventore eveniet velit.</p>
-							<div class="page-scroll text-center">
-							   <a href="#contact" class="cd-close btn btn-default">Adopt Now</a>  <a class="cd-close btn btn-danger m-left"><i class="fa fa-times"></i>Close</a>
-							</div>
-						 </div><!-- /cd-panel-content -->
-					  </div><!-- /cd-panel-container -->
-				   </div><!-- /cd-panel -->	
-				   
-				   <!-- Slide In Panel Animal 4 -->
-				   <div class="cd-panel from-right" id="4">
-					  <div class="cd-panel-container">
-						 <div class="cd-panel-content">
-							<div class="col-md-7 col-centered">
-							   <img src="#{request.contextPath}/resources/img/adoption4.jpg" class="img-responsive" alt="" />
-							</div>
-							<h3 class="text-center">Adopt Madalene</h3>
-							<p>Beatae expedita, itaque assumenda libero voluptatem adipisci maiores voluptas accusantium, blanditiis saepe culpa laborum iusto maxime quae aperiam fugiat odit consequatur soluta hic. Sed quasi beatae quia repellendus, adipisci facilis ipsa vel, aperiam, consequatur eaque mollitia quaerat. Iusto fugit inventore eveniet velit.</p>
-							<div class="page-scroll text-center">
-							   <a href="#contact" class="cd-close btn btn-default">Adopt Now</a>  <a class="cd-close btn btn-danger m-left"><i class="fa fa-times"></i>Close</a>
-							</div>
-						 </div><!-- /cd-panel-content -->
-					  </div><!-- /cd-panel-container -->
-				   </div><!-- /cd-panel -->		
-				   
-				   <!-- Slide In Panel Animal 5 -->
-				   <div class="cd-panel from-right" id="5">
-					  <div class="cd-panel-container">
-						 <div class="cd-panel-content">
-							<div class="col-md-7 col-centered">
-							   <img src="#{request.contextPath}/resources/img/adoption5.jpg" class="img-responsive" alt="" />
-							</div>
-							<h3 class="text-center">Adopt Joanne</h3>
-							<p>Beatae expedita, itaque assumenda libero voluptatem adipisci maiores voluptas accusantium, blanditiis saepe culpa laborum iusto maxime quae aperiam fugiat odit consequatur soluta hic. Sed quasi beatae quia repellendus, adipisci facilis ipsa vel, aperiam, consequatur eaque mollitia quaerat. Iusto fugit inventore eveniet velit.</p>
-							<div class="page-scroll text-center">
-							   <a href="#contact" class="cd-close btn btn-default">Adopt Now</a>  <a class="cd-close btn btn-danger m-left"><i class="fa fa-times"></i>Close</a>
-							</div>
-						 </div><!-- /cd-panel-content -->
-					  </div><!-- /cd-panel-container -->
-				   </div><!-- /cd-panel --> 
-				   
-				   <!-- Slide In Panel Animal 6 -->
-				   <div class="cd-panel from-right" id="6">
-					  <div class="cd-panel-container">
-						 <div class="cd-panel-content">
-							<div class="col-md-7 col-centered">
-							   <img src="#{request.contextPath}/resources/img/adoption6.jpg" class="img-responsive" alt="" />
-							</div>
-							<h3 class="text-center">Adopt Cutesy</h3>
-							<p>Beatae expedita, itaque assumenda libero voluptatem adipisci maiores voluptas accusantium, blanditiis saepe culpa laborum iusto maxime quae aperiam fugiat odit consequatur soluta hic. Sed quasi beatae quia repellendus, adipisci facilis ipsa vel, aperiam, consequatur eaque mollitia quaerat. Iusto fugit inventore eveniet velit.</p>
-							<div class="page-scroll text-center">
-							   <a href="#contact" class="cd-close btn btn-default">Adopt Now</a>  <a class="cd-close btn btn-danger m-left"><i class="fa fa-times"></i>Close</a>
-							</div>
-						 </div><!-- /cd-panel-content -->
-					  </div><!-- /cd-panel-container -->
-				   </div><!-- /cd-panel -->   
+				 </c:forEach>
+				 <!-- /Slide In Panel Animals -->
 			  </div><!-- /col-md-7 -->
 			</div><!-- /row -->		  
 	     </div><!-- /container -->

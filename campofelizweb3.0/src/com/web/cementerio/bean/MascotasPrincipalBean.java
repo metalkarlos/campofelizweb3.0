@@ -29,7 +29,7 @@ public class MascotasPrincipalBean implements Serializable {
 	public void consultarMascotasPrincipal(){
 		try {
 			PetmascotahomenajeBO petmascotahomenajeBO = new PetmascotahomenajeBO();
-			lisPetmascotahomenaje = petmascotahomenajeBO.lisPetmascotaPrincipal(4);
+			lisPetmascotahomenaje = petmascotahomenajeBO.lisPetmascotaPrincipal(6);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
