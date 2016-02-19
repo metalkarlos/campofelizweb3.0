@@ -5,17 +5,30 @@ $(document).ready(function() {
         //simple validation at client's end
         //loop through each field and we simply change border color to red for invalid fields		
 		$("#contact_form input[required], #contact_form textarea[required]").each(function(){
-			$(this).css('background-color',''); 
-			if(!$.trim($(this).val())){ //if this field is empty 
+			$(this).css('background-color','');
+			//if this field is empty
+			if(!$.trim($(this).val())){  
 				$(this).css('background-color','#FFDEDE'); //change border color to #FFDEDE   
 				proceed = false; //set do not proceed flag
 			}
 			//check invalid email
-			var email_reg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/; 
+			var email_reg = /^([\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z])?$/; 
 			if($(this).attr("type")=="email" && !email_reg.test($.trim($(this).val()))){
 				$(this).css('background-color','#FFDEDE'); //change border color to #FFDEDE   
 				proceed = false; //set do not proceed flag				
-			}	
+			}
+			//check invalid Id
+			var identity_reg = /^([0-9]{10})?$/;
+			if($(this).attr("type")=="identity" && !identity_reg.test($.trim($(this).val()))){
+				$(this).css('background-color','#FFDEDE'); //change border color to #FFDEDE   
+				proceed = false; //set do not proceed flag				
+			}
+			//check invalid phone
+			var phone_reg = /^([0-9][0-9\s]+[0-9])?$/;
+			if($(this).attr("type")=="phone" && !phone_reg.test($.trim($(this).val()))){
+				$(this).css('background-color','#FFDEDE'); //change border color to #FFDEDE   
+				proceed = false; //set do not proceed flag				
+			}
 		});
        
         if(proceed) //everything looks good! proceed...

@@ -82,20 +82,22 @@ Author URI: http://themeforest.net/user/ingridk
 		//Google Map
 
 		var mapCanvas = document.getElementById('map-canvas');
-		var myLatlng = new google.maps.LatLng(-2.0362106,-79.9675337);
+		var myLatlng = new google.maps.LatLng(-2.0363956,-79.965286);
 		var mapOptions = {
 		zoom: 16,
 		scrollwheel: true,
 		center: myLatlng,
+		mapTypeId: google.maps.MapTypeId.ROADMAP, //SATELLITE,
 		// How you would like to style the map. 
         styles: [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"},{"saturation":-100},{"lightness":20}]},{"featureType":"road","elementType":"all","stylers":[{"visibility":"on"},{"saturation":-100},{"lightness":40}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"saturation":-10},{"lightness":30}]},{"featureType":"landscape.man_made","elementType":"all","stylers":[{"visibility":"simplified"},{"saturation":-60},{"lightness":10}]},{"featureType":"landscape.natural","elementType":"all","stylers":[{"visibility":"simplified"},{"saturation":-60},{"lightness":60}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"},{"saturation":-100},{"lightness":60}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"},{"saturation":-100},{"lightness":60}]}]
 		}
+		var mapIcon = document.getElementById('mapIcon').value;
 		var map = new google.maps.Map(mapCanvas, mapOptions)
 		var marker = new google.maps.Marker({
 		position: myLatlng,
-		 icon: document.getElementById('customicon'),
+		icon: mapIcon,
 		map: map,
-		title: 'Hello World!'
+		title: 'Este es mi campo feliz!'
 		});
 		
 		//Owl sliders

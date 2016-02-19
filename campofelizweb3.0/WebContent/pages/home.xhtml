@@ -26,6 +26,7 @@
 
 	<ui:define name="content_page">
 	<h:form id="form-home">
+		<input id="mapIcon" type="hidden" value="#{fn:replace(request.requestURL,request.servletPath,'')}/resources/img/mapmarker.png" />
 		<!-- Section services -->
 	<section id="services" class="home-section">
 	   <div class="col-lg-8 col-lg-offset-2">
@@ -738,10 +739,10 @@
 				   <input type="email" name="email" class="form-control input-field"  placeholder="E-mail" required="true"></input>
 				</div>
 				<div class="form-group">
-				   <input type="text" name="subject" class="form-control input-field" placeholder="Cédula" required="true"></input>
+				   <input type="identity" name="identity" class="form-control input-field" placeholder="Cedula" required="true"></input>
 				</div>
 				<div class="form-group">
-				   <input type="text" name="phone" class="form-control input-field" placeholder="Teléfono" required="true"></input>
+				   <input type="phone" name="phone" class="form-control input-field" placeholder="Telefono" required="true"></input>
 				</div>
 				<div class="form-group">
 				   <textarea name="message" id="message" class="textarea-field form-control" rows="4" placeholder="Mensaje" required="true"></textarea>
@@ -757,9 +758,7 @@
 	
 	<!--Map -->
 	<div class="wow fadeInTop" data-wow-delay="0.2s">
-			<input id="customicon" type="hidden" value="'#{fn:replace(request.requestURL,request.servletPath,'')}/resources/img/mapmarker.png'" />
-			<input id="customicon2" type="hidden" value="#{request.servletPath}/resources/img/mapmarker.png" />
-	   <div id="map-canvas"></div>
+		<div id="map-canvas"></div>
 	</div>
 	<!-- Section ends -->
 	
