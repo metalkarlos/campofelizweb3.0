@@ -731,7 +731,7 @@
 		  <div class="col-md-7 col-md-offset-1 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-delay="0.2s">
 			 <!-- Contact form -->
 			 <div class="form-style" id="contact_form">
-				<div id="contact_results"></div>
+				<div id="contact_results" jsfc="h:panelGroup" layout="block"><h:outputText value="#{contactenosBean.mensaje}" escape="false" /></div>
 				<div class="form-group">
 				   <input type="text" name="name" class="form-control input-field" placeholder="Nombre" required="true"></input>
 				</div>
@@ -739,16 +739,16 @@
 				   <input type="email" name="email" class="form-control input-field"  placeholder="E-mail" required="true"></input>
 				</div>
 				<div class="form-group">
-				   <input type="identity" name="identity" class="form-control input-field" placeholder="Cedula" required="true"></input>
+				   <input type="identity" name="identity" class="form-control input-field" placeholder="Cedula" required="true" pattern="^([0-9]{10})?$" title="Numero de cedula, 10 digitos"></input>
 				</div>
 				<div class="form-group">
-				   <input type="phone" name="phone" class="form-control input-field" placeholder="Telefono" required="true"></input>
+				   <input type="phone" name="phone" class="form-control input-field" placeholder="Telefono" required="true" pattern="^([0-9][0-9\s]+[0-9])?$" title="Numero de telefono, espacios permitidos"></input>
 				</div>
 				<div class="form-group">
 				   <textarea name="message" id="message" class="textarea-field form-control" rows="4" placeholder="Mensaje" required="true"></textarea>
 				</div>
 				<div class="form-group">
-				   <button type="submit" id="submit_btn" value="Submit" class="btn btn-default pull-right">Enviar mensaje</button>
+				   <p:commandButton id="submit_btn" value="Enviar mensaje" onclick="return validarContacto();" action="#{contactenosBean.enviar()}" update="contact_results"></p:commandButton>
 				</div>				
 			 </div><!--/Contact form -->	
 		  </div><!-- /col-md-6 -->
