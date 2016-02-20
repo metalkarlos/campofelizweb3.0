@@ -1,9 +1,9 @@
 $(document).ready(function() {
 	//remueve todas las clases del boton primefaces
-	$("#form-home\\:submit_btn").removeClass();
+	$("#submit_btn").removeClass();
 	
 	//agrega las nuevas clases al boton
-	$("#form-home\\:submit_btn").addClass("btn btn-default pull-right");
+	$("#submit_btn").addClass("btn btn-default pull-right");
 	
     //reset previously set border colors and hide all message on .keyup()
     $("#contact_form  input[required=true], #contact_form textarea[required=true]").keyup(function() { 

@@ -32,6 +32,7 @@ public class ContactenosBean implements Serializable {
 	private String mensaje;
 	private String cedula;
 	private String telefono;
+	private String aviso;
 	
 	public  ContactenosBean(){
 	  inicializar();
@@ -47,6 +48,7 @@ public class ContactenosBean implements Serializable {
 		mensaje = null;
 		cedula = null;
 		telefono = null;
+		aviso = null;
 	}
 	public void consultar(){
 		try {
@@ -78,13 +80,16 @@ public class ContactenosBean implements Serializable {
 			//enviar al administrador de correo
 			mailUtil.enviarMail(null, "Información - Campo Feliz", contenido);
 			
-			mostrarPaginaMensaje("Gracias por comunicarte con nosotros! En breve te estaremos respondiendo!");
+			aviso = "<div class=\"success\"><div class=\"alert alert-success\" role=\"alert\">Hola "+nombres+", Gracias por comunicarte con nosotros! En breve te estaremos respondiendo!</div></div><br>";
+			//mostrarPaginaMensaje("Gracias por comunicarte con nosotros! En breve te estaremos respondiendo!");
 		}catch(AddressException e) {
 			e.printStackTrace();
-			new MessageUtil().showErrorMessage("Ingrese una cuenta de correo válida e intente nuevamente.","");
+			//new MessageUtil().showErrorMessage("Ingrese una cuenta de correo válida e intente nuevamente.","");
+			aviso = "<div class=\"error\"><p>Ingrese una cuenta de correo válida e intente nuevamente.</p></div><br>";
 		}catch(Exception e){
 			e.printStackTrace();
-			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
+			//new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
+			aviso = "<div class=\"error\"><p>Ha ocurrido un error inesperado. Comunicar al Webmaster!.</p></div><br>";
 		}
 		
 		return url;
@@ -230,6 +235,14 @@ public class ContactenosBean implements Serializable {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	public String getAviso() {
+		return aviso;
+	}
+
+	public void setAviso(String aviso) {
+		this.aviso = aviso;
 	}
 
 }
