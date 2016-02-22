@@ -1,0 +1,23 @@
+/*******ajaxStatus*******/
+.ajax-status {
+	z-index: 1018;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.ajax-status td {
+	text-align: center;
+	vertical-align: middle;
+}
+
+/*********justificacion**********/
+#contact p, #pane2 p, #adoption p {
+	text-align: justify;
+}
+
+/*********mapa***********/
+.mapa-oficina {
+	padding: 120px 0 120px 0;
+}

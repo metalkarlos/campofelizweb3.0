@@ -79,10 +79,10 @@ Author URI: http://themeforest.net/user/ingridk
 			}
 		});
 		
-		//Google Map
+		//Google Map Oficina
 
 		var mapCanvas = document.getElementById('map-canvas');
-		var myLatlng = new google.maps.LatLng(-2.0363956,-79.965286);
+		var myLatlng = new google.maps.LatLng(-2.1431607,-79.9222974);
 		var mapOptions = {
 		zoom: 16,
 		scrollwheel: true,
@@ -97,6 +97,26 @@ Author URI: http://themeforest.net/user/ingridk
 		position: myLatlng,
 		icon: mapIcon,
 		map: map,
+		title: 'Información Aquí!'
+		});
+		
+		//Google Map Campo Santo
+
+		var mapCanvasCampo = document.getElementById('map-canvas-campo');
+		var myLatlngCampo = new google.maps.LatLng(-2.0363956,-79.965286);
+		var mapOptionsCampo = {
+		zoom: 16,
+		scrollwheel: true,
+		center: myLatlngCampo,
+		mapTypeId: google.maps.MapTypeId.ROADMAP, //SATELLITE,
+		// How you would like to style the map. 
+        styles: [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"},{"saturation":-100},{"lightness":20}]},{"featureType":"road","elementType":"all","stylers":[{"visibility":"on"},{"saturation":-100},{"lightness":40}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"saturation":-10},{"lightness":30}]},{"featureType":"landscape.man_made","elementType":"all","stylers":[{"visibility":"simplified"},{"saturation":-60},{"lightness":10}]},{"featureType":"landscape.natural","elementType":"all","stylers":[{"visibility":"simplified"},{"saturation":-60},{"lightness":60}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"},{"saturation":-100},{"lightness":60}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"},{"saturation":-100},{"lightness":60}]}]
+		}
+		var mapCampo = new google.maps.Map(mapCanvasCampo, mapOptionsCampo)
+		var markerCampo = new google.maps.Marker({
+		position: myLatlngCampo,
+		icon: mapIcon,
+		map: mapCampo,
 		title: 'Este es mi campo feliz!'
 		});
 		

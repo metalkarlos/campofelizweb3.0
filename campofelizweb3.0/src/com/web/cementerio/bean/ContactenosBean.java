@@ -6,6 +6,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.mail.internet.AddressException;
 
+import org.primefaces.context.RequestContext;
+
 import com.web.cementerio.bo.CotoficinaBO;
 import com.web.cementerio.global.Parametro;
 import com.web.cementerio.pojo.annotations.Cotempresa;
@@ -62,8 +64,8 @@ public class ContactenosBean implements Serializable {
 		
 	}
 	
-	public String enviar(){
-		String url = null;
+	public void enviar(){
+		RequestContext context = RequestContext.getCurrentInstance();
 		
 		try{
 			MailUtil mailUtil = new MailUtil();
@@ -81,20 +83,19 @@ public class ContactenosBean implements Serializable {
 			mailUtil.enviarMail(null, "Información - Campo Feliz", contenido);
 			
 			aviso = "<div class=\"success\"><div class=\"alert alert-success\" role=\"alert\">Hola "+nombres+", Gracias por comunicarte con nosotros! En breve te estaremos respondiendo!</div></div><br>";
-			//mostrarPaginaMensaje("Gracias por comunicarte con nosotros! En breve te estaremos respondiendo!");
 		}catch(AddressException e) {
 			e.printStackTrace();
-			//new MessageUtil().showErrorMessage("Ingrese una cuenta de correo válida e intente nuevamente.","");
-			aviso = "<div class=\"error\"><p>Ingrese una cuenta de correo válida e intente nuevamente.</p></div><br>";
+			aviso = "<div class=\"warning\"><div class=\"alert alert-warning\" role=\"alert\"><p>Ingrese una cuenta de correo válida e intente nuevamente.</p></div></div><br>";
 		}catch(Exception e){
 			e.printStackTrace();
-			//new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
-			aviso = "<div class=\"error\"><p>Ha ocurrido un error inesperado. Comunicar al Webmaster!.</p></div><br>";
+			aviso = "<div class=\"danger\"><div class=\"alert alert-danger\" role=\"alert\"><p>Ha ocurrido un error inesperado. Comunicar al Webmaster!</p></div></div><br>";
 		}
 		
-		return url;
+		//animar el aviso
+		context.execute("$(\"#contact_form #contact_results\").hide().slideDown();");
 	}
 	
+	@SuppressWarnings("unused")
 	private void mostrarPaginaMensaje(String mensaje) throws Exception {
 		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 		usuarioBean.setMensaje(mensaje);

@@ -168,10 +168,10 @@
 				  <div class="row">
 				   <div class="col-lg-6 col-md-6 col-sm-12 res-margin">
 					  <h3>Misión</h3>
-					  <p style="text-align: justify;" ><h:outputText value="#{quienesSomosBean.petinformacion.mision}" escape="false"/></p>
+					  <p><h:outputText value="#{quienesSomosBean.petinformacion.mision}" escape="false"/></p>
 					  <br />
 					  <h3>Visión</h3>
-					  <p style="text-align: justify;" ><h:outputText value="#{quienesSomosBean.petinformacion.vision}" escape="false" /></p>
+					  <p><h:outputText value="#{quienesSomosBean.petinformacion.vision}" escape="false" /></p>
 				   </div>
 				   <div class="col-lg-6 col-md-6 col-sm-12">
 				   	<!-- Responsive video -->
@@ -598,7 +598,7 @@
 							    <!-- Answer -->
 									<div id="collapse#{enunciado.idpadre}" class="panel-collapse collapse #{enunciado.orden == 2 ? 'in' : ''}" >
 									<div class="panel-body">
-									   <p style="text-align: justify;"><h:outputText value="#{enunciado.descripcion}" escape="false"/></p>
+									   <p><h:outputText value="#{enunciado.descripcion}" escape="false"/></p>
 									</div>
 									</div>
 									<!-- End Answer -->
@@ -651,7 +651,7 @@
 							   <img src="#{request.contextPath}#{parametro.servletImagenes}#{homenaje.rutafoto}?w=600&amp;h=600" class="img-responsive" alt="" />
 							</div>
 							<h3 class="text-center">#{homenaje.nombre}</h3>
-							<p style="text-align: justify;">#{homenaje.dedicatoria}</p>
+							<p>#{homenaje.dedicatoria}</p>
 							<div class="page-scroll text-center">
 							   <a href="#contact" class="cd-close btn btn-default">Contáctanos</a>  <a class="cd-close btn btn-danger m-left"><i class="fa fa-times"></i>Cerrar</a>
 							</div>
@@ -666,48 +666,8 @@
 	 </section>
 	<!-- Section ends -->
 	
-    <!-- Section Brands -->
-	<section id="brands" class="home-section">
-	   <div class="col-lg-8 col-lg-offset-2">
-	   <!-- Section heading -->
-		  <div class="section-heading">
-			 <h2>Nuestros Colaboradores</h2>
-			 <div class="hr"></div>
-		  </div>
-	   </div>
-	   <div class="container text-center">
-	   	<div class="row">
-		 <!-- Brand 1 -->
-		 <div class="col-sm-6 col-md-3 res-margin">
-			<div class="well well-sm wow fadeInLeft">
-			   <a href="#"><img src="#{request.contextPath}/resources/img/client1.png" alt="client" class="col-centered img-responsive"/></a>
-			</div>
-		 </div>
-		 <!-- Brand 2 -->
-		 <div class="col-sm-6 col-md-3 res-margin">
-			<div class="well well-sm wow fadeInLeft">
-			   <a href="#"><img src="#{request.contextPath}/resources/img/client2.png" alt="client" class="col-centered img-responsive"/></a>
-			</div>
-		 </div>
-		 <!-- Brand 3 -->
-		 <div class="col-sm-6 col-md-3 res-margin">
-			<div class="well well-sm wow fadeInRight">
-			   <a href="#"><img src="#{request.contextPath}/resources/img/client3.png" alt="client" class="col-centered img-responsive"/></a>
-			</div>
-		 </div>
-		 <!-- Brand 4 -->
-		 <div class="col-sm-6 col-md-3">
-			<div class="well well-sm wow fadeInRight">
-			   <a href="#"><img src="#{request.contextPath}/resources/img/client4.png" alt="client" class="col-centered img-responsive"/></a>
-			</div>
-		  </div>
-		</div><!-- /row -->		  
-	   </div><!-- /container -->
-	</section>
-	<!-- Section ends --> 
-     
 	<!-- Section Contact -->
-	<section id="contact" class="home-section">
+	<section id="contact">
 	   <div class="col-lg-8 col-lg-offset-2">
 		  <!-- Section heading -->
 		  <div class="section-heading">
@@ -719,14 +679,17 @@
 	   	<div class="row">
 		  <div class="margin col-md-4 col-sm-6 wow fadeInLeft" data-wow-delay="0.2s">
 			 <!-- Contact info -->
-			 <h4>Información</h4>
-			 <p>Contáctanos a nuestro correo:</p>
-			 <p><i class="fa fa-envelope"></i><a href="mailto:#{contactenosBean.cotoficinaVeterinaria.email}">#{contactenosBean.cotoficinaVeterinaria.email}</a> o llámanos</p>
+			 <h4>Oficina</h4>
+			 <p><i class="fa fa-envelope"></i><a href="mailto:#{contactenosBean.cotoficinaVeterinaria.email}">#{contactenosBean.cotoficinaVeterinaria.email}</a></p>
 			 <p><i class="fa fa-phone"></i><a href="callto:#">#{contactenosBean.cotoficinaVeterinaria.celular}</a></p>
-			 <!-- Adress info -->
-			 <h4>Dirección y Horario</h4>
 			 <p><i class="fa fa-map-marker"></i>#{contactenosBean.cotoficinaVeterinaria.direccion}</p>
 			 <p><i class="fa fa-clock-o"></i>#{contactenosBean.cotoficinaVeterinaria.descripcion}</p>
+			 <!-- Adress info -->
+			 <h4>Campo Santo</h4>
+			 <p><i class="fa fa-envelope"></i><a href="mailto:#{contactenosBean.cotoficina.email}">#{contactenosBean.cotoficina.email}</a></p>
+			 <p><i class="fa fa-phone"></i><a href="callto:#">#{contactenosBean.cotoficina.celular}</a></p>
+			 <p><i class="fa fa-map-marker"></i>#{contactenosBean.cotoficina.direccion}</p>
+			 <p><i class="fa fa-clock-o"></i>#{contactenosBean.cotoficina.descripcion}</p>
 		  </div>
 		  <div class="col-md-7 col-md-offset-1 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-delay="0.2s">
 			 <!-- Contact form -->
@@ -748,7 +711,7 @@
 				   <textarea name="message" id="message" class="textarea-field form-control" rows="4" pa:placeholder="Mensaje" pa:required="true" jsfc="h:inputTextarea" value="#{contactenosBean.mensaje}"></textarea>
 				</div>
 				<div class="form-group">
-				   <p:commandButton id="submit_btn" value="Enviar mensaje" onclick="return validarContacto();" action="#{contactenosBean.enviar()}" update="contact_results"></p:commandButton>
+				   <p:commandButton id="submit_btn" value="Enviar mensaje" onstart="return validarContacto();" action="#{contactenosBean.enviar()}" update="contact_results"></p:commandButton>
 				</div>				
 			 </div><!--/Contact form -->	
 		  </div><!-- /col-md-6 -->
@@ -756,9 +719,31 @@
 	   </div><!-- /container-->	   
 	</section>
 	
-	<!--Map -->
-	<div class="wow fadeInTop" data-wow-delay="0.2s">
-		<div id="map-canvas"></div>
+	<!--Map Oficina-->
+	<div class="mapa-oficina">
+	  <!-- Section heading -->
+	  <div class="section-heading">
+		 <h2>Mapa Oficina</h2>
+		 <div class="hr"></div>
+	  </div>
+  
+		<div class="wow fadeInTop" data-wow-delay="0.2s">
+			<div id="map-canvas"></div>
+		</div>
+	</div>
+	<!-- Section ends -->
+	
+	<!--Map Campo Santo-->
+	<div class="mapa-camposanto">
+	  <!-- Section heading -->
+	  <div class="section-heading">
+		 <h2>Mapa Campo Santo</h2>
+		 <div class="hr"></div>
+	  </div>
+  
+		<div class="wow fadeInTop" data-wow-delay="0.2s">
+			<div id="map-canvas-campo"></div>
+		</div>
 	</div>
 	<!-- Section ends -->
 	
