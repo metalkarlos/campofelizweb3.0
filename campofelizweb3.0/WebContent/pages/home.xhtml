@@ -502,7 +502,7 @@
 					  <div class="gallery-thumb">
 						 <img class="img-responsive" src="#{request.contextPath}#{parametro.servletImagenes}#{instalacion.ruta}?w=800&amp;h=640&amp;m=both" alt="" />
 						 <span class="overlay-mask"></span>
-						 <a href="#{request.contextPath}#{parametro.servletImagenes}#{instalacion.ruta}?w=800" data-gal="prettyPhoto[gallery]" class="link centered" title="You can add caption to pictures.">
+						 <a href="#{request.contextPath}#{parametro.servletImagenes}#{instalacion.ruta}?w=800" data-gal="prettyPhoto[gallery]" class="link centered" title="#{instalacion.descripcion}">
 						 <i class="fa fa-expand"></i></a>
 					  </div>
 				   </div>
@@ -681,13 +681,13 @@
 			 <!-- Contact info -->
 			 <h4>Oficina</h4>
 			 <p><i class="fa fa-envelope"></i><a href="mailto:#{contactenosBean.cotoficinaVeterinaria.email}">#{contactenosBean.cotoficinaVeterinaria.email}</a></p>
-			 <p><i class="fa fa-phone"></i><a href="callto:#">#{contactenosBean.cotoficinaVeterinaria.celular}</a></p>
+			 <p><i class="fa fa-phone"></i><a href="tel:#{contactenosBean.cotoficinaVeterinaria.celular}">#{contactenosBean.cotoficinaVeterinaria.celular}</a></p>
 			 <p><i class="fa fa-map-marker"></i>#{contactenosBean.cotoficinaVeterinaria.direccion}</p>
 			 <p><i class="fa fa-clock-o"></i>#{contactenosBean.cotoficinaVeterinaria.descripcion}</p>
 			 <!-- Adress info -->
 			 <h4>Campo Santo</h4>
 			 <p><i class="fa fa-envelope"></i><a href="mailto:#{contactenosBean.cotoficina.email}">#{contactenosBean.cotoficina.email}</a></p>
-			 <p><i class="fa fa-phone"></i><a href="callto:#">#{contactenosBean.cotoficina.celular}</a></p>
+			 <p><i class="fa fa-phone"></i><a href="tel:#{contactenosBean.cotoficina.celular}">#{contactenosBean.cotoficina.celular}</a></p>
 			 <p><i class="fa fa-map-marker"></i>#{contactenosBean.cotoficina.direccion}</p>
 			 <p><i class="fa fa-clock-o"></i>#{contactenosBean.cotoficina.descripcion}</p>
 		  </div>
