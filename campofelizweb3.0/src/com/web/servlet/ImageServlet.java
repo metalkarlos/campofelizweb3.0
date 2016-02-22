@@ -98,6 +98,7 @@ public class ImageServlet extends HttpServlet implements Serializable{
         // Obtener parametro
  		String paramwidth = request.getParameter("w");
  		String paramheight = request.getParameter("h");
+ 		String paramfit = request.getParameter("m");
  		int width = 0;
  		int height = 0;
  		
@@ -128,27 +129,40 @@ public class ImageServlet extends HttpServlet implements Serializable{
 				BufferedImage scaledImg = null;
 				
 				if(width > 0 && height > 0){
-					Mode translationMode = Mode.AUTOMATIC;
-					
-					if (img.getWidth() <= width && img.getHeight() <= height) {
-						scaledImg = img;
-					} else {
-						if (img.getWidth() < width) {
-							translationMode = Mode.FIT_TO_HEIGHT;
-						} else if (img.getHeight() < height) {
-							translationMode = Mode.FIT_TO_WIDTH;
+					if(paramfit != null && paramfit.compareTo("both")==0){
+						scaledImg = Scalr.resize(img, Method.BALANCED, Mode.FIT_EXACT, width, height);
+					}else{
+						Mode translationMode = Mode.AUTOMATIC;
+						
+						if (img.getWidth() <= width && img.getHeight() <= height) {
+							scaledImg = img;
 						} else {
-							float wRatio = ((float)width / (float)img.getWidth());
-							float hRatio = ((float)height / (float)img.getHeight());
-							translationMode = wRatio < hRatio ? Mode.FIT_TO_WIDTH : Mode.FIT_TO_HEIGHT;
+							if (img.getWidth() < width) {
+								translationMode = Mode.FIT_TO_HEIGHT;
+							} else if (img.getHeight() < height) {
+								translationMode = Mode.FIT_TO_WIDTH;
+							} else {
+								float wRatio = ((float)width / (float)img.getWidth());
+								float hRatio = ((float)height / (float)img.getHeight());
+								translationMode = wRatio < hRatio ? Mode.FIT_TO_WIDTH : Mode.FIT_TO_HEIGHT;
+							}
+							scaledImg = Scalr.resize(img, Method.BALANCED, translationMode, width, height);
 						}
-						scaledImg = Scalr.resize(img, Method.BALANCED, translationMode, width, height);
 					}
 				}else{
 					if(width > 0){
-						scaledImg = Scalr.resize(img, Method.BALANCED, Mode.FIT_TO_WIDTH, width, height);
+						if(paramfit != null && paramfit.compareTo("both")==0){
+							scaledImg = Scalr.resize(img, Method.BALANCED, Mode.FIT_EXACT, width);
+						}else{
+							scaledImg = Scalr.resize(img, Method.BALANCED, Mode.FIT_TO_WIDTH, width);
+						}
+						
 					}else{
-						scaledImg = Scalr.resize(img, Method.BALANCED, Mode.FIT_TO_HEIGHT, width, height);
+						if(paramfit != null && paramfit.compareTo("both")==0){
+							scaledImg = Scalr.resize(img, Method.BALANCED, Mode.FIT_EXACT, height);
+						}else{
+							scaledImg = Scalr.resize(img, Method.BALANCED, Mode.FIT_TO_HEIGHT, height);
+						}
 					}
 				}
 					

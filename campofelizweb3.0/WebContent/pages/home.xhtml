@@ -42,7 +42,7 @@
 		  	<c:forEach items="#{serviciosPrincipalesBean.lisPetservicio}" var="servicio">
 		  		<div class="col-md-4 col-sm-12 wow fadeInLeft" data-wow-delay="0.2s">
 						<div class="img-wrapper">
-						   <img src="#{request.contextPath}#{parametro.servletImagenes}#{servicio.rutafoto}?w=900&amp;h=524" alt="" class="img-responsive" />
+						   <img src="#{request.contextPath}#{parametro.servletImagenes}#{servicio.rutafoto}?w=900&amp;h=524&amp;m=both" alt="" class="img-responsive" />
 						</div>
 						<h4>#{servicio.nombre}</h4>
 						<p class="margin">#{servicio.descripcioncorta} 
@@ -128,7 +128,7 @@
 							<h:outputText value="#{quienesSomosBean.petinformacion.quienessomos}" escape="false" style="text-align: justify;" />
 						 </div>					 
 						 <div class="col-lg-5 col-md-6 col-sm-12 wow fadeInLeft" data-wow-delay="0.2s">
-							<img src="#{request.contextPath}#{parametro.servletImagenes}/mascota/2011/2011-8-1-1-1.jpg?w=700" alt="" class="img-responsive"/>
+							<img src="#{request.contextPath}#{parametro.servletImagenes}/mascota/2011/2011-8-1-1-1.jpg?w=700&amp;h=450&amp;m=both" alt="" class="img-responsive"/>
 						 </div>
 					  </div>
 					  <!-- icons -->
@@ -500,7 +500,7 @@
 				<div class="col-sm-6 col-md-6 col-lg-4 #{instalacion.grupo}">
 				   <div class="portfolio-item">
 					  <div class="gallery-thumb">
-						 <img class="img-responsive" src="#{request.contextPath}#{parametro.servletImagenes}#{instalacion.ruta}?w=800" alt="" />
+						 <img class="img-responsive" src="#{request.contextPath}#{parametro.servletImagenes}#{instalacion.ruta}?w=800&amp;h=640&amp;m=both" alt="" />
 						 <span class="overlay-mask"></span>
 						 <a href="#{request.contextPath}#{parametro.servletImagenes}#{instalacion.ruta}?w=800" data-gal="prettyPhoto[gallery]" class="link centered" title="You can add caption to pictures.">
 						 <i class="fa fa-expand"></i></a>
@@ -533,7 +533,7 @@
 			 		<div>
 				   <div class="col-sm-4 col-md-3 col-sm-offset-1">
 					  <!-- Offer image -->
-					  <img src="#{request.contextPath}#{parametro.servletImagenes}#{noticia.rutafoto}?w=839&amp;h=1024" class="img-responsive" alt="" />
+					  <img src="#{request.contextPath}#{parametro.servletImagenes}#{noticia.rutafoto}?w=839&amp;h=1024&amp;m=both" class="img-responsive" alt="" />
 				   </div>
 				   <!-- Offer description -->
 				   <div class="col-sm-7">
@@ -620,7 +620,7 @@
 						 <div class="col-md-12">
 							<div class="thumbnail text-center">
 							<!-- Image -->
-							   <img src="#{request.contextPath}#{parametro.servletImagenes}#{homenaje.rutafoto}?w=600&amp;h=600" class="img-circle img-responsive" alt="" />
+							   <img src="#{request.contextPath}#{parametro.servletImagenes}#{homenaje.rutafoto}?w=600&amp;m=both" class="img-circle img-responsive" alt="" />
 							   <!-- Name -->
 							   <div class="caption-adoption">
 								  <h6>#{homenaje.nombre}</h6>
@@ -648,10 +648,10 @@
 					  <div class="cd-panel-container">
 						 <div class="cd-panel-content">
 							<div class="col-md-7 col-centered">
-							   <img src="#{request.contextPath}#{parametro.servletImagenes}#{homenaje.rutafoto}?w=600&amp;h=600" class="img-responsive" alt="" />
+							   <img src="#{request.contextPath}#{parametro.servletImagenes}#{homenaje.rutafoto}?w=600&amp;m=both" class="img-responsive" alt="" />
 							</div>
 							<h3 class="text-center">#{homenaje.nombre}</h3>
-							<p>#{homenaje.dedicatoria}</p>
+							<p><h:outputText value="#{homenaje.dedicatoria}" escape="false" /></p>
 							<div class="page-scroll text-center">
 							   <a href="#contact" class="cd-close btn btn-default">Contáctanos</a>  <a class="cd-close btn btn-danger m-left"><i class="fa fa-times"></i>Cerrar</a>
 							</div>
