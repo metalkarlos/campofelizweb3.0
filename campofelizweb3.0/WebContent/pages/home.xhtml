@@ -5,7 +5,8 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
-	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:html="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/template.xhtml">
 
@@ -694,24 +695,29 @@
 		  <div class="col-md-7 col-md-offset-1 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-delay="0.2s">
 			 <!-- Contact form -->
 			 <div class="form-style" id="contact_form">
-				<div id="contact_results" jsfc="h:panelGroup" layout="block"><h:outputText value="#{contactenosBean.aviso}" escape="false" /></div>
+				<div jsf:id="contact_results"><h:outputText value="#{contactenosBean.aviso}" escape="false" /></div>
 				<div class="form-group">
-				   <input pa:type="text" id="name" name="name" class="form-control input-field" pa:placeholder="Nombre" pa:required="true" jsfc="h:inputText" value="#{contactenosBean.nombres}"></input>
+				   <input type="text" jsf:id="name" name="name" class="form-control input-field" placeholder="Nombre" required="true" jsf:value="#{contactenosBean.nombres}"></input>
 				</div>
 				<div class="form-group">
-				   <input pa:type="email" id="email" name="email" class="form-control input-field"  pa:placeholder="E-mail" pa:required="true" jsfc="h:inputText" value="#{contactenosBean.correo}"></input>
+				   <input type="email" jsf:id="email" name="email" class="form-control input-field"  placeholder="E-mail" required="true" jsf:value="#{contactenosBean.correo}"></input>
 				</div>
 				<div class="form-group">
-				   <input pa:type="identity" id="identity" name="identity" class="form-control input-field" pa:placeholder="Cedula" pa:required="true" pattern="^([0-9]{10})?$" title="Numero de cedula, 10 digitos" jsfc="h:inputText" value="#{contactenosBean.cedula}"></input>
+				   <input type="email" id="email2" name="email2" class="form-control input-field"  placeholder="Confirme E-mail" required="true"></input>
 				</div>
 				<div class="form-group">
-				   <input pa:type="phone" id="phone" name="phone" class="form-control input-field" pa:placeholder="Telefono" pa:required="true" pattern="^([0-9][0-9\s]+[0-9])?$" title="Numero de telefono, espacios permitidos" jsfc="h:inputText" value="#{contactenosBean.telefono}"></input>
+				   <input type="identity" jsf:id="identity" name="identity" class="form-control input-field" placeholder="Cedula" required="true" pattern="^([0-9]{10})?$" title="Numero de cedula, 10 digitos" jsf:value="#{contactenosBean.cedula}"></input>
 				</div>
 				<div class="form-group">
-				   <textarea name="message" id="message" class="textarea-field form-control" rows="4" pa:placeholder="Mensaje" pa:required="true" jsfc="h:inputTextarea" value="#{contactenosBean.mensaje}"></textarea>
+				   <input type="phone" jsf:id="phone" name="phone" class="form-control input-field" placeholder="Telefono" required="true" pattern="^([0-9][0-9\s]+[0-9])?$" title="Numero de telefono, espacios permitidos" jsf:value="#{contactenosBean.telefono}"></input>
 				</div>
 				<div class="form-group">
-				   <p:commandButton id="submit_btn" value="Enviar mensaje" onstart="return validarContacto();" action="#{contactenosBean.enviar()}" update="contact_results"></p:commandButton>
+				   <textarea name="message" jsf:id="message" class="textarea-field form-control" rows="4" placeholder="Mensaje" required="true" jsf:value="#{contactenosBean.mensaje}"></textarea>
+				</div>
+				<p:captcha id="idcaptcha" data-size="compact" label="Captcha" theme="white" language="es" required="true" requiredMessage="*Verifique Recaptcha" />
+				<p:message id="msgCaptcha" for="idcaptcha" display="text" />
+				<div class="form-group">
+				   <p:commandButton id="submit_btn" value="Enviar mensaje" onstart="return validarContacto();" action="#{contactenosBean.enviar()}" update="contact_results msgCaptcha"></p:commandButton>
 				</div>				
 			 </div><!--/Contact form -->	
 		  </div><!-- /col-md-6 -->

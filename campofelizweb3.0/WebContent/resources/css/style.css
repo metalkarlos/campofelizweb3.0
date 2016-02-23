@@ -1266,8 +1266,7 @@ ul.slider-pagi {padding-left:0px;}
 #contact .form-control:focus {box-shadow: 0 4px 0px;}
 
 #contact textarea {
-	/*height:150px;*/
-	height:200px;
+	height:150px;
 	resize:none;
 }
 
