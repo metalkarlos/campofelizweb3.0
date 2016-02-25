@@ -67,3 +67,9 @@ ul.social-list li a:hover ,
 
 .nav-pills> li.active:after {border-top-color: #31B767;}
 
+.tooltip-inner {
+  background-color: #31B767;
+}
+.tooltip.top .tooltip-arrow {
+  border-top-color: #31B767;
+}
