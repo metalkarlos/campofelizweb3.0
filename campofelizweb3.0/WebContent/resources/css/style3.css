@@ -42,6 +42,15 @@
 		margin: 0px !important;
 		padding: 0px !important;
 }
+/********precios*********/
+.pricing-table .plan-list .price-value {
+    font-size: 18px;
+    font-weight: 700;
+}
+.pricing-table .plan-list .price-value span {
+    font-size: 12px;
+    font-weight: 300;
+}
 /********jquery********/
 /* .ui-tooltip, .arrow:after {
   background: black;
