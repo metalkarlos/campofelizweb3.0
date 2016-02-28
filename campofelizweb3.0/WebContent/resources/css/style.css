@@ -512,7 +512,7 @@ ul.slider-pagi {padding-left:0px;}
 
 .slide:nth-child(1) .slide__bg {
   left: 0;
-  background-image: url("#{resource['img/slide1.jpg']}");
+  background-image: url("#{resource['img/slider/slide1.jpg']}");
 }
 
 /* slide2 */
@@ -523,7 +523,7 @@ ul.slider-pagi {padding-left:0px;}
 
 .slide:nth-child(2) .slide__bg {
   left: -50%;
-  background-image: url("#{resource['img/slide2.jpg']}");
+  background-image: url("#{resource['img/slider/slide2.jpg']}");
 }
 
 /* slide3 */
@@ -534,7 +534,7 @@ ul.slider-pagi {padding-left:0px;}
 
 .slide:nth-child(3) .slide__bg {
   left: -100%;
-  background-image: url("#{resource['img/slide3.jpg']}");
+  background-image: url("#{resource['img/slider/slide3.jpg']}");
 }
 
 /* slide4 */
@@ -545,7 +545,7 @@ ul.slider-pagi {padding-left:0px;}
 
 .slide:nth-child(4) .slide__bg {
   left: -150%;
-  background-image: url("#{resource['img/slide4.jpg']}");
+  background-image: url("#{resource['img/slider/slide4.jpg']}");
 }
 
 /*===========================

@@ -11,12 +11,6 @@
 	template="/WEB-INF/templates/template.xhtml">
 
 	<ui:define name="head">
-		<title>Campo Feliz - Cementerio de mascotas de Guayaquil</title>
-
-		<style type="text/css">
-
-		</style>
-
 		<script type="text/javascript">
 			function setCorreo() {
 				var correo = $('#form-home\\:txtEmail').val();
@@ -69,27 +63,27 @@
                <div class="text-center wow fadeInUp" data-wow-delay="0.2s">
                   <div class="col-md-3 col-sm-6 res-margin">
                      <!-- Number 1 -->
-                     <div class="numscroller" data-slno='1' data-min='0' data-max='180' data-delay='20' data-increment="19">0</div>
+                     <div class="alinear"><div class="numscroller" data-slno='1' data-min='0' data-max='100' data-delay='20' data-increment="19">0</div><span>%</span></div>
                      <hr />
-					 <h5>Customers</h5>
+					 					<h5>Calidad</h5>
                   </div>
                   <div class="col-md-3 col-sm-6 res-margin">
                      <!-- Number 2 -->
-                     <div class="numscroller" data-slno='1' data-min='0' data-max='16' data-delay='10' data-increment="9">0</div>
+                     <div class="alinear"><div class="numscroller" data-slno='1' data-min='0' data-max='100' data-delay='10' data-increment="9">0</div><span>%</span></div>
                      <hr />
-					 <h5>Professionals</h5>
+					 					<h5>Honestidad</h5>
                   </div>
                   <div class="col-md-3 col-sm-6 res-margin">
                      <!-- Number 3 -->
-                     <div class="numscroller" data-slno='1' data-min='0' data-max='67' data-delay='20' data-increment="19">0</div>
+                     <div class="alinear"><div class="numscroller" data-slno='1' data-min='0' data-max='100' data-delay='20' data-increment="19">0</div><span>%</span></div>
                      <hr />
-                     <h5>Pets Hosted</h5>
+                     <h5>Respeto</h5>
                   </div>
                   <div class="col-md-3 col-sm-6">
                      <!-- Number 4 -->
-                     <div class="numscroller" data-slno='1' data-min='0' data-max='50' data-delay='10' data-increment="9">0</div>
+                     <div class="alinear"><div class="numscroller" data-slno='1' data-min='0' data-max='100' data-delay='10' data-increment="9">0</div><span>%</span></div>
                      <hr />
-					 <h5>Products</h5>
+					 						<h5>Tranquilidad</h5>
                   </div>
                </div>
             </div>
@@ -126,7 +120,7 @@
 					  <div class="col-md-12 col-sm-12">
 						 <div class="col-lg-7 col-md-6 col-sm-12 res-margin wow fadeInRight" data-wow-delay="0.2s">
 							<h3>Cómo nace el Campo Feliz</h3>
-							<h:outputText value="#{quienesSomosBean.petinformacion.quienessomos}" escape="false" style="text-align: justify;" />
+							<p><h:outputText value="#{quienesSomosBean.petinformacion.quienessomos}" escape="false" style="text-align: justify;" /></p>
 						 </div>					 
 						 <div class="col-lg-5 col-md-6 col-sm-12 wow fadeInLeft" data-wow-delay="0.2s">
 							<img src="#{request.contextPath}#{parametro.servletImagenes}/mascota/2011/2011-8-1-1-1.jpg?w=700&amp;h=450&amp;m=both" alt="" class="img-responsive"/>
@@ -137,8 +131,8 @@
 						 <div class="box">
 							<div class="icon">
 							   <div class="image"><span class="flaticon-pet22"></span></div>
-							   <h5>Seriedad</h5>
-							   <p>Suspendisse blandit quam elit, eu imperdiet neque semper lorem ipsum dolores.</p>
+							   <h5>Calidad</h5>
+							   <p>Contamos con la infraestructura necesaria para ofrecer un servicio de calidad.</p>
 							</div>
 						 </div>
 					  </div>
@@ -146,8 +140,8 @@
 						 <div class="box">
 							<div class="icon">
 							   <div class="image"><span class="flaticon-dog65"></span></div>
-							   <h5>Responsabilidad</h5>
-							   <p>Suspendisse blandit quam elit, eu imperdiet neque semper lorem ipsum dolores.</p>
+							   <h5>Confianza</h5>
+							   <p>Nuestro compromiso es brindar un servicio más humano.</p>
 							</div>
 						 </div>
 					  </div>
@@ -156,7 +150,7 @@
 							<div class="icon">
 							   <div class="image"><span class="flaticon-pets19"></span></div>
 							   <h5>Aval</h5>
-							   <p>Suspendisse blandit quam elit, eu imperdiet neque semper lorem ipsum dolores.</p>
+							   <p>Avalado por el Ministerio del Ambiente.</p>
 							</div>
 						 </div>
 					  </div>
@@ -422,16 +416,12 @@
 		  
 		  </div> <!-- /Pricing table ends -->
 	   </div> <!--/container -->
+	   
 	   <!--credit card-->
-	   <table style="width: 100%">
-	   <tr>
-	   <td style="text-align: center;">
-	   <div class="wow fadeInLeft">
-	   <img style="padding: 60px 0px 0px;" src="#{request.contextPath}/resources/img/tarjetas/cards.png"/>
-	   </div>
-	   </td>
-	   </tr>
-	   </table><!--/credit card-->
+			<div class="wow fadeInLeft">
+				<img class="img-responsive" style="padding: 60px 0px 0px;margin-left: auto;margin-right: auto;" src="#{request.contextPath}/resources/img/tarjetas/cards.png"/>
+			</div>
+	   <!--/credit card-->
 	</section>
 	<!-- Section ends --> 
 		
