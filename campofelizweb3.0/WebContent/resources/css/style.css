@@ -856,7 +856,8 @@ ul.slider-pagi {padding-left:0px;}
 #call-to-action .light-btn {margin-top:12px;}
 	
 #call-to-action .container{
-  background: url("#{resource['img/png_bg/bones.png']}"),url("#{resource['img/calltoaction.png']}"),url("#{resource['img/png_bg/bones1.png']}");
+  /*background: url("#{resource['img/png_bg/bones.png']}"),url("#{resource['img/calltoaction.png']}"),url("#{resource['img/png_bg/bones1.png']}");*/
+  background: url("http://www.ingridkuhn.com/themes/happypaws/img/png_bg/bones.png"),url("http://www.ingridkuhn.com/themes/happypaws/img/calltoaction.png"),url("http://www.ingridkuhn.com/themes/happypaws/img/png_bg/bones1.png");
   animation: dog-bones-falling 6s linear infinite;
   animation-direction: normal;  
   background-repeat:no-repeat;
@@ -1810,4 +1811,8 @@ ul {font-size: 16px;}
 		border:0px}	
 			
 	.panel-title {font-size: 20px;}
+}
+/* max width 365px */
+@media (max-width: 365px) {
+	.navbar-brand {max-width: 80%;}
 }
