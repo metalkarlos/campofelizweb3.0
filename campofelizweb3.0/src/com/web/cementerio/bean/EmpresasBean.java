@@ -27,7 +27,7 @@ public class EmpresasBean implements Serializable{
 	
 	
 	public EmpresasBean(){
-		cotoficinaseleccionada = new Cotoficina(0, new Setestado(), new Setusuario(),new Cotempresa(),null,null,null,null,null,null,null,null,null,0);
+		cotoficinaseleccionada = new Cotoficina(0, new Setestado(), new Setusuario(),new Cotempresa(),null,null,null,null,null,null,null,null,null,null,null,0);
 		consultar();
 	}
 	
