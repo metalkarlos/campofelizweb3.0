@@ -115,6 +115,7 @@
 	<ui:debug hotkey="q" rendered="#{facesContext.application.projectStage == 'Development'}" />
 	<!-- Preloader -->
 	<div id="preloader">
+	
 		<div class="spinner">
 			<div class="rect1"></div>
 			<div class="rect2"></div>
@@ -122,10 +123,13 @@
 			<div class="rect4"></div>
 			<div class="rect5"></div>
 		</div>
+		
 	</div>					
 	<!-- Navbar -->	  
       <nav class="navbar navbar-custom navbar-fixed-top">
+	  	
 	  		<!-- Start Top Bar -->
+	  		
 			<div class="top-bar hidden-xs hidden-sm">
 				<div class="container">
 					<div class="row">
@@ -149,10 +153,12 @@
 								<li><a  title="Instagram" href="http://instagram.com/campofeliz" target="_blank"><i class="fa fa-instagram"></i></a></li>								
 							</ul>
 							<!-- End Social Links -->
-						</div>
+					  </div>
 					</div>
 				</div>
 			</div><!-- End Top bar -->
+			
+			
          <div class="container">
          <!-- navbar -->		 
             <div class="navbar-header page-scroll">
@@ -163,7 +169,7 @@
                <div class="page-scroll">
                   <a class="navbar-brand" href="#page-top">
 				  <!--Font Icon logo and text -->
-                     <span class="flaticon-animals-allowed"></span>Campo Feliz
+                    <img src="/resources/img/logo.png" class="img-responsive"/>
                   </a>
                </div>
             </div>
@@ -183,6 +189,8 @@
          </div>
       </nav><!-- Navbar ends -->
 	<!-- Full Page Image Background Slider -->
+	
+	<ui:insert name="content_slider">
 	<div class="slider-container">
 	<!-- Controls -->
 	   <div class="slider-control left inactive"></div>
@@ -200,9 +208,9 @@
 				<div class="slide__text">
 				   <h1 class="slide__text-heading">Bienvenido a Campo Feliz</h1>
 				   <div class="hidden-sm hidden-xs">
-					  <p class="lead">Seguridad, respaldo y tranquilidad...es lo que Campo Feliz te ofrece!</p>
+					  <p class="lead">El primer y único cementerio de mascotas en la ciudad de Guayaquil.</p>
 					  <div class="page-scroll">
-						 <a href="#services" class="btn btn-default">nuestros servicios</a>
+						 <a href="#services" class="btn btn-default">nosotros</a>
 					  </div>
 				   </div>
 				</div>
@@ -216,11 +224,11 @@
 				   <path class="slide__overlay-path" d="M0,0 150,0 500,405 0,405" />
 				</svg>
 				<div class="slide__text">
-				   <h1 class="slide__text-heading">Nuestros eventos</h1>
+				   <h1 class="slide__text-heading">VIVE TRANQUILO</h1>
 				   <div class="hidden-sm hidden-xs">
-					  <p class="lead">Entérate de eventos, notas curiosas, noticias y mucho más!</p>
+					  <p class="lead">Asegura a tu mascota en CAMPO FELIZ</p>
 					  <div class="page-scroll">
-						 <a href="#offers" class="btn btn-default">eventos</a>
+						 <a href="#offers" class="btn btn-default">nuestros planes</a>
 					  </div>
 				   </div>
 				</div>
@@ -234,11 +242,12 @@
 				   <path class="slide__overlay-path" d="M0,0 150,0 500,405 0,405" />
 				</svg>
 				<div class="slide__text">
-				   <h1 class="slide__text-heading">Conoce nuestra historia</h1>
+				   <h1 class="slide__text-heading">PLAN PREVENTIVO EXEQUIAL 2</h1>
 				   <div class="hidden-sm hidden-xs">
-					  <p class="lead">Cómo nace el Campo Feliz...</p>
+					  <p class="lead">Sepultura Individual</p>
+					  <p class="lead">Un lugar especial para tu MASCOHIJO en nuestro Campo Santo.</p>
 					  <div class="page-scroll">
-						 <a href="#about" class="btn btn-default">Nosotros</a>
+						 <a href="#about" class="btn btn-default">nuestros planes</a>
 					  </div>
 				   </div>
 				</div>
@@ -252,11 +261,11 @@
 				   <path class="slide__overlay-path" d="M0,0 150,0 500,405 0,405" />
 				</svg>
 				<div class="slide__text">
-				   <h1 class="slide__text-heading">Nuestro Homenaje Póstumo</h1>
+				   <h1 class="slide__text-heading">HOMENAJE  PÓSTUMO</h1>
 				   <div class="hidden-sm hidden-xs">
 					  <p class="lead">Por esos seres que se vuelven como hijos, que llenan nuestro corazón de amor y nuestra memoria de recuerdos.</p>
 					  <div class="page-scroll">
-						 <a href="#adoption" class="btn btn-default">Homenaje</a>
+						 <a href="#adoption" class="btn btn-default">homenaje</a>
 					  </div>
 				   </div>
 				</div>
@@ -265,6 +274,7 @@
 	   </div>
 	</div>	
 	<!--/ Slider ends -->
+	</ui:insert>
 	
 	<ui:insert name="content_page">
 		
@@ -304,7 +314,7 @@
 	<!-- <h:outputScript library="js" name="jquery.min.js" /> -->
 	<h:outputScript library="js" name="bootstrap.min.js" />
 	<h:outputScript library="js" name="main.js" />
-
+  <h:outputScript library="js" name="mapas.js" />
 	<!-- Counter -->	  
 	<h:outputScript library="js" name="numscroller.js" />
 
@@ -331,6 +341,7 @@
 			<table class="ajax-status" border="0" cellpadding="0" cellspacing="0">
 				<tr>
 				<td>
+				 
 				<div class="spinner">
 					<div class="rect1"></div>
 					<div class="rect2"></div>
@@ -338,6 +349,7 @@
 					<div class="rect4"></div>
 					<div class="rect5"></div>
 				</div>
+				
 				</td>
 				</tr>
 			</table>

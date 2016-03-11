@@ -23,21 +23,25 @@ Author URI: http://themeforest.net/user/ingridk
 		//Slide In Panel
 	
 		//open the lateral panel
+        
 		$('.toggle-btn a').on('click', function (event) {
 		var href = $(this).attr('href');
 		event.preventDefault();
 		$(href).addClass('is-visible');
 		});
+		
 		//close the lateral panel
+        
 		$('.cd-panel').on('click', function (event) {
 		if ($(event.target).is('.cd-panel') || $(event.target).is('.cd-close')) {
 		$('.cd-panel').removeClass('is-visible');
 		event.preventDefault();
 		}
 		});
+		
 
         //Load pretty photo
-
+        
 		$("a[data-gal^='prettyPhoto']").prettyPhoto({hook: 'data-gal'});
 		({
 			animation_speed: 'normal', /* fast/slow/normal */
@@ -47,15 +51,16 @@ Author URI: http://themeforest.net/user/ingridk
 			counter_separator_label: '/', /* The separator for the gallery counter 1 "of" 2 */
 			theme: 'light_square', /* light_rounded / dark_rounded / light_square / dark_square / facebook */
 		});
-	     
+	    
 			
         //Navbar collapse close on click
-
+        
         $('.navbar li').on('click', function() {
             if ($('.navbar-toggle').css('display') != 'none') {
                 $(".navbar-toggle").trigger("click");
             }
         });
+        
 
         //Scrolling feature 
 		
@@ -79,49 +84,8 @@ Author URI: http://themeforest.net/user/ingridk
 			}
 		});
 		
-		//Google Map Oficina
-
-		var mapCanvas = document.getElementById('map-canvas');
-		var myLatlng = new google.maps.LatLng(-2.1431607,-79.9222974);
-		var mapOptions = {
-		zoom: 16,
-		scrollwheel: true,
-		center: myLatlng,
-		mapTypeId: google.maps.MapTypeId.ROADMAP, //SATELLITE,
-		// How you would like to style the map. 
-        styles: [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"},{"saturation":-100},{"lightness":20}]},{"featureType":"road","elementType":"all","stylers":[{"visibility":"on"},{"saturation":-100},{"lightness":40}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"saturation":-10},{"lightness":30}]},{"featureType":"landscape.man_made","elementType":"all","stylers":[{"visibility":"simplified"},{"saturation":-60},{"lightness":10}]},{"featureType":"landscape.natural","elementType":"all","stylers":[{"visibility":"simplified"},{"saturation":-60},{"lightness":60}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"},{"saturation":-100},{"lightness":60}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"},{"saturation":-100},{"lightness":60}]}]
-		}
-		var mapIcon = document.getElementById('mapIcon').value;
-		var map = new google.maps.Map(mapCanvas, mapOptions)
-		var marker = new google.maps.Marker({
-		position: myLatlng,
-		icon: mapIcon,
-		map: map,
-		title: 'Información Aquí!'
-		});
-		
-		//Google Map Campo Santo
-
-		var mapCanvasCampo = document.getElementById('map-canvas-campo');
-		var myLatlngCampo = new google.maps.LatLng(-2.0363956,-79.965286);
-		var mapOptionsCampo = {
-		zoom: 16,
-		scrollwheel: true,
-		center: myLatlngCampo,
-		mapTypeId: google.maps.MapTypeId.ROADMAP, //SATELLITE,
-		// How you would like to style the map. 
-        styles: [{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"},{"saturation":-100},{"lightness":20}]},{"featureType":"road","elementType":"all","stylers":[{"visibility":"on"},{"saturation":-100},{"lightness":40}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"saturation":-10},{"lightness":30}]},{"featureType":"landscape.man_made","elementType":"all","stylers":[{"visibility":"simplified"},{"saturation":-60},{"lightness":10}]},{"featureType":"landscape.natural","elementType":"all","stylers":[{"visibility":"simplified"},{"saturation":-60},{"lightness":60}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"},{"saturation":-100},{"lightness":60}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"},{"saturation":-100},{"lightness":60}]}]
-		}
-		var mapCampo = new google.maps.Map(mapCanvasCampo, mapOptionsCampo)
-		var markerCampo = new google.maps.Marker({
-		position: myLatlngCampo,
-		icon: mapIcon,
-		map: mapCampo,
-		title: 'Este es mi campo feliz!'
-		});
-		
 		//Owl sliders
-
+        
 		$("#owl-testimonials").owlCarousel({   
 			items: 1,
 			dots:true,
@@ -131,6 +95,8 @@ Author URI: http://themeforest.net/user/ingridk
 			autoplay:true,
 		});
 		  
+		  
+        
 		$("#owl-offers").owlCarousel({
 			items: 1,
 			dots:true,
@@ -165,7 +131,7 @@ Author URI: http://themeforest.net/user/ingridk
         });
 		
 		// Parallax Slider
-	
+	    
 		  var $slider = $(".slider"),
 			  $slideBGs = $(".slide__bg"),
 			  diff = 0,
@@ -188,6 +154,7 @@ Author URI: http://themeforest.net/user/ingridk
 		  
 		  createBullets();
 		  
+        
 		  function manageControls() {
 			$(".slider-control").removeClass("inactive");
 			if (!curSlide) $(".slider-control.left").addClass("inactive");
@@ -204,6 +171,7 @@ Author URI: http://themeforest.net/user/ingridk
 		  
 		  autoSlide();
 		  
+           
 		  function changeSlides(instant) {
 			if (!instant) {
 			  animating = true;
@@ -225,8 +193,9 @@ Author URI: http://themeforest.net/user/ingridk
 			diff = 0;
 			autoSlide();
 		  }
-
-		  function navigateLeft() {
+          
+		  
+          function navigateLeft() {
 			if (animating) return;
 			if (curSlide > 0) curSlide--;
 			changeSlides();
@@ -237,7 +206,8 @@ Author URI: http://themeforest.net/user/ingridk
 			if (curSlide < numOfSlides) curSlide++;
 			changeSlides();
 		  }
-
+          
+          
 		  $(document).on("mousedown touchstart", ".slider", function(e) {
 			if (animating) return;
 			window.clearTimeout(autoSlideTimeout);
@@ -254,6 +224,7 @@ Author URI: http://themeforest.net/user/ingridk
 			});
 		  });
 		  
+        
 		  $(document).on("mouseup touchend", function(e) {
 			$(document).off("mousemove touchmove");
 			if (animating) return;
@@ -273,6 +244,7 @@ Author URI: http://themeforest.net/user/ingridk
 			}
 		  });
 		  
+          
 		  $(document).on("click", ".slider-control", function() {
 			if ($(this).hasClass("left")) {
 			  navigateLeft();
@@ -285,7 +257,7 @@ Author URI: http://themeforest.net/user/ingridk
 			curSlide = $(this).data("page");
 			changeSlides();
 		  });
-		
+		  
 		//Plugins
 		
 		/**
@@ -323,6 +295,7 @@ Author URI: http://themeforest.net/user/ingridk
 		
 	
     //Window scroll function
+    
     $(window).scroll(function() {
 		
         //Collapse the top bar color on scroll
@@ -335,6 +308,7 @@ Author URI: http://themeforest.net/user/ingridk
 	});
 	
 	//Window load function
+    
     $(window).load(function() {
 
 	//Portfolio Isotope Filter
