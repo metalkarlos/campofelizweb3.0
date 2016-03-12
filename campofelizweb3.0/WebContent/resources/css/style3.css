@@ -1,3 +1,16 @@
+/*******label*******/
+.label {
+	padding: .1em .3em .1em;
+	/*
+	  01/03/2016 /Maricela Cordova
+	  Se agrega estilo a los label segun nuevo diseño.
+	*/
+	font-size: 25px;
+	font-family: 'nunito',sans-serif;
+	font-weight: 400;
+	color:#333
+}
+
 /*******ajaxStatus*******/
 .ajax-status {
 	z-index: 1018;
