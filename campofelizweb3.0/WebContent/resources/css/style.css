@@ -50,7 +50,8 @@ p{
     font-size: 17px;
     line-height: 27px;
     color:#717171;
-	margin: 0;
+		margin: 0;
+		text-align: justify;/*add*/
 }
 
 /* Headings */
@@ -766,7 +767,8 @@ ul.slider-pagi {padding-left:0px;}
 }
 
 .pricing-table .plan-price .price-value {
-	font-size: 42px;
+	/*font-size: 42px;*/
+	font-size: 50px;
 	line-height: 40px;
 	font-weight: 700;
 }
@@ -777,13 +779,14 @@ ul.slider-pagi {padding-left:0px;}
 	line-height: 18px;
 }
 
-.pricing-table .plan-price .interval {line-height: 14px;}
+.pricing-table .plan-price .interval {line-height: 14px;font-size: 16px;}
 
 .pricing-tables .pricing-table.highlight-plan .plan-name h4 {color: #fff;}
 
 .pricing-table .plan-list li {
 	padding: 14px;
-	font-size: 14px;
+	/*font-size: 14px;*/
+	font-size: 16px;
 }
 
 .pricing-table .plan-list li:first-child {padding-top:30px;}
@@ -792,7 +795,10 @@ ul.slider-pagi {padding-left:0px;}
 
 .pricing-table ul {
    list-style:none;
-   padding:0px;
+   /*padding:0px;*/
+   padding: 0px 0px 0px 40px;
+   text-align: left;/*add*/
+   list-style-type: disc;/*add*/
 }
 
 .pricing-table .plan-signup {padding: 10px 0 30px;}
@@ -856,7 +862,8 @@ ul.slider-pagi {padding-left:0px;}
 #call-to-action .light-btn {margin-top:12px;}
 	
 #call-to-action .container{
-  background: url("#{resource['img/png_bg/bones.png']}"),url("#{resource['img/calltoaction.png']}"),url("#{resource['img/png_bg/bones1.png']}");
+  /*background: url("#{resource['img/png_bg/bones.png']}"),url("#{resource['img/calltoaction.png']}"),url("#{resource['img/png_bg/bones1.png']}");*/
+  background: url("http://www.ingridkuhn.com/themes/happypaws/img/png_bg/bones.png"),url("http://www.ingridkuhn.com/themes/happypaws/img/calltoaction.png"),url("http://www.ingridkuhn.com/themes/happypaws/img/png_bg/bones1.png");
   animation: dog-bones-falling 6s linear infinite;
   animation-direction: normal;  
   background-repeat:no-repeat;
@@ -1544,6 +1551,18 @@ ul {font-size: 16px;}
 
 .label {padding: .1em .3em .1em;}
 
+.label {
+	padding: .1em .3em .1em;
+	/*
+	  01/03/2016 /Maricela Cordova
+	  Se agrega estilo a los label segun nuevo diseño.
+	*/
+	font-size: 25px;
+	font-family: 'nunito',sans-serif;
+	font-weight: 400;
+	color:#333
+}
+
 /* Wells */
 
 .well {
@@ -1810,4 +1829,8 @@ ul {font-size: 16px;}
 		border:0px}	
 			
 	.panel-title {font-size: 20px;}
+}
+/* max width 365px */
+@media (max-width: 365px) {
+	.navbar-brand {max-width: 80%;}
 }
