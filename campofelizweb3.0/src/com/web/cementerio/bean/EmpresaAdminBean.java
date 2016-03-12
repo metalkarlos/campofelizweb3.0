@@ -32,8 +32,8 @@ public class EmpresaAdminBean implements Serializable {
 	private int idoficina;
 	
 	public EmpresaAdminBean(){
-		cotoficina = new Cotoficina(0, new Setestado(), new Setusuario(),new Cotempresa(),null,null,null,null,null,null,null,null,null,0);
-		cotoficinaclone = new Cotoficina(0, new Setestado(), new Setusuario(),new Cotempresa(),null,null,null,null,null,null,null,null,null,0);
+		cotoficina = new Cotoficina(0, new Setestado(), new Setusuario(),new Cotempresa(),null,null,null,null,null,null,null,null,null,null,null,0);
+		cotoficinaclone = new Cotoficina(0, new Setestado(), new Setusuario(),new Cotempresa(),null,null,null,null,null,null,null,null,null,null,null,0);
 		lisCotempresa = new ArrayList<Cotempresa>();
 		
 		llenarListaEmpresa();

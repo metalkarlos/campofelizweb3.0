@@ -33,6 +33,8 @@ public class Cotoficina implements java.io.Serializable, Cloneable {
 	private String direccion;
 	private String telefono;
 	private String celular;
+	private String celular2;
+	private String celular3;
 	private String email;
 	private Date fecharegistro;
 	private String iplog;
@@ -58,7 +60,7 @@ public class Cotoficina implements java.io.Serializable, Cloneable {
 	public Cotoficina(int idoficina, Setestado setestado,
 			Setusuario setusuario, Cotempresa cotempresa, String nombre,
 			String descripcion, String direccion, String telefono,
-			String celular, String email, Date fecharegistro, String iplog,
+			String celular, String celular2, String celular3, String email, Date fecharegistro, String iplog,
 			Date fechamodificacion,int tipooficina) {
 		this.idoficina = idoficina;
 		this.setestado = setestado;
@@ -69,6 +71,8 @@ public class Cotoficina implements java.io.Serializable, Cloneable {
 		this.direccion = direccion;
 		this.telefono = telefono;
 		this.celular = celular;
+		this.celular2 = celular2;
+		this.celular3 = celular3;
 		this.email = email;
 		this.fecharegistro = fecharegistro;
 		this.iplog = iplog;
@@ -159,6 +163,24 @@ public class Cotoficina implements java.io.Serializable, Cloneable {
 
 	public void setCelular(String celular) {
 		this.celular = celular;
+	}
+
+	@Column(name = "celular2", length = 45)
+	public String getCelular2() {
+		return celular2;
+	}
+
+	public void setCelular2(String celular2) {
+		this.celular2 = celular2;
+	}
+
+	@Column(name = "celular3", length = 45)
+	public String getCelular3() {
+		return celular3;
+	}
+
+	public void setCelular3(String celular3) {
+		this.celular3 = celular3;
 	}
 
 	@Column(name = "email", length = 100)

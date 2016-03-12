@@ -55,3 +55,9 @@
 .alinear * {
 	display: inline-block;
 }
+/*********ancho planes************/
+@media (min-width: 992px) {
+	.col-md-3-plan {
+    width: 50% !important;
+  }
+}
