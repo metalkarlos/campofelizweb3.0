@@ -61,3 +61,8 @@
     width: 50% !important;
   }
 }
+/*************logo*************/
+/* max width 365px */
+@media (max-width: 365px) {
+	.navbar-brand {max-width: 80%;}
+}
