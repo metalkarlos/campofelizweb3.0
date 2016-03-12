@@ -115,7 +115,6 @@
 	<ui:debug hotkey="q" rendered="#{facesContext.application.projectStage == 'Development'}" />
 	<!-- Preloader -->
 	<div id="preloader">
-	
 		<div class="spinner">
 			<div class="rect1"></div>
 			<div class="rect2"></div>
@@ -123,13 +122,10 @@
 			<div class="rect4"></div>
 			<div class="rect5"></div>
 		</div>
-		
 	</div>					
 	<!-- Navbar -->	  
       <nav class="navbar navbar-custom navbar-fixed-top">
-	  	
 	  		<!-- Start Top Bar -->
-	  		
 			<div class="top-bar hidden-xs hidden-sm">
 				<div class="container">
 					<div class="row">
@@ -138,7 +134,9 @@
 							<ul class="contact-details">
                   <li><i class="fa fa-map-marker"></i><a href="https://goo.gl/maps/a8BevC7CaaL2" title="Visítanos" target="_blank">#{contactenosBean.cotoficinaVeterinaria.direccion}</a></li>
                   <li><i class="fa fa-envelope"></i><a href="mailto:#{contactenosBean.cotoficinaVeterinaria.email}">#{contactenosBean.cotoficinaVeterinaria.email}</a></li>
+                  <li><i class="fa fa-phone"></i><a href="tel:#{contactenosBean.cotoficinaVeterinaria.telefono}">#{contactenosBean.cotoficinaVeterinaria.telefono}</a></li>
                   <li><i class="fa fa-phone"></i><a href="tel:#{contactenosBean.cotoficinaVeterinaria.celular}">#{contactenosBean.cotoficinaVeterinaria.celular}</a></li>
+                  <li><i class="fa fa-phone"></i><a href="tel:#{contactenosBean.cotoficinaVeterinaria.celular2}">#{contactenosBean.cotoficinaVeterinaria.celular2}</a></li>
               </ul><!-- End Contact Info -->
 						</div>
 						<div class="col-md-4">
@@ -147,18 +145,14 @@
 								<li><a title="Facebook" href="https://www.facebook.com/pages/Campo-Feliz-Cementerio-de-Mascotas/257959247667793" target="_blank"><i class="fa fa-facebook"></i></a></li>
 								<li><a title="Twitter" href="https://twitter.com/Campofeliz7" target="_blank"><i class="fa fa-twitter"></i></a></li>
 								<li><a title="Google Plus" href="https://plus.google.com/102025059046399313818/about" target="_blank"><i class="fa fa-google-plus"></i></a></li>
-								<li><a  title="Linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-								<li><a  title="Flickr" href="#"><i class="fa fa-flickr"></i></a></li>
-								<li><a  title="Tumblr" href="#"><i class="fa fa-tumblr"></i></a></li>
+								<li><a  title="Youtube" href="https://www.youtube.com/channel/UCNXzIpZ_gas76ITE4OBMqMg" target="_blank"><i class="fa fa-youtube"></i></a></li>
 								<li><a  title="Instagram" href="http://instagram.com/campofeliz" target="_blank"><i class="fa fa-instagram"></i></a></li>								
 							</ul>
 							<!-- End Social Links -->
-					  </div>
+						</div>
 					</div>
 				</div>
 			</div><!-- End Top bar -->
-			
-			
          <div class="container">
          <!-- navbar -->		 
             <div class="navbar-header page-scroll">
@@ -168,8 +162,8 @@
                <!-- Logo -->
                <div class="page-scroll">
                   <a class="navbar-brand" href="#page-top">
-				  <!--Font Icon logo and text -->
-                    <img src="/resources/img/logo.png" class="img-responsive"/>
+                    <!--Font Icon logo and text -->
+                    <img src="#{request.contextPath}/resources/img/logo.png" alt="" class="img-responsive"/>
                   </a>
                </div>
             </div>
@@ -189,8 +183,6 @@
          </div>
       </nav><!-- Navbar ends -->
 	<!-- Full Page Image Background Slider -->
-	
-	<ui:insert name="content_slider">
 	<div class="slider-container">
 	<!-- Controls -->
 	   <div class="slider-control left inactive"></div>
@@ -208,9 +200,9 @@
 				<div class="slide__text">
 				   <h1 class="slide__text-heading">Bienvenido a Campo Feliz</h1>
 				   <div class="hidden-sm hidden-xs">
-					  <p class="lead">El primer y único cementerio de mascotas en la ciudad de Guayaquil.</p>
+					  <p class="lead">Seguridad, respaldo y tranquilidad...es lo que Campo Feliz te ofrece!</p>
 					  <div class="page-scroll">
-						 <a href="#services" class="btn btn-default">nosotros</a>
+						 <a href="#services" class="btn btn-default">nuestros servicios</a>
 					  </div>
 				   </div>
 				</div>
@@ -224,11 +216,11 @@
 				   <path class="slide__overlay-path" d="M0,0 150,0 500,405 0,405" />
 				</svg>
 				<div class="slide__text">
-				   <h1 class="slide__text-heading">VIVE TRANQUILO</h1>
+				   <h1 class="slide__text-heading">Nuestros eventos</h1>
 				   <div class="hidden-sm hidden-xs">
-					  <p class="lead">Asegura a tu mascota en CAMPO FELIZ</p>
+					  <p class="lead">Entérate de eventos, notas curiosas, noticias y mucho más!</p>
 					  <div class="page-scroll">
-						 <a href="#offers" class="btn btn-default">nuestros planes</a>
+						 <a href="#offers" class="btn btn-default">eventos</a>
 					  </div>
 				   </div>
 				</div>
@@ -242,12 +234,11 @@
 				   <path class="slide__overlay-path" d="M0,0 150,0 500,405 0,405" />
 				</svg>
 				<div class="slide__text">
-				   <h1 class="slide__text-heading">PLAN PREVENTIVO EXEQUIAL 2</h1>
+				   <h1 class="slide__text-heading">Conoce nuestra historia</h1>
 				   <div class="hidden-sm hidden-xs">
-					  <p class="lead">Sepultura Individual</p>
-					  <p class="lead">Un lugar especial para tu MASCOHIJO en nuestro Campo Santo.</p>
+					  <p class="lead">Cómo nace el Campo Feliz...</p>
 					  <div class="page-scroll">
-						 <a href="#about" class="btn btn-default">nuestros planes</a>
+						 <a href="#about" class="btn btn-default">Nosotros</a>
 					  </div>
 				   </div>
 				</div>
@@ -261,11 +252,11 @@
 				   <path class="slide__overlay-path" d="M0,0 150,0 500,405 0,405" />
 				</svg>
 				<div class="slide__text">
-				   <h1 class="slide__text-heading">HOMENAJE  PÓSTUMO</h1>
+				   <h1 class="slide__text-heading">Nuestro Homenaje Póstumo</h1>
 				   <div class="hidden-sm hidden-xs">
 					  <p class="lead">Por esos seres que se vuelven como hijos, que llenan nuestro corazón de amor y nuestra memoria de recuerdos.</p>
 					  <div class="page-scroll">
-						 <a href="#adoption" class="btn btn-default">homenaje</a>
+						 <a href="#adoption" class="btn btn-default">Homenaje</a>
 					  </div>
 				   </div>
 				</div>
@@ -274,7 +265,6 @@
 	   </div>
 	</div>	
 	<!--/ Slider ends -->
-	</ui:insert>
 	
 	<ui:insert name="content_page">
 		
@@ -290,15 +280,13 @@
 				   <li><a title="Facebook" href="https://www.facebook.com/pages/Campo-Feliz-Cementerio-de-Mascotas/257959247667793" target="_blank"><i class="fa fa-facebook"></i></a></li>
 				   <li><a title="Twitter" href="https://twitter.com/Campofeliz7" target="_blank"><i class="fa fa-twitter"></i></a></li>
 				   <li><a title="Google Plus" href="https://plus.google.com/102025059046399313818/about" target="_blank"><i class="fa fa-google-plus"></i></a></li>
-				   <li><a  title="Linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-				   <li><a  title="Flickr" href="#"><i class="fa fa-flickr"></i></a></li>
-				   <li><a  title="Tumblr" href="#"><i class="fa fa-tumblr"></i></a></li>
+				   <li><a  title="Youtube" href="https://www.youtube.com/channel/UCNXzIpZ_gas76ITE4OBMqMg" target="_blank"><i class="fa fa-youtube"></i></a></li>
 				   <li><a  title="Instagram" href="http://instagram.com/campofeliz" target="_blank"><i class="fa fa-instagram"></i></a></li>
 				</ul>
 			 </div>
 			 <!-- Bottom Credits -->
-			 <div class="col-sm-6 col-md-offset-5 col-md-3 text-center">
-				<p>COPYRIGHT © <h:outputText value="#{usuarioBean.hoy}"><f:convertDateTime pattern="yyyy" type="date" /></h:outputText> <a href="http://www.gruposintra.com/" target="blank">Grupo Sintra</a></p>
+			 <div class="col-sm-6 col-md-offset-5 col-md-3 text-center col-md-offset-5-pie col-md-3-pie">
+				<p>COPYRIGHT © <h:outputText value="#{usuarioBean.hoy}"><f:convertDateTime pattern="yyyy" type="date" /></h:outputText> <a href="http://www.gruposintra.com/" target="blank">Grupo Sintra</a> | Ambar Estudio</p>
 			 </div>			 
 		  </div><!-- /row-->
 	   </div><!-- /container -->
@@ -314,7 +302,7 @@
 	<!-- <h:outputScript library="js" name="jquery.min.js" /> -->
 	<h:outputScript library="js" name="bootstrap.min.js" />
 	<h:outputScript library="js" name="main.js" />
-  <h:outputScript library="js" name="mapas.js" />
+
 	<!-- Counter -->	  
 	<h:outputScript library="js" name="numscroller.js" />
 
@@ -341,7 +329,6 @@
 			<table class="ajax-status" border="0" cellpadding="0" cellspacing="0">
 				<tr>
 				<td>
-				 
 				<div class="spinner">
 					<div class="rect1"></div>
 					<div class="rect2"></div>
@@ -349,7 +336,6 @@
 					<div class="rect4"></div>
 					<div class="rect5"></div>
 				</div>
-				
 				</td>
 				</tr>
 			</table>
