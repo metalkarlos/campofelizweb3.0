@@ -6,14 +6,14 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	template="/WEB-INF/templates/default_admin.xhtml"
+	template="/WEB-INF/templates/template_admin.xhtml"
 	xmlns:my="http://xmlns.jcp.org/jsf/composite/components/buttons">
 
 	<ui:define name="head">
 
 		<meta name="robots" content="noindex" />
 
-		<title>Administración - Quienes Somos</title>
+		<title>Administración - Nosotros</title>
 
 		<style type="text/css">
 			.inner-content {
@@ -30,11 +30,22 @@
 				border: none;
 				padding: 0px;
 			}
-			
-			.area-botones {
+	
+			/*.ui-button, .ui-widget , .ui-state-default , .ui-corner-all , .ui-button-text-only{*/
+			 .ui-button {
 				margin: 0px;
+				background: #31B767;
+				border: 5px solid #FFFFFF;
+				margin-right: .5em;
+				border-radius: 0px;
+				font-family: 'nunito',sans-serif;
+				color: #fff;
 			}
 			
+			.ui-button.ui-state-hover {
+			   background-color: #567E32;
+			 }
+				
 			.panel-previa .ui-panel-content {
 				padding: 0px;
 			}
@@ -44,16 +55,30 @@
 				min-width: 400px;
 				/*margin-top: 10px;*/
 			}
-		</style>
+			.content-page {
+				margin: 150px 10px 0;
+			}
+			.section-heading{
+			  margin-bottom: 70px;
+			}
+			.hr{
+			    margin: 10px auto 20px auto;
+			}
+			
+		</style> 
 	</ui:define>
-
+	<ui:define name="content_slider">
+	
+	</ui:define>
+  
 	<ui:define name="content_page">
 		<div class="content-page">
 			<h:form id="form-contentpage" enctype="multipart/form-data">
 				<!-- <p:growl id="mensajes" showDetail="false" /> -->
 				<p:messages id="mensajes" showDetail="false" autoUpdate="true" />
-				<h1 class="title ui-widget-header">Administración - Quienes
-					Somos</h1>
+				<h2 class="section-heading">Administración - Nosotros</h2>
+					
+			  <div class="hr"></div>		
 
 				<div class="inner-content">
 					<p:panelGrid id="idgridcontenido" columnClasses="col1,col2">
@@ -62,22 +87,24 @@
 							<p:column>
 								<h:panelGroup id="idpanelgaleria">
 									<center>
-										<p:galleria id="idgalleria"
+										<p:galleria id="idgalleria" style="margin-bottom: 70px;"
 											value="#{quienesSomosAdminBean.listpetfotoinformacion}"
 											var="item" panelWidth="500" transitionInterval="0"
-											panelHeight="400"
+											panelHeight="300"
 											styleClass="ui-widget-content ui-corner-all">
 											<p:graphicImage id="idfotos"
-												value="#{parametro.servletImagenes}#{item.ruta}?w=60"
-												style="max-height: 58px;" />
-											<p:galleriaContent>
+												value="#{parametro.servletImagenes}#{item.ruta}?w=458"
+												style="max-height: 258px;" />
+											<!-- 
 												<h:panelGrid cellpadding="0" cellspacing="0" border="0"
 													columns="1"
 													style="background-color: #eaeaea;height: 300px;">
 													<f:facet name="header">
+													 
 														<p:graphicImage styleClass="imagenprincipal" id="idfoto"
 															value="#{parametro.servletImagenes}#{item.ruta}?w=400"
 															style="max-height: 300px;padding-top: 10px" />
+													  
 														<p:commandButton id="idbuttondelete"
 															title="Eliminar foto permanentemente"
 															icon="ui-icon ui-icon-trash"
@@ -89,11 +116,14 @@
 														</p:commandButton>
 													</f:facet>
 												</h:panelGrid>
+												 
+										   -->		
+										   <!-- 
 												<h:outputLabel value="Descripción de la Foto"
 													for="txtObservacionFotoItem" />
 												<p:inputTextarea id="txtObservacionFotoItem"
 													value="#{item.descripcion}" maxlength="500" />
-											</p:galleriaContent>
+											 -->
 										</p:galleria>
 									</center>
 								</h:panelGroup>
@@ -258,7 +288,7 @@
 					</p:panelGrid>
 				</div>
 
-				<div class="area-botones">
+				<div>
 					<my:buttons renderedButtonAceptar="true"
 						labelButtonAceptar="Grabar"
 						onclickButtonAceptar="vardialoggrabar.show()"
@@ -323,4 +353,6 @@
 		</div>
 	</ui:define>
 
+
+   
 </ui:composition>

@@ -6,11 +6,11 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
-	template="/WEB-INF/templates/default_others.xhtml">
+	template="/WEB-INF/templates/template_admin.xhtml">
 	
 	<ui:define name="head">
 	
-		<title>Quiénes Somos - Campo Feliz</title>
+		<title>Nosotros - Campo Feliz</title>
 		
 		<meta name="description" content="#{fn:substring(quienesSomosBean.petinformacion.quienessomosNoTags, 0, 200)}" />
 		<meta name="keywords" content="#{quienesSomosBean.petinformacion.tag}" />
@@ -22,10 +22,23 @@
 		   .ui-widget-content ui-corner-all{
 		     border-color:#BBBBBB;
 		   }
-		   
+		   .content-page {
+				margin: 150px 10px 0;
+			}
+			.section-heading{
+			  margin-bottom: 70px;
+			}
+			.hr{
+			    margin: 10px auto 20px auto;
+			}
 		</style>
 	</ui:define>
 
+	<!-- <ui:define name="content_slider">
+	
+	</ui:define> -->
+
+	
 	<ui:define name="content_page">
 		<h:form id="form-contentpage" enctype="multipart/form-data">
 		   <div class="inner-content">
@@ -37,7 +50,7 @@
 		   
 		     <div class="cuerpo">
 			    <div class="box_title">
-			     <div class="titulo2">
+			     <div class="section-heading">
 					Quienes Somos
 			   	 </div>
 				</div>
@@ -45,11 +58,11 @@
 			   <center>
 		 	   <p:galleria id="idgalleria" value="#{quienesSomosBean.listpetfotoinformacion}" var="item" panelWidth="480" panelHeight="365" >
 			   <p:graphicImage  id="idfotos" value="#{parametro.servletImagenes}#{item.ruta}?w=70" style="max-height: 70px;"/>
-			      <p:galleriaContent>  
+			      <p:galleria>  
 			         <h:outputLink styleClass="grupo1" value="#{request.contextPath}#{parametro.servletImagenes}#{item.ruta}" title="#{item.descripcion}">  
 					       <p:graphicImage styleClass="imagenprincipal" id="idfoto" alt="#{item.descripcion}" title="#{item.descripcion}" value="#{parametro.servletImagenes}#{item.ruta}?w=500" style="max-height: 360px;" />
 					    </h:outputLink>
-				</p:galleriaContent>
+				</p:galleria>
 	   		   </p:galleria>
 			   </center>
 		       <br/>
