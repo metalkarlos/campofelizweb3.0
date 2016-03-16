@@ -16,6 +16,11 @@
 		<meta name="keywords" content="#{quienesSomosBean.petinformacion.tag}" />
 		
 		<style type="text/css">
+		
+		  .inner-content {
+				padding: 60px 0;
+			}
+			
 			.box_title  { 
 				height: 60px;
 			}
@@ -48,14 +53,20 @@
 			   </h:link>
 			 </div>
 		   
+		   <h2 class="section-heading">Nosotros</h2>
+							<div class="hr"></div>
+		     
 		     <div class="cuerpo">
-			    <div class="box_title">
-			     <div class="section-heading">
-					Quienes Somos
+			   <!--  <div class="box_title">
+			     <div class="section-heading">-->
+							<!--Quienes Somos -->
+								<!--
 			   	 </div>
+			   	 
 				</div>
-				
+				 -->
 			   <center>
+			   <!-- 
 		 	   <p:galleria id="idgalleria" value="#{quienesSomosBean.listpetfotoinformacion}" var="item" panelWidth="480" panelHeight="365" >
 			   <p:graphicImage  id="idfotos" value="#{parametro.servletImagenes}#{item.ruta}?w=70" style="max-height: 70px;"/>
 			      <p:galleria>  
@@ -64,6 +75,10 @@
 					    </h:outputLink>
 				</p:galleria>
 	   		   </p:galleria>
+	   		  -->  
+	   			 <p:galleria id="idgalleria" value="#{quienesSomosBean.listpetfotoinformacion}" var="item" panelWidth="480" panelHeight="365" >
+			          <p:graphicImage styleClass="imagenprincipal" id="idfoto" alt="#{item.descripcion}" title="#{item.descripcion}" value="#{parametro.servletImagenes}#{item.ruta}?w=500" style="max-height: 360px;" />
+				  </p:galleria>
 			   </center>
 		       <br/>
 				<div>
