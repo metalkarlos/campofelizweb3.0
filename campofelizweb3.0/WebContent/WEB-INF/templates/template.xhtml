@@ -170,6 +170,7 @@
                </div>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
+            <h:form id="form-menu">
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                <ul class="nav navbar-nav page-scroll">
                   <li class="active"><a href="#page-top">Inicio</a></li>
@@ -181,13 +182,15 @@
 				  				<li><a href="#adoption">Homenaje</a></li>
                   <li><a href="#contact">Contactos</a></li>
                   <c:if test="#{usuarioBean.autenticado}">
-                  <li><h:form><a jsf="h:commandLink" value="Salir" action="#{usuarioBean.logout}" /></h:form></li>
+                  <li><h:commandLink action="#{usuarioBean.logout()}">Salir</h:commandLink></li>
                   </c:if>
                </ul>
             </div>
+            </h:form>
          </div>
       </nav><!-- Navbar ends -->
 	<!-- Full Page Image Background Slider -->
+	<ui:insert name="content_slider">
 	<div class="slider-container">
 	<!-- Controls -->
 	   <div class="slider-control left inactive"></div>
@@ -203,11 +206,11 @@
 				   <path class="slide__overlay-path" d="M0,0 150,0 500,405 0,405" />
 				</svg>
 				<div class="slide__text">
-				   <h1 class="slide__text-heading">Bienvenido a Campo Feliz</h1>
+				   <h1 class="slide__text-heading">BIENVENIDO A CAMPO FELIZ</h1>
 				   <div class="hidden-sm hidden-xs">
-					  <p class="lead">Seguridad, respaldo y tranquilidad...es lo que Campo Feliz te ofrece!</p>
+					  <p class="lead">El primer y único cementerio de mascotas de Guayaquil. Profesionalismo, experiencia y calidad en nuestros servicios.</p>
 					  <div class="page-scroll">
-						 <a href="#services" class="btn btn-default">nuestros servicios</a>
+						 <a href="#services" class="btn btn-default">nosotros</a>
 					  </div>
 				   </div>
 				</div>
@@ -221,11 +224,11 @@
 				   <path class="slide__overlay-path" d="M0,0 150,0 500,405 0,405" />
 				</svg>
 				<div class="slide__text">
-				   <h1 class="slide__text-heading">Nuestros eventos</h1>
+				   <h1 class="slide__text-heading">VIVE TRANQUILO Y CONFIADO</h1>
 				   <div class="hidden-sm hidden-xs">
-					  <p class="lead">Entérate de eventos, notas curiosas, noticias y mucho más!</p>
+					  <p class="lead">Asegura a tu mascota en CAMPO FELIZ, el primer y único cementerio de mascotas de Guayaquil.</p>
 					  <div class="page-scroll">
-						 <a href="#offers" class="btn btn-default">eventos</a>
+						 <a href="#offers" class="btn btn-default">planes</a>
 					  </div>
 				   </div>
 				</div>
@@ -239,11 +242,11 @@
 				   <path class="slide__overlay-path" d="M0,0 150,0 500,405 0,405" />
 				</svg>
 				<div class="slide__text">
-				   <h1 class="slide__text-heading">Conoce nuestra historia</h1>
+				   <h1 class="slide__text-heading">PORQUE SU ULTIMO ADIÓS ES IMPORTANTE</h1>
 				   <div class="hidden-sm hidden-xs">
-					  <p class="lead">Cómo nace el Campo Feliz...</p>
+					  <p class="lead">CAMPO FELIZ lo hace posible con los mejores PLANES PRE-NECESIDAD para tu mascota.</p>
 					  <div class="page-scroll">
-						 <a href="#about" class="btn btn-default">Nosotros</a>
+						 <a href="#about" class="btn btn-default">planes</a>
 					  </div>
 				   </div>
 				</div>
@@ -270,7 +273,7 @@
 	   </div>
 	</div>	
 	<!--/ Slider ends -->
-	
+	</ui:insert>
 	<ui:insert name="content_page">
 		
 	</ui:insert>
@@ -304,9 +307,9 @@
 	  	  	
 	<!-- Core JavaScript Files -->
 	<h:outputScript library="primefaces" name="jquery/jquery.js" />
-	<!-- <h:outputScript library="js" name="jquery.min.js" /> -->
 	<h:outputScript library="js" name="bootstrap.min.js" />
 	<h:outputScript library="js" name="main.js" />
+	<h:outputScript library="js" name="mapas.js" />
 
 	<!-- Counter -->	  
 	<h:outputScript library="js" name="numscroller.js" />
