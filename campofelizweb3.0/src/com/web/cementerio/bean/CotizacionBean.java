@@ -114,7 +114,7 @@ public class CotizacionBean implements Serializable {
 	private String contenido(String titulo, String textoIntroductorio) throws Exception {
 		String contenido = "";
 		FacesUtil facesUtil = new FacesUtil();
-		String logo = facesUtil.getHostDomain() + "/resources/images/logo.jpg";
+		String logo = facesUtil.getHostDomain() + "/resources/img/logo.png";
 		
 		FileUtil fileUtil = new FileUtil();
 		String email = fileUtil.getMailPropertyValue("mail.user");

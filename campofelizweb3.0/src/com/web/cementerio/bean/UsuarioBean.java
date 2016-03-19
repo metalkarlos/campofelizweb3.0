@@ -174,7 +174,7 @@ public class UsuarioBean implements Serializable{
 						
 						//formatear el contenido para el administrador de correo
 						String formulario = facesUtil.getHostDomain() + "/pages/cambiarclave.jsf";
-						String logo = facesUtil.getHostDomain() + "/resources/images/logo.jpg";
+						String logo = facesUtil.getHostDomain() + "/resources/img/logo.png";
 						
 						String contenido = "";
 						contenido += "<html>";
