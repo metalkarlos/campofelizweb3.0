@@ -42,7 +42,7 @@ public class PetservicioDAO {
 		String hql = " from Petservicio ser inner join fetch ser.cotempresa emp ";
 		hql += " where ser.principal = :principal ";
 		hql += " and ser.setestado.idestado = :idestado ";
-		hql += " order by ser.orden desc ";
+		hql += " order by ser.orden asc ";
 		
 		Query query = session.createQuery(hql)
 				.setInteger("idestado", 1)

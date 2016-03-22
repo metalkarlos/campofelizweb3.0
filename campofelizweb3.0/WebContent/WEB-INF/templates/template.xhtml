@@ -6,20 +6,33 @@
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
-  xmlns:c="http://java.sun.com/jsp/jstl/core">
+  xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:og="http://ogp.me/ns#"
+  xmlns:fb="http://www.facebook.com/2008/fbml">
 
 <h:head>
 	<meta charset="utf-8" />
 	<!--[if IE]>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <![endif]-->
+	<title>Campo Feliz - Cementerio de mascotas de Guayaquil</title>
 	<meta name="description" content="BIENVENIDO a Campo Feliz! El primer cementerio de mascotas en la ciudad de Guayaquil. Contamos con los mejores servicios excequiales y la infraestructura necesaria para su mascota." />
 	<meta name="keywords" content="Campo Feliz, Cementerio de Mascotas, Campo Feliz Cementerio de Mascotas, El primer cementerio de mascotas en la ciudad de Guayaquil, Novedades, Misión, Visión, Servicios, Homenaje, Duelo, Galería, Eventos, Noticias, Testimonios, Contáctanos, Contáctenos, Oficina, Campo Santo, Grupo Sintra, gruposintra, desarrollo de sistemas y páginas web" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 	<meta name="author" content="" />
+	<link rel="image_src" href="#{request.contextPath}/resources/img/slider/slide1.jpg" />
+	<link rel="image_src" href="#{request.contextPath}/resources/img/slider/slide2.jpg" />
+	<link rel="image_src" href="#{request.contextPath}/resources/img/slider/slide3.jpg" />
+	<link rel="image_src" href="#{request.contextPath}/resources/img/slider/slide4.jpg" />
 	
-	<!-- Page title -->
-	<title>Campo Feliz - Cementerio de mascotas de Guayaquil</title>
+	<!-- facebook tags -->
+	<meta property="og:title" content="Campo Feliz - Cementerio de mascotas de Guayaquil" />
+	<meta property="og:description" content="BIENVENIDO a Campo Feliz! El primer cementerio de mascotas en la ciudad de Guayaquil. Contamos con los mejores servicios excequiales y la infraestructura necesaria para su mascota." />
+	<meta property="og:image" content="#{request.contextPath}/resources/img/slider/slide1.jpg" />
+	<meta property="og:image" content="#{request.contextPath}/resources/img/slider/slide2.jpg" />
+	<meta property="og:image" content="#{request.contextPath}/resources/img/slider/slide3.jpg" />
+	<meta property="og:image" content="#{request.contextPath}/resources/img/slider/slide4.jpg" />
+	
 	
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -134,7 +147,7 @@
 						<div class="col-md-8">
 							<!-- Start Contact Info -->
 							<ul class="contact-details">
-                  <li><i class="fa fa-map-marker"></i><a href="https://goo.gl/maps/a8BevC7CaaL2" title="Visítanos" target="_blank">#{contactenosBean.cotoficinaVeterinaria.direccion}</a></li>
+                  <li><i class="fa fa-map-marker"></i><a href="https://goo.gl/maps/a8BevC7CaaL2" title="Visítanos" target="_blank">Martha de Roldós</a></li>
                   <li><i class="fa fa-envelope"></i><a href="mailto:#{contactenosBean.cotoficinaVeterinaria.email}">#{contactenosBean.cotoficinaVeterinaria.email}</a></li>
                   <li><i class="fa fa-phone"></i><a href="tel:#{contactenosBean.cotoficinaVeterinaria.telefono}">#{contactenosBean.cotoficinaVeterinaria.telefono}</a></li>
                   <li><i class="fa fa-phone"></i><a href="tel:#{contactenosBean.cotoficinaVeterinaria.celular}">#{contactenosBean.cotoficinaVeterinaria.celular}</a></li>
