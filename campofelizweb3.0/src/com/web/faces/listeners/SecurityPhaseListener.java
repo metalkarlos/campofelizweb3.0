@@ -56,7 +56,7 @@ public class SecurityPhaseListener implements PhaseListener {
 						facesContext.getExternalContext().redirect("home.jsf");
 						return;
 					}catch(Exception e){}
-				}else{
+				}/*else{
 					boolean paginasPermitidas = vista != null && (vista.contains("pages/home.jsf") || vista.contains("pages/adminweb.jsf") || vista.contains("pages/errorcode.jsf")); 
 					if(!paginasPermitidas){
 						try{
@@ -64,7 +64,7 @@ public class SecurityPhaseListener implements PhaseListener {
 							return;
 						}catch(Exception e){}
 					}
-				}
+				}*/
 			}else{
 				try{
 					facesContext.getExternalContext().redirect("home.jsf");

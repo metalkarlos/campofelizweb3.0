@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+  xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:og="http://ogp.me/ns#"
+  xmlns:fb="http://www.facebook.com/2008/fbml">
+
+<h:head>
+	<meta charset="utf-8" />
+	<!--[if IE]>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <![endif]-->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<meta name="author" content="" />
+	
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="#{request.contextPath}/resources/js/html5shiv.min.js"></script>
+  <script src="#{request.contextPath}/resources/js/respond.js"></script>
+  <![endif]-->
+  
+  <!-- Bootstrap Core CSS -->
+	<h:outputStylesheet library="css" name="bootstrap.css" />
+	
+	<!-- Icon fonts -->
+	<h:outputStylesheet library="fonts" name="font-awesome/css/font-awesome.min.css" />
+	<h:outputStylesheet library="fonts" name="flaticons/flaticon.css" />
+	
+	<!-- Google fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Nunito:300,400,700' rel='stylesheet' type='text/css' />
+	<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css' />
+	
+	<!-- Css Animations -->
+  <h:outputStylesheet library="css" name="animate.css" />
+  
+  <!-- Theme CSS -->
+  <h:outputStylesheet library="css" name="style.css" />
+  
+  <!-- Campo Feliz CSS -->
+  <h:outputStylesheet library="css" name="style3.css" />
+  
+  <!-- Color Style CSS -->
+  <h:outputStylesheet library="styles" name="greenfun.css" />
+  
+  <!-- Prefix free CSS -->
+	<h:outputScript library="js" name="prefixfree.js" />
+	
+	<!-- Owl Slider & Prettyphoto -->
+  <h:outputStylesheet library="css" name="owl.carousel.css" />
+  <h:outputStylesheet library="css" name="prettyPhoto.css" />
+  
+  <!-- Favicons-->
+  <link rel="apple-touch-icon" sizes="57x57" href="#{request.contextPath}/resources/img/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="#{request.contextPath}/resources/img/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="#{request.contextPath}/resources/img/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="#{request.contextPath}/resources/img/apple-touch-icon-144x144.png" />
+  <link rel="shortcut icon" href="#{request.contextPath}/resources/img/logo_m.png" type="image/png" />
+  <link rel="icon" href="#{request.contextPath}/resources/img/logo_m.png" type="image/png" />		
+	
+	<!-- Configuración del Calendario de la Agenda -->
+	<script type="text/javascript">
+		PrimeFaces.locales['es'] = {
+		    closeText: 'Cerrar',
+		    prevText: 'Anterior',
+		    nextText: 'Siguiente',
+		    monthNames: ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+		    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+		    dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+		    dayNamesShort: ['Dom','Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+		    dayNamesMin: ['D','L','M','M','J','V','S'],
+		    weekHeader: 'Semana',
+		    firstDay: 1,
+		    isRTL: false,
+		    showMonthAfterYear: false,
+		    yearSuffix: '',
+		    timeOnlyTitle: 'Sólo hora',
+		    timeText: 'Tempo',
+		    hourText: 'Hora',
+		    minuteText: 'Minuto',
+		    secondText: 'Segundo',
+		    currentText: 'Fecha actual',
+		    ampm: false,
+		    month: 'Mes',
+		    week: 'Semana',
+		    day: 'Día',
+		    allDayText : 'Todo el día'
+		};
+	</script>
+	<script>
+	$(document).ready(function(){
+	    $('[data-toggle="tooltip"]').tooltip();
+	});
+	</script>
+	<!-- Google Analytics (unicamente para campofeliz, reemplazalo con tu propio codigo)-->
+	<!-- <script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	
+	  ga('create', 'UA-53471676-1', 'auto');
+	  ga('send', 'pageview');
+	
+	</script> -->
+	<ui:insert name="head" />
+</h:head>
+
+<h:body id="page-top" pa:data-spy="scroll" pa:data-target=".navbar-custom">  
+	<ui:debug hotkey="q" rendered="#{facesContext.application.projectStage == 'Development'}" />
+	<!-- Preloader -->
+	<div id="preloader">
+		<div class="spinner">
+			<div class="rect1"></div>
+			<div class="rect2"></div>
+			<div class="rect3"></div>
+			<div class="rect4"></div>
+			<div class="rect5"></div>
+		</div>
+	</div>					
+	<!-- Navbar -->	  
+      <nav class="navbar navbar-custom navbar-fixed-top">
+	  		<!-- Start Top Bar -->
+			<div class="top-bar hidden-xs hidden-sm">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-8">
+							<!-- Start Contact Info -->
+							<ul class="contact-details">
+                  <li><i class="fa fa-map-marker"></i><a href="https://goo.gl/maps/a8BevC7CaaL2" title="Visítanos" target="_blank">Martha de Roldós</a></li>
+                  <li><i class="fa fa-envelope"></i><a href="mailto:#{contactenosBean.cotoficinaVeterinaria.email}">#{contactenosBean.cotoficinaVeterinaria.email}</a></li>
+                  <li><i class="fa fa-phone"></i><a href="tel:#{contactenosBean.cotoficinaVeterinaria.telefono}">#{contactenosBean.cotoficinaVeterinaria.telefono}</a></li>
+                  <li><i class="fa fa-phone"></i><a href="tel:#{contactenosBean.cotoficinaVeterinaria.celular}">#{contactenosBean.cotoficinaVeterinaria.celular}</a></li>
+                  <li><i class="fa fa-phone"></i><a href="tel:#{contactenosBean.cotoficinaVeterinaria.celular2}">#{contactenosBean.cotoficinaVeterinaria.celular2}</a></li>
+              </ul><!-- End Contact Info -->
+						</div>
+						<div class="col-md-4">
+							<!-- Start Social Links -->
+							<ul class="social-list">
+								<li><a title="Facebook" href="https://www.facebook.com/pages/Campo-Feliz-Cementerio-de-Mascotas/257959247667793" target="_blank"><i class="fa fa-facebook"></i></a></li>
+								<li><a title="Twitter" href="https://twitter.com/Campofeliz7" target="_blank"><i class="fa fa-twitter"></i></a></li>
+								<li><a title="Google Plus" href="https://plus.google.com/102025059046399313818/about" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+								<li><a  title="Youtube" href="https://www.youtube.com/channel/UCNXzIpZ_gas76ITE4OBMqMg" target="_blank"><i class="fa fa-youtube"></i></a></li>
+								<li><a  title="Instagram" href="http://instagram.com/campofeliz" target="_blank"><i class="fa fa-instagram"></i></a></li>								
+							</ul>
+							<!-- End Social Links -->
+						</div>
+					</div>
+				</div>
+			</div><!-- End Top bar -->
+         <div class="container">
+         <!-- navbar -->		 
+            <div class="navbar-header page-scroll">
+               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+               <i class="fa fa-bars"></i>
+               </button>
+               <!-- Logo -->
+               <div class="page-scroll">
+                  <a class="navbar-brand" href="#{request.contextPath}/pages/home.jsf">
+                    <!--Font Icon logo and text -->
+                    <img src="#{request.contextPath}/resources/img/logo.png" alt="" class="img-responsive"/>
+                  </a>
+               </div>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <h:form id="form-menu">
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+               <ul class="nav navbar-nav page-scroll">
+                  <li class="active"><a href="#page-top">Inicio</a></li>
+                  <li><a href="#{request.contextPath}/pages/home.jsf#services">Servicios</a></li>
+                  <li><a href="#{request.contextPath}/pages/home.jsf#about">Nosotros</a></li>
+                  <li><a href="#{request.contextPath}/pages/home.jsf#prices">Planes</a></li>
+                  <li><a href="#{request.contextPath}/pages/home.jsf#gallery">Galería</a></li>
+                  <li><a href="#{request.contextPath}/pages/home.jsf#offers">Eventos</a></li>
+				  				<li><a href="#{request.contextPath}/pages/home.jsf#adoption">Homenaje</a></li>
+                  <li><a href="#{request.contextPath}/pages/home.jsf#contact">Contactos</a></li>
+                  <c:if test="#{usuarioBean.autenticado}">
+                  <li><h:commandLink action="#{usuarioBean.logout()}">Salir</h:commandLink></li>
+                  </c:if>
+               </ul>
+            </div>
+            </h:form>
+         </div>
+      </nav><!-- Navbar ends -->
+	
+	<ui:insert name="content_page">
+		
+	</ui:insert>
+	
+	<!-- Footer -->	
+	<footer>
+	   <div class="container">
+		  <div class="row wow fadeInUp" data-wow-delay="0.2s">
+			 <div class="col-sm-6 col-md-4">
+			 <!-- Social Media icons -->	
+				<ul class="social-media">
+				   <li><a title="Facebook" href="https://www.facebook.com/pages/Campo-Feliz-Cementerio-de-Mascotas/257959247667793" target="_blank"><i class="fa fa-facebook"></i></a></li>
+				   <li><a title="Twitter" href="https://twitter.com/Campofeliz7" target="_blank"><i class="fa fa-twitter"></i></a></li>
+				   <li><a title="Google Plus" href="https://plus.google.com/102025059046399313818/about" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+				   <li><a  title="Youtube" href="https://www.youtube.com/channel/UCNXzIpZ_gas76ITE4OBMqMg" target="_blank"><i class="fa fa-youtube"></i></a></li>
+				   <li><a  title="Instagram" href="http://instagram.com/campofeliz" target="_blank"><i class="fa fa-instagram"></i></a></li>
+				</ul>
+			 </div>
+			 <!-- Bottom Credits -->
+			 <div class="col-sm-6 col-md-offset-5 col-md-3 text-center col-md-offset-5-pie col-md-3-pie">
+				<p>COPYRIGHT © <h:outputText value="#{usuarioBean.hoy}"><f:convertDateTime pattern="yyyy" type="date" /></h:outputText> <a href="http://www.gruposintra.com/" target="blank">Grupo Sintra</a> | Ambar Estudio</p>
+			 </div>			 
+		  </div><!-- /row-->
+	   </div><!-- /container -->
+	   <!-- Go To Top Link -->
+	   <div class="page-scroll hidden-sm hidden-xs">
+		  <a href="#page-top" class="back-to-top"><i class="fa fa-angle-up"></i></a>
+	   </div>
+	</footer>
+	<!-- /footer ends -->
+	  	  	
+	<!-- Core JavaScript Files -->
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+	<h:outputScript library="js" name="bootstrap.min.js" />
+	<h:outputScript library="js" name="main.js" />
+
+	<!-- WOW animations -->
+	<h:outputScript library="js" name="wow.min.js" />
+
+	<!-- Prettyphoto Lightbox -->
+	<h:outputScript library="js" name="jquery.prettyPhoto.js" />
+	
+	<!-- Owl Carousel -->
+	<h:outputScript library="js" name="owl.carousel.min.js" />
+
+	<!-- Isotope -->	  
+	<h:outputScript library="js" name="jquery.isotope.js" />
+
+	<p:ajaxStatus>
+		<f:facet name="start">
+			<table class="ajax-status" border="0" cellpadding="0" cellspacing="0">
+				<tr>
+				<td>
+				<div class="spinner">
+					<div class="rect1"></div>
+					<div class="rect2"></div>
+					<div class="rect3"></div>
+					<div class="rect4"></div>
+					<div class="rect5"></div>
+				</div>
+				</td>
+				</tr>
+			</table>
+		</f:facet>
+		<f:facet name="complete">
+			<h:outputText value="" />
+		</f:facet>
+	</p:ajaxStatus>
+	<p:idleMonitor timeout="#{session.maxInactiveInterval * 1000}" onidle="redirect(window.location);" />
+</h:body>
+</html>

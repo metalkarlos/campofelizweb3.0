@@ -42,6 +42,12 @@
 						<h4>#{servicio.nombre}</h4>
 						<p class="margin">#{servicio.descripcioncorta} 
 						</p>
+						<div class="wow pulse" data-wow-iteration="infinite" data-wow-delay="0.2s">
+							<h:link styleClass="button" outcome="/pages/servicio" value="Leer más" >
+								<f:param name="idservicio" value="#{servicio.idservicio}"></f:param>
+								<f:param name="idempresa" value="#{servicio.cotempresa.idempresa}"></f:param>
+							</h:link>
+						</div>
 					</div><!-- /col-md-4-->
 		  	</c:forEach>
 		  </div>

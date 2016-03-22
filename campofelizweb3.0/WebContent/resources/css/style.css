@@ -195,7 +195,8 @@ a:focus {text-decoration: none;}
 
 .navbar-nav > li > a {
   line-height: 43px;
-  padding: 10px 0px 10px 35px;
+  /*padding: 10px 0px 10px 35px;*/
+  padding: 10px 0px 10px 30px;
 }
 
 .navbar-custom ul.nav li a {
