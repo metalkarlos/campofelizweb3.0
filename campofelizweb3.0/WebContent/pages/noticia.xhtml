@@ -1,13 +1,140 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-			xmlns:f="http://xmlns.jcp.org/jsf/core"
-			xmlns:h="http://xmlns.jcp.org/jsf/html"
-      template="/WEB-INF/templates/template.xhtml"> 
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	template="/WEB-INF/templates/template_others.xhtml">
 
-	<ui:define name="slider">
+	<ui:define name="head">
+		<title>Noticia - #{noticiaBean.petnoticia.titulo}</title>
+		<meta name="description" content="#{fn:substring(noticiaBean.petnoticia.descripcionNoTags, 0, 200)}" />
+		<meta name="keywords" content="#{noticiaBean.petnoticia.tag}" />
+		
+		<!-- Gallery CSS -->
+	  <h:outputStylesheet library="css" name="blueimp-gallery.css" />
+	  <h:outputStylesheet library="css" name="blueimp-gallery-indicator.css" />
+	  <h:outputStylesheet library="css" name="blueimp-gallery-video.css" />
 	</ui:define>
 
 	<ui:define name="content_page">
+		<!--start-content-->
+		<div class="blog">
+			<div class="container">
+				<div class="blog-top">
+					<div class="col-md-9 blog-grid">
+						<div class="section-heading">
+						<h2>#{noticiaBean.petnoticia.titulo}</h2>
+						<div class="hr"></div>
+						</div>
+						<div class="blog-grid3">
+							<div class=" blog-grid2">
+								<!-- Gallery -->
+								<!-- The Gallery as inline carousel, can be positioned anywhere on the page -->
+								<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-carousel blueimp-gallery-display blueimp-gallery-playing blueimp-gallery-controls">
+								    <div class="slides"></div>
+								    <h3 class="title"></h3>
+								    <a class="prev">‹</a>
+								    <a class="next">›</a>
+								    <a class="play-pause"></a>
+								    <ol class="indicator"></ol>
+								</div>
+								<!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+								<div id="blueimp-gallery-lightbox" class="blueimp-gallery blueimp-gallery-init">
+								    <div class="slides"></div>
+								    <h3 class="title"></h3>
+								    <a class="prev">‹</a>
+								    <a class="next">›</a>
+								    <a class="close">×</a>
+								    <a class="play-pause"></a>
+								    <ol class="indicator"></ol>
+								</div>
+								<div id="links" class="links">
+							    <c:forEach items="#{noticiaBean.lisPetfotonoticia}" var="noticia">
+							    	<a href="#{request.contextPath}#{parametro.servletImagenes}#{noticia.ruta}?w=800&amp;h=600&amp;m=both" title="#{noticia.descripcion}" data-gallery=" " >
+							    		<img src="#{request.contextPath}#{parametro.servletImagenes}#{noticia.ruta}?w=70&amp;h=70&amp;m=both" alt="#{noticia.descripcion}" />
+							    	</a>
+							    </c:forEach>
+								</div>
+								<!-- Gallery end -->
+								<br />
+								<div class="blog-text">
+									<p>
+										<h:outputText value="#{noticiaBean.petnoticia.descripcion}" escape="false" />
+									</p>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+
+
+					</div>
+					<div class="col-md-3 categories-grid" style="display: none">
+						<div class="search-in">
+							<h2>Búsqueda</h2>
+							<div class="blog-search">
+								<form>
+									<input type="text"/> <input type="submit" value=" " />
+								</form>
+							</div>
+						</div>
+						<div class="blog-bottom">
+							<h4>Otros Servicios</h4>
+							<div class="product-go">
+								<a href="#" class="fashion"><img 
+									class="img-responsive " src="#{request.contextPath}/resources/images/bi.jpg" alt="" /></a>
+								<div class="grid-product">
+									<a href="single.html" class="elit">Consectetuer adipiscing</a>
+									<p>Lorem ipsum dolor sit amet, consectetuer</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="product-go">
+								<a href="#" class="fashion"><img 
+									class="img-responsive " src="#{request.contextPath}/resources/images/bi1.jpg" alt="" /></a>
+								<div class="grid-product">
+									<a href="#" class="elit">Consectetuer adipiscing</a>
+									<p>Lorem ipsum dolor sit amet, consectetuer</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="product-go">
+								<a href="#" class="fashion"><img 
+									class="img-responsive " src="#{request.contextPath}/resources/images/bi2.jpg" alt="" /></a>
+								<div class="grid-product">
+									<a href="#" class="elit">Consectetuer adipiscing</a>
+									<p>Lorem ipsum dolor sit amet, consectetuer</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+
+					</div>
+					<div class="clearfix"></div>
+				</div>
+
+			</div>
+		</div>
+		<!--end-content-->
+		<!-- Gallery -->	  
+		<h:outputScript library="js" name="blueimp-gallery.min.js" />
+		<h:outputScript library="js" name="blueimp-helper.js" />
+		<h:outputScript library="js" name="blueimp-gallery.js" />
+		<h:outputScript library="js" name="blueimp-gallery-fullscreen.js" />
+		<h:outputScript library="js" name="blueimp-gallery-indicator.js" />
+		<h:outputScript library="js" name="blueimp-gallery-video.js" />
+		<h:outputScript library="js" name="blueimp-gallery-vimeo.js" />
+		<h:outputScript library="js" name="blueimp-gallery-youtube.js" />
+		<h:outputScript library="js" name="jquery.blueimp-gallery.js" /> 
+		<script>
+		blueimp.Gallery(
+		    document.getElementById('links').getElementsByTagName('a'),
+		    {
+		        container: '#blueimp-gallery',
+		        carousel: true
+		    }
+		);
+		</script>
+		<!-- End Gallery -->
 	</ui:define>
 </ui:composition>

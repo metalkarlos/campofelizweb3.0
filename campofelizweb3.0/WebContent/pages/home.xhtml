@@ -42,8 +42,8 @@
 						<h4>#{servicio.nombre}</h4>
 						<p class="margin">#{servicio.descripcioncorta} 
 						</p>
-						<div class="wow pulse" data-wow-iteration="infinite" data-wow-delay="0.2s">
-							<h:link styleClass="button" outcome="/pages/servicio" value="Leer más" >
+						<div class="text-center">
+							<h:link styleClass="btn btn-default" outcome="/pages/servicio" value="Leer más" >
 								<f:param name="idservicio" value="#{servicio.idservicio}"></f:param>
 								<f:param name="idempresa" value="#{servicio.cotempresa.idempresa}"></f:param>
 							</h:link>
@@ -517,6 +517,11 @@
 					  <div class="media-body">
 						 <h4>#{noticia.titulo}</h4>
 						 <p>#{fn:substring(noticia.descripcionNoTags, 0, 220)}...</p>
+							<div class="text-center light-btn">
+								<h:link styleClass="btn btn-default" outcome="/pages/noticia" value="Leer más" >
+									<f:param name="idnoticia" value="#{noticia.idnoticia}"></f:param>
+								</h:link>
+							</div>
 					  </div>
 				   </div>
 					</div>

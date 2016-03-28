@@ -81,5 +81,36 @@
 }
 /************otras paginas*************/
 .blog-top {
-	padding: 150px 0px 120px;
+	padding: 200px 0px 120px;
+}
+.blog-grid3 {
+	padding-bottom: 100px;
+}
+/**************contenedor****************/
+@media (min-width: 1200px) {
+  .container {
+    width: 1190px !important;
+  }
+}
+/**************pie de pagina***************/
+@media (min-width: 992px) {
+	.col-md-3-pie {
+    width: 36% !important;
+  }
+  .col-md-offset-5-pie {
+    margin-left: 30% !important;
+  }
+}
+/**************contactos*****************/
+.form-control {
+  height: 40px !important;
+}
+/***************menu****************/
+.navbar-brand {
+  padding: 4px 4px !important;
+}
+/*************contenedor***************/
+.col-md-9 {
+    margin: auto;
+    float: none;
 }

@@ -1,13 +1,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
 	template="/WEB-INF/templates/template_others.xhtml">
 
 	<ui:define name="head">
+		<title>Servicio - #{servicioBean.petservicio.nombre}</title>
+		<meta name="description" content="#{fn:substring(servicioBean.petservicio.descripcionNoTags, 0, 200)}" />
+		<meta name="keywords" content="#{servicioBean.petservicio.tag}" />
+		
 		<!-- Gallery CSS -->
 	  <h:outputStylesheet library="css" name="blueimp-gallery.css" />
 	  <h:outputStylesheet library="css" name="blueimp-gallery-indicator.css" />
@@ -20,16 +23,13 @@
 			<div class="container">
 				<div class="blog-top">
 					<div class="col-md-9 blog-grid">
-						<h3 class="tittle">#{servicioBean.petservicio.nombre}</h3>
+						<div class="section-heading">
+						<h2>#{servicioBean.petservicio.nombre}</h2>
+						<div class="hr"></div>
+						</div>
 						<div class="blog-grid3">
 							<div class=" blog-grid2">
 								<!-- Gallery -->
-								<div id="links" class="links">
-							    <c:forEach items="#{servicioBean.lisPetfotoservicio}" var="servicio">
-							    	<a href="#{request.contextPath}#{parametro.servletImagenes}#{servicio.ruta}?w=800&amp;h=600&amp;m=both" title="#{servicio.descripcion}" data-gallery=" " >
-							    	</a>
-							    </c:forEach>
-								</div>
 								<!-- The Gallery as inline carousel, can be positioned anywhere on the page -->
 								<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-carousel blueimp-gallery-display blueimp-gallery-playing blueimp-gallery-controls">
 								    <div class="slides"></div>
@@ -37,6 +37,23 @@
 								    <a class="prev">‹</a>
 								    <a class="next">›</a>
 								    <a class="play-pause"></a>
+								</div>
+								<!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+								<div id="blueimp-gallery-lightbox" class="blueimp-gallery blueimp-gallery-init">
+								    <div class="slides"></div>
+								    <h3 class="title"></h3>
+								    <a class="prev">‹</a>
+								    <a class="next">›</a>
+								    <a class="close">×</a>
+								    <a class="play-pause"></a>
+								    <ol class="indicator"></ol>
+								</div>
+								<div id="links" class="links">
+							    <c:forEach items="#{servicioBean.lisPetfotoservicio}" var="servicio">
+							    	<a href="#{request.contextPath}#{parametro.servletImagenes}#{servicio.ruta}?w=800&amp;h=600&amp;m=both" title="#{servicio.descripcion}" data-gallery=" " >
+							    		<img src="#{request.contextPath}#{parametro.servletImagenes}#{servicio.ruta}?w=70&amp;h=70&amp;m=both" alt="#{servicio.descripcion}" />
+							    	</a>
+							    </c:forEach>
 								</div>
 								<!-- Gallery end -->
 								<br />
@@ -51,7 +68,7 @@
 
 
 					</div>
-					<div class="col-md-3 categories-grid">
+					<div class="col-md-3 categories-grid" style="display: none">
 						<div class="search-in">
 							<h2>Búsqueda</h2>
 							<div class="blog-search">

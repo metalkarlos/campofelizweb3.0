@@ -55,7 +55,7 @@
   $.extend(Gallery.prototype, {
     options: {
       // The Id, element or querySelector of the gallery widget:
-      container: '#blueimp-gallery',
+      container: '.blueimp-gallery-init',
       // The tag name, Id, element or querySelector of the slides container:
       slidesContainer: 'div',
       // The tag name, Id, element or querySelector of the title element:
