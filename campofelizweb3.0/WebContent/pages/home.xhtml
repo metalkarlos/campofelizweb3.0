@@ -126,7 +126,10 @@
 					  <div class="col-md-12 col-sm-12">
 						 <div class="col-lg-7 col-md-6 col-sm-12 res-margin wow fadeInRight" data-wow-delay="0.2s">
 							<h3>Cómo nace CAMPO FELIZ</h3>
-							<p><h:outputText value="#{quienesSomosBean.petinformacion.quienessomos}" escape="false" style="text-align: justify;" /></p>
+							<p><h:outputText value="#{fn:substring(quienesSomosBean.petinformacion.quienessomosNoTags, 0, 400)}..." escape="false" /></p>
+							<div class="text-center">
+								<h:link styleClass="btn btn-default" outcome="/pages/historia" value="Leer más" />
+							</div>
 						 </div>					 
 						 <div class="col-lg-5 col-md-6 col-sm-12 wow fadeInLeft" data-wow-delay="0.2s">
 							<img src="#{request.contextPath}#{parametro.servletImagenes}/mascota/2011/2011-8-1-1-1.jpg?w=700&amp;h=450&amp;m=both" alt="" class="img-responsive"/>

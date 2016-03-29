@@ -51,7 +51,7 @@
 								</div>
 								<div id="links" class="links">
 							    <c:forEach items="#{noticiaBean.lisPetfotonoticia}" var="noticia">
-							    	<a href="#{request.contextPath}#{parametro.servletImagenes}#{noticia.ruta}?w=800&amp;h=600&amp;m=both" title="#{noticia.descripcion}" data-gallery=" " >
+							    	<a href="#{request.contextPath}#{parametro.servletImagenes}#{noticia.ruta}?w=800&amp;h=600&amp;" title="#{noticia.descripcion}" data-gallery=" " >
 							    		<img src="#{request.contextPath}#{parametro.servletImagenes}#{noticia.ruta}?w=70&amp;h=70&amp;m=both" alt="#{noticia.descripcion}" />
 							    	</a>
 							    </c:forEach>
