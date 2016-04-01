@@ -6,20 +6,35 @@
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
-  xmlns:c="http://java.sun.com/jsp/jstl/core">
+  xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:og="http://ogp.me/ns#"
+  xmlns:fb="http://www.facebook.com/2008/fbml">
 
 <h:head>
 	<meta charset="utf-8" />
 	<!--[if IE]>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <![endif]-->
+	<title>Campo Feliz - Cementerio de mascotas de Guayaquil</title>
 	<meta name="description" content="BIENVENIDO a Campo Feliz! El primer cementerio de mascotas en la ciudad de Guayaquil. Contamos con los mejores servicios excequiales y la infraestructura necesaria para su mascota." />
 	<meta name="keywords" content="Campo Feliz, Cementerio de Mascotas, Campo Feliz Cementerio de Mascotas, El primer cementerio de mascotas en la ciudad de Guayaquil, Novedades, Misión, Visión, Servicios, Homenaje, Duelo, Galería, Eventos, Noticias, Testimonios, Contáctanos, Contáctenos, Oficina, Campo Santo, Grupo Sintra, gruposintra, desarrollo de sistemas y páginas web" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 	<meta name="author" content="" />
+	<link rel="image_src" href="#{request.contextPath}/resources/img/slider/slide1.jpg" />
+	<link rel="image_src" href="#{request.contextPath}/resources/img/slider/slide2.jpg" />
+	<link rel="image_src" href="#{request.contextPath}/resources/img/slider/slide3.jpg" />
+	<link rel="image_src" href="#{request.contextPath}/resources/img/slider/slide4.jpg" />
 	
-	<!-- Page title -->
-	<title>Campo Feliz - Cementerio de mascotas de Guayaquil</title>
+	<!-- facebook tags -->
+	<meta property="og:title" content="Campo Feliz - Cementerio de mascotas de Guayaquil" />
+	<meta property="og:description" content="BIENVENIDO a Campo Feliz! El primer cementerio de mascotas en la ciudad de Guayaquil. Contamos con los mejores servicios excequiales y la infraestructura necesaria para su mascota." />
+	<meta property="og:image" itemprop="image" content="#{request.contextPath}/resources/img/slider/slide1.jpg" />
+	<meta property="og:image" content="#{request.contextPath}/resources/img/slider/slide2.jpg" />
+	<meta property="og:image" content="#{request.contextPath}/resources/img/slider/slide3.jpg" />
+	<meta property="og:image" content="#{request.contextPath}/resources/img/slider/slide4.jpg" />
+	<meta property="og:type" content="website" />
+	<meta property="og:updated_time" content="1459205759" />
+	
 	
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -62,8 +77,8 @@
   <link rel="apple-touch-icon" sizes="72x72" href="#{request.contextPath}/resources/img/apple-touch-icon-72x72.png" />
   <link rel="apple-touch-icon" sizes="114x114" href="#{request.contextPath}/resources/img/apple-touch-icon-114x114.png" />
   <link rel="apple-touch-icon" sizes="144x144" href="#{request.contextPath}/resources/img/apple-touch-icon-144x144.png" />
-  <link rel="shortcut icon" href="#{request.contextPath}/resources/img/logo_m.ico" type="image/x-icon" />
-  <link rel="icon" href="#{request.contextPath}/resources/img/logo_m.png" type="image/x-icon" />		
+  <link rel="shortcut icon" href="#{request.contextPath}/resources/img/logo_m.png" type="image/png" />
+  <link rel="icon" href="#{request.contextPath}/resources/img/logo_m.png" type="image/png" />		
 	
 	<!-- Configuración del Calendario de la Agenda -->
 	<script type="text/javascript">
@@ -134,7 +149,7 @@
 						<div class="col-md-8">
 							<!-- Start Contact Info -->
 							<ul class="contact-details">
-                  <li><i class="fa fa-map-marker"></i><a href="https://goo.gl/maps/a8BevC7CaaL2" title="Visítanos" target="_blank">#{contactenosBean.cotoficinaVeterinaria.direccion}</a></li>
+                  <li><i class="fa fa-map-marker"></i><a href="https://goo.gl/maps/a8BevC7CaaL2" title="Visítanos" target="_blank">Martha de Roldós</a></li>
                   <li><i class="fa fa-envelope"></i><a href="mailto:#{contactenosBean.cotoficinaVeterinaria.email}">#{contactenosBean.cotoficinaVeterinaria.email}</a></li>
                   <li><i class="fa fa-phone"></i><a href="tel:#{contactenosBean.cotoficinaVeterinaria.telefono}">#{contactenosBean.cotoficinaVeterinaria.telefono}</a></li>
                   <li><i class="fa fa-phone"></i><a href="tel:#{contactenosBean.cotoficinaVeterinaria.celular}">#{contactenosBean.cotoficinaVeterinaria.celular}</a></li>
@@ -224,9 +239,10 @@
 				   <path class="slide__overlay-path" d="M0,0 150,0 500,405 0,405" />
 				</svg>
 				<div class="slide__text">
-				   <h1 class="slide__text-heading">VIVE TRANQUILO Y CONFIADO</h1>
+				   <h1 class="slide__text-heading">PLAN CREMACIÓN INDIVIDUAL</h1>
 				   <div class="hidden-sm hidden-xs">
-					  <p class="lead">Asegura a tu mascota en CAMPO FELIZ, el primer y único cementerio de mascotas de Guayaquil</p>
+					  <p class="lead">Para honrar y preservar por siempre el amor incodicional de tu querida mascota.</p>
+					  <p class="lead">Vive tranquilo y confiado asegurando a tu mascota en CAMPO FELIZ.</p>
 					  <div class="page-scroll">
 						 <a href="#prices" class="btn btn-default">Planes</a>
 					  </div>
@@ -244,7 +260,7 @@
 				<div class="slide__text">
 				   <h1 class="slide__text-heading">PORQUE SU ULTIMO ADIÓS ES IMPORTANTE</h1>
 				   <div class="hidden-sm hidden-xs">
-					  <p class="lead">CAMPO FELIZ lo hace posible con los mejores PLANES PRE-NECESIDAD para tu mascota</p>
+					  <p class="lead">El descanso de tu querida mascota en nuestro camposanto, un lugar de paz y tranquilidad.</p>
 					  <div class="page-scroll">
 						 <a href="#prices" class="btn btn-default">Planes</a>
 					  </div>

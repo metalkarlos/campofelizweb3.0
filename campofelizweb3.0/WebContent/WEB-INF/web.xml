@@ -52,7 +52,7 @@
     <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
     <param-value>true</param-value>
   </context-param>
-  <!-- <context-param>
+  <context-param>
     <description>Clave publica de www.campofeliz.com</description>
     <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
     <param-value>6LfmtPMSAAAAAE___SISFO_uBTM_L3wIrJk1-0og</param-value>
@@ -62,8 +62,7 @@
     <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
     <param-value>6LfmtPMSAAAAAAh-656nLMj3oHSXuNlAq_p0baJ1</param-value>
   </context-param>
-   -->
-  <context-param>
+  <!-- <context-param>
     <description>Clave publica de www.gruposintra.com</description>
     <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
     <param-value>6LebpPUSAAAAAAMMmeQjSsprbxemI4Mja7rbZKUy</param-value>
@@ -72,7 +71,7 @@
     <description>Clave privada de www.gruposintra.com</description>
     <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
     <param-value>6LebpPUSAAAAAJiM7jJuzaR6Ns6br4dABVtVfMyL</param-value>
-  </context-param>
+  </context-param> -->
   <context-param>
     <param-name>primefaces.THEME</param-name>
     <param-value>cupertino</param-value>
