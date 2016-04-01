@@ -39,78 +39,90 @@
 		</style>
 	</ui:define>
 
-	<!-- <ui:define name="content_slider">
+	<ui:define name="content_slider">
 	
-	</ui:define> -->
+	</ui:define>
 
 	
 	<ui:define name="content_page">
 		<h:form id="form-contentpage" enctype="multipart/form-data">
-		   <div class="inner-content">
-		     <div style="text-align: right;">
-			   <h:link value="[Editar]" styleClass="link2" outcome="/admin/quienessomos-admin" rendered="#{usuarioBean.autenticado}" >
-				<f:param name="idinformacion" value="#{quienesSomosBean.petinformacion.idinformacion}"></f:param>
+		   <div>
+		     <div >
+			     <h:link value="[Editar]"  outcome="/admin/quienessomos-admin" rendered="#{usuarioBean.autenticado}" >
+				   <f:param name="idinformacion" value="#{quienesSomosBean.petinformacion.idinformacion}"></f:param>
 			   </h:link>
-			 </div>
+			   </div>
 		   
-		   <h2 class="section-heading">Nosotros</h2>
-							<div class="hr"></div>
-		     
-		     <div class="cuerpo">
-			   <!--  <div class="box_title">
-			     <div class="section-heading">-->
-							<!--Quienes Somos -->
-								<!--
-			   	 </div>
-			   	 
-				</div>
-				 -->
-			   <center>
-			   <!-- 
-		 	   <p:galleria id="idgalleria" value="#{quienesSomosBean.listpetfotoinformacion}" var="item" panelWidth="480" panelHeight="365" >
-			   <p:graphicImage  id="idfotos" value="#{parametro.servletImagenes}#{item.ruta}?w=70" style="max-height: 70px;"/>
-			      <p:galleria>  
-			         <h:outputLink styleClass="grupo1" value="#{request.contextPath}#{parametro.servletImagenes}#{item.ruta}" title="#{item.descripcion}">  
-					       <p:graphicImage styleClass="imagenprincipal" id="idfoto" alt="#{item.descripcion}" title="#{item.descripcion}" value="#{parametro.servletImagenes}#{item.ruta}?w=500" style="max-height: 360px;" />
-					    </h:outputLink>
-				</p:galleria>
-	   		   </p:galleria>
-	   		  -->  
-	   			 <p:galleria id="idgalleria" value="#{quienesSomosBean.listpetfotoinformacion}" var="item" panelWidth="480" panelHeight="365" >
-			          <p:graphicImage styleClass="imagenprincipal" id="idfoto" alt="#{item.descripcion}" title="#{item.descripcion}" value="#{parametro.servletImagenes}#{item.ruta}?w=500" style="max-height: 360px;" />
-				  </p:galleria>
-			   </center>
-		       <br/>
-				<div>
-				  <h:outputText value="#{quienesSomosBean.petinformacion.quienessomos}" escape="false" />
-				</div>
-			</div>
-			
-			<div class="cuerpo">
-			   <div class="box_title">
-			    <div class="titulo2">
-					Misión
-				</div>
-				</div>
-				<div>
-				  <h:outputText value="#{quienesSomosBean.petinformacion.mision}" escape="false" />
-				</div>
-			</div>
-			
-			
-			<div class="cuerpo">
-			    <div class="box_title">
-			     <div class="titulo2">
-					Visión
-			     </div>
-				</div>
-				<div>
-				  <h:outputText value="#{quienesSomosBean.petinformacion.vision}" escape="false" />
-				   <br/>
-				   <br/>		 
-				</div>
-			</div>
-		   </div>
+		   <section id="about" class="home-section">
+	  	   <div class="col-lg-8 col-lg-offset-2">
+			   	<!-- Section Heading -->	
+				  <div class="section-heading">
+					 <h2>Acerca de Nosotros</h2>
+					 <div class="hr"></div>
+				  </div>
+			   </div>
+  		  <div class="col-md-12 col-sm-12 col-centered">
+					 <div class="centered-pills">
+						<!-- Navigation -->
+						<ul class="nav nav-pills">
+						   <li class="active"><a href="#pane1" data-toggle="tab">Historia</a></li>
+						   <li><a href="#pane2" data-toggle="tab">Misión y Visión</a></li>
+						</ul>
+					 </div>
+				  </div>
+
+					<div class="container">
+		  			<!-- Panels start -->	
+					  <div class="tabbable">
+						 <div class="tab-content">
+							<!-- Panel  1 -->
+							<div id="pane1" class="paneltab tab-pane fade active in">
+							   <div class="row">
+								  <div class="col-md-12 col-sm-12">
+									 <div class="col-lg-7 col-md-6 col-sm-12 res-margin wow fadeInRight" data-wow-delay="0.2s">
+										<h3>Cómo nace CAMPO FELIZ</h3>
+										<p><h:outputText value="#{quienesSomosBean.petinformacion.quienessomos}" escape="false" style="text-align: justify;" /></p>
+										<h:link value="[Editar]"  outcome="/admin/quienessomos-admin" rendered="#{usuarioBean.autenticado}" >
+									   <f:param name="idinformacion" value="#{quienesSomosBean.petinformacion.idinformacion}"></f:param>
+								    </h:link>
+									 </div>					 
+									 <div class="col-lg-5 col-md-6 col-sm-12 wow fadeInLeft" data-wow-delay="0.2s">
+										<!-- <img src="#{request.contextPath}#{parametro.servletImagenes}/mascota/2011/2011-8-1-1-1.jpg?w=700&amp;h=450&amp;m=both" alt="" class="img-responsive"/> -->
+											<p:galleria id="idgalleria" value="#{quienesSomosBean.listpetfotoinformacion}" var="item" panelWidth="450" panelHeight="365" >
+						          	<p:graphicImage styleClass="imagenprincipal" id="idfoto" alt="#{item.descripcion}" title="#{item.descripcion}" value="#{parametro.servletImagenes}#{item.ruta}?w=450" style="max-height: 360px;" />
+							  			</p:galleria>
+									 </div>
+								  </div>
+								 </div>
+							 </div> 
+							<!-- Panel 1 ends -->
+							<!-- Panel 2 -->
+							<div id="pane2" class="paneltab tab-pane fade">
+							  <div class="row">
+							   <div class="col-lg-6 col-md-6 col-sm-12 res-margin">
+								  <h3>Misión</h3>
+								  <p><h:outputText value="#{quienesSomosBean.petinformacion.mision}" escape="false"/></p>
+								  <br />
+								  <h3>Visión</h3>
+								  <p><h:outputText value="#{quienesSomosBean.petinformacion.vision}" escape="false" /></p>
+								  <h:link value="[Editar]"  outcome="/admin/quienessomos-admin" rendered="#{usuarioBean.autenticado}" >
+									   <f:param name="idinformacion" value="#{quienesSomosBean.petinformacion.idinformacion}"></f:param>
+								  </h:link>
+							   </div>
+							   <div class="col-lg-6 col-md-6 col-sm-12">
+							   	<!-- Responsive video -->
+								  <div class="embed-responsive embed-responsive-16by9">
+									 <!-- <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/deN3nt3Sdhc"></iframe> -->
+									 <div id="fb-root"></div><script>(function(d, s, id) {  var js, fjs = d.getElementsByTagName(s)[0];  if (d.getElementById(id)) return;  js = d.createElement(s); js.id = id;  js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&amp;version=v2.3";  fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script><div class="fb-video" data-allowfullscreen="1" data-href="/257959247667793/videos/vb.257959247667793/770773943052985/?type=3"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/257959247667793/videos/770773943052985/"><a href="https://www.facebook.com/257959247667793/videos/770773943052985/">Campo Feliz 3 años contigo</a><p>Campo Feliz, el primer cementerio de mascotas de Guayaquil tiene como objetivo ser un lugar digno para el descanso eterno de nuestras mascotas, somos pioneros en nuestros servicios dando siempre lo mejor de nosotros con cada uno de nuestros clientes y amigos. Gracias por la confianza.Campo feliz, más que un servicio, una mano amiga!</p>Posted by <a href="https://www.facebook.com/Campo-Feliz-Cementerio-de-Mascotas-257959247667793/">Campo Feliz Cementerio de Mascotas</a> on Martes, 23 de febrero de 2016</blockquote></div></div>
+								  </div>
+							   </div>
+							  </div>
+							</div><!-- / Panel 2 ends -->
+						</div><!-- /.tab-content -->
+					  </div><!-- /.tabbable -->
+	   			</div><!-- /container-->
+			</section>
+		 </div>
 		</h:form>
 	</ui:define>
 </ui:composition>

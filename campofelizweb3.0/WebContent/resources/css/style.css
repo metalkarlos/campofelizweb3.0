@@ -195,7 +195,8 @@ a:focus {text-decoration: none;}
 
 .navbar-nav > li > a {
   line-height: 43px;
-  padding: 10px 0px 10px 35px;
+  /*padding: 10px 0px 10px 35px;*/
+  padding: 10px 0px 10px 30px;
 }
 
 .navbar-custom ul.nav li a {
@@ -1273,7 +1274,7 @@ ul.slider-pagi {padding-left:0px;}
 #contact .form-control:focus {box-shadow: 0 4px 0px;}
 
 #contact textarea {
-	height:150px;
+	height:150px !important;
 	resize:none;
 }
 

@@ -35,13 +35,19 @@
 		  <div class="row">
 		  	<!-- items -->
 		  	<c:forEach items="#{serviciosPrincipalesBean.lisPetservicio}" var="servicio">
-		  		<div class="col-md-4 col-sm-12 wow fadeInLeft" data-wow-delay="0.2s">
+		  		<div class="col-md-4 col-sm-12 margin wow fadeInLeft" data-wow-delay="0.2s">
 						<div class="img-wrapper">
 						   <img src="#{request.contextPath}#{parametro.servletImagenes}#{servicio.rutafoto}?w=900&amp;h=524&amp;m=both" alt="" class="img-responsive" />
 						</div>
 						<h4>#{servicio.nombre}</h4>
 						<p class="margin">#{servicio.descripcioncorta} 
 						</p>
+						<div class="text-center">
+							<h:link styleClass="btn btn-default" outcome="/pages/servicio" value="Leer más" >
+								<f:param name="idservicio" value="#{servicio.idservicio}"></f:param>
+								<f:param name="idempresa" value="#{servicio.cotempresa.idempresa}"></f:param>
+							</h:link>
+						</div>
 					</div><!-- /col-md-4-->
 		  	</c:forEach>
 		  </div>
@@ -106,7 +112,7 @@
 				<ul class="nav nav-pills">
 				   <li class="active"><a href="#pane1" data-toggle="tab">Historia</a></li>
 				   <li><a href="#pane2" data-toggle="tab">Misión y Visión</a></li>
-				   <li><a href="#pane3" data-toggle="tab">Nuestro Equipo</a></li>
+				   <li style="display: none"><a href="#pane3" data-toggle="tab">Nuestro Equipo</a></li>
 				</ul>
 			 </div>
 		  </div>
@@ -120,7 +126,7 @@
 					  <div class="col-md-12 col-sm-12">
 						 <div class="col-lg-7 col-md-6 col-sm-12 res-margin wow fadeInRight" data-wow-delay="0.2s">
 							<h3>Cómo nace CAMPO FELIZ</h3>
-							<p><h:outputText value="#{quienesSomosBean.petinformacion.quienessomos}" escape="false" style="text-align: justify;" /></p>
+							<p><h:outputText value="#{fn:substring(quienesSomosBean.petinformacion.quienessomosNoTags, 0, 400)}..." escape="false" /><h:link outcome="/pages/historia" value="Leer más" /></p>
 						 </div>					 
 						 <div class="col-lg-5 col-md-6 col-sm-12 wow fadeInLeft" data-wow-delay="0.2s">
 							<img src="#{request.contextPath}#{parametro.servletImagenes}/mascota/2011/2011-8-1-1-1.jpg?w=700&amp;h=450&amp;m=both" alt="" class="img-responsive"/>
@@ -171,15 +177,15 @@
 				   <div class="col-lg-6 col-md-6 col-sm-12">
 				   	<!-- Responsive video -->
 					  <div class="embed-responsive embed-responsive-16by9">
-						 <!-- <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/deN3nt3Sdhc"></iframe> -->
-						 <div id="fb-root"></div><script>(function(d, s, id) {  var js, fjs = d.getElementsByTagName(s)[0];  if (d.getElementById(id)) return;  js = d.createElement(s); js.id = id;  js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&amp;version=v2.3";  fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script><div class="fb-video" data-allowfullscreen="1" data-href="/257959247667793/videos/vb.257959247667793/770773943052985/?type=3"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/257959247667793/videos/770773943052985/"><a href="https://www.facebook.com/257959247667793/videos/770773943052985/">Campo Feliz 3 años contigo</a><p>Campo Feliz, el primer cementerio de mascotas de Guayaquil tiene como objetivo ser un lugar digno para el descanso eterno de nuestras mascotas, somos pioneros en nuestros servicios dando siempre lo mejor de nosotros con cada uno de nuestros clientes y amigos. Gracias por la confianza.Campo feliz, más que un servicio, una mano amiga!</p>Posted by <a href="https://www.facebook.com/Campo-Feliz-Cementerio-de-Mascotas-257959247667793/">Campo Feliz Cementerio de Mascotas</a> on Martes, 23 de febrero de 2016</blockquote></div></div>
+						 <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/ELKKPJNOt8c"></iframe>
+						 <!-- <div id="fb-root"></div><script>(function(d, s, id) {  var js, fjs = d.getElementsByTagName(s)[0];  if (d.getElementById(id)) return;  js = d.createElement(s); js.id = id;  js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&amp;version=v2.3";  fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script><div class="fb-video" data-allowfullscreen="1" data-href="/257959247667793/videos/vb.257959247667793/770773943052985/?type=3"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/257959247667793/videos/770773943052985/"><a href="https://www.facebook.com/257959247667793/videos/770773943052985/">Campo Feliz 3 años contigo</a><p>Campo Feliz, el primer cementerio de mascotas de Guayaquil tiene como objetivo ser un lugar digno para el descanso eterno de nuestras mascotas, somos pioneros en nuestros servicios dando siempre lo mejor de nosotros con cada uno de nuestros clientes y amigos. Gracias por la confianza.Campo feliz, más que un servicio, una mano amiga!</p>Posted by <a href="https://www.facebook.com/Campo-Feliz-Cementerio-de-Mascotas-257959247667793/">Campo Feliz Cementerio de Mascotas</a> on Martes, 23 de febrero de 2016</blockquote></div></div> -->
 					  </div>
 				   </div>
 				  </div>
 				</div><!-- / Panel 2 ends -->
 				
 				<!-- Panel  3 -->
-				<div id="pane3" class="paneltab tab-pane fade text-center">
+				<div id="pane3" class="paneltab tab-pane fade text-center" style="display: none">
 				 <div class="row">
 				   <h3>Nuestro Equipo</h3>
 				   <!-- Item 1 -->
@@ -419,8 +425,8 @@
 	   
 	   <!--credit card-->
 			<div class="wow fadeInLeft">
-				<div style="padding: 60px 5px 0px;text-align: center;">Puede cancelar en efectivo, transferencia bancaria, cheque o diferirlo a 6 meses sin intereses.</div>
-				<img class="img-responsive" style="padding: 10px 5px 0px;margin-left: auto;margin-right: auto;" src="#{request.contextPath}/resources/img/tarjetas/cards.png"/>
+				<img class="img-responsive" style="padding: 60px 5px 0px;margin-left: auto;margin-right: auto;" src="#{request.contextPath}/resources/img/tarjetas/cards.png"/>
+				<div style="padding: 10px 5px 0px;text-align: center;font-size: 0.89em">Puede cancelar en efectivo, transferencia bancaria, cheque o diferirlo a 6 meses sin intereses.</div>
 			</div>
 	   <!--/credit card-->
 	</section>
@@ -511,6 +517,11 @@
 					  <div class="media-body">
 						 <h4>#{noticia.titulo}</h4>
 						 <p>#{fn:substring(noticia.descripcionNoTags, 0, 220)}...</p>
+							<div class="text-center light-btn">
+								<h:link styleClass="btn btn-default" outcome="/pages/noticia" value="Leer más" >
+									<f:param name="idnoticia" value="#{noticia.idnoticia}"></f:param>
+								</h:link>
+							</div>
 					  </div>
 				   </div>
 					</div>

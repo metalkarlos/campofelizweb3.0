@@ -18,7 +18,10 @@ a ,
 .light-btn .btn:hover,
 .light-btn .btn:focus,
 .team span ,
-#offers span{color:#567E32;}
+#offers span{ 
+	/*color:#567E32;*/
+	color:#71BF44;
+}
 
 
 
@@ -33,7 +36,10 @@ a ,
 footer ,
 .btn:before ,
 .social-media a:hover ,
-.pricing-tables .pricing-table.highlight-plan .plan-name {background-color: #567E32;}
+.pricing-tables .pricing-table.highlight-plan .plan-name {
+	/*background-color: #567E32;*/
+	background-color: #71BF44;
+}
 
 
 /* Ligt Green */
@@ -46,7 +52,10 @@ hr ,
 .navbar-custom .nav li a:focus,
 .slider-pagi__elem ,
 .box > .icon > .image,
-#gallery .nav > li > a:focus {color: #31B767;}
+#gallery .nav > li > a:focus {
+	/*color: #31B767;*/
+	color: #67B03D;
+}
 
 
 .hr:before ,
@@ -61,15 +70,26 @@ ul.social-list li a:hover ,
 .box > .icon:hover > .image,
 .gallery-thumb .overlay-mask,
 .owl-prev:hover, .owl-next:hover ,
-.back-to-top i:hover {background-color:#31B767;}
+.back-to-top i:hover {
+	/*background-color: #31B767;*/
+	background-color: #67B03D;
+}
 
-#contact .form-control:focus {box-shadow:0 4px 0px #31B767;}
+#contact .form-control:focus {
+	/*box-shadow:0 4px 0px #31B767;*/
+	box-shadow:0 4px 0px #67B03D;
+}
 
-.nav-pills> li.active:after {border-top-color: #31B767;}
+.nav-pills> li.active:after {
+	/*border-top-color: #31B767;*/
+	border-top-color: #67B03D;
+}
 
 .tooltip-inner {
-  background-color: #31B767;
+  /*background-color: #31B767;*/
+  background-color: #67B03D;
 }
 .tooltip.top .tooltip-arrow {
-  border-top-color: #31B767;
+  /*border-top-color: #31B767;*/
+  border-top-color: #67B03D;
 }

@@ -7,9 +7,9 @@
 	template="/WEB-INF/templates/template_others.xhtml">
 
 	<ui:define name="head">
-		<title>Servicio - #{servicioBean.petservicio.nombre}</title>
-		<meta name="description" content="#{fn:substring(servicioBean.petservicio.descripcionNoTags, 0, 200)}" />
-		<meta name="keywords" content="#{servicioBean.petservicio.tag}" />
+		<title>Historia - Cómo nace Campo Feliz</title>
+		<meta name="description" content="#{fn:substring(quienesSomosBean.petinformacion.quienessomosNoTags, 0, 200)}" />
+		<meta name="keywords" content="#{quienesSomosBean.petinformacion.tag}" />
 		
 		<!-- Gallery CSS -->
 	  <h:outputStylesheet library="css" name="blueimp-gallery.css" />
@@ -24,7 +24,7 @@
 				<div class="blog-top">
 					<div class="col-md-9 blog-grid">
 						<div class="section-heading">
-						<h2>#{servicioBean.petservicio.nombre}</h2>
+						<h2>Cómo nace CAMPO FELIZ</h2>
 						<div class="hr"></div>
 						</div>
 						<div class="blog-grid3">
@@ -49,9 +49,9 @@
 								    <ol class="indicator"></ol>
 								</div>
 								<div id="links" class="links">
-							    <c:forEach items="#{servicioBean.lisPetfotoservicio}" var="servicio">
-							    	<a href="#{request.contextPath}#{parametro.servletImagenes}#{servicio.ruta}?w=800&amp;h=600&amp;" title="#{servicio.descripcion}" data-gallery=" " >
-							    		<img src="#{request.contextPath}#{parametro.servletImagenes}#{servicio.ruta}?w=70&amp;h=70&amp;m=both" alt="#{servicio.descripcion}" />
+							    <c:forEach items="#{quienesSomosBean.listpetfotoinformacion}" var="fotoinfo">
+							    	<a href="#{request.contextPath}#{parametro.servletImagenes}#{fotoinfo.ruta}?w=800&amp;h=600&amp;" title="#{fotoinfo.descripcion}" data-gallery=" " >
+							    		<img src="#{request.contextPath}#{parametro.servletImagenes}#{fotoinfo.ruta}?w=70&amp;h=70&amp;m=both" alt="#{fotoinfo.descripcion}" />
 							    	</a>
 							    </c:forEach>
 								</div>
@@ -59,7 +59,7 @@
 								<br />
 								<div class="blog-text">
 									<p>
-										<h:outputText value="#{servicioBean.petservicio.descripcion}" escape="false" />
+										<h:outputText value="#{quienesSomosBean.petinformacion.quienessomos}" escape="false" />
 									</p>
 								</div>
 							</div>
