@@ -55,7 +55,7 @@
 		margin: 0px !important;
 		padding: 0px !important;
 }
-/********precios*********/
+/**********planes*************/
 .pricing-table .plan-list .price-value {
     font-size: 18px;
     font-weight: 700;
@@ -63,6 +63,23 @@
 .pricing-table .plan-list .price-value span {
     font-size: 12px;
     font-weight: 300;
+}
+.section-heading-plan {
+	margin-bottom:50px;
+	text-align:center;
+}
+.section-intro {
+	margin-bottom:50px;
+}
+/* max width 991px */
+@media (max-width: 991px) {
+	.section-intro {margin-bottom: 3rem;}/*7*/
+	.section-heading-plan {margin-bottom: 3rem;}
+}
+/* max width 480px */
+@media (max-width: 480px) {
+	.section-intro {margin-bottom: 1em;}/*3*/
+	.section-heading-plan{margin-bottom:1em;}
 }
 /********estadisticas********/
 .alinear * {
@@ -86,11 +103,20 @@
 .blog-grid3 {
 	padding-bottom: 100px;
 }
+/* max width 991px */
+@media (max-width: 991px) {
+	/* Space between sections */
+	.blog-top {padding: 100px 0px 60px;}
+}
 /**************contenedor****************/
 @media (min-width: 1200px) {
   .container {
     width: 1190px !important;
   }
+}
+.col-md-9 {
+    margin: auto;
+    float: none;
 }
 /**************pie de pagina***************/
 @media (min-width: 992px) {
@@ -109,12 +135,26 @@
 .navbar-brand {
   padding: 4px 4px !important;
 }
-/*************contenedor***************/
-.col-md-9 {
-    margin: auto;
-    float: none;
-}
 /************seccion botones*************/
 .pricing-table .plan-price .price-value {
 	padding-bottom: 5px;
+}
+/************float***************/
+.clean {
+	clear: both;
+}
+/**************primefaces***************/
+.ui-widget {
+	font-family: 'nunito',sans-serif;
+	font-weight: 300;
+	color: #333;
+	-webkit-text-size-adjust: 100%; 
+	-webkit-font-smoothing: antialiased;
+}
+/*****************login****************/
+.login-form a {
+	color:#71BF44 !important;
+}
+.login-form a:hover {
+	color: #67B03D !important;
 }

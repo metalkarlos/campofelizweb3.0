@@ -20,7 +20,8 @@ a ,
 .team span ,
 #offers span{ 
 	/*color:#567E32;*/
-	color:#71BF44;
+	/*color:#71BF44;*/
+	color: #67B03D;
 }
 
 
@@ -38,7 +39,8 @@ footer ,
 .social-media a:hover ,
 .pricing-tables .pricing-table.highlight-plan .plan-name {
 	/*background-color: #567E32;*/
-	background-color: #71BF44;
+	/*background-color: #71BF44;*/
+	background-color: #67B03D;
 }
 
 
@@ -54,7 +56,8 @@ hr ,
 .box > .icon > .image,
 #gallery .nav > li > a:focus {
 	/*color: #31B767;*/
-	color: #67B03D;
+	/*color: #67B03D;*/
+	color: #71BF44;
 }
 
 
@@ -72,24 +75,29 @@ ul.social-list li a:hover ,
 .owl-prev:hover, .owl-next:hover ,
 .back-to-top i:hover {
 	/*background-color: #31B767;*/
-	background-color: #67B03D;
+	/*background-color: #67B03D;*/
+	background-color: #71BF44;
 }
 
 #contact .form-control:focus {
 	/*box-shadow:0 4px 0px #31B767;*/
-	box-shadow:0 4px 0px #67B03D;
+	/*box-shadow:0 4px 0px #67B03D;*/
+	box-shadow:0 4px 0px #71BF44;
 }
 
 .nav-pills> li.active:after {
 	/*border-top-color: #31B767;*/
-	border-top-color: #67B03D;
+	/*border-top-color: #67B03D;*/
+	border-top-color: #71BF44;
 }
 
 .tooltip-inner {
   /*background-color: #31B767;*/
-  background-color: #67B03D;
+  /*background-color: #67B03D;*/
+  background-color: #71BF44;
 }
 .tooltip.top .tooltip-arrow {
   /*border-top-color: #31B767;*/
-  border-top-color: #67B03D;
+  /*border-top-color: #67B03D;*/
+  border-top-color: #71BF44;
 }

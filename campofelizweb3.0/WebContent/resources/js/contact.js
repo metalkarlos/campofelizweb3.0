@@ -53,13 +53,13 @@ function validarContacto() {
 			proceed = false; //set do not proceed flag				
 		}
 		//check invalid phone
-		var phone_reg = /^([0-9][0-9\s]+[0-9])?$/;
+		/*var phone_reg = /^([0-9][0-9\s]+[0-9])?$/;
 		if($(this).attr("type")=="phone" && !phone_reg.test($.trim($(this).val()))){
 			$(this).css('background-color','#FFDEDE'); //change border color to #FFDEDE
 			this.setCustomValidity("Numero de telefono invalido. Ej 042123456"); //set message
 			input = input?input:this; //save input
 			proceed = false; //set do not proceed flag				
-		}
+		}*/
 	});
 	
 	if(input){
