@@ -21,15 +21,48 @@
 			}
 			
 			.label {
+				/* asi estaba antes 
 				font-weight: bold;
 				font-size: 15px;
-				line-height: 300%;
+				line-height: 300%; */
+				
+				font-family: 'nunito',sans-serif;
+		    font-weight: 600;
+		    font-size: 17px;
+		    margin-top: 0;
+		    margin-bottom: 20px;
+        color: #333;
+			}
+			.ui-panelgrid .ui-panelgrid-cell{
+			  border-width: 0px;
 			}
 			
-			.ui-panelgrid tr,.ui-panelgrid td {
+			.ui-widget input{
+			   font-family: 'nunito',sans-serif;
+			}
+			
+			.ui-widget-content {
+        border: 0px;
+        background:none;
+    }
+    
+    .ui-editor {
+      border: 1px solid #EFECEC;
+      padding: 0 1px 1px;
+    }
+    
+    .ui-widget-header {
+      border: 0px;
+      padding: 0 1px 1px;
+      background:none;
+    }
+			
+			/* .ui-panelgrid tr,.ui-panelgr	id td {
 				border: none;
 				padding: 0px;
-			}
+				border-width: 0px;
+				
+			} */
 	
 			/*.ui-button, .ui-widget , .ui-state-default , .ui-corner-all , .ui-button-text-only{*/
 			 .ui-button {
@@ -59,7 +92,7 @@
 				margin: 150px 10px 0;
 			}
 			.section-heading{
-			  margin-bottom: 70px;
+			  margin-bottom: 30px;
 			}
 			.hr{
 			    margin: 10px auto 20px auto;
@@ -76,8 +109,7 @@
 			<h:form id="form-contentpage" enctype="multipart/form-data">
 				<!-- <p:growl id="mensajes" showDetail="false" /> -->
 				<p:messages id="mensajes" showDetail="false" autoUpdate="true" />
-				<h2 class="section-heading">Administración - Nosotros</h2>
-					
+				<h2 class="section-heading">Administración - Acerca de Nosotros</h2>
 			  <div class="hr"></div>		
 
 				<div class="inner-content">
@@ -135,7 +167,7 @@
 
 						<p:row>
 							<p:column>
-								<h:outputLabel value="Agregar Foto" for="idSubeFotos"
+							 <h:outputLabel value="Agregar Foto" for="idSubeFotos"
 									styleClass="label" />
 							</p:column>
 							<p:column>
@@ -210,7 +242,7 @@
 
 						<p:row>
 							<p:column>
-								<p:editor id="txtquienessomos" width="550"
+								<p:editor style="border:5px;" id="txtquienessomos" width="550"
 									value="#{quienesSomosAdminBean.petinformacion.quienessomos}"
 									required="true"
 									requiredMessage="Ingrese texto para Quienes Somos"
