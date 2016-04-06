@@ -4,6 +4,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:html="http://xmlns.jcp.org/jsf/passthrough"
 	template="/WEB-INF/templates/template_others.xhtml">
 
 	<ui:define name="head">
@@ -27,47 +28,45 @@
 			<div class="container">
 				<div class="blog-top">
 					<div class="col-md-9 blog-grid">
-						<h:form id="form-content" prependId="false">
+						<h:form id="form-login" prependId="false">
 
 							<div class="section-heading">
 								<h2>Administración</h2>
 								<div class="hr"></div>
 							</div>
 
-							<div class="blog-grid3">
+							<div class="blog-grid3 col-md-7">
 								<p:focus for="txtusuario"></p:focus>
 								<p:messages id="mensajes" showDetail="false"></p:messages>
 								
 								<div class=" blog-grid2">
-									<p:panelGrid columns="1" layout="grid">	
-										<h:outputLabel value="Usuario:" for="txtusuario" />
+									<div class="form-group">
 										<p:inputText id="txtusuario" value="#{usuarioBean.username}"
 											required="true" requiredMessage="Ingrese Usuario"
-											label="Usuario"></p:inputText>
-
-										<h:outputLabel value="Clave:" for="txtclave" />
+											label="Usuario" html:type="text" html:placeholder="Usuario" 
+											html:data-toggle="tooltip"></p:inputText>
+									</div>
+									<div class="form-group">
 										<p:password id="txtclave" value="#{usuarioBean.password}"
-											required="true" requiredMessage="Ingrese Clave" label="Clave"></p:password>
-
-										<p:commandButton id="btnentrar" value="Entrar"
-											action="#{usuarioBean.login()}"
-											update=":form-content:mensajes"
-											process=":form-content:txtusuario, :form-content:txtclave"></p:commandButton>
-										<p:commandLink id="idOlvidoClave"
-											value="Olvidé mi clave"></p:commandLink>
-										<p:overlayPanel id="clavePanel" for="idOlvidoClave"
-											hideEffect="fade" widgetVar="varClavePanel">
-											<p:captcha id="idcaptcha" label="Captcha" required="true"
-												requiredMessage="Ingrese el código captcha en el recuadro"
-												language="es" />
-											<p:commandLink id="lnkEnviar" styleClass="link"
-												value="Enviar" action="#{usuarioBean.enviarOlvidoClave()}"
-												update=":form-content:mensajes, :form-content:idcaptcha"
-												process=":form-content:idcaptcha, @(input:not(:password))"
-												onclick="varClavePanel.hide();"
-												oncomplete="Recaptcha.reload();"></p:commandLink>
-										</p:overlayPanel>
-									</p:panelGrid>
+											required="true" requiredMessage="Ingrese Clave" 
+											label="Clave" html:type="text" html:placeholder="Clave" 
+											html:data-toggle="tooltip"></p:password>
+									</div>
+									<p:captcha id="idcaptcha" label="Captcha" required="true"
+											requiredMessage="Ingrese el código captcha en el recuadro"
+											language="es" />
+									<div class="form-group">
+										<p:commandButton id="btnentrar" 
+											value="Entrar" action="#{usuarioBean.login()}"
+											update="mensajes, idcaptcha"
+											process="idcaptcha, txtusuario, txtclave" ></p:commandButton>
+									</div>
+									<div class="form-group">
+										<p:commandLink id="idOlvidoClave" 
+											value="Olvidé mi clave" action="#{usuarioBean.enviarOlvidoClave()}"
+											update="mensajes, idcaptcha"
+											process="idcaptcha, txtusuario" ></p:commandLink>
+									</div>
 								</div>
 								<div class="clearfix"></div>
 							</div>

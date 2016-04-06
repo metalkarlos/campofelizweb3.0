@@ -147,9 +147,15 @@
 .ui-widget {
 	font-family: 'nunito',sans-serif;
 	font-weight: 300;
-	color: #333;
 	-webkit-text-size-adjust: 100%; 
 	-webkit-font-smoothing: antialiased;
+}
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+	font-family: 'nunito',sans-serif !important;
+	font-size: 15px !important;
+}
+.ui-widget-content a {
+    color: #67B03D;
 }
 /*****************login****************/
 .login-form a {
@@ -157,4 +163,14 @@
 }
 .login-form a:hover {
 	color: #67B03D !important;
+}
+#form-login input {
+	width: 100%;
+}
+#form-login .blog-grid3 {
+	float: none;
+	margin: 0 auto;
+}
+#form-login .section-heading {
+	margin-bottom: 50px;
 }
