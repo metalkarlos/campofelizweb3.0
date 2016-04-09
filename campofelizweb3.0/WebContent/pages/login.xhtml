@@ -40,28 +40,39 @@
 								<p:messages id="mensajes" showDetail="false"></p:messages>
 								
 								<div class=" blog-grid2">
-									<div class="form-group">
-										<p:inputText id="txtusuario" value="#{usuarioBean.username}"
-											required="true" requiredMessage="Ingrese Usuario"
-											label="Usuario" html:type="text" html:placeholder="Usuario" 
-											html:data-toggle="tooltip"></p:inputText>
-									</div>
-									<div class="form-group">
-										<p:password id="txtclave" value="#{usuarioBean.password}"
-											required="true" requiredMessage="Ingrese Clave" 
-											label="Clave" html:type="text" html:placeholder="Clave" 
-											html:data-toggle="tooltip"></p:password>
-									</div>
+									<div class="panel panel-success">
+							      <div class="panel-heading">Login</div>
+							      <div class="panel-body">
+							      	<div class="form-group">
+							      		<h:outputLabel value="Usuario" for="txtusuario" />
+							      	</div>
+											<div class="form-group">
+												<p:inputText id="txtusuario" value="#{usuarioBean.username}"
+													required="true" requiredMessage="Ingrese Usuario"
+													label="Usuario" html:type="text" 
+													html:data-toggle="tooltip"></p:inputText>
+											</div>
+											<div class="form-group">
+							      		<h:outputLabel value="Clave" for="txtusuario" />
+							      	</div>
+											<div class="form-group">
+												<p:password id="txtclave" value="#{usuarioBean.password}"
+													required="true" requiredMessage="Ingrese Clave" 
+													label="Clave" html:type="password" 
+													html:data-toggle="tooltip"></p:password>
+											</div>
+										</div>
+							    </div>
 									<p:captcha id="idcaptcha" label="Captcha" required="true"
 											requiredMessage="Ingrese el código captcha en el recuadro"
 											language="es" />
-									<div class="form-group">
+									<div class="form-group" >
 										<p:commandButton id="btnentrar" 
 											value="Entrar" action="#{usuarioBean.login()}"
 											update="mensajes, idcaptcha"
 											process="idcaptcha, txtusuario, txtclave" ></p:commandButton>
 									</div>
-									<div class="form-group">
+									<div class="form-group" >
 										<p:commandLink id="idOlvidoClave" 
 											value="Olvidé mi clave" action="#{usuarioBean.enviarOlvidoClave()}"
 											update="mensajes, idcaptcha"
