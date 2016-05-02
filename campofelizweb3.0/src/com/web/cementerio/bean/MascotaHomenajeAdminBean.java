@@ -5,10 +5,12 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
@@ -41,6 +43,15 @@ public class MascotaHomenajeAdminBean implements Serializable {
 	private int idmascota;
 	private String descripcionFoto;
 	private boolean fotoSubida;
+	private int idfotomascotaselected;
+
+	public int getIdfotomascotaselected() {
+		return idfotomascotaselected;
+	}
+
+	public void setIdfotomascotaselected(int idfotomascotaselected) {
+		this.idfotomascotaselected = idfotomascotaselected;
+	}
 
 	public MascotaHomenajeAdminBean() {
 		inicializarobjetos();
@@ -199,6 +210,22 @@ public class MascotaHomenajeAdminBean implements Serializable {
 
 	}
 
+	public void seleccionarImagen() throws Exception{
+		FacesUtil faces = new FacesUtil();
+		Map<String,String> params = faces.getFacesContext().getExternalContext().getRequestParameterMap();
+		String param = params.get("idfotomascota");
+		
+		if (param != null) {
+			int idfotomascota = Integer.parseInt(param);
+			for(Petfotomascota petfotomascota:listpetfotomascota){
+				if(petfotomascota.getIdfotomascota()==idfotomascota){
+					petfotomascotaselected = petfotomascota;
+					break;
+				}
+			}
+		}
+	}
+	
 	public boolean validarcampos() {
 		boolean ok = true;
 		Date fechaactual = new Date();

@@ -4,19 +4,22 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:pa="http://xmlns.jcp.org/jsf/passthrough"
-	xmlns:p="http://primefaces.org/ui"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
-  xmlns:c="http://java.sun.com/jsp/jstl/core"
-  xmlns:og="http://ogp.me/ns#"
-  xmlns:fb="http://www.facebook.com/2008/fbml">
+	xmlns:p="http://primefaces.org/ui">
+
 
 <h:head>
 	<meta charset="utf-8" />
 	<!--[if IE]>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <![endif]-->
+	<meta name="description" content="BIENVENIDO a Campo Feliz! El primer cementerio de mascotas en la ciudad de Guayaquil. Contamos con los mejores servicios excequiales y la infraestructura necesaria para su mascota." />
+	<meta name="keywords" content="Campo Feliz, Cementerio de Mascotas, Campo Feliz Cementerio de Mascotas, El primer cementerio de mascotas en la ciudad de Guayaquil, Novedades, Misión, Visión, Servicios, Homenaje, Duelo, Galería, Eventos, Noticias, Testimonios, Contáctanos, Contáctenos, Oficina, Campo Santo, Grupo Sintra, gruposintra, desarrollo de sistemas y páginas web" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 	<meta name="author" content="" />
+	
+	<!-- Page title -->
+	<title>Campo Feliz - Cementerio de mascotas de Guayaquil</title>
 	
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -50,13 +53,17 @@
   <!-- Prefix free CSS -->
 	<h:outputScript library="js" name="prefixfree.js" />
 	
+	<!-- Owl Slider & Prettyphoto -->
+  <h:outputStylesheet library="css" name="owl.carousel.css" />
+  <h:outputStylesheet library="css" name="prettyPhoto.css" />
+  
   <!-- Favicons-->
   <link rel="apple-touch-icon" sizes="57x57" href="#{request.contextPath}/resources/img/apple-touch-icon-57x57.png" />
   <link rel="apple-touch-icon" sizes="72x72" href="#{request.contextPath}/resources/img/apple-touch-icon-72x72.png" />
   <link rel="apple-touch-icon" sizes="114x114" href="#{request.contextPath}/resources/img/apple-touch-icon-114x114.png" />
   <link rel="apple-touch-icon" sizes="144x144" href="#{request.contextPath}/resources/img/apple-touch-icon-144x144.png" />
-  <link rel="shortcut icon" href="#{request.contextPath}/resources/img/logo_m.png" type="image/png" />
-  <link rel="icon" href="#{request.contextPath}/resources/img/logo_m.png" type="image/png" />		
+  <link rel="shortcut icon" href="#{request.contextPath}/resources/img/logo_m.ico" type="image/x-icon" />
+  <link rel="icon" href="#{request.contextPath}/resources/img/logo_m.ico" type="image/x-icon" />		
 	
 	<!-- Configuración del Calendario de la Agenda -->
 	<script type="text/javascript">
@@ -93,7 +100,7 @@
 	});
 	</script>
 	<!-- Google Analytics (unicamente para campofeliz, reemplazalo con tu propio codigo)-->
-	<script>
+	<!-- <script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -102,7 +109,7 @@
 	  ga('create', 'UA-53471676-1', 'auto');
 	  ga('send', 'pageview');
 	
-	</script>
+	</script> -->
 	<ui:insert name="head" />
 </h:head>
 
@@ -110,6 +117,7 @@
 	<ui:debug hotkey="q" rendered="#{facesContext.application.projectStage == 'Development'}" />
 	<!-- Preloader -->
 	<div id="preloader">
+	
 		<div class="spinner">
 			<div class="rect1"></div>
 			<div class="rect2"></div>
@@ -117,21 +125,22 @@
 			<div class="rect4"></div>
 			<div class="rect5"></div>
 		</div>
+		
 	</div>					
 	<!-- Navbar -->	  
       <nav class="navbar navbar-custom navbar-fixed-top">
+	  	
 	  		<!-- Start Top Bar -->
+	  		
 			<div class="top-bar hidden-xs hidden-sm">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-8">
 							<!-- Start Contact Info -->
 							<ul class="contact-details">
-                  <li><i class="fa fa-map-marker"></i><a href="https://goo.gl/maps/a8BevC7CaaL2" title="Visítanos" target="_blank">Martha de Roldós</a></li>
+                  <li><i class="fa fa-map-marker"></i><a href="https://goo.gl/maps/a8BevC7CaaL2" title="Visítanos" target="_blank">#{contactenosBean.cotoficinaVeterinaria.direccion}</a></li>
                   <li><i class="fa fa-envelope"></i><a href="mailto:#{contactenosBean.cotoficinaVeterinaria.email}">#{contactenosBean.cotoficinaVeterinaria.email}</a></li>
-                  <li><i class="fa fa-phone"></i><a href="tel:#{contactenosBean.cotoficinaVeterinaria.telefono}">#{contactenosBean.cotoficinaVeterinaria.telefono}</a></li>
                   <li><i class="fa fa-phone"></i><a href="tel:#{contactenosBean.cotoficinaVeterinaria.celular}">#{contactenosBean.cotoficinaVeterinaria.celular}</a></li>
-                  <li><i class="fa fa-phone"></i><a href="tel:#{contactenosBean.cotoficinaVeterinaria.celular2}">#{contactenosBean.cotoficinaVeterinaria.celular2}</a></li>
               </ul><!-- End Contact Info -->
 						</div>
 						<div class="col-md-4">
@@ -140,14 +149,18 @@
 								<li><a title="Facebook" href="https://www.facebook.com/pages/Campo-Feliz-Cementerio-de-Mascotas/257959247667793" target="_blank"><i class="fa fa-facebook"></i></a></li>
 								<li><a title="Twitter" href="https://twitter.com/Campofeliz7" target="_blank"><i class="fa fa-twitter"></i></a></li>
 								<li><a title="Google Plus" href="https://plus.google.com/102025059046399313818/about" target="_blank"><i class="fa fa-google-plus"></i></a></li>
-								<li><a  title="Youtube" href="https://www.youtube.com/channel/UCNXzIpZ_gas76ITE4OBMqMg" target="_blank"><i class="fa fa-youtube"></i></a></li>
+								<li><a  title="Linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+								<li><a  title="Flickr" href="#"><i class="fa fa-flickr"></i></a></li>
+								<li><a  title="Tumblr" href="#"><i class="fa fa-tumblr"></i></a></li>
 								<li><a  title="Instagram" href="http://instagram.com/campofeliz" target="_blank"><i class="fa fa-instagram"></i></a></li>								
 							</ul>
 							<!-- End Social Links -->
-						</div>
+					  </div>
 					</div>
 				</div>
 			</div><!-- End Top bar -->
+			
+			
          <div class="container">
          <!-- navbar -->		 
             <div class="navbar-header page-scroll">
@@ -156,32 +169,114 @@
                </button>
                <!-- Logo -->
                <div class="page-scroll">
-                  <a class="navbar-brand" href="#{request.contextPath}/pages/home.jsf">
-                    <!--Font Icon logo and text -->
-                    <img src="#{request.contextPath}/resources/img/logo.png" alt="" class="img-responsive"/>
+                  <a class="navbar-brand" href="#page-top">
+				  <!--Font Icon logo and text -->
+                    <img src="/resources/img/logo.png" class="img-responsive"/>
                   </a>
                </div>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <h:form id="form-menu">
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
                <ul class="nav navbar-nav page-scroll">
                   <li class="active"><a href="#page-top">Inicio</a></li>
-                  <li><a href="#{request.contextPath}/pages/home.jsf#services">Servicios</a></li>
-                  <li><a href="#{request.contextPath}/pages/home.jsf#about">Nosotros</a></li>
-                  <li><a href="#{request.contextPath}/pages/home.jsf#prices">Planes</a></li>
-                  <li><a href="#{request.contextPath}/pages/home.jsf#gallery">Galería</a></li>
-                  <li><a href="#{request.contextPath}/pages/home.jsf#offers">Eventos</a></li>
-				  				<li><a href="#{request.contextPath}/pages/home.jsf#adoption">Homenaje</a></li>
-                  <li><a href="#{request.contextPath}/pages/home.jsf#contact">Contactos</a></li>
-                  <c:if test="#{usuarioBean.autenticado}">
-                  <li><h:commandLink action="#{usuarioBean.logout()}">Salir</h:commandLink></li>
-                  </c:if>
+                  <li><a href="#services">Servicios</a></li>
+                  <li><a href="#about">Nosotros</a></li>
+                  <li><a href="#prices">Planes</a></li>
+                  <li><a href="#gallery">Galería</a></li>
+                  <li><a href="#offers">Eventos</a></li>
+				  				<li><a href="#adoption">Homenaje</a></li>
+                  <li><a href="#contact">Contactos</a></li>
                </ul>
             </div>
-            </h:form>
          </div>
       </nav><!-- Navbar ends -->
+	<!-- Full Page Image Background Slider -->
+	
+	<ui:insert name="content_slider">
+	<div class="slider-container">
+	<!-- Controls -->
+	   <div class="slider-control left inactive"></div>
+	   <div class="slider-control right"></div>
+		   <ul class="slider-pagi"></ul>
+	   <!--Slider -->
+	   <div class="slider">
+	   <!-- Slide 1 -->
+		  <div class="slide slide-0 active">
+			 <div class="slide__bg"></div>
+			 <div class="slide__content">
+				<svg class="slide__overlay" viewBox="0 0 720 405" preserveAspectRatio="xMaxYMax slice">
+				   <path class="slide__overlay-path" d="M0,0 150,0 500,405 0,405" />
+				</svg>
+				<div class="slide__text">
+				   <h1 class="slide__text-heading">Bienvenido a Campo Feliz</h1>
+				   <div class="hidden-sm hidden-xs">
+					  <p class="lead">El primer y único cementerio de mascotas en la ciudad de Guayaquil.</p>
+					  <div class="page-scroll">
+						 <a href="#services" class="btn btn-default">nosotros</a>
+					  </div>
+				   </div>
+				</div>
+			 </div>
+		  </div>
+		 <!-- Slide 2 -->
+		  <div class="slide slide-1">
+			 <div class="slide__bg"></div>
+			 <div class="slide__content">
+				<svg class="slide__overlay" viewBox="0 0 720 405" preserveAspectRatio="xMaxYMax slice">
+				   <path class="slide__overlay-path" d="M0,0 150,0 500,405 0,405" />
+				</svg>
+				<div class="slide__text">
+				   <h1 class="slide__text-heading">VIVE TRANQUILO</h1>
+				   <div class="hidden-sm hidden-xs">
+					  <p class="lead">Asegura a tu mascota en CAMPO FELIZ</p>
+					  <div class="page-scroll">
+						 <a href="#offers" class="btn btn-default">nuestros planes</a>
+					  </div>
+				   </div>
+				</div>
+			 </div>
+		  </div>
+		  <!-- Slide 3-->
+		  <div class="slide slide-2">
+			 <div class="slide__bg"></div>
+			 <div class="slide__content">
+				<svg class="slide__overlay" viewBox="0 0 720 405" preserveAspectRatio="xMaxYMax slice">
+				   <path class="slide__overlay-path" d="M0,0 150,0 500,405 0,405" />
+				</svg>
+				<div class="slide__text">
+				   <h1 class="slide__text-heading">PLAN PREVENTIVO EXEQUIAL 2</h1>
+				   <div class="hidden-sm hidden-xs">
+					  <p class="lead">Sepultura Individual</p>
+					  <p class="lead">Un lugar especial para tu MASCOHIJO en nuestro Campo Santo.</p>
+					  <div class="page-scroll">
+						 <a href="#about" class="btn btn-default">nuestros planes</a>
+					  </div>
+				   </div>
+				</div>
+			 </div>
+		  </div>
+		  <!-- Slide 4-->
+		  <div class="slide slide-3">
+			 <div class="slide__bg"></div>
+			 <div class="slide__content">
+				<svg class="slide__overlay" viewBox="0 0 720 405" preserveAspectRatio="xMaxYMax slice">
+				   <path class="slide__overlay-path" d="M0,0 150,0 500,405 0,405" />
+				</svg>
+				<div class="slide__text">
+				   <h1 class="slide__text-heading">HOMENAJE  PÓSTUMO</h1>
+				   <div class="hidden-sm hidden-xs">
+					  <p class="lead">Por esos seres que se vuelven como hijos, que llenan nuestro corazón de amor y nuestra memoria de recuerdos.</p>
+					  <div class="page-scroll">
+						 <a href="#adoption" class="btn btn-default">homenaje</a>
+					  </div>
+				   </div>
+				</div>
+			 </div>
+		  </div>
+	   </div>
+	</div>	
+	<!--/ Slider ends -->
+	</ui:insert>
 	
 	<ui:insert name="content_page">
 		
@@ -197,12 +292,14 @@
 				   <li><a title="Facebook" href="https://www.facebook.com/pages/Campo-Feliz-Cementerio-de-Mascotas/257959247667793" target="_blank"><i class="fa fa-facebook"></i></a></li>
 				   <li><a title="Twitter" href="https://twitter.com/Campofeliz7" target="_blank"><i class="fa fa-twitter"></i></a></li>
 				   <li><a title="Google Plus" href="https://plus.google.com/102025059046399313818/about" target="_blank"><i class="fa fa-google-plus"></i></a></li>
-				   <li><a  title="Youtube" href="https://www.youtube.com/channel/UCNXzIpZ_gas76ITE4OBMqMg" target="_blank"><i class="fa fa-youtube"></i></a></li>
+				   <li><a  title="Linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+				   <li><a  title="Flickr" href="#"><i class="fa fa-flickr"></i></a></li>
+				   <li><a  title="Tumblr" href="#"><i class="fa fa-tumblr"></i></a></li>
 				   <li><a  title="Instagram" href="http://instagram.com/campofeliz" target="_blank"><i class="fa fa-instagram"></i></a></li>
 				</ul>
 			 </div>
 			 <!-- Bottom Credits -->
-			 <div class="col-sm-6 col-md-offset-5 col-md-3 text-center col-md-offset-5-pie col-md-3-pie">
+			 <div class="col-sm-6 col-md-offset-5 col-md-3 text-center">
 				<p>COPYRIGHT © <h:outputText value="#{usuarioBean.hoy}"><f:convertDateTime pattern="yyyy" type="date" /></h:outputText> <a href="http://www.gruposintra.com/" target="blank">Grupo Sintra</a></p>
 			 </div>			 
 		  </div><!-- /row-->
@@ -216,17 +313,37 @@
 	  	  	
 	<!-- Core JavaScript Files -->
 	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+	<!-- <h:outputScript library="js" name="jquery.min.js" /> -->
 	<h:outputScript library="js" name="bootstrap.min.js" />
 	<h:outputScript library="js" name="main.js" />
+  <!-- <h:outputScript library="js" name="mapas.js" />-->
+	<!-- Counter -->	  
+	<h:outputScript library="js" name="numscroller.js" />
 
 	<!-- WOW animations -->
 	<h:outputScript library="js" name="wow.min.js" />
 
+	<!-- Prettyphoto Lightbox -->
+	<h:outputScript library="js" name="jquery.prettyPhoto.js" />
+	
+	<!-- Owl Carousel -->
+	<h:outputScript library="js" name="owl.carousel.min.js" />
+		
+	<!-- Contact form -->	  
+	<h:outputScript library="js" name="contact.js" />
+
+	<!-- Isotope -->	  
+	<h:outputScript library="js" name="jquery.isotope.js" />
+
+	<!-- Google maps -->	  
+	<script src="https://maps.googleapis.com/maps/api/js"></script>	
+	
 	<p:ajaxStatus>
 		<f:facet name="start">
 			<table class="ajax-status" border="0" cellpadding="0" cellspacing="0">
 				<tr>
 				<td>
+				 
 				<div class="spinner">
 					<div class="rect1"></div>
 					<div class="rect2"></div>
@@ -234,6 +351,7 @@
 					<div class="rect4"></div>
 					<div class="rect5"></div>
 				</div>
+				
 				</td>
 				</tr>
 			</table>

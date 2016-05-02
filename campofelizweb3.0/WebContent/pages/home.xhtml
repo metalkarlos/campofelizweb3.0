@@ -600,7 +600,7 @@ En memoria a nuestros angelitos que llenaron de alegría y amor nuestros corazon
 				<!-- Adopt a pet -->
 				<div class="col-md-7 col-sm-6">
 				  <h4 class="text-center">Homenaje Póstumo</h4>				  				 				   
-				   <div id="owl-adopt" class="owl-carousel owl-theme">
+				  <div id="owl-adopt" class="owl-carousel owl-theme">
 				   <!-- Animals -->
 				   	<c:forEach items="#{mascotasPrincipalBean.lisPetmascotahomenaje}" var="homenaje" varStatus="loop">
 				   	<div>
@@ -613,20 +613,23 @@ En memoria a nuestros angelitos que llenaron de alegría y amor nuestros corazon
 								  <h6>#{homenaje.nombre}</h6>
 								  <!-- List -->
 								  <ul class="list-unstyled">
-									 <li><strong>Sexo:</strong> #{homenaje.sexo == 1 ? 'Macho' : 'Hembra'}</li>
 									 <li><strong>Especie: </strong> #{homenaje.petespecie.nombre}</li>
+									 <li><strong>Sexo:</strong> #{homenaje.sexo == 1 ? 'Macho' : 'Hembra'}</li>
 								  </ul>	
 								  <!-- Buttons -->								  
 								  <div class="toggle-btn page-scroll text-center">
-									 <a href="##{loop.index+1}" class=" btn btn-default">Leer Más</a>
+									 <a href="##{loop.index+1}" class=" btn btn-default">Dedicatoria</a>
 								  </div>
 							   </div>
 							</div><!-- /thumbnail -->
 						 </div><!-- /col-md-12 -->
 					  </div><!-- /div -->
-				   	</c:forEach>
-				   	<!-- /Animals -->
-				 </div><!-- /owl-adopt -->
+				   	</c:forEach><!-- /Animals -->
+				 	</div><!-- /owl-adopt -->
+				 
+					<div class="text-center">
+						<h:link styleClass="btn btn-default" outcome="/pages/mascotashomenaje" value="Ver Más Homenajes" ></h:link>
+					</div>
 				 
 				 <!-- Slide In Panel Animals -->
 				 <c:forEach items="#{mascotasPrincipalBean.lisPetmascotahomenaje}" var="homenaje" varStatus="loop">
@@ -640,7 +643,11 @@ En memoria a nuestros angelitos que llenaron de alegría y amor nuestros corazon
 							<p><h:outputText value="#{homenaje.dedicatoria}" escape="false" /></p>
 							<p><strong>Familia: </strong><h:outputText value="#{homenaje.familia}" /></p>
 							<div class="page-scroll text-center">
-							   <a href="#contact" class="cd-close btn btn-default">Contáctanos</a>  <a class="cd-close btn btn-danger m-left"><i class="fa fa-times"></i>Cerrar</a>
+								<h:link outcome="/pages/mascotahomenaje" styleClass="btn btn-default">
+									Leer Más
+									<f:param name="idmascota" value="#{homenaje.idmascota}"></f:param>
+								</h:link>
+							   <a class="cd-close btn btn-danger m-left"><i class="fa fa-times"></i>Cerrar</a>
 							</div>
 						 </div><!-- /cd-panel-content -->
 					  </div><!-- /cd-panel-container -->

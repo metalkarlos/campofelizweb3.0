@@ -14,12 +14,12 @@ public class PetespecieBO {
 		petespecieDAO = new PetespecieDAO();
 	}
 	
-	public List<Petespecie>Listpetespecie(int estado)throws Exception{
+	public List<Petespecie>Listpetespecie()throws Exception{
 		List<Petespecie> listpetespecie=null;
 		Session session = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
-			listpetespecie = (List<Petespecie>) petespecieDAO.getListpetespecie(session, estado);
+			listpetespecie = (List<Petespecie>) petespecieDAO.getListpetespecie(session);
 			
 		} catch (Exception e) {
 			throw new Exception(e);

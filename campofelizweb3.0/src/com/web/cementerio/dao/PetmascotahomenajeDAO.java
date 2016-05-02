@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
 
+import com.web.cementerio.pojo.annotations.Petespecie;
 import com.web.cementerio.pojo.annotations.Petfotomascota;
 import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
 
@@ -63,11 +65,12 @@ public class PetmascotahomenajeDAO {
 	@SuppressWarnings("unchecked")
 	public List<Petmascotahomenaje> lisPetmascotaBusquedaByPage(
 			Session session, String[] texto, int pageSize, int pageNumber,
-			int args[], int idestado) throws Exception {
+			int args[]) throws Exception {
 		List<Petmascotahomenaje> listPetmascotahomenaje = null;
 
 		Criteria criteria = session.createCriteria(Petmascotahomenaje.class)
-				.add(Restrictions.eq("setestado.idestado", idestado));
+				.add(Restrictions.eq("setestado.idestado", 1))
+				.createAlias("petespecie", "e");
 
 		if (texto != null && texto.length > 0) {
 			String query = "(";
@@ -98,7 +101,7 @@ public class PetmascotahomenajeDAO {
 			if (texto != null && texto.length > 0) {
 				String query = "(";
 				for (int i = 0; i < texto.length; i++) {
-					query += "{alias}.nombre like upper('" + texto[i] + "%') ";
+					query += "upper({alias}.nombre) like upper('" + texto[i] + "%') ";
 					if (i < texto.length - 1) {
 						query += "or ";
 					}
@@ -119,6 +122,39 @@ public class PetmascotahomenajeDAO {
 
 		return listPetmascotahomenaje;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Petmascotahomenaje> lisPetmascotaByNombreIdespecie (
+			Session session, String[] texto, int idespecie, int pageSize) throws Exception {
+		List<Petmascotahomenaje> listPetmascotahomenaje = null;
+
+		Criteria criteria = session.createCriteria(Petmascotahomenaje.class)
+				.add(Restrictions.eq("setestado.idestado", 1));
+		
+		if(idespecie > 0){
+			criteria.add(Restrictions.eq("petespecie.idespecie", idespecie));
+		}
+
+		if (texto != null && texto.length > 0) {
+			String query = "(";
+			for (int i = 0; i < texto.length; i++) {
+				query += "upper({alias}.nombre) like upper('" + texto[i] + "%') ";
+				if (i < texto.length - 1) {
+					query += "or ";
+				}
+			}
+			query += ")";
+
+			criteria.add(Restrictions.sqlRestriction(query));
+		}
+
+		criteria.addOrder(Order.desc("fechapublicacion"))
+		.setMaxResults(pageSize);
+
+		listPetmascotahomenaje = (List<Petmascotahomenaje>) criteria.list();
+
+		return listPetmascotahomenaje;
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<Petmascotahomenaje> getListpetmascotabycriteria(
@@ -136,6 +172,38 @@ public class PetmascotahomenajeDAO {
 		listPetmascotahomeanje = (List<Petmascotahomenaje>) criteria.list();
 
 		return listPetmascotahomeanje;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public  List<Petespecie> lisPetespecieMascotas(Session session, String[] texto) {
+		List<Petespecie> lisPetespecie = null;
+		
+		String hql = "select distinct e.idespecie "
+				+ "from Petmascotahomenaje m, Petespecie e "
+				+ "where m.setestado.idestado = 1 "
+				+ "and e.idespecie = m.petespecie.idespecie ";
+		
+		if (texto != null && texto.length > 0) {
+			hql += "and (";
+			for (int i = 0; i < texto.length; i++) {
+				hql += "upper(m.nombre) like upper('" + texto[i] + "%') ";
+				if (i < texto.length - 1) {
+					hql += "or ";
+				}
+			}
+			hql += ")";
+		}
+		
+		Query query = session.createQuery(" from Petespecie e2 "
+				+ "where e2.idespecie in ( "
+				+ hql
+				+ ") "
+				+ "and e2.setestado.idestado = 1 "
+				+ "order by e2.nombre");
+		
+		lisPetespecie = (List<Petespecie>) query.list();
+		
+		return lisPetespecie;
 	}
 
 	public int getMaxidpetmascotahomenaje(Session session) throws Exception {

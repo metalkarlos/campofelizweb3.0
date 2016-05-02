@@ -29,7 +29,6 @@
 #contact p, #pane2 p, #adoption p, #pane1 .col-lg-7 p {
 	text-align: justify;
 }
-
 /*********mapa***********/
 .mapa-oficina {
 	padding: 120px 0 120px 0;
@@ -98,16 +97,24 @@
 }
 /************otras paginas*************/
 .blog-top {
-	padding: 200px 0px 120px;
+	padding: 150px 0px 120px;
 }
 .blog-grid3 {
 	padding-bottom: 100px;
+}
+.blog-header {
+	text-align: center;
+	padding: 50px 0px 30px;
 }
 /* max width 991px */
 @media (max-width: 991px) {
 	/* Space between sections */
 	.blog-top {padding: 100px 0px 60px;}
 }
+.grupo-admin {
+	padding-bottom: 15px;
+}
+
 /**************contenedor****************/
 @media (min-width: 1200px) {
   .container {
@@ -153,9 +160,37 @@
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
 	font-family: 'nunito',sans-serif !important;
 	font-size: 15px !important;
+	
 }
-.ui-widget-content a {
-    color: #67B03D;
+/*.ui-inputfield {
+	box-shadow: none;
+	border-radius: 0;
+	border: 1px solid #d6e9c6;
+}*/
+/*.ui-inputfield.ui-state-focus {
+	box-shadow: none;
+}*/
+/*.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+    border: none;
+    background: #71BF44;
+}*/
+
+/********************datagrid*********************/
+.ui-datagrid .ui-widget-content {
+    border: none;
+    background: none;
+}
+.ui-datagrid .ui-widget-header {
+    border: none;
+    background: none;
+}
+.ui-datagrid .ui-widget-content a {
+    /*color: #67B03D;*/
+    color: #fff;
+}
+/********************datepicker*********************/
+.ui-datepicker .ui-widget-header {
+	color: #333;
 }
 /*****************login****************/
 /*.login-form a {
@@ -174,6 +209,7 @@
 }
 #form-login .panel {
   border: 1px solid #d6e9c6;
+  margin-bottom: 1em !important;
 }
 #form-login .panel-heading {
 	background-color: #dff0d8;
@@ -181,23 +217,39 @@
 	text-align: center;
 }
 #form-login .panel-body {
-  padding: 15px 15px 35px;
+  padding: 0px 15px 20px;
 }
 #form-login .form-group {
 	margin-bottom: 0px;
 }
 #form-login label {
 	color: #3c763d;
-}
-#form-login label {
   margin-top: 10px;
 }
 #form-login input{
-	box-shadow: none;
+	/*box-shadow: none;
 	border-radius: 0;
-	border: 1px solid #d6e9c6;
+	border: 1px solid #d6e9c6;*/
 	width: 100%;
 }
 #form-login a{
 	font-size: 0.9em;
+}
+/******************consulta general homenajes*******************/
+#form-mascotashomenaje .blog-search {
+	padding-bottom: 60px;
+}
+#form-mascotashomenaje .section-heading {
+  margin-bottom: 60px;
+}
+#form-mascotashomenaje .blog-search .btn-find {
+	background-image: url("#{resource['img/blog-search.png']}") !important;
+}
+#form-mascotashomenaje .blog-search .ui-button span {
+    width: 25px;
+    height: 25px;
+}
+#form-mascotashomenaje .blog-search button {
+	border: none !important;
+	background: none !important;
 }

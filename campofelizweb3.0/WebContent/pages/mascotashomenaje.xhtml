@@ -1,13 +1,111 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-			xmlns:f="http://xmlns.jcp.org/jsf/core"
-			xmlns:h="http://xmlns.jcp.org/jsf/html"
-      template="/WEB-INF/templates/template.xhtml"> 
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:html="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/templates/template_others.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core">
 
-	<ui:define name="slider">
+	<ui:define name="head">
+		<title>Homenaje Póstumo</title>
+		<meta name="description"
+			content="Les ofrecemos a nuestras mascotas ausentes un merecido homenaje." />
+		<meta name="keywords" content="homenaje póstumo" />
 	</ui:define>
 
 	<ui:define name="content_page">
+		<h:form id="form-mascotashomenaje" prependId="false">
+			<!--start-content-->
+			<div class="blog mascotas">
+				<div class="container">
+					<div class="blog-top">
+						<div class="col-md-12 blog-grid">
+
+							<!-- Section Gallery -->
+							<section id="gallery">
+							<div class="col-lg-8 col-lg-offset-2">
+								<!-- Section heading -->
+								<div class="section-heading">
+									<h2>Homenaje Póstumo</h2>
+									<div class="hr"></div>
+								</div>
+							</div>
+							<div class="wow fadeInDown" data-wow-delay="0.2s">
+
+								<p:messages id="mensajes" showDetail="false" />
+								<p:defaultCommand target="lnkbuscar"></p:defaultCommand>
+
+								<div class="blog-search nav-gallery col-md-12">
+
+									<p:inputText id="txtbusqueda"
+										value="#{mascotasHomenajeBean.descripcionParam}"
+										html:placeholder="Nombre"
+										validatorMessage="Ingrese sólo letras. Corrija y reintente.">
+										<f:validateRegex pattern="[a-zA-Z ]*" />
+									</p:inputText>
+
+									<p:commandButton id="lnkbuscar" image="btn-find"
+										update="resultadomascota mensajes">
+									</p:commandButton>
+
+								</div>
+
+								<p:dataGrid id="resultadomascota"
+									styleClass="nav-gallery col-md-12" var="mascota"
+									value="#{mascotasHomenajeBean.listpetmascotahomenaje}"
+									columns="3" rows="12" efect="true" paginator="true"
+									paginatorPosition="bottom"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+									emptyMessage="No se encontraron registros" lazy="true"
+									layout="grid">
+
+
+									<div class="col-md-12">
+										<div class="thumbnail text-center">
+											<h:link outcome="/pages/mascotahomenaje">
+												<p:graphicImage alt="#{mascota.nombre}"
+													title="#{mascota.nombre}"
+													value="#{parametro.servletImagenes}#{mascota.rutafoto}?w=800&amp;h=640&amp;m=both"
+													styleClass="img-responsive" />
+												<f:param name="idmascota" value="#{mascota.idmascota}"></f:param>
+											</h:link>
+											<div class="caption-adoption">
+
+												<h6>#{mascota.nombre}</h6>
+												<!-- List -->
+												<ul class="list-unstyled">
+													<li><strong>Especie: </strong>
+														#{mascota.petespecie.nombre}</li>
+													<li><strong>Sexo:</strong> #{mascota.sexo == 1 ?
+														'Macho' : 'Hembra'}</li>
+												</ul>
+
+												<!-- Buttons -->
+												<h:link outcome="/pages/mascotahomenaje"
+													styleClass="btn btn-default" value="Leer Más">
+													<f:param name="idmascota" value="#{mascota.idmascota}"></f:param>
+												</h:link>
+
+											</div>
+										</div>
+									</div>
+								</p:dataGrid>
+								
+							</div>
+							<!-- /container --> </section>
+							<!-- Section ends -->
+
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+				</div>
+			</div>
+			<!--end-content-->
+
+		</h:form>
 	</ui:define>
 </ui:composition>

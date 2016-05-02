@@ -23,21 +23,16 @@ public class PetespecieBean implements Serializable{
 	
 	public PetespecieBean(){
 		listPetespecie = new ArrayList<Petespecie>(); 
-		//Cambiar por una variable global donde esta seteado el estado
-		consultarListpetespecie(1);
+		consultarListpetespecie();
 	}
 	
-	public void consultarListpetespecie(int estado){
-		if (estado >0){
-			try {
-				PetespecieBO petespecieBo =new PetespecieBO();
-				listPetespecie = petespecieBo.Listpetespecie(estado);
-			} catch (Exception e) {
-				e.printStackTrace();
-			    new MessageUtil().showErrorMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
-			}
-				
-			
+	public void consultarListpetespecie(){
+		try {
+			PetespecieBO petespecieBo =new PetespecieBO();
+			listPetespecie = petespecieBo.Listpetespecie();
+		} catch (Exception e) {
+			e.printStackTrace();
+		    new MessageUtil().showErrorMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 

@@ -10,6 +10,7 @@ import org.primefaces.model.UploadedFile;
 import com.web.cementerio.bean.UsuarioBean;
 import com.web.cementerio.dao.PetfotomascotaDAO;
 import com.web.cementerio.dao.PetmascotahomenajeDAO;
+import com.web.cementerio.pojo.annotations.Petespecie;
 import com.web.cementerio.pojo.annotations.Petfotomascota;
 import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
 import com.web.cementerio.pojo.annotations.Setestado;
@@ -33,7 +34,7 @@ public class PetmascotahomenajeBO {
 			session = HibernateUtil.getSessionFactory().openSession();
 			petmascotahomenaje = petmascotahomenajeDAO.getPethomenajemascotaById(session,idmascota, idestado,especie);
 		} catch (Exception e) {
-			throw new Exception(e); 
+			throw new Exception(e.getMessage(),e.getCause()); 
 		}
 		finally{
 			session.close();
@@ -43,15 +44,34 @@ public class PetmascotahomenajeBO {
 	
 
 	
-	public List<Petmascotahomenaje> lisPetmascotahomenajeBusquedaByPage(String[] texto, int pageSize, int pageNumber, int args[], int idestado) throws RuntimeException {
+	public List<Petmascotahomenaje> lisPetmascotahomenajeBusquedaByPage(String[] texto, int pageSize, int pageNumber, int args[]) throws RuntimeException {
 		List<Petmascotahomenaje> listpetmascotahomenaje = null;
 		Session session = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
-			listpetmascotahomenaje = petmascotahomenajeDAO.lisPetmascotaBusquedaByPage(session, texto, pageSize, pageNumber, args, idestado);
+			listpetmascotahomenaje = petmascotahomenajeDAO.lisPetmascotaBusquedaByPage(session, texto, pageSize, pageNumber, args);
 			
 		} catch (Exception e) {
-			 throw new RuntimeException(e);
+			 throw new RuntimeException(e.getMessage(),e.getCause());
+		}
+		finally{
+			session.close();
+		}
+		
+		
+		return listpetmascotahomenaje;
+	}
+	
+	public List<Petmascotahomenaje> lisPetmascotaByNombreIdespecie (String[] texto, int idespecie, int pageSize) throws Exception {
+		List<Petmascotahomenaje> listpetmascotahomenaje = null;
+		Session session = null;
+		
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			listpetmascotahomenaje = petmascotahomenajeDAO.lisPetmascotaByNombreIdespecie(session, texto, idespecie, pageSize);
+			
+		} catch (Exception e) {
+			 throw new Exception(e.getMessage(),e.getCause());
 		}
 		finally{
 			session.close();
@@ -68,11 +88,27 @@ public class PetmascotahomenajeBO {
 			session = HibernateUtil.getSessionFactory().openSession();
 			listpetmascotahomenaje = petmascotahomenajeDAO.lisPetmascotaPrincipal(session, maxresultado);
 		} catch (Exception e) {
-			throw new Exception(e);
+			throw new Exception(e.getMessage(),e.getCause());
 		}finally{
 			session.close();
 		}
 		return listpetmascotahomenaje;
+	}
+	
+	public List<Petespecie> lisPetespecieMascotas(String[] texto)throws Exception{
+		List<Petespecie> lisPetespecie = null;
+		Session session = null;
+		
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			lisPetespecie = petmascotahomenajeDAO.lisPetespecieMascotas(session, texto);
+		} catch (Exception e) {
+			throw new Exception(e.getMessage(),e.getCause());
+		}finally{
+			session.close();
+		}
+		
+		return lisPetespecie;
 	}
 	
 	
@@ -118,7 +154,7 @@ public class PetmascotahomenajeBO {
 			
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-			throw new Exception(e);
+			throw new Exception(e.getMessage(),e.getCause());
 		}finally {
 			session.close();
 		}
@@ -177,7 +213,7 @@ public class PetmascotahomenajeBO {
 			
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-			throw new Exception(e);
+			throw new Exception(e.getMessage(),e.getCause());
 		}finally {
 			session.close();
 		}
@@ -247,7 +283,7 @@ public class PetmascotahomenajeBO {
 			
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-			throw new Exception(e);
+			throw new Exception(e.getMessage(),e.getCause());
 		}
 	  return rutamodificada;
 	}
@@ -266,7 +302,7 @@ public class PetmascotahomenajeBO {
 			
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-			throw new Exception(e);
+			throw new Exception(e.getMessage(),e.getCause());
 		}
 	}
 	
@@ -342,7 +378,7 @@ public class PetmascotahomenajeBO {
 			ok = true;
 		} catch (Exception e) {
 			session.getTransaction().rollback();
-			throw new Exception();
+			throw new Exception(e.getMessage(),e.getCause());
 		}finally{
 			session.close();
 		}

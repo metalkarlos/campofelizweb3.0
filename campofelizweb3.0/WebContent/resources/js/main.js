@@ -13,8 +13,13 @@ Author URI: http://themeforest.net/user/ingridk
 	
 		
 		//Preloader		
+    	if($("#preloader").length){
 		$("#preloader").fadeOut("slow");
-		$("#spinner").fadeOut("slow");	
+    	}
+    	
+    	if($("#spinner").length){
+		$("#spinner").fadeOut("slow");
+    	}
 		
 		//Load WOW Animations
 
@@ -23,6 +28,7 @@ Author URI: http://themeforest.net/user/ingridk
 		//Slide In Panel
 	
 		//open the lateral panel
+        if($('.toggle-btn a').length){
         
 		$('.toggle-btn a').on('click', function (event) {
 		var href = $(this).attr('href');
@@ -30,7 +36,10 @@ Author URI: http://themeforest.net/user/ingridk
 		$(href).addClass('is-visible');
 		});
 		
+        }
+		
 		//close the lateral panel
+        if($('.cd-panel').length){
         
 		$('.cd-panel').on('click', function (event) {
 		if ($(event.target).is('.cd-panel') || $(event.target).is('.cd-close')) {
@@ -39,9 +48,12 @@ Author URI: http://themeforest.net/user/ingridk
 		}
 		});
 		
+        }
+		
 
         //Load pretty photo
-        
+        if($("a[data-gal^='prettyPhoto']").length){
+		
 		$("a[data-gal^='prettyPhoto']").prettyPhoto({hook: 'data-gal'});
 		({
 			animation_speed: 'normal', /* fast/slow/normal */
@@ -51,9 +63,12 @@ Author URI: http://themeforest.net/user/ingridk
 			counter_separator_label: '/', /* The separator for the gallery counter 1 "of" 2 */
 			theme: 'light_square', /* light_rounded / dark_rounded / light_square / dark_square / facebook */
 		});
+		
+        }
 	    
 			
         //Navbar collapse close on click
+        if($('.navbar li').length){
         
         $('.navbar li').on('click', function() {
             if ($('.navbar-toggle').css('display') != 'none') {
@@ -61,9 +76,12 @@ Author URI: http://themeforest.net/user/ingridk
             }
         });
         
+        }
+        
 
         //Scrolling feature 
-		
+		if($('.page-scroll a').length){
+        
         $('.page-scroll a').bind('click', function(event) {
             var $anchor = $(this);
             $('html, body').stop().animate({
@@ -71,10 +89,12 @@ Author URI: http://themeforest.net/user/ingridk
             }, 1500, 'easeInOutExpo');
             event.preventDefault();
         });
+        
+		}
 		
 		//	Back Top Link
 
-		var offset = 5200;
+		var offset = 800;
 		var duration = 500;
 		$(window).scroll(function() {
 			if ($(this).scrollTop() > offset) {
@@ -85,7 +105,8 @@ Author URI: http://themeforest.net/user/ingridk
 		});
 		
 		//Owl sliders
-        
+        if($("#owl-testimonials").length){
+		
 		$("#owl-testimonials").owlCarousel({   
 			items: 1,
 			dots:true,
@@ -95,7 +116,9 @@ Author URI: http://themeforest.net/user/ingridk
 			autoplay:true,
 		});
 		  
-		  
+        }
+        
+        if($("#owl-offers").length){
         
 		$("#owl-offers").owlCarousel({
 			items: 1,
@@ -105,6 +128,10 @@ Author URI: http://themeforest.net/user/ingridk
 			autoplayHoverPause: true,
 			autoplay:true
         });
+		
+        }
+        
+        if($("#owl-adopt").length){
 		
 		$("#owl-adopt").owlCarousel({
 			nav: true,
@@ -130,6 +157,8 @@ Author URI: http://themeforest.net/user/ingridk
 					}
         });
 		
+        }
+        
 		// Parallax Slider
 	    
 		  var $slider = $(".slider"),
@@ -312,7 +341,8 @@ Author URI: http://themeforest.net/user/ingridk
     $(window).load(function() {
 
 	//Portfolio Isotope Filter
-	
+    	if($("#lightbox").length){
+    	
         var $container = $('#lightbox');
         $container.isotope({
             filter: '*',
@@ -337,6 +367,7 @@ Author URI: http://themeforest.net/user/ingridk
             return false;
         });
 
+    	}
     });
 	
 

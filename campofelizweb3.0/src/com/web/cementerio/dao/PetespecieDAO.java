@@ -10,14 +10,14 @@ import com.web.cementerio.pojo.annotations.Petespecie;
 public class PetespecieDAO {
 	
 	@SuppressWarnings("unchecked")
-	public  List<Petespecie> getListpetespecie(Session session, int estado){
+	public  List<Petespecie> getListpetespecie(Session session){
 		List<Petespecie> listpetespecie =null;
 		
 		String hql = " from Petespecie ";
 		       hql+= " where setestado.idestado = :idestado" ;
 		       
 		Query query = session.createQuery(hql);     
-		      query.setInteger("idestado", estado);
+		      query.setInteger("idestado", 1);
 		      listpetespecie = (List<Petespecie>)query.list();
 		      
 		return listpetespecie;

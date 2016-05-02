@@ -11,6 +11,7 @@ import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
 import com.web.cementerio.bo.PetmascotahomenajeBO;
+import com.web.cementerio.pojo.annotations.Petespecie;
 import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
 import com.web.util.MessageUtil;
 
@@ -18,18 +19,61 @@ import com.web.util.MessageUtil;
 @ViewScoped
 public class MascotasHomenajeBean  {
 private LazyDataModel<Petmascotahomenaje>  listpetmascotahomenaje; 
+/*private List<Petmascotahomenaje>  lisPetmascotahomenaje;*/
+private List<Petespecie> lisPetespecie;
 private int idespecie;
 private String descripcionParam;
-private String texto;
 
 
 	public MascotasHomenajeBean(){
 		idespecie=0;
-		descripcionParam = "buscar por nombre de mascota";
-		texto="buscar por nombre de mascota";
 		consultar();
+		/*consultarEspecies();
+		consultarMascotas(0);*/
 	}
-		
+	
+	/*public void consultarEspecies(){
+		try
+		{
+			PetmascotahomenajeBO petmascotahomenajeBO = new PetmascotahomenajeBO();
+			
+			String[] textoBusqueda = null;
+			
+			if(descripcionParam != null && descripcionParam.trim().length() > 0){
+				textoBusqueda = descripcionParam.split(" ");
+			}
+			
+			lisPetespecie = petmascotahomenajeBO.lisPetespecieMascotas(textoBusqueda);
+		}catch(Exception e){
+			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
+		}
+	}*/
+	
+	/*public void consultarMascotas(int idespecie){
+		try
+		{
+			PetmascotahomenajeBO petmascotahomenajeBO = new PetmascotahomenajeBO();
+			
+			String[] textoBusqueda = null;
+			
+			if(descripcionParam != null && descripcionParam.trim().length() > 0){
+				textoBusqueda = descripcionParam.split(" ");
+			}
+			
+			lisPetmascotahomenaje = petmascotahomenajeBO.lisPetmascotaByNombreIdespecie(textoBusqueda, idespecie, 24);
+ 
+		}catch(Exception e){
+			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
+		}
+	}*/
+	
+	/*public void buscarMascotas() {
+		consultarEspecies();
+		consultarMascotas(0);
+	}*/
+	
 	@SuppressWarnings("serial")
 	public void consultar(){
 		try
@@ -43,18 +87,18 @@ private String texto;
 					
 					String[] textoBusqueda = null;
 					
-					if(descripcionParam != null && descripcionParam.trim().length() > 0 && descripcionParam.trim().compareTo("buscar por nombre de mascota") != 0){
+					if(descripcionParam != null && descripcionParam.trim().length() > 0 ){
 						textoBusqueda = descripcionParam.split(" ");
 						//first = 0;
 						//first = 1;
 					}
-					if(!texto.equals(descripcionParam)){
+					/*if(!texto.equals(descripcionParam)){
 						first = 0;
 						//this.setRowIndex(0);
 						texto = descripcionParam;
 						
-					}
-					data = petmascotahomenajeBO.lisPetmascotahomenajeBusquedaByPage(textoBusqueda, pageSize, first, args,1);
+					}*/
+					data = petmascotahomenajeBO.lisPetmascotahomenajeBusquedaByPage(textoBusqueda, pageSize, first, args);
 					
 					if(data != null && !data.isEmpty() && args[0] == 0){
 						//si hubieron datos pero sin texto de busqueda
@@ -70,10 +114,6 @@ private String texto;
 				
 				@Override
                 public void setRowIndex(int rowIndex) {
-                    /*
-                     * The following is in ancestor (LazyDataModel):
-                     * this.rowIndex = rowIndex == -1 ? rowIndex : (rowIndex % pageSize);
-                     */
                     if (rowIndex == -1 || getPageSize() == 0) {
                         super.setRowIndex(-1);
                     }
@@ -116,12 +156,20 @@ private String texto;
 		this.listpetmascotahomenaje = listpetmascotahomenaje;
 	}
 
-	public String getTexto() {
-		return texto;
+	/*public List<Petmascotahomenaje> getLisPetmascotahomenaje() {
+		return lisPetmascotahomenaje;
 	}
 
-	public void setTexto(String texto) {
-		this.texto = texto;
+	public void setLisPetmascotahomenaje(List<Petmascotahomenaje> lisPetmascotahomenaje) {
+		this.lisPetmascotahomenaje = lisPetmascotahomenaje;
+	}*/
+
+	public List<Petespecie> getLisPetespecie() {
+		return lisPetespecie;
+	}
+
+	public void setLisPetespecie(List<Petespecie> lisPetespecie) {
+		this.lisPetespecie = lisPetespecie;
 	}
 
 	
