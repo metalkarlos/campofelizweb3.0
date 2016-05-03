@@ -28,7 +28,8 @@
 			<h:form id="form-contentpage" prependId="false">
 
 				<div class="blog-header">
-				<h2>Administración - Homenaje Póstumo</h2>
+				<h2>Administración</h2>
+				<h2>Homenaje Póstumo</h2>
 				<div class="hr"></div>
 				</div>
 
@@ -260,101 +261,83 @@
 				<p:dialog id="iddialogprincipal" header="Foto Principal"
 					closable="true" widgetVar="vardialogprincipal" modal="true"
 					style="min-height: 80px; max-width: 450px">
-					<h:panelGrid id="idpanelprincipal" columns="2" width="100%">
+					<h:panelGrid id="idpanelprincipal" columns="1" width="100%">
+						<h:column>
 						<p:graphicImage
 							value="#{parametro.servletImagenes}#{mascotaHomenajeAdminBean.petfotomascotaselected.ruta}"
 							style="max-height: 50px" />
 						<h:outputText id="idlabelprincipal"
 							value="¿Seleccionar imágen como foto principal?" />
-						<h:outputText value="" />
-						<p:panelGrid id="idpanel2principal"
-							style="width: 100%; text-align: right;">
-							<p:row>
-								<p:column>
-									<p:commandButton id="idconfirmarprincipal" value="Confirmar"
-										action="#{mascotaHomenajeAdminBean.ponerFotoperfil()}"
-										onclick="vardialogprincipal.hide()"
-										update="mensajes" />
-									<p:commandButton id="idcancelarprincipal" value="Cancelar"
-										onclick="vardialogprincipal.hide()" immediate="true" />
-								</p:column>
-							</p:row>
-						</p:panelGrid>
+						</h:column>
+						<h:column>
+						<div style="text-align: right;">
+							<p:commandButton id="idconfirmarprincipal" value="Confirmar"
+								action="#{mascotaHomenajeAdminBean.ponerFotoperfil()}"
+								onclick="vardialogprincipal.hide()"
+								update="mensajes" />
+							<p:commandButton id="idcancelarprincipal" value="Cancelar"
+								onclick="vardialogprincipal.hide()" immediate="true" />
+						</div>
+						</h:column>
 					</h:panelGrid>
 				</p:dialog>
 
 				<p:dialog id="iddialogdelete" header="Eliminar Foto" closable="true"
 					widgetVar="vardialogdelete" modal="true"
 					style="min-height: 80px; max-width: 450px">
-					<h:panelGrid id="idpaneldelete" columns="2" width="100%">
+					<h:panelGrid id="idpaneldelete" columns="1" width="100%">
+						<h:column >
 						<p:graphicImage
 							value="#{parametro.servletImagenes}#{mascotaHomenajeAdminBean.petfotomascotaselected.ruta}"
 							style="max-height: 50px" />
 						<h:outputText id="idlabeldelete" value="¿Quitar foto?" />
-						<h:outputText value="" />
-						<p:panelGrid id="idpanel2delete"
-							style="width: 100%; text-align: right;">
-							<p:row>
-								<p:column>
-									<p:commandButton id="idconfirmardelete" value="Confirmar"
-										action="#{mascotaHomenajeAdminBean.quitarFoto()}"
-										onclick="vardialogdelete.hide()"
-										update="mensajes, idgalleria" />
-									<p:commandButton id="idcancelardelete" value="Cancelar"
-										onclick="vardialogdelete.hide()" immediate="true" />
-								</p:column>
-							</p:row>
-						</p:panelGrid>
+						</h:column>
+						<h:column >
+						<div style="text-align: right;">
+						<p:commandButton id="idconfirmardelete" value="Confirmar"
+							action="#{mascotaHomenajeAdminBean.quitarFoto()}"
+							onclick="vardialogdelete.hide()"
+							update="mensajes, idgalleria" />
+						<p:commandButton id="idcancelardelete" value="Cancelar"
+							onclick="vardialogdelete.hide()" immediate="true" />
+						</div>
+						</h:column>
 					</h:panelGrid>
 				</p:dialog>
 
 				<p:dialog id="iddialoggrabar" header="Grabar" closable="true"
 					widgetVar="vardialoggrabar" modal="true"
 					style="min-height: 80px; max-width: 450px">
-					<h:panelGrid id="idpanelgrabar" columns="2" width="100%">
+					<div>
 						<h:outputText id="idlabelgrabar"
 							value="Confirme si desea grabar el registro" />
-						<h:outputText value="" />
-						<h:outputText value="" />
-						<p:panelGrid id="idpanel2grabar"
-							style="width: 100%; text-align: right;">
-							<p:row>
-								<p:column>
-									<p:commandButton id="idconfirmargrabar" value="Confirmar"
-										action="#{mascotaHomenajeAdminBean.grabar()}"
-										onclick="vardialoggrabar.hide()"
-										update="mensajes,txtCodigoVeterinaria,txtNombre,cmbEspeciemascota,calFechaNacimiento,txtFamilia" />
-									<p:commandButton id="idcancelargrabar" value="Cancelar"
-										onclick="vardialoggrabar.hide()" immediate="true" />
-								</p:column>
-							</p:row>
-						</p:panelGrid>
-					</h:panelGrid>
+					</div>
+					<div style="text-align: right;">
+						<p:commandButton id="idconfirmargrabar" value="Confirmar"
+							action="#{mascotaHomenajeAdminBean.grabar()}"
+							onclick="vardialoggrabar.hide()"
+							update="mensajes,txtCodigoVeterinaria,txtNombre,cmbEspeciemascota,calFechaNacimiento,txtFamilia" />
+						<p:commandButton id="idcancelargrabar" value="Cancelar"
+							onclick="vardialoggrabar.hide()" immediate="true" />
+					</div>
 				</p:dialog>
 
 				<p:dialog id="iddialogdeletemascota" header="Eliminar Mascota"
 					closable="true" widgetVar="vardialogdeletemascota" modal="true"
 					style="min-height: 80px; max-width: 450px">
-					<h:panelGrid id="idpaneldeletenoticia" columns="2" width="100%">
+					<div>
 						<h:outputText id="idlabeldeletemascota"
 							value="Confirme si desea eliminar el registro" />
-						<h:outputText value="" />
-						<h:outputText value="" />
-						<p:panelGrid id="idpanel2deletemascota"
-							style="width: 100%; text-align: right;">
-							<p:row>
-								<p:column>
-									<p:commandButton id="idconfirmardeletemascota"
-										value="Confirmar"
-										action="#{mascotaHomenajeAdminBean.eliminar()}"
-										onclick="vardialogdeletemascota.hide()"
-										update="mensajes" />
-									<p:commandButton id="idcancelardeletenmascota" value="Cancelar"
-										onclick="vardialogdeletemascota.hide()" immediate="true" />
-								</p:column>
-							</p:row>
-						</p:panelGrid>
-					</h:panelGrid>
+					</div>
+					<div style="text-align: right;">
+						<p:commandButton id="idconfirmardeletemascota"
+							value="Confirmar"
+							action="#{mascotaHomenajeAdminBean.eliminar()}"
+							onclick="vardialogdeletemascota.hide()"
+							update="mensajes" />
+						<p:commandButton id="idcancelardeletenmascota" value="Cancelar"
+							onclick="vardialogdeletemascota.hide()" immediate="true" />
+					</div>
 				</p:dialog>
 
 			</h:form>

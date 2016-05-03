@@ -299,7 +299,7 @@ public class Petmascotahomenaje implements java.io.Serializable, Cloneable {
 	}
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idraza", nullable = false)
+	@JoinColumn(name = "idraza")
 	public Petraza getPetraza() {
 		return this.petraza;
 	}
@@ -309,7 +309,7 @@ public class Petmascotahomenaje implements java.io.Serializable, Cloneable {
 	}
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idpersona", nullable = false)
+	@JoinColumn(name = "idpersona")
 	public Cotpersona getCotpersona() {
 		return this.cotpersona;
 	}

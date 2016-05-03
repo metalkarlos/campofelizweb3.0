@@ -134,7 +134,7 @@ public class MascotaHomenajeAdminBean implements Serializable {
 						mostrarPaginaMensaje("Homenaje modificado con exito!!");
 					} else {
 						new MessageUtil()
-								.showWarnMessage("No se ha podido modificar el Homenaje. Comunicar al Webmaster.","");
+								.showInfoMessage("No existen cambios que guardar.","");
 					}
 				}
 			}
