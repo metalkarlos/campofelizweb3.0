@@ -103,7 +103,7 @@
 							<p:panel id="pnlPrevia" styleClass="panel-previa">
 								<p:graphicImage id="idfotoseleccionada"
 									value="#{usuarioBean.streamedContent}" styleClass="img-responsive"
-									rendered="#{mascotaHomenajeAdminBean.fotoSubida}" />
+									rendered="#{mascotaHomenajeAdminBean.fotoSubida}" cache="false" />
 								<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash"
 									action="#{mascotaHomenajeAdminBean.borrarFotoSubida()}"
 									update="pnlPrevia,pnlObservacionFoto,pnlObservacionFoto2"
@@ -143,7 +143,7 @@
 							<span style="color: red;">*</span>
 						</div>
 						<div>
-							<p:inputText id="txtCodigoVeterinaria" maxlength="10"
+							<p:inputText id="txtCodigoVeterinaria" maxlength="5"
 									required="true" requiredMessage="Ingrese Código Veterinaria"
 									value="#{mascotaHomenajeAdminBean.petmascotahomenaje.idmascotaveterinaria}"
 									style="width: 100%;" />
@@ -178,6 +178,21 @@
 										var="especie" itemLabel="#{especie.nombre}"
 										itemValue="#{especie.idespecie}"></f:selectItems>
 								</p:selectOneMenu>
+						</div>
+					</div>
+					
+					<div class="grupo-admin">
+						<div>
+							<h:outputLabel value="Sexo" for="cmbSexoMascota" />
+								<span style="color: red;">*</span>
+						</div>
+						<div>
+							<p:selectOneMenu id="cmbSexoMascota" 
+								value="#{mascotaHomenajeAdminBean.petmascotahomenaje.sexo}">
+								<f:selectItem itemLabel="Seleccione" itemValue="0" />
+								<f:selectItem itemLabel="Macho" itemValue="1" />
+								<f:selectItem itemLabel="Hembra" itemValue="2" />
+							</p:selectOneMenu>
 						</div>
 					</div>
 					
@@ -240,7 +255,7 @@
 							<h:outputLabel value="Dedicatoria" for="txtDedicatoria" />
 						</div>
 						<div>
-							<p:editor id="txtDedicatoria" autoResize="true"
+							<p:editor id="txtDedicatoria" autoResize="true" maxlength="1000"
 									value="#{mascotaHomenajeAdminBean.petmascotahomenaje.dedicatoria}"
 									controls="bold italic underline  undo redo  cut copy  center  removeformat" />
 						</div>

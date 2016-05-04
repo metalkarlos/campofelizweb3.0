@@ -556,10 +556,9 @@
 			 <div class="col-md-8">			 					
 				<!-- Text -->
 			   <h3>Despedir a tu querida mascota.</h3>
-			   <p>No es fácil despedir aquellos angelitos que compartieron tanto con nosotros, es necesario aprender a curar el corazón por la pérdida de una mascota muy querida  y aceptar junto a tu familia, amigos y seres queridos esta etapa natural del ciclo de la vida.
-La vida continúa, sus recuerdos los llevaremos atesorados por siempre en el corazón, serán el motor que nos animará a continuar, a disfrutar de cada momento con intensidad como ellos lo supieron hacer. 
-Cuando superen esta dura y difícil etapa, considera la posibilidad de llevar un nuevo integrante a casa, piensa en aquellas mascotas que esperan por un hogar, es una forma de honrar la memoria de tu querida y amada mascota.
-</p>							
+			   <p>No es fácil despedir aquellos angelitos que compartieron tanto con nosotros, es necesario aprender a curar el corazón por la pérdida de una mascota muy querida  y aceptar junto a tu familia, amigos y seres queridos esta etapa natural del ciclo de la vida.</p>
+				 <p>La vida continúa, sus recuerdos los llevaremos atesorados por siempre en el corazón, serán el motor que nos animará a continuar, a disfrutar de cada momento con intensidad como ellos lo supieron hacer.</p> 
+				 <p>Cuando superen esta dura y difícil etapa, considera la posibilidad de llevar un nuevo integrante a casa, piensa en aquellas mascotas que esperan por un hogar, es una forma de honrar la memoria de tu querida y amada mascota.</p>							
 			  </div>
 			 </div><!--/row-->
 			 
@@ -614,7 +613,7 @@ Cuando superen esta dura y difícil etapa, considera la posibilidad de llevar un
 								  <!-- List -->
 								  <ul class="list-unstyled">
 									 <li><strong>Especie: </strong> #{homenaje.petespecie.nombre}</li>
-									 <li><strong>Sexo:</strong> #{homenaje.sexo == 1 ? 'Macho' : 'Hembra'}</li>
+									 <li><strong>Sexo:</strong> #{homenaje.sexo == 1 ? 'Macho' : (homenaje.sexo == 2 ? 'Hembra' : 'No Definido')}</li>
 								  </ul>	
 								  <!-- Buttons -->								  
 								  <div class="toggle-btn page-scroll text-center">
