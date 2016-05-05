@@ -94,7 +94,7 @@ public class ServicioAdminBean implements Serializable {
 			try{facesUtil.redirect("../pages/home.jsf");}catch(Exception e){}
 		} catch(Exception e) {
 			e.printStackTrace();
-			try{facesUtil.redirect("home.jsf");}catch(Exception e2){}
+			try{facesUtil.redirect("../pages/home.jsf");}catch(Exception e2){}
 		}
 	}
 	

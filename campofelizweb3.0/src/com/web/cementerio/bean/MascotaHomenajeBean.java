@@ -57,7 +57,7 @@ public class MascotaHomenajeBean implements Serializable {
 	private void consultarMascotaHomenaje(){
 		try {
 			PetmascotahomenajeBO mascotaHomenajeBO= new PetmascotahomenajeBO();
-			petmascotahomenaje = mascotaHomenajeBO.getPetmascotahomenajebyId(idmascota, 1,false);
+			petmascotahomenaje = mascotaHomenajeBO.getPetmascotahomenajebyId(idmascota);
 			if((petmascotahomenaje !=null)&&(!petmascotahomenaje.getPetfotomascotas().isEmpty()) && petmascotahomenaje.getPetfotomascotas().size()>0 ){
 				listpetfotomascota = new ArrayList<Petfotomascota>(petmascotahomenaje.getPetfotomascotas());
 

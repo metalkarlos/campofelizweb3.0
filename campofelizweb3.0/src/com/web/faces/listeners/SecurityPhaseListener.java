@@ -50,7 +50,7 @@ public class SecurityPhaseListener implements PhaseListener {
 				}catch(Exception e){}
 			}*/
 			if(facesContext.getViewRoot() != null){
-				boolean loginPage = vista != null && vista.contains("pages/adminweb.jsf");
+				boolean loginPage = vista != null && vista.contains("pages/login.jsf");
 				if(loginPage && usuarioBean != null && usuarioBean.isAutenticado()){
 					try{
 						facesContext.getExternalContext().redirect("home.jsf");

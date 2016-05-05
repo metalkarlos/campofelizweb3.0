@@ -18,7 +18,7 @@ import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
 
 public class PetmascotahomenajeDAO {
 
-	public Petmascotahomenaje getPethomenajemascotaById(Session session,int idmascota, int idestado, boolean especie) throws Exception {
+	public Petmascotahomenaje getPethomenajemascotaById(Session session,int idmascota) throws Exception {
 
 		Petmascotahomenaje petmascotahomenaje = null;
 		
@@ -26,7 +26,7 @@ public class PetmascotahomenajeDAO {
 				.createCriteria(Petmascotahomenaje.class)
 				.add(Restrictions.eq("idmascota", idmascota))
 				.createAlias("petespecie", "e")
-				.add(Restrictions.eq("setestado.idestado", idestado))
+				.add(Restrictions.eq("setestado.idestado", 1))
 				//.createAlias("petfotomascotas", "foto", Criteria.LEFT_JOIN);
 				.createAlias("petfotomascotas", "foto", JoinType.LEFT_OUTER_JOIN);
 
@@ -36,7 +36,7 @@ public class PetmascotahomenajeDAO {
 			Set<Petfotomascota> tmp = new HashSet<Petfotomascota>();
 
 			for (Petfotomascota petfoto : petmascotahomenaje.getPetfotomascotas()) {
-				if (petfoto.getSetestado().getIdestado() == idestado) {
+				if (petfoto.getSetestado().getIdestado() == 1) {
 					tmp.add(petfoto);
 				}
 			}

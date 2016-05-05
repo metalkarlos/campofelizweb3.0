@@ -25,7 +25,7 @@
 							<div class=" blog-grid2">
 							
 							
-			<h:form id="form-contentpage" prependId="false">
+			<h:form id="form-contentpage" prependId="false" enctype="multipart/form-data">
 
 				<div class="blog-header">
 				<h2>Administración</h2>
@@ -187,9 +187,10 @@
 								<span style="color: red;">*</span>
 						</div>
 						<div>
-							<p:selectOneMenu id="cmbSexoMascota" 
+							<p:selectOneMenu id="cmbSexoMascota" required="true"
+								requiredMessage="Ingrese Sexo"
 								value="#{mascotaHomenajeAdminBean.petmascotahomenaje.sexo}">
-								<f:selectItem itemLabel="Seleccione" itemValue="0" />
+								<f:selectItem itemLabel="Seleccione" itemValue="" />
 								<f:selectItem itemLabel="Macho" itemValue="1" />
 								<f:selectItem itemLabel="Hembra" itemValue="2" />
 							</p:selectOneMenu>
@@ -331,7 +332,7 @@
 						<p:commandButton id="idconfirmargrabar" value="Confirmar"
 							action="#{mascotaHomenajeAdminBean.grabar()}"
 							onclick="vardialoggrabar.hide()"
-							update="mensajes,txtCodigoVeterinaria,txtNombre,cmbEspeciemascota,calFechaNacimiento,txtFamilia" />
+							update="mensajes,txtCodigoVeterinaria,txtNombre,cmbEspeciemascota,cmbSexoMascota,calFechaNacimiento,txtFamilia" />
 						<p:commandButton id="idcancelargrabar" value="Cancelar"
 							onclick="vardialoggrabar.hide()" immediate="true" />
 					</div>
