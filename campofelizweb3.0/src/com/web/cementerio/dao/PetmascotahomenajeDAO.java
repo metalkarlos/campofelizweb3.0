@@ -157,8 +157,8 @@ public class PetmascotahomenajeDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Petmascotahomenaje> getListpetmascotabycriteria(
-			Session session, int idestado, int idespecie, String nombre) {
+	public List<Petmascotahomenaje> listpetmascotabycriteria(
+			Session session, int idestado, int idespecie, String nombre) throws Exception {
 		List<Petmascotahomenaje> listPetmascotahomeanje = null;
 
 		Criteria criteria = session
@@ -206,7 +206,7 @@ public class PetmascotahomenajeDAO {
 		return lisPetespecie;
 	}
 
-	public int getMaxidpetmascotahomenaje(Session session) throws Exception {
+	public int maxIdpetmascotahomenaje(Session session) throws Exception {
 		int maxid = 0;
 
 		Object object = session.createQuery(
@@ -215,6 +215,36 @@ public class PetmascotahomenajeDAO {
 		maxid = (object == null ? 1 : Integer.parseInt(object.toString()));
 
 		return maxid;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Petmascotahomenaje> lisPetmascotabyParams(Session session, Petmascotahomenaje petmascotahomenajeParams) throws Exception {
+		List<Petmascotahomenaje> listPetmascotahomeanje = null;
+
+		Criteria criteria = session.createCriteria(Petmascotahomenaje.class);
+				
+		if(petmascotahomenajeParams != null){
+			if(petmascotahomenajeParams.getIdmascota() > 0){
+				criteria.add(Restrictions.eq("idmascota", petmascotahomenajeParams.getIdmascota()));
+			}
+			if(petmascotahomenajeParams.getSetestado() != null && petmascotahomenajeParams.getSetestado().getIdestado() > 0){
+				criteria.add(Restrictions.eq("setestado.idestado", petmascotahomenajeParams.getSetestado().getIdestado()));
+			}
+			if(petmascotahomenajeParams.getPetespecie() != null && petmascotahomenajeParams.getPetespecie().getIdespecie() > 0){
+				criteria.add(Restrictions.eq("petespecie.idespecie", petmascotahomenajeParams.getPetespecie().getIdespecie()));
+			}
+			if(petmascotahomenajeParams.getNombre() != null && petmascotahomenajeParams.getNombre().length() > 0){
+				criteria.add(Restrictions.like("nombre","%" + petmascotahomenajeParams.getNombre().replaceAll(" ", "%") + "%").ignoreCase());
+			}
+			if(petmascotahomenajeParams.getIdmascotaveterinaria() != null && petmascotahomenajeParams.getIdmascotaveterinaria().length() > 0){
+				criteria.add(Restrictions.like("idmascotaveterinaria",petmascotahomenajeParams.getIdmascotaveterinaria()).ignoreCase());
+			}
+		}
+			
+		criteria.addOrder(Order.desc("fechapublicacion"));
+		listPetmascotahomeanje = (List<Petmascotahomenaje>) criteria.list();
+
+		return listPetmascotahomeanje;
 	}
 
 	public void ingresarPetmascotahomenaje(Session session,

@@ -109,6 +109,21 @@ public class PetmascotahomenajeBO {
 		return lisPetespecie;
 	}
 	
+	public List<Petmascotahomenaje> lisPetmascotabyParams(Petmascotahomenaje petmascotahomenajeParams)throws Exception{
+		List<Petmascotahomenaje> listpetmascotahomenaje = null;
+		Session session = null;
+		
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			listpetmascotahomenaje = petmascotahomenajeDAO.lisPetmascotabyParams(session, petmascotahomenajeParams);
+		} catch (Exception e) {
+			throw new Exception(e.getMessage(),e.getCause());
+		}finally{
+			session.close();
+		}
+		
+		return listpetmascotahomenaje;
+	}
 	
 	public boolean  ingresarPetmascotahomenajeBO(Petmascotahomenaje petmascotahomenaje,Petfotomascota petfotomascota,byte[] imagenTemporal,String nombreImagen) throws Exception{
 		boolean ok = false;
@@ -121,7 +136,7 @@ public class PetmascotahomenajeBO {
 			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 			
 			//mascota
-			petmascotahomenaje.setIdmascota(petmascotahomenajeDAO.getMaxidpetmascotahomenaje(session));
+			petmascotahomenaje.setIdmascota(petmascotahomenajeDAO.maxIdpetmascotahomenaje(session));
 			petmascotahomenaje.setNombre(petmascotahomenaje.getNombre().toUpperCase());
 			petmascotahomenaje.setFamilia(petmascotahomenaje.getFamilia().toUpperCase());
 			Setestado setestado = new Setestado();

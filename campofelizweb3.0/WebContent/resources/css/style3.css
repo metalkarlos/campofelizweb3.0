@@ -253,3 +253,7 @@
 	border: none !important;
 	background: none !important;
 }
+/*******************admin de homenajes*****************/
+.ui-datagrid-column .ribbon {
+	right: 10px;
+}

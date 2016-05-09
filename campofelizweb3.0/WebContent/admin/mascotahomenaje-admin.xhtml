@@ -63,9 +63,10 @@
 
 								<div class="col-md-12">
 									<div class="thumbnail text-center">
-											<p:graphicImage 
-												value="#{parametro.servletImagenes}#{imagen.ruta}?w=800&amp;h=640&amp;m=both"
-												styleClass="img-responsive" />
+										<h:panelGroup styleClass="ribbon" layout="block" rendered="#{(imagen.ruta != null and imagen.ruta.equals(mascotaHomenajeAdminBean.petmascotahomenaje.rutafoto))? true:false }"><span>EN PERFIL</span></h:panelGroup>
+										<p:graphicImage 
+											value="#{parametro.servletImagenes}#{imagen.ruta}?w=800&amp;h=640&amp;m=both"
+											styleClass="img-responsive" />
 										<div class="caption-adoption">
 
 											<p:inputTextarea id="txtObservacionFotoItem"
@@ -74,16 +75,16 @@
 											
 											<!-- Buttons -->
 											<p:commandButton id="idbuttonprincipal2" 
-												title="#{imagen.idfotomascota}" onclick="vardialogprincipal.show()"
+												title="Seleccionar foto del perfil" onclick="vardialogprincipal.show()"
 												icon="ui-icon ui-icon-person" update="idpanelprincipal" 
-												>
+												disabled="#{(imagen.ruta != null and imagen.ruta.equals(mascotaHomenajeAdminBean.petmascotahomenaje.rutafoto))? true:false }">
 												<f:setPropertyActionListener value="#{imagen}"
 														target="#{mascotaHomenajeAdminBean.petfotomascotaselected}" />
 											</p:commandButton>
 											<p:commandButton id="idbuttondelete2"
 												title="Eliminar foto permanentemente" onclick="vardialogdelete.show()"
 												icon="ui-icon ui-icon-trash" update="idpaneldelete"
-												>
+												disabled="#{(imagen.ruta != null and imagen.ruta.equals(mascotaHomenajeAdminBean.petmascotahomenaje.rutafoto))? true:false }">
 												<f:setPropertyActionListener value="#{imagen}"
 														target="#{mascotaHomenajeAdminBean.petfotomascotaselected}" />
 											</p:commandButton>
@@ -258,7 +259,7 @@
 						<div>
 							<p:editor id="txtDedicatoria" autoResize="true" maxlength="1000"
 									value="#{mascotaHomenajeAdminBean.petmascotahomenaje.dedicatoria}"
-									controls="bold italic underline  undo redo  cut copy  center  removeformat" />
+									controls="bold italic underline  undo redo  cut copy  center  removeformat source" />
 						</div>
 					</div>
 				</div>
@@ -274,7 +275,7 @@
 						onclickButtonCancelar="redirect('../pages/mascotashomenaje.jsf');"
 						renderedButtonNewItem="false" />
 				</div>
-				<p:dialog id="iddialogprincipal" header="Foto Principal"
+				<p:dialog id="iddialogprincipal" header="Foto del Perfil"
 					closable="true" widgetVar="vardialogprincipal" modal="true"
 					style="min-height: 80px; max-width: 450px">
 					<h:panelGrid id="idpanelprincipal" columns="1" width="100%">
@@ -283,7 +284,7 @@
 							value="#{parametro.servletImagenes}#{mascotaHomenajeAdminBean.petfotomascotaselected.ruta}"
 							style="max-height: 50px" />
 						<h:outputText id="idlabelprincipal"
-							value="¿Seleccionar imágen como foto principal?" />
+							value="¿Seleccionar imágen como foto del perfil?" />
 						</h:column>
 						<h:column>
 						<div style="text-align: right;">

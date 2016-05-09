@@ -208,7 +208,7 @@ public class MascotaHomenajeAdminBean implements Serializable {
 			} else {
 				new MessageUtil()
 						.showInfoMessage(
-								"No se puede eliminar foto que ha sido seleccionada como foto de perfil, cambie de foto de perfil y vuelva a intentarlo","");
+								"La foto que desea eliminar es la del perfil, seleccione otra foto de perfil y vuelva a intentarlo","");
 			}
 			petfotomascotaselected = new Petfotomascota();
 		}
@@ -234,6 +234,7 @@ public class MascotaHomenajeAdminBean implements Serializable {
 	public boolean validarcampos() {
 		boolean ok = true;
 		Date fechaactual = new Date();
+		
 		if (petmascotahomenaje.getNombre() == null
 				|| petmascotahomenaje.getNombre().length() == 0) {
 			ok = false;
@@ -298,11 +299,49 @@ public class MascotaHomenajeAdminBean implements Serializable {
 			new MessageUtil().showInfoMessage("Es necesario ingresar la descripción de la foto a subir","");
 		} else if (verificaDescripcionFotoNoVacia()) {
 			ok = false;
-			new MessageUtil()
-					.showInfoMessage("Es necesario ingresar la descripción en fotos de la galería","");
+			new MessageUtil().showInfoMessage("Es necesario ingresar la descripción en fotos de la galería","");
+		} 
+		
+		if(existeCodigoVeterinaria()){
+			ok = false;
 		}
+		
 		return ok;
-
+	}
+	
+	private boolean existeCodigoVeterinaria(){
+		boolean ok = false;
+		
+		try {
+			PetmascotahomenajeBO petmascotahomenajeBO = new PetmascotahomenajeBO();
+			
+			Petmascotahomenaje petmascotahomenajeParams = new Petmascotahomenaje();
+			petmascotahomenajeParams.setIdmascotaveterinaria(petmascotahomenaje.getIdmascotaveterinaria());
+			Setestado setestado = new Setestado();
+			setestado.setIdestado(1);
+			petmascotahomenajeParams.setSetestado(setestado);
+			List<Petmascotahomenaje> lisPetmascotahomenaje = petmascotahomenajeBO.lisPetmascotabyParams(petmascotahomenajeParams);
+			
+			if(lisPetmascotahomenaje != null && lisPetmascotahomenaje.size() > 0){
+				if(petmascotahomenaje.getIdmascota() == 0) {
+					//si es un ingreso, el codigo veterinaria no debe existir
+					ok = true;
+					new MessageUtil().showInfoMessage("Código Veterinaria ya existe","");
+				}else{
+					//si es una modificacion, el codigo veterinaria no debe existir aparte del registro que se modifica 
+					if(lisPetmascotahomenaje.get(0).getIdmascota() != petmascotahomenaje.getIdmascota()){
+						ok = true;
+						new MessageUtil().showInfoMessage("Código Veterinaria ya existe","");
+					}
+				}
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
+		}
+		
+		return ok;
 	}
 
 	public boolean verificaDescripcionFotoNoVacia() {
