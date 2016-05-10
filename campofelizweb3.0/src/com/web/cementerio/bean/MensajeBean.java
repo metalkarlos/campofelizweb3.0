@@ -19,6 +19,8 @@ public class MensajeBean implements Serializable {
 	private static final long serialVersionUID = 1069184869581844243L;
 	
 	private String mensaje;
+	private String link;
+	private String linkTitulo;
 	
 	public MensajeBean() {
 	}
@@ -36,8 +38,11 @@ public class MensajeBean implements Serializable {
 			UsuarioBean usuarioBean = (UsuarioBean)facesUtil.getSessionBean("usuarioBean");
 			
 			mensaje = usuarioBean.getMensaje();
+			link = usuarioBean.getLink();
+			linkTitulo = usuarioBean.getLinkTitulo();
 			
 			usuarioBean.setMensaje("");
+			usuarioBean.setLink("");
 			facesUtil.setSessionBean("usuarioBean", usuarioBean);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -52,7 +57,21 @@ public class MensajeBean implements Serializable {
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
 	}
+
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
 	
-	
+	public String getLinkTitulo() {
+		return linkTitulo;
+	}
+
+	public void setLinkTitulo(String linkTitulo) {
+		this.linkTitulo = linkTitulo;
+	}
 	
 }

@@ -154,6 +154,8 @@ public class MascotaHomenajeAdminBean implements Serializable {
 	private void mostrarPaginaMensaje(String mensaje) throws Exception {
 		UsuarioBean usuarioBean = (UsuarioBean) new FacesUtil().getSessionBean("usuarioBean");
 		usuarioBean.setMensaje(mensaje);
+		usuarioBean.setLink("/pages/mascotashomenaje");
+		usuarioBean.setLinkTitulo("Ver Más Homenajes");
 
 		FacesUtil facesUtil = new FacesUtil();
 		facesUtil.redirect("../pages/mensaje.jsf");

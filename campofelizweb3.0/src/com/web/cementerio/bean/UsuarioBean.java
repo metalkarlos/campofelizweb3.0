@@ -39,6 +39,8 @@ public class UsuarioBean implements Serializable{
 	private StreamedContent streamedContent;
 	private Cotoficina cotoficina;
 	private String mensaje;
+	private String link;
+	private String linkTitulo;
 	private Date hoy;
 	
 	public UsuarioBean(){
@@ -48,6 +50,8 @@ public class UsuarioBean implements Serializable{
 		setUsuario = new Setusuario();
 		cotoficina = new Cotoficina();
 		mensaje = "";
+		link = "";
+		linkTitulo = "";
 		hoy = new Date();
 		
 		consultarEmpresa();
@@ -303,6 +307,22 @@ public class UsuarioBean implements Serializable{
 
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
+	}
+	
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
+	public String getLinkTitulo() {
+		return linkTitulo;
+	}
+
+	public void setLinkTitulo(String linkTitulo) {
+		this.linkTitulo = linkTitulo;
 	}
 
 	public Date getHoy() {

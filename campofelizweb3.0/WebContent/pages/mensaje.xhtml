@@ -34,6 +34,9 @@
 										<p style="text-align: center;">#{mensajeBean.mensaje}</p>
 									</div>
 		
+									<h:panelGroup styleClass="text-center" layout="block" rendered="#{mensajeBean.link != null and mensajeBean.link.length() > 0}">
+										<h:link styleClass="btn btn-default" outcome="#{mensajeBean.link}" value="#{mensajeBean.linkTitulo}" ></h:link>
+									</h:panelGroup>
 		
 							</div>
 							<div class="clearfix"></div>
