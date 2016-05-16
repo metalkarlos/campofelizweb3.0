@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 
 import com.web.cementerio.bo.PetservicioBO;
 import com.web.cementerio.pojo.annotations.Petservicio;
 import com.web.util.MessageUtil;
 
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class ServiciosPrincipalesBean implements Serializable {
 
 	/**

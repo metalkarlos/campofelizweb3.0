@@ -7,7 +7,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -18,7 +18,7 @@ import com.web.util.FacesUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class ServiciosBean implements Serializable {
 
 	/**

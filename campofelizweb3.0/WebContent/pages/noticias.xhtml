@@ -1,13 +1,114 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-			xmlns:f="http://xmlns.jcp.org/jsf/core"
-			xmlns:h="http://xmlns.jcp.org/jsf/html"
-      template="/WEB-INF/templates/template.xhtml"> 
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:html="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/templates/template_others.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core">
 
-	<ui:define name="slider">
+	<ui:define name="head">
+		<title>Noticias - Campo Feliz</title>
+		<meta name="description"
+			content="Entérate de eventos, notas curiosas, noticias y mucho más." />
+		<meta name="keywords" content="noticias" />
 	</ui:define>
 
 	<ui:define name="content_page">
+		<h:form id="form-noticias" prependId="false">
+			<!--start-content-->
+			<div class="blog noticias">
+				<div class="container">
+					<div class="blog-top">
+						<div class="col-md-12 blog-grid">
+
+							<!-- Section Gallery -->
+							<section id="gallery">
+							<div class="col-lg-8 col-lg-offset-2">
+								<!-- Section heading -->
+								<div class="section-heading">
+									<h2>Eventos y Noticias</h2>
+									<div class="hr"></div>
+								</div>
+							</div>
+							<div class="wow fadeInDown" data-wow-delay="0.2s">
+
+								<p:messages id="mensajes" showDetail="false" />
+								<p:defaultCommand target="lnkbuscar"></p:defaultCommand>
+
+								<div class="blog-search nav-gallery col-md-12">
+
+									<p:inputText id="txtbusqueda"
+										value="#{noticiasBean.descripcionParam}"
+										html:placeholder="Buscar"
+										validatorMessage="Ingrese sólo letras. Corrija y reintente.">
+										<f:validateRegex pattern="[a-zA-Z ]*" />
+									</p:inputText>
+
+									<p:commandButton id="lnkbuscar" image="btn-find"
+										update="resultadonoticia mensajes">
+									</p:commandButton>
+
+								</div>
+
+								<p:dataGrid id="resultadonoticia"
+									styleClass="nav-gallery col-md-12" var="noticia"
+									value="#{noticiasBean.lisPetnoticia}"
+									columns="1" rows="12" efect="true" paginator="true"
+									paginatorPosition="bottom"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+									emptyMessage="No se encontraron registros" lazy="true"
+									layout="grid">
+
+
+									<div class="fila-grid">
+										<div class="fecha-noticia col-sm-offset-1 ">
+											<h:outputText value="#{noticia.fecharegistro}">
+												<f:convertDateTime pattern="EEEE, dd MMMM yyyy" locale="es_EC" />
+											</h:outputText>
+										</div>
+										<h4 class="col-sm-offset-1">#{noticia.titulo}</h4>
+								   <div class="col-sm-4 col-md-3 col-sm-offset-1">
+									  <!-- Offer image -->
+									  <img src="#{request.contextPath}#{parametro.servletImagenes}#{noticia.rutafoto}?w=839&amp;h=1024&amp;m=both" class="img-responsive" alt="" />
+								   </div>
+								   <!-- Offer description -->
+								   <div class="col-sm-7">
+									  <div class="media-body">
+										 <p>
+										 <h:outputText value="#{fn:substring(noticia.descripcionNoTags, 0, 300)}..." escape="false" />
+										 </p>
+											<div class="text-center">
+												<h:link styleClass="btn btn-default" outcome="/pages/noticia" value="Leer más" >
+													<f:param name="idnoticia" value="#{noticia.idnoticia}"></f:param>
+												</h:link>
+											</div>
+									  </div>
+								   </div>
+									</div>
+								</p:dataGrid>
+								
+								<div class="clearfix"></div>
+								<div class="text-center">
+									<h:link styleClass="btn btn-default m-left" outcome="/admin/noticia-admin" value="Nueva Noticia" rendered="#{usuarioBean.autenticado}">
+										<f:param name="idnoticia" value="0"></f:param>
+									</h:link>
+								</div>
+								
+								
+							</div><!-- /container --> 
+							</section><!-- Section ends -->
+
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+				</div>
+			</div>
+			<!--end-content-->
+
+		</h:form>
 	</ui:define>
 </ui:composition>

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 
 import com.web.cementerio.bo.PetfotoinstalacionBO;
 import com.web.cementerio.pojo.annotations.Petfotoinstalacion;
@@ -13,7 +13,7 @@ import com.web.util.MessageUtil;
 
 
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class CementerioVirtualBean implements Serializable {
 
 	/**

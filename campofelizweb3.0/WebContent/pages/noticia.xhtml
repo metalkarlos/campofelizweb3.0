@@ -4,6 +4,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	template="/WEB-INF/templates/template_others.xhtml">
 
 	<ui:define name="head">
@@ -65,50 +66,13 @@
 								</div>
 							</div>
 							<div class="clearfix"></div>
-						</div>
-
-
-					</div>
-					<div class="col-md-3 categories-grid" style="display: none">
-						<div class="search-in">
-							<h2>Búsqueda</h2>
-							<div class="blog-search">
-								<form>
-									<input type="text"/> <input type="submit" value=" " />
-								</form>
+							<div class="text-center">
+								<h:link styleClass="btn btn-default" outcome="/pages/noticias" value="Ver Más Noticias" ></h:link>
+								<h:link styleClass="btn btn-default m-left" outcome="/admin/noticia-admin" value="Editar" rendered="#{usuarioBean.autenticado}">
+									<f:param name="idnoticia" value="#{noticiaBean.petnoticia.idnoticia}"></f:param>
+								</h:link>
 							</div>
 						</div>
-						<div class="blog-bottom">
-							<h4>Otros Servicios</h4>
-							<div class="product-go">
-								<a href="#" class="fashion"><img 
-									class="img-responsive " src="#{request.contextPath}/resources/images/bi.jpg" alt="" /></a>
-								<div class="grid-product">
-									<a href="single.html" class="elit">Consectetuer adipiscing</a>
-									<p>Lorem ipsum dolor sit amet, consectetuer</p>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="product-go">
-								<a href="#" class="fashion"><img 
-									class="img-responsive " src="#{request.contextPath}/resources/images/bi1.jpg" alt="" /></a>
-								<div class="grid-product">
-									<a href="#" class="elit">Consectetuer adipiscing</a>
-									<p>Lorem ipsum dolor sit amet, consectetuer</p>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="product-go">
-								<a href="#" class="fashion"><img 
-									class="img-responsive " src="#{request.contextPath}/resources/images/bi2.jpg" alt="" /></a>
-								<div class="grid-product">
-									<a href="#" class="elit">Consectetuer adipiscing</a>
-									<p>Lorem ipsum dolor sit amet, consectetuer</p>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-						</div>
-
 					</div>
 					<div class="clearfix"></div>
 				</div>

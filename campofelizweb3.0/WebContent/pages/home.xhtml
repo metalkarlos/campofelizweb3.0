@@ -34,7 +34,7 @@
 	   <div class="container">
 		  <div class="row">
 		  	<!-- items -->
-		  	<c:forEach items="#{serviciosPrincipalesBean.lisPetservicio}" var="servicio">
+		  	<c:forEach items="#{inicioBean.lisPetservicio}" var="servicio">
 		  		<div class="col-md-4 col-sm-12 margin wow fadeInLeft" data-wow-delay="0.2s">
 						<div class="img-wrapper">
 						   <img src="#{request.contextPath}#{parametro.servletImagenes}#{servicio.rutafoto}?w=900&amp;h=524&amp;m=both" alt="" class="img-responsive" />
@@ -126,7 +126,7 @@
 					  <div class="col-md-12 col-sm-12">
 						 <div class="col-lg-7 col-md-6 col-sm-12 res-margin wow fadeInRight" data-wow-delay="0.2s">
 							<h3>Cómo nace CAMPO FELIZ</h3>
-							<p><h:outputText value="#{fn:substring(quienesSomosBean.petinformacion.quienessomosNoTags, 0, 400)}..." escape="false" /><h:link outcome="/pages/historia" value="Leer más" /></p>
+							<p><h:outputText value="#{fn:substring(inicioBean.petinformacion.quienessomosNoTags, 0, 400)}..." escape="false" /><h:link outcome="/pages/historia" value="Leer más" /></p>
 						 </div>					 
 						 <div class="col-lg-5 col-md-6 col-sm-12 wow fadeInLeft" data-wow-delay="0.2s">
 							<img src="#{request.contextPath}#{parametro.servletImagenes}/mascota/2011/2011-8-1-1-1.jpg?w=700&amp;h=450&amp;m=both" alt="" class="img-responsive"/>
@@ -169,10 +169,10 @@
 				  <div class="row">
 				   <div class="col-lg-6 col-md-6 col-sm-12 res-margin">
 					  <h3>Misión</h3>
-					  <p><h:outputText value="#{quienesSomosBean.petinformacion.mision}" escape="false"/></p>
+					  <p><h:outputText value="#{inicioBean.petinformacion.mision}" escape="false"/></p>
 					  <br />
 					  <h3>Visión</h3>
-					  <p><h:outputText value="#{quienesSomosBean.petinformacion.vision}" escape="false" /></p>
+					  <p><h:outputText value="#{inicioBean.petinformacion.vision}" escape="false" /></p>
 				   </div>
 				   <div class="col-lg-6 col-md-6 col-sm-12">
 				   	<!-- Responsive video -->
@@ -476,7 +476,7 @@
 			<div class="col-md-12">
 			 <div id="lightbox">
 			 		<!-- Images -->			 
-			 	<c:forEach items="#{cementerioVirtualBean.lisPetfotoinstalacion}"	var="instalacion">
+			 	<c:forEach items="#{inicioBean.lisPetfotoinstalacion}"	var="instalacion">
 			 		<!-- Image 1 -->
 				<div class="col-sm-6 col-md-6 col-lg-4 #{instalacion.grupo}">
 				   <div class="portfolio-item">
@@ -510,7 +510,7 @@
 		  <div class="col-md-10 col-centered">
 			 <div id="owl-offers" class="owl-carousel">
 			 	<!-- Offers -->
-			 	<c:forEach items="#{noticiasPrincipalesBean.lisPetnoticias}" var="noticia">
+			 	<c:forEach items="#{inicioBean.lisPetnoticias}" var="noticia">
 			 		<div>
 				   <div class="col-sm-4 col-md-3 col-sm-offset-1">
 					  <!-- Offer image -->
@@ -525,6 +525,7 @@
 								<h:link styleClass="btn btn-default" outcome="/pages/noticia" value="Leer más" >
 									<f:param name="idnoticia" value="#{noticia.idnoticia}"></f:param>
 								</h:link>
+								<h:link styleClass="btn btn-default m-left" outcome="/pages/noticias" value="Ver Más Noticias" ></h:link>
 							</div>
 					  </div>
 				   </div>
@@ -568,7 +569,7 @@
 				   <h4 class="text-center">Preguntas Frecuentes</h4>
 				   <div class="panel-group" id="accordion">
 				   	<!-- Questions -->
-				   	<c:forEach items="#{enunciadosBean.listpetvenunciado}" var="enunciado">
+				   	<c:forEach items="#{inicioBean.listpetvenunciado}" var="enunciado">
 				   	<div class="panel panel-default">
 				   		<c:choose>
 								<c:when test="#{enunciado.tipo == 'P'.charAt(0)}">
@@ -601,7 +602,7 @@
 				  <h4 class="text-center">Homenaje Póstumo</h4>				  				 				   
 				  <div id="owl-adopt" class="owl-carousel owl-theme">
 				   <!-- Animals -->
-				   	<c:forEach items="#{mascotasPrincipalBean.lisPetmascotahomenaje}" var="homenaje" varStatus="loop">
+				   	<c:forEach items="#{inicioBean.lisPetmascotahomenaje}" var="homenaje" varStatus="loop">
 				   	<div>
 						 <div class="col-md-12">
 							<div class="thumbnail text-center">
@@ -631,7 +632,7 @@
 					</div>
 				 
 				 <!-- Slide In Panel Animals -->
-				 <c:forEach items="#{mascotasPrincipalBean.lisPetmascotahomenaje}" var="homenaje" varStatus="loop">
+				 <c:forEach items="#{inicioBean.lisPetmascotahomenaje}" var="homenaje" varStatus="loop">
 				 	<div class="cd-panel from-right" id="#{loop.index+1}">
 					  <div class="cd-panel-container">
 						 <div class="cd-panel-content">

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -16,7 +16,7 @@ import com.web.cementerio.pojo.annotations.Petnoticia;
 import com.web.util.MessageUtil;
 
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class NoticiasBean implements Serializable {
 
 	/**
@@ -24,12 +24,9 @@ public class NoticiasBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 2425720865157253886L;
 	private LazyDataModel<Petnoticia> lisPetnoticia;
-	private String tituloParam;
 	private String descripcionParam;
 	
 	public NoticiasBean() {
-		tituloParam = "";
-		descripcionParam = "buscar";
 		consultarNoticias();
 	}
 	
@@ -44,7 +41,8 @@ public class NoticiasBean implements Serializable {
 					int args[] = {0};
 					
 					String[] textoBusqueda = null;
-					if(descripcionParam != null && descripcionParam.trim().length() > 0 && descripcionParam.trim().compareTo("buscar") != 0 ){
+					
+					if(descripcionParam != null && descripcionParam.trim().length() > 0 ){
 						textoBusqueda = descripcionParam.split(" ");
 						first = 0;
 					}
@@ -80,14 +78,6 @@ public class NoticiasBean implements Serializable {
 
 	public void setLisPetnoticia(LazyDataModel<Petnoticia> lisPetnoticia) {
 		this.lisPetnoticia = lisPetnoticia;
-	}
-
-	public String getTituloParam() {
-		return tituloParam;
-	}
-
-	public void setTituloParam(String tituloParam) {
-		this.tituloParam = tituloParam;
 	}
 
 	public String getDescripcionParam() {

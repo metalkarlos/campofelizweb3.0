@@ -10,7 +10,6 @@
 	font-weight: 400;
 	color:#333
 }
-
 /*******ajaxStatus*******/
 .ajax-status {
 	z-index: 1018;
@@ -24,7 +23,6 @@
 	text-align: center;
 	vertical-align: middle;
 }
-
 /*********justificacion**********/
 #contact p, #pane2 p, #adoption p, #pane1 .col-lg-7 p {
 	text-align: justify;
@@ -33,7 +31,6 @@
 .mapa-oficina {
 	padding: 120px 0 120px 0;
 }
-
 /******error page********/
 .error-content {
 	padding: 120px 30px;
@@ -84,12 +81,6 @@
 .alinear * {
 	display: inline-block;
 }
-/*********ancho planes************/
-@media (min-width: 992px) {
-	.col-md-3-plan {
-    width: 50% !important;
-  }
-}
 /*************logo*************/
 /* max width 365px */
 @media (max-width: 365px) {
@@ -106,7 +97,23 @@
 	text-align: center;
 	padding: 50px 0px 30px;
 }
-/* max width 991px */
+.blog-search .btn-find {
+	background-image: url("#{resource['img/blog-search.png']}") !important;
+}
+.blog-search {
+	padding-bottom: 60px;
+}
+.noticias .section-heading, .mascotas .section-heading {
+  margin-bottom: 60px;
+}
+.blog-search .ui-button span {
+    width: 25px;
+    height: 25px;
+}
+.blog-search button {
+	border: none !important;
+	background: none !important;
+}
 @media (max-width: 991px) {
 	/* Space between sections */
 	.blog-top {padding: 100px 0px 60px;}
@@ -114,7 +121,6 @@
 .grupo-admin {
 	padding-bottom: 15px;
 }
-
 /**************contenedor****************/
 @media (min-width: 1200px) {
   .container {
@@ -124,15 +130,6 @@
 .col-md-9 {
     margin: auto;
     float: none;
-}
-/**************pie de pagina***************/
-@media (min-width: 992px) {
-	.col-md-3-pie {
-    width: 36% !important;
-  }
-  .col-md-offset-5-pie {
-    margin-left: 30% !important;
-  }
 }
 /**************contactos*****************/
 .form-control {
@@ -162,19 +159,6 @@
 	font-size: 15px !important;
 	
 }
-/*.ui-inputfield {
-	box-shadow: none;
-	border-radius: 0;
-	border: 1px solid #d6e9c6;
-}*/
-/*.ui-inputfield.ui-state-focus {
-	box-shadow: none;
-}*/
-/*.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
-    border: none;
-    background: #71BF44;
-}*/
-
 /********************datagrid*********************/
 .ui-datagrid .ui-widget-content {
     border: none;
@@ -193,13 +177,6 @@
 	color: #333;
 }
 /*****************login****************/
-/*.login-form a {
-	color:#71BF44 !important;
-}
-.login-form a:hover {
-	color: #67B03D !important;
-}*/
-
 #form-login .blog-grid3 {
 	float: none;
 	margin: 0 auto;
@@ -227,33 +204,47 @@
   margin-top: 10px;
 }
 #form-login input{
-	/*box-shadow: none;
-	border-radius: 0;
-	border: 1px solid #d6e9c6;*/
 	width: 100%;
 }
 #form-login a{
 	font-size: 0.9em;
 }
-/******************consulta general homenajes*******************/
-#form-mascotashomenaje .blog-search {
-	padding-bottom: 60px;
-}
-#form-mascotashomenaje .section-heading {
-  margin-bottom: 60px;
-}
-#form-mascotashomenaje .blog-search .btn-find {
-	background-image: url("#{resource['img/blog-search.png']}") !important;
-}
-#form-mascotashomenaje .blog-search .ui-button span {
-    width: 25px;
-    height: 25px;
-}
-#form-mascotashomenaje .blog-search button {
-	border: none !important;
-	background: none !important;
-}
 /*******************admin de homenajes*****************/
 .ui-datagrid-column .ribbon {
 	right: 10px;
+}
+/********************media 992px********************/
+@media (min-width: 992px) {
+	/*****ancho planes***********/
+	.col-md-3-plan {
+    width: 50% !important;
+  }
+  /*****pie de pagina**********/
+  .col-md-3-pie {
+    width: 36% !important;
+  }
+  .col-md-offset-5-pie {
+    margin-left: 30% !important;
+  }
+  /*****admin de homenajes*****/
+  .fila-grid .col-md-3 {
+    width: 15%;
+	}
+}
+/**************grids****************/
+.fila-grid {
+	float: left;
+	border-top: 1px dotted #ccc;
+	border-bottom: 1px dotted #ccc;
+	margin-bottom: 15px;
+  padding-bottom: 15px;
+}
+.fila-grid h4 {
+	text-align: left;
+}
+.fila-grid .fecha-noticia {
+  color: #999;
+  font-size: 11px;
+  text-align: left;
+  line-height: 27px;
 }

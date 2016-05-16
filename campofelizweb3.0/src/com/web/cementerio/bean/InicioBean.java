@@ -1,25 +1,119 @@
 package com.web.cementerio.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
+
+import com.web.cementerio.pojo.annotations.Petfotoinstalacion;
+import com.web.cementerio.pojo.annotations.Petinformacion;
+import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
+import com.web.cementerio.pojo.annotations.Petnoticia;
+import com.web.cementerio.pojo.annotations.Petservicio;
+import com.web.cementerio.pojo.annotations.Petvenunciado;
 
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class InicioBean implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -396004214619164180L;
+	
+	private List<Petservicio> lisPetservicio;
+	private Petinformacion petinformacion;
+	private List<Petfotoinstalacion> lisPetfotoinstalacion;
+	private List<Petnoticia> lisPetnoticias;
+	private List<Petvenunciado> listpetvenunciado;
+	private List<Petmascotahomenaje> lisPetmascotahomenaje;
+	//private Cotoficina cotoficinaVeterinaria;
 
 	public InicioBean() {
 	
 	}
 	
-	private void ConsultarMisionVision(){
+	@PostConstruct
+	public void PostInicioBean() {
+		Consultar();
+	}
+	
+	private void Consultar(){
+		ServiciosPrincipalesBean serviciosPrincipalesBean = new ServiciosPrincipalesBean();
+		lisPetservicio = serviciosPrincipalesBean.getLisPetservicio();
+		serviciosPrincipalesBean = null;
 		
+		QuienesSomosBean quienesSomosBean = new QuienesSomosBean();
+		petinformacion = quienesSomosBean.getPetinformacion();
+		quienesSomosBean = null;
+		
+		CementerioVirtualBean cementerioVirtualBean = new CementerioVirtualBean();
+		lisPetfotoinstalacion = cementerioVirtualBean.getLisPetfotoinstalacion();
+		cementerioVirtualBean = null;
+		
+		NoticiasPrincipalesBean noticiasPrincipalesBean = new NoticiasPrincipalesBean();
+		lisPetnoticias = noticiasPrincipalesBean.getLisPetnoticias();
+		noticiasPrincipalesBean = null;
+		
+		EnunciadosBean enunciadosBean = new EnunciadosBean();
+		listpetvenunciado = enunciadosBean.getListpetvenunciado();
+		enunciadosBean = null;
+		
+		MascotasPrincipalBean mascotasPrincipalBean = new MascotasPrincipalBean();
+		lisPetmascotahomenaje = mascotasPrincipalBean.getLisPetmascotahomenaje();
+		mascotasPrincipalBean = null;
+		
+		//ContactenosBean contactenosBean = new ContactenosBean();
+	}
+
+	public List<Petservicio> getLisPetservicio() {
+		return lisPetservicio;
+	}
+
+	public void setLisPetservicio(List<Petservicio> lisPetservicio) {
+		this.lisPetservicio = lisPetservicio;
+	}
+
+	public Petinformacion getPetinformacion() {
+		return petinformacion;
+	}
+
+	public void setPetinformacion(Petinformacion petinformacion) {
+		this.petinformacion = petinformacion;
+	}
+
+	public List<Petfotoinstalacion> getLisPetfotoinstalacion() {
+		return lisPetfotoinstalacion;
+	}
+
+	public void setLisPetfotoinstalacion(List<Petfotoinstalacion> lisPetfotoinstalacion) {
+		this.lisPetfotoinstalacion = lisPetfotoinstalacion;
+	}
+
+	public List<Petnoticia> getLisPetnoticias() {
+		return lisPetnoticias;
+	}
+
+	public void setLisPetnoticias(List<Petnoticia> lisPetnoticias) {
+		this.lisPetnoticias = lisPetnoticias;
+	}
+
+	public List<Petvenunciado> getListpetvenunciado() {
+		return listpetvenunciado;
+	}
+
+	public void setListpetvenunciado(List<Petvenunciado> listpetvenunciado) {
+		this.listpetvenunciado = listpetvenunciado;
+	}
+
+	public List<Petmascotahomenaje> getLisPetmascotahomenaje() {
+		return lisPetmascotahomenaje;
+	}
+
+	public void setLisPetmascotahomenaje(List<Petmascotahomenaje> lisPetmascotahomenaje) {
+		this.lisPetmascotahomenaje = lisPetmascotahomenaje;
 	}
 	
 }

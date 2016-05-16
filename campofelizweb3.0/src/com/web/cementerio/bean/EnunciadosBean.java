@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 
 import org.primefaces.event.SelectEvent;
 
@@ -15,8 +15,7 @@ import com.web.util.FacesUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
-@ViewScoped
-
+@RequestScoped
 public class EnunciadosBean  implements Serializable{
 	
 	private static final long serialVersionUID = -6325180654691511826L;

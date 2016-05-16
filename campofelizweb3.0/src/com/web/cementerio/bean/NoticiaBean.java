@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 
 import com.web.cementerio.bo.PetnoticiaBO;
 import com.web.cementerio.pojo.annotations.Petfotonoticia;
@@ -15,7 +15,7 @@ import com.web.util.FacesUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class NoticiaBean implements Serializable {
 
 	/**

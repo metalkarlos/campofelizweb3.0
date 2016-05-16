@@ -1,5 +1,6 @@
 package com.web.cementerio.bean;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,8 +17,12 @@ import org.primefaces.model.menu.MenuModel;
 
 @ManagedBean
 @SessionScoped
-public class BreadCrumbBean {
+public class BreadCrumbBean implements Serializable  {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -531783179478681054L;
 	private MenuModel breadCrumb;
 	private List<String> opciones = Arrays.asList("quienessomos.jsf",
 			"servicios.jsf",

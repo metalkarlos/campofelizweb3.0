@@ -22,6 +22,7 @@
     <param-value>.xhtml</param-value>
   </context-param>
   <context-param>
+  	<description>interval in seconds should the compiler check for changes in pages</description>
     <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
     <param-value>2</param-value>
   </context-param>
@@ -40,18 +41,19 @@
     <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
     <param-value>server</param-value>
   </context-param>
-  <context-param>
+  <!-- <context-param>
     <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
     <param-value>resources.application</param-value>
-  </context-param>
+  </context-param> -->
   <context-param>
+  	<description>allow slash in library name</description>
     <param-name>org.apache.myfaces.STRICT_JSF_2_ALLOW_SLASH_LIBRARY_NAME</param-name>
     <param-value>true</param-value>
   </context-param>
-  <context-param>
+  <!-- <context-param>
     <param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
     <param-value>true</param-value>
-  </context-param>
+  </context-param> -->
   <context-param>
     <description>Clave publica de www.campofeliz.com</description>
     <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
@@ -73,10 +75,12 @@
     <param-value>6LebpPUSAAAAAJiM7jJuzaR6Ns6br4dABVtVfMyL</param-value>
   </context-param> -->
   <context-param>
+  	<description>theme</description>
     <param-name>primefaces.THEME</param-name>
     <param-value>green</param-value>
   </context-param>
   <context-param>
+  	<description>permite el uso de la forma antigua de referirse a los widget</description>
     <param-name>primefaces.LEGACY_WIDGET_NAMESPACE</param-name>
     <param-value>true</param-value>
   </context-param>
@@ -84,15 +88,15 @@
     <filter-name>PrimeFaces FileUpload Filter</filter-name>
     <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
   </filter>
+  <filter-mapping>
+    <filter-name>PrimeFaces FileUpload Filter</filter-name>
+    <servlet-name>Faces Servlet</servlet-name>
+  </filter-mapping>
   <filter>
     <description>Clase con la validacion para accesar a las paginas de administrador</description>
     <filter-name>Acceso Paginas Admin</filter-name>
     <filter-class>com.web.faces.filters.AdminPagesAccessFilter</filter-class>
   </filter>
-  <filter-mapping>
-    <filter-name>PrimeFaces FileUpload Filter</filter-name>
-    <servlet-name>Faces Servlet</servlet-name>
-  </filter-mapping>
   <filter-mapping>
     <filter-name>Acceso Paginas Admin</filter-name>
     <url-pattern>/admin/*</url-pattern>
@@ -107,7 +111,7 @@
     <url-pattern>*.jsf</url-pattern>
   </servlet-mapping>
   <session-config>
-    <session-timeout>60</session-timeout>
+    <session-timeout>15</session-timeout>
   </session-config>
   <mime-mapping>
     <extension>pdf</extension>

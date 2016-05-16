@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 
 import com.web.cementerio.bo.PetmascotahomenajeBO;
 import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
@@ -13,13 +13,13 @@ import com.web.util.MessageUtil;
 
 
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class MascotasPrincipalBean implements Serializable {
 
 	
 	private static final long serialVersionUID = -3691703732690624440L;
 	
-	List<Petmascotahomenaje> lisPetmascotahomenaje;
+	private List<Petmascotahomenaje> lisPetmascotahomenaje;
 
 	public MascotasPrincipalBean() {
 		lisPetmascotahomenaje = new ArrayList<Petmascotahomenaje>();
