@@ -130,7 +130,7 @@ public class MascotaHomenajeAdminBean implements Serializable {
 					if(ok){
 						mostrarPaginaMensaje("Homenaje creado con exito!!");
 					}else{
-						mostrarPaginaMensaje("No existen cambios que guardar.");
+						new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
 					}
 				} else {
 					ok = petmascotahomenajeBO.modificarPetmascotahomenajeBO(
@@ -140,7 +140,7 @@ public class MascotaHomenajeAdminBean implements Serializable {
 					if(ok){
 						mostrarPaginaMensaje("Homenaje modificado con exito!!");
 					}else{
-						mostrarPaginaMensaje("No existen cambios que guardar.");
+						new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
 					}
 				}
 			}
@@ -193,7 +193,7 @@ public class MascotaHomenajeAdminBean implements Serializable {
 		fotoSubida = false;
 	}
 
-	public void ponerFotoperfil() {
+	public void ponerFotoPrincipal() {
 		if (petfotomascotaselected != null) {
 			petmascotahomenaje.setRutafoto(petfotomascotaselected.getRuta());
 			new MessageUtil().showInfoMessage("Presione grabar para guardar los cambios","");
@@ -201,9 +201,9 @@ public class MascotaHomenajeAdminBean implements Serializable {
 		}
 	}
 
-	public void quitarFoto() {
+	public void quitarFotoGaleria() {
 		if (petfotomascotaselected != null) {
-			if (!petfotomascotaselected.getRuta().equals(
+			if (!petfotomascotaselected.getRuta().equalsIgnoreCase(
 					petmascotahomenaje.getRutafoto())) {
 				listpetfotomascota.remove(petfotomascotaselected);
 				new MessageUtil().showInfoMessage("Presione grabar para guardar los cambios","");

@@ -12,7 +12,6 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
-import org.primefaces.model.UploadedFile;
 
 import com.web.cementerio.bo.PetnoticiaBO;
 import com.web.cementerio.global.Parametro;
@@ -21,6 +20,7 @@ import com.web.cementerio.pojo.annotations.Petnoticia;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
+import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
@@ -37,11 +37,12 @@ public class NoticiaAdminBean implements Serializable {
 	private List<Petfotonoticia> lisPetfotonoticia;
 	private List<Petfotonoticia> lisPetfotonoticiaClon;
 	private Petfotonoticia petfotonoticiaSeleccionada;
-	private StreamedContent streamedContent;
-	private UploadedFile uploadedFile;
 	private String descripcionFoto;
 	private boolean fotoSubida;
 	private long maxfilesize;
+	private int idfotonoticiaselected;
+	private byte[] imagenTemporal;
+	private String nombreImagen;
 	
 	public NoticiaAdminBean() {
 		petnoticia = new Petnoticia(0, new Setestado(), new Setusuario(), null, null, null, new Date(), null, null, null, new Date(), new Date(), false, 0);
@@ -107,16 +108,18 @@ public class NoticiaAdminBean implements Serializable {
 
 	public void handleFileUpload(FileUploadEvent event) {
 		try{
-			uploadedFile = event.getFile();
-			streamedContent = new DefaultStreamedContent(event.getFile().getInputstream(), event.getFile().getContentType());
+			FileUtil fileUtil = new FileUtil();
+			StreamedContent streamedContent = new DefaultStreamedContent(event.getFile().getInputstream(), event.getFile().getContentType());
+			imagenTemporal = event.getFile().getContents();
+			nombreImagen = fileUtil.getFileExtention(event.getFile().getFileName()).toLowerCase();
 			
 			FacesUtil facesUtil = new FacesUtil();
-			UsuarioBean usuarioBean = (UsuarioBean)facesUtil.getSessionBean("usuarioBean");
+			UsuarioBean usuarioBean = (UsuarioBean) facesUtil.getSessionBean("usuarioBean");
 			usuarioBean.setStreamedContent(streamedContent);
 			facesUtil.setSessionBean("usuarioBean", usuarioBean);
 			fotoSubida = true;
 			
-			new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
+			new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.", "");
 		}catch(Exception x){
 			x.printStackTrace();
 			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
@@ -124,50 +127,57 @@ public class NoticiaAdminBean implements Serializable {
 	}
 	
 	public void ponerFotoPrincipal(){
-		petnoticia.setRutafoto(petfotonoticiaSeleccionada.getRuta());
-		petfotonoticiaSeleccionada = new Petfotonoticia();
-		new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
+		if (petfotonoticiaSeleccionada != null) {
+			petnoticia.setRutafoto(petfotonoticiaSeleccionada.getRuta());
+			new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
+			petfotonoticiaSeleccionada = new Petfotonoticia();
+		}
 	}
 	
 	public void quitarFotoGaleria(){
-		if(petfotonoticiaSeleccionada.getRuta().equalsIgnoreCase(petnoticia.getRutafoto())){
-			new MessageUtil().showInfoMessage("La foto a eliminar es la foto principal de ésta noticia. Seleccione otra foto como principal para poderla eliminar.","");
-		}else{
-			lisPetfotonoticia.remove(petfotonoticiaSeleccionada);
+		if (petfotonoticiaSeleccionada != null) {
+			if(petfotonoticiaSeleccionada.getRuta().equalsIgnoreCase(petnoticia.getRutafoto())){
+				lisPetfotonoticia.remove(petfotonoticiaSeleccionada);
+				new MessageUtil().showInfoMessage("Presione grabar para guardar los cambios","");
+			} else {
+				new MessageUtil()
+						.showInfoMessage(
+								"La foto que desea eliminar es la principal. Seleccione otra foto como principal y vuelva a intentarlo","");
+			}
 			petfotonoticiaSeleccionada = new Petfotonoticia();
 		}
 	}
 	
 	public void borrarFotoSubida(){
-		streamedContent = null;
-		uploadedFile = null;
+		imagenTemporal = null;
 		fotoSubida = false;
 	}
 	
 	public void grabar(){
 		try{
-			boolean ok = false;
-			
-			PetnoticiaBO petnoticiaBO = new PetnoticiaBO();
-			Petfotonoticia petfotonoticia = new Petfotonoticia();
-			
-			if(fotoSubida && descripcionFoto != null && descripcionFoto.trim().length() > 0){
-				petfotonoticia.setDescripcion(descripcionFoto);
-			}
-			
-			if(idnoticia == 0){
-				ok = petnoticiaBO.ingresar(petnoticia, petfotonoticia, uploadedFile);
-				if(ok){
-					mostrarPaginaMensaje("Noticia creada con exito!!");
-				}else{
-					new MessageUtil().showWarnMessage("No se ha podido ingresar la Noticia. Comunicar al Webmaster.","");
+			if (validarcampos()) {
+				PetnoticiaBO petnoticiaBO = new PetnoticiaBO();
+				Petfotonoticia petfotonoticia = new Petfotonoticia();
+				boolean ok = false;
+				
+				if(fotoSubida && descripcionFoto != null && descripcionFoto.trim().length() > 0){
+					petfotonoticia.setDescripcion(descripcionFoto);
 				}
-			}else{
-				ok = petnoticiaBO.modificar(petnoticia, petnoticiaClon, lisPetfotonoticia, lisPetfotonoticiaClon, petfotonoticia, uploadedFile);
-				if(ok){
-					mostrarPaginaMensaje("Noticia modificada con exito!!");
+				
+				if(idnoticia == 0){
+					ok = petnoticiaBO.ingresar(petnoticia, petfotonoticia, imagenTemporal,nombreImagen);
+					if(ok){
+						mostrarPaginaMensaje("Noticia creada con exito!!");
+					}else{
+						new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
+					}
 				}else{
-					new MessageUtil().showWarnMessage("No se ha podido modificar la Noticia. Comunicar al Webmaster.","");
+					ok = petnoticiaBO.modificar(petnoticia, petnoticiaClon, lisPetfotonoticia, lisPetfotonoticiaClon, petfotonoticia,imagenTemporal,nombreImagen);
+					if(ok){
+						mostrarPaginaMensaje("Noticia modificada con exito!!");
+					}else{
+						new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
+					}
 				}
 			}
 		}catch(Exception e){
@@ -176,12 +186,34 @@ public class NoticiaAdminBean implements Serializable {
 		}
 	}
 	
-	private void mostrarPaginaMensaje(String mensaje) throws Exception {
-		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
-		usuarioBean.setMensaje(mensaje);
+	public boolean validarcampos() {
+		boolean ok = true;
 		
+		if (petnoticia.getTitulo() == null
+				|| petnoticia.getTitulo().length() == 0) {
+			ok = false;
+			new MessageUtil().showInfoMessage("Ingrese el Título de la Noticia","");
+		} else if (petnoticia.getDescripcion() == null
+				|| petnoticia.getDescripcion().length() == 0) {
+			ok = false;
+			new MessageUtil().showInfoMessage("Ingrese el Contenido de la Noticia","");
+		} else if (petnoticia.getOrden() <= 0) {
+			ok = false;
+			new MessageUtil()
+					.showInfoMessage("Ingrese el orden de la Noticia","");
+		} 
+		
+		return ok;
+	}
+	
+	private void mostrarPaginaMensaje(String mensaje) throws Exception {
+		UsuarioBean usuarioBean = (UsuarioBean) new FacesUtil().getSessionBean("usuarioBean");
+		usuarioBean.setMensaje(mensaje);
+		usuarioBean.setLink("/pages/noticias");
+		usuarioBean.setLinkTitulo("Ver Más Noticias");
+
 		FacesUtil facesUtil = new FacesUtil();
-		facesUtil.redirect("../pages/mensaje.jsf");	 
+		facesUtil.redirect("../pages/mensaje.jsf");
 	}
 	
 	public void eliminar(){
@@ -232,14 +264,6 @@ public class NoticiaAdminBean implements Serializable {
 		this.petfotonoticiaSeleccionada = petfotonoticiaSeleccionada;
 	}
 
-	public StreamedContent getStreamedContent() {
-		return streamedContent;
-	}
-
-	public void setStreamedContent(StreamedContent streamedContent) {
-		this.streamedContent = streamedContent;
-	}
-
 	public boolean isFotoSubida() {
 		return fotoSubida;
 	}
@@ -262,5 +286,29 @@ public class NoticiaAdminBean implements Serializable {
 
 	public void setMaxfilesize(long maxfilesize) {
 		this.maxfilesize = maxfilesize;
+	}
+
+	public int getIdfotonoticiaselected() {
+		return idfotonoticiaselected;
+	}
+
+	public void setIdfotonoticiaselected(int idfotonoticiaselected) {
+		this.idfotonoticiaselected = idfotonoticiaselected;
+	}
+
+	public byte[] getImagenTemporal() {
+		return imagenTemporal;
+	}
+
+	public void setImagenTemporal(byte[] imagenTemporal) {
+		this.imagenTemporal = imagenTemporal;
+	}
+
+	public String getNombreImagen() {
+		return nombreImagen;
+	}
+
+	public void setNombreImagen(String nombreImagen) {
+		this.nombreImagen = nombreImagen;
 	}
 }

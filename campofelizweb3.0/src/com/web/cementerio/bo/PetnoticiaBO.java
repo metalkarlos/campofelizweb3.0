@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.primefaces.model.UploadedFile;
 
 import com.web.cementerio.bean.UsuarioBean;
 import com.web.cementerio.dao.PetfotonoticiaDAO;
@@ -130,7 +129,7 @@ public class PetnoticiaBO {
 		return lisPetnoticia;
 	}
 	
-	public boolean ingresar(Petnoticia petnoticia, Petfotonoticia petfotonoticia, UploadedFile uploadedFile) throws Exception {
+	public boolean ingresar(Petnoticia petnoticia, Petfotonoticia petfotonoticia,byte[] imagenTemporal,String nombreImagen) throws Exception {
 		boolean ok = false;
 		Session session = null;
 		
@@ -157,8 +156,8 @@ public class PetnoticiaBO {
 			petnoticiaDAO.savePetnoticia(session, petnoticia);
 			
 			//Si subio foto se crea en disco y en base
-			if(uploadedFile != null){
-				creaFotoDiscoBD(petnoticia, petfotonoticia, uploadedFile, session);
+			if(imagenTemporal != null){
+				creaFotoDiscoBD(petnoticia, petfotonoticia, imagenTemporal, nombreImagen, session);
 				//se setea la ruta de la foto tambien en petnoticia.rutafoto
 				petnoticia.setRutafoto(petfotonoticia.getRuta());
 				//update
@@ -169,8 +168,9 @@ public class PetnoticiaBO {
 			
 			ok = true;
 		}catch(Exception e){
+			petnoticia.setIdnoticia(0);
 			session.getTransaction().rollback();
-			throw new Exception(e); 
+			throw new Exception(e.getMessage(),e.getCause()); 
 		}finally{
 			session.close();
 		}
@@ -240,7 +240,7 @@ public class PetnoticiaBO {
 		return ok;
 	}
 	
-	public boolean modificar(Petnoticia petnoticia, Petnoticia petnoticiaClon, List<Petfotonoticia> lisPetfotonoticia, List<Petfotonoticia> lisPetfotonoticiaClon, Petfotonoticia petfotonoticia, UploadedFile uploadedFile) throws Exception {
+	public boolean modificar(Petnoticia petnoticia, Petnoticia petnoticiaClon, List<Petfotonoticia> lisPetfotonoticia, List<Petfotonoticia> lisPetfotonoticiaClon, Petfotonoticia petfotonoticia,byte[] imagenTemporal,String nombreImagen) throws Exception {
 		boolean ok = false;
 		Session session = null;
 		
@@ -304,8 +304,8 @@ public class PetnoticiaBO {
 			}
 			
 			//Si subio foto se crea en disco y en base
-			if(uploadedFile != null){
-				creaFotoDiscoBD(petnoticia, petfotonoticia, uploadedFile, session);
+			if(imagenTemporal != null){
+				creaFotoDiscoBD(petnoticia, petfotonoticia, imagenTemporal, nombreImagen, session);
 				//si no tiene imagen principal se setea
 				if(petnoticia.getRutafoto() == null || petnoticia.getRutafoto().trim().length() == 0){
 					petnoticia.setRutafoto(petfotonoticia.getRuta());
@@ -339,7 +339,7 @@ public class PetnoticiaBO {
 		return ok;
 	}
 	
-	private void creaFotoDiscoBD(Petnoticia petnoticia, Petfotonoticia petfotonoticia, UploadedFile uploadedFile, Session session) throws Exception {
+	private void creaFotoDiscoBD(Petnoticia petnoticia, Petfotonoticia petfotonoticia, byte[] imagenTemporal, String nombreImagen, Session session) throws Exception {
 		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 		PetfotonoticiaDAO petfotonoticiaDAO = new PetfotonoticiaDAO();
 		
@@ -353,14 +353,14 @@ public class PetnoticiaBO {
 		
 		String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
 		String rutaNoticias =  fileUtil.getPropertyValue("repositorio-noticia") + fecha.get(Calendar.YEAR);
-		String nombreArchivo = fecha.get(Calendar.YEAR) + "-" + (fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + petnoticia.getIdnoticia() + "-" + cantFotosPorNoticia + "." + fileUtil.getFileExtention(uploadedFile.getFileName()).toLowerCase();
+		String nombreArchivo = fecha.get(Calendar.YEAR) + "-" + (fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + petnoticia.getIdnoticia() + "-" + cantFotosPorNoticia + "." + fileUtil.getFileExtention(nombreImagen).toLowerCase();
 		
 		String rutaCompleta = rutaImagenes + rutaNoticias;
 		
 		if(fileUtil.createDir(rutaCompleta)){
 			//crear foto en disco
 			String rutaArchivo = rutaCompleta + "/" + nombreArchivo;
-			fileUtil.createFile(rutaArchivo,uploadedFile.getContents());
+			fileUtil.createFile(rutaArchivo,imagenTemporal);
 		}
 		
 		//foto en BD
