@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.primefaces.model.UploadedFile;
 
 import com.web.cementerio.bean.UsuarioBean;
 import com.web.cementerio.dao.PetfotoservicioDAO;
@@ -128,7 +127,7 @@ public class PetservicioBO {
 		return petservicio;
 	}
 	
-	public boolean ingresar(Petservicio petservicio, Petfotoservicio petfotoservicio, UploadedFile uploadedFile) throws Exception {
+	public boolean ingresar(Petservicio petservicio, Petfotoservicio petfotoservicio, byte[] imagenTemporal,String nombreImagen) throws Exception {
 		boolean ok = false;
 		Session session = null;
 		
@@ -155,8 +154,8 @@ public class PetservicioBO {
 			petservicioDAO.savePetservicio(session, petservicio);
 			
 			//Si subio foto se crea en disco y en base
-			if(uploadedFile != null){
-				creaFotoDiscoBD(petservicio, petfotoservicio, uploadedFile, session);
+			if(imagenTemporal != null){
+				creaFotoDiscoBD(petservicio, petfotoservicio, imagenTemporal, nombreImagen, session);
 				//se setea la ruta de la foto tambien en petnoticia.rutafoto
 				petservicio.setRutafoto(petfotoservicio.getRuta());
 				//update
@@ -239,7 +238,7 @@ public class PetservicioBO {
 		return ok;
 	}
 	
-	public boolean modificar(Petservicio petservicio, Petservicio petservicioClon, List<Petfotoservicio> lisPetfotoservicio, List<Petfotoservicio> lisPetfotoservicioClon, Petfotoservicio petfotoservicio, UploadedFile uploadedFile) throws Exception {
+	public boolean modificar(Petservicio petservicio, Petservicio petservicioClon, List<Petfotoservicio> lisPetfotoservicio, List<Petfotoservicio> lisPetfotoservicioClon, Petfotoservicio petfotoservicio, byte[] imagenTemporal,String nombreImagen) throws Exception {
 		boolean ok = false;
 		Session session = null;
 		
@@ -303,8 +302,8 @@ public class PetservicioBO {
 			}
 			
 			//Si subio foto se crea en disco y en base
-			if(uploadedFile != null){
-				creaFotoDiscoBD(petservicio, petfotoservicio, uploadedFile, session);
+			if(imagenTemporal != null){
+				creaFotoDiscoBD(petservicio, petfotoservicio, imagenTemporal, nombreImagen, session);
 				//si no tiene imagen principal se setea
 				if(petservicio.getRutafoto() == null || petservicio.getRutafoto().trim().length() == 0){
 					petservicio.setRutafoto(petfotoservicio.getRuta());
@@ -338,7 +337,7 @@ public class PetservicioBO {
 		return ok;
 	}
 	
-	private void creaFotoDiscoBD(Petservicio petservicio, Petfotoservicio petfotoservicio, UploadedFile uploadedFile, Session session) throws Exception {
+	private void creaFotoDiscoBD(Petservicio petservicio, Petfotoservicio petfotoservicio, byte[] imagenTemporal, String nombreImagen, Session session) throws Exception {
 		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 		PetfotoservicioDAO petfotoservicioDAO = new PetfotoservicioDAO();
 		
@@ -352,14 +351,14 @@ public class PetservicioBO {
 		
 		String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
 		String rutaServicios =  fileUtil.getPropertyValue("repositorio-servicios") + fecha.get(Calendar.YEAR);
-		String nombreArchivo = fecha.get(Calendar.YEAR) + "-" + (fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + petservicio.getIdservicio() + "-" + cantFotosPorServicio + "." + fileUtil.getFileExtention(uploadedFile.getFileName()).toLowerCase();
+		String nombreArchivo = fecha.get(Calendar.YEAR) + "-" + (fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + petservicio.getIdservicio() + "-" + cantFotosPorServicio + "." + fileUtil.getFileExtention(nombreImagen).toLowerCase();
 		
 		String rutaCompleta = rutaImagenes + rutaServicios;
 		
 		if(fileUtil.createDir(rutaCompleta)){
 			//crear foto en disco
 			String rutaArchivo = rutaCompleta + "/" + nombreArchivo;
-			fileUtil.createFile(rutaArchivo,uploadedFile.getContents());
+			fileUtil.createFile(rutaArchivo,imagenTemporal);
 		}
 		
 		//foto en BD

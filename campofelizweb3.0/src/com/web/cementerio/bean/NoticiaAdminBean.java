@@ -137,12 +137,12 @@ public class NoticiaAdminBean implements Serializable {
 	public void quitarFotoGaleria(){
 		if (petfotonoticiaSeleccionada != null) {
 			if(petfotonoticiaSeleccionada.getRuta().equalsIgnoreCase(petnoticia.getRutafoto())){
+				new MessageUtil()
+				.showInfoMessage(
+						"La foto que desea eliminar es la principal. Seleccione otra foto como principal y vuelva a intentarlo","");
+			} else {
 				lisPetfotonoticia.remove(petfotonoticiaSeleccionada);
 				new MessageUtil().showInfoMessage("Presione grabar para guardar los cambios","");
-			} else {
-				new MessageUtil()
-						.showInfoMessage(
-								"La foto que desea eliminar es la principal. Seleccione otra foto como principal y vuelva a intentarlo","");
 			}
 			petfotonoticiaSeleccionada = new Petfotonoticia();
 		}
@@ -294,14 +294,6 @@ public class NoticiaAdminBean implements Serializable {
 
 	public void setIdfotonoticiaselected(int idfotonoticiaselected) {
 		this.idfotonoticiaselected = idfotonoticiaselected;
-	}
-
-	public byte[] getImagenTemporal() {
-		return imagenTemporal;
-	}
-
-	public void setImagenTemporal(byte[] imagenTemporal) {
-		this.imagenTemporal = imagenTemporal;
 	}
 
 	public String getNombreImagen() {

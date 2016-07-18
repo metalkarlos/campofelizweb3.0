@@ -7,7 +7,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -18,7 +18,7 @@ import com.web.util.FacesUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class ServiciosBean implements Serializable {
 
 	/**
@@ -26,20 +26,14 @@ public class ServiciosBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 3898128216790895916L;
 	private LazyDataModel<Petservicio> lisPetservicio;
-	private String tituloParam;
 	private String descripcionParam;
 	private int columnsGrid;
 	private int rowsGrid;
 	private int idempresa;
 
 	public ServiciosBean() {
-		tituloParam = "";
-		descripcionParam = "buscar";
-		
 		setColumnsGrid(2);
 		setRowsGrid(3);
-		
-		//consultarServicios();
 	}
 	
 	@PostConstruct
@@ -110,14 +104,6 @@ public class ServiciosBean implements Serializable {
 
 	public void setLisPetservicio(LazyDataModel<Petservicio> lisPetservicio) {
 		this.lisPetservicio = lisPetservicio;
-	}
-
-	public String getTituloParam() {
-		return tituloParam;
-	}
-
-	public void setTituloParam(String tituloParam) {
-		this.tituloParam = tituloParam;
 	}
 
 	public String getDescripcionParam() {

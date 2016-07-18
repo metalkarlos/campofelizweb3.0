@@ -203,14 +203,14 @@ public class MascotaHomenajeAdminBean implements Serializable {
 
 	public void quitarFotoGaleria() {
 		if (petfotomascotaselected != null) {
-			if (!petfotomascotaselected.getRuta().equalsIgnoreCase(
+			if (petfotomascotaselected.getRuta().equalsIgnoreCase(
 					petmascotahomenaje.getRutafoto())) {
+				new MessageUtil()
+				.showInfoMessage(
+						"La foto que desea eliminar es la del perfil, seleccione otra foto de perfil y vuelva a intentarlo","");
+			} else {
 				listpetfotomascota.remove(petfotomascotaselected);
 				new MessageUtil().showInfoMessage("Presione grabar para guardar los cambios","");
-			} else {
-				new MessageUtil()
-						.showInfoMessage(
-								"La foto que desea eliminar es la del perfil, seleccione otra foto de perfil y vuelva a intentarlo","");
 			}
 			petfotomascotaselected = new Petfotomascota();
 		}

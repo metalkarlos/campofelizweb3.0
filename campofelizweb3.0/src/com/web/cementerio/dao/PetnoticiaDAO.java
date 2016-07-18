@@ -55,8 +55,8 @@ public class PetnoticiaDAO {
 		Criteria criteria = session.createCriteria(Petnoticia.class, "noti")
 				.add( Restrictions.eq("noti.idnoticia", idnoticia))
 				.add( Restrictions.eq("noti.setestado.idestado", 1))
-				//.createAlias("noti.petfotonoticias", "foto", Criteria.LEFT_JOIN);
-				.createAlias("noti.petfotonoticias", "foto", JoinType.LEFT_OUTER_JOIN);
+				.createAlias("noti.petfotonoticias", "foto", JoinType.LEFT_OUTER_JOIN)
+				.addOrder(Order.asc("foto.fecharegistro"));
 		
 		petnoticia = (Petnoticia) criteria.uniqueResult();
 		

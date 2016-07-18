@@ -153,8 +153,8 @@ public class PetservicioDAO {
 				.createAlias("cotempresa", "emp")
 				.add(Restrictions.eq("emp.idempresa", idempresa))
 				.createAlias("cotoficina", "ofi")
-				//.createAlias("serv.petfotoservicios", "foto", Criteria.LEFT_JOIN);
-				.createAlias("serv.petfotoservicios", "foto", JoinType.LEFT_OUTER_JOIN);
+				.createAlias("serv.petfotoservicios", "foto", JoinType.LEFT_OUTER_JOIN)
+				.addOrder(Order.asc("foto.fecharegistro"));
 		
 		petservicio = (Petservicio) criteria.uniqueResult();
 		

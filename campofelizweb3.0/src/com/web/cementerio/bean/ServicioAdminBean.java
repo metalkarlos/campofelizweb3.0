@@ -12,9 +12,7 @@ import javax.faces.bean.ViewScoped;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
-import org.primefaces.model.UploadedFile;
 
-//import com.web.cementerio.bo.CotempresaBO;
 import com.web.cementerio.bo.CotoficinaBO;
 import com.web.cementerio.bo.PetservicioBO;
 import com.web.cementerio.global.Parametro;
@@ -25,6 +23,7 @@ import com.web.cementerio.pojo.annotations.Petservicio;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
+import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
@@ -42,13 +41,13 @@ public class ServicioAdminBean implements Serializable {
 	private List<Petfotoservicio> lisPetfotoservicio;
 	private List<Petfotoservicio> lisPetfotoservicioClon;
 	private List<Cotoficina> lisCotoficina;
-	//private List<Cotempresa> lisCotempresa;
 	private Petfotoservicio petfotoservicioSeleccionado;
 	private StreamedContent streamedContent;
-	private UploadedFile uploadedFile;
 	private String descripcionFoto;
 	private boolean fotoSubida;
 	private long maxfilesize;
+	private byte[] imagenTemporal;
+	private String nombreImagen;
 	
 	public ServicioAdminBean() {
 		petservicio = new Petservicio(0, new Setestado(), null, new Setusuario(), null, null, null, new Cotoficina(), new Cotempresa(), null, null, null, false, new Date(), null, 0);
@@ -56,13 +55,10 @@ public class ServicioAdminBean implements Serializable {
 		lisPetfotoservicio = new ArrayList<Petfotoservicio>();
 		lisPetfotoservicioClon = new ArrayList<Petfotoservicio>();
 		lisCotoficina = new ArrayList<Cotoficina>();
-		//lisCotempresa = new ArrayList<Cotempresa>();
 		petfotoservicioSeleccionado = new Petfotoservicio();
 		descripcionFoto = "";
 		fotoSubida = false;
 		maxfilesize = Parametro.TAMAÑO_IMAGEN;
-		
-		//llenarListaEmpresa();
 	}
 	
 	@PostConstruct
@@ -139,16 +135,18 @@ public class ServicioAdminBean implements Serializable {
 
 	public void handleFileUpload(FileUploadEvent event) {
 		try{
-			uploadedFile = event.getFile();
-			streamedContent = new DefaultStreamedContent(event.getFile().getInputstream(), event.getFile().getContentType());
+			FileUtil fileUtil = new FileUtil();
+			StreamedContent streamedContent = new DefaultStreamedContent(event.getFile().getInputstream(), event.getFile().getContentType());
+			imagenTemporal = event.getFile().getContents();
+			nombreImagen = fileUtil.getFileExtention(event.getFile().getFileName()).toLowerCase();
 			
 			FacesUtil facesUtil = new FacesUtil();
-			UsuarioBean usuarioBean = (UsuarioBean)facesUtil.getSessionBean("usuarioBean");
+			UsuarioBean usuarioBean = (UsuarioBean) facesUtil.getSessionBean("usuarioBean");
 			usuarioBean.setStreamedContent(streamedContent);
 			facesUtil.setSessionBean("usuarioBean", usuarioBean);
 			fotoSubida = true;
 			
-			new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
+			new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.", "");
 		}catch(Exception x){
 			x.printStackTrace();
 			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
@@ -166,46 +164,71 @@ public class ServicioAdminBean implements Serializable {
 			new MessageUtil().showInfoMessage("La foto a eliminar es la foto principal de éste servicio. Seleccione otra foto como principal para poderla eliminar.","");
 		}else{
 			lisPetfotoservicio.remove(petfotoservicioSeleccionado);
-			petfotoservicioSeleccionado = new Petfotoservicio();
+			new MessageUtil().showInfoMessage("Presione grabar para guardar los cambios","");
 		}
+		petfotoservicioSeleccionado = new Petfotoservicio();
 	}
 	
 	public void borrarFotoSubida(){
-		streamedContent = null;
-		uploadedFile = null;
+		imagenTemporal = null;
 		fotoSubida = false;
 	}
 	
 	public void grabar(){
 		try{
-			boolean ok = false;
-			
-			PetservicioBO petservicioBO = new PetservicioBO();
-			Petfotoservicio petfotoservicio = new Petfotoservicio();
-			
-			if(fotoSubida && descripcionFoto != null && descripcionFoto.trim().length() > 0){
-				petfotoservicio.setDescripcion(descripcionFoto);
-			}
-			
-			if(idservicio == 0){
-				ok = petservicioBO.ingresar(petservicio, petfotoservicio, uploadedFile);
-				if(ok){
-					mostrarPaginaMensaje("Servicio creado con exito!!");
-				}else{
-					mostrarPaginaMensaje("No existen cambios que guardar.");
+			if (validarcampos()) {
+				PetservicioBO petservicioBO = new PetservicioBO();
+				Petfotoservicio petfotoservicio = new Petfotoservicio();
+				boolean ok = false;
+				
+				if(fotoSubida && descripcionFoto != null && descripcionFoto.trim().length() > 0){
+					petfotoservicio.setDescripcion(descripcionFoto);
 				}
-			}else{
-				ok = petservicioBO.modificar(petservicio, petservicioClon, lisPetfotoservicio, lisPetfotoservicioClon, petfotoservicio, uploadedFile);
-				if(ok){
-					mostrarPaginaMensaje("Servicio modificado con exito!!");
+				
+				if(idservicio == 0){
+					ok = petservicioBO.ingresar(petservicio, petfotoservicio, imagenTemporal, nombreImagen);
+					if(ok){
+						mostrarPaginaMensaje("Servicio creado con exito!!");
+					}else{
+						new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
+					}
 				}else{
-					mostrarPaginaMensaje("No existen cambios que guardar.");
+					ok = petservicioBO.modificar(petservicio, petservicioClon, lisPetfotoservicio, lisPetfotoservicioClon, petfotoservicio, imagenTemporal,nombreImagen);
+					if(ok){
+						mostrarPaginaMensaje("Servicio modificado con exito!!");
+					}else{
+						new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
+					}
 				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
+	}
+	
+	public boolean validarcampos() {
+		boolean ok = true;
+		
+		if (petservicio.getNombre() == null
+				|| petservicio.getNombre().length() == 0) {
+			ok = false;
+			new MessageUtil().showInfoMessage("Ingrese el Nombre del Servicio","");
+		} else if (petservicio.getDescripcion() == null
+				|| petservicio.getDescripcion().length() == 0) {
+			ok = false;
+			new MessageUtil().showInfoMessage("Ingrese el Contenido del Servicio","");
+		} else if (petservicio.getCotoficina() == null
+				|| petservicio.getCotoficina().getIdoficina() == 0) {
+			ok = false;
+			new MessageUtil().showInfoMessage("Es necesario seleccionar la oficina","");
+		} else if (petservicio.getOrden() <= 0) {
+			ok = false;
+			new MessageUtil()
+					.showInfoMessage("Ingrese el orden de la Noticia","");
+		} 
+		
+		return ok;
 	}
 	
 	private void mostrarPaginaMensaje(String mensaje) throws Exception {
