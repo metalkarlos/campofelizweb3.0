@@ -76,7 +76,7 @@
 											<!-- Buttons -->
 											<p:commandButton id="idbuttonprincipal2" 
 												title="Seleccionar foto del perfil" onclick="varprincipalfoto.show()"
-												icon="ui-icon ui-icon-person" update="idpanelprincipal" 
+												icon="ui-icon ui-icon-person" update="pnlprincipalfoto" 
 												disabled="#{(imagen.ruta != null and imagen.ruta.equals(mascotaHomenajeAdminBean.petmascotahomenaje.rutafoto))? true:false }">
 												<f:setPropertyActionListener value="#{imagen}"
 														target="#{mascotaHomenajeAdminBean.petfotomascotaselected}" />
@@ -278,7 +278,7 @@
 				<p:dialog id="dlgprincipalfoto" header="Foto del Perfil"
 					closable="true" widgetVar="varprincipalfoto" modal="true"
 					style="min-height: 80px; max-width: 450px">
-					<h:panelGrid id="idpanelprincipal" columns="1" width="100%">
+					<h:panelGrid id="pnlprincipalfoto" columns="1" width="100%">
 						<h:column>
 						<p:graphicImage
 							value="#{parametro.servletImagenes}#{mascotaHomenajeAdminBean.petfotomascotaselected.ruta}"
@@ -299,7 +299,7 @@
 					</h:panelGrid>
 				</p:dialog>
 
-				<p:dialog id="dlgdelete" header="Eliminar Foto" closable="true"
+				<p:dialog id="dlgdeletefoto" header="Eliminar Foto" closable="true"
 					widgetVar="vardeletefoto" modal="true"
 					style="min-height: 80px; max-width: 450px">
 					<h:panelGrid id="idpaneldelete" columns="1" width="100%">
@@ -311,11 +311,11 @@
 						</h:column>
 						<h:column >
 						<div style="text-align: right;">
-						<p:commandButton id="btnconfirmardelete" value="Confirmar"
+						<p:commandButton id="btnconfirmardeletefoto" value="Confirmar"
 							action="#{mascotaHomenajeAdminBean.quitarFotoGaleria()}"
 							onclick="vardeletefoto.hide()"
 							update="mensajes, idgalleria" />
-						<p:commandButton id="btncancelardelete" value="Cancelar"
+						<p:commandButton id="btncancelardeletefoto" value="Cancelar"
 							onclick="vardeletefoto.hide()" immediate="true" />
 						</div>
 						</h:column>

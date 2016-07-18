@@ -15,11 +15,15 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
+import com.web.cementerio.bo.PetespecieBO;
 import com.web.cementerio.bo.PetmascotahomenajeBO;
 import com.web.cementerio.global.Parametro;
+import com.web.cementerio.pojo.annotations.Cotpersona;
+import com.web.cementerio.pojo.annotations.Cottipoidentificacion;
 import com.web.cementerio.pojo.annotations.Petespecie;
 import com.web.cementerio.pojo.annotations.Petfotomascota;
 import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
+import com.web.cementerio.pojo.annotations.Petraza;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
@@ -43,6 +47,7 @@ public class MascotaHomenajeAdminBean implements Serializable {
 	private int idfotomascotaselected;
 	private byte[] imagenTemporal;
 	private String nombreImagen;
+	private List<Petespecie> listPetespecie;
 
 	public MascotaHomenajeAdminBean() {
 		petmascotahomenaje = new Petmascotahomenaje(0, new Setestado(),
@@ -57,6 +62,7 @@ public class MascotaHomenajeAdminBean implements Serializable {
 				0, null, null, null);
 		listpetfotomascota = new ArrayList<Petfotomascota>();
 		listpetfotomascotaclone = new ArrayList<Petfotomascota>();
+		listPetespecie = new ArrayList<Petespecie>(); 
 		idmascota = 0;
 		fotoSubida = false;
 		descripcionFoto = null;
@@ -73,6 +79,7 @@ public class MascotaHomenajeAdminBean implements Serializable {
 				if(idmascota > 0){
 					consultarMascotas();
 				}
+				consultarListpetespecie();
 			} else {
 				facesUtil.redirect("../pages/home.jsf");
 			}
@@ -96,6 +103,18 @@ public class MascotaHomenajeAdminBean implements Serializable {
 				PetmascotahomenajeBO petmascotahomenajeBO = new PetmascotahomenajeBO();
 				petmascotahomenaje = petmascotahomenajeBO.getPetmascotahomenajebyId(idmascota);
 				
+				if(petmascotahomenaje != null && petmascotahomenaje.getCotpersona() == null){
+					petmascotahomenaje.setCotpersona(new Cotpersona());
+				}
+				
+				if(petmascotahomenaje != null && petmascotahomenaje.getPetraza() == null){
+					petmascotahomenaje.setPetraza(new Petraza());
+				}
+				
+				if(petmascotahomenaje != null && petmascotahomenaje.getCottipoidentificacion() == null){
+					petmascotahomenaje.setCottipoidentificacion(new Cottipoidentificacion());
+				}
+				
 				if(petmascotahomenaje != null && petmascotahomenaje.getIdmascota() > 0){
 					petmascotahomenajeclone = petmascotahomenaje.clonar();
 					
@@ -111,6 +130,16 @@ public class MascotaHomenajeAdminBean implements Serializable {
 				e.printStackTrace();
 				new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 			}
+		}
+	}
+	
+	public void consultarListpetespecie(){
+		try {
+			PetespecieBO petespecieBo =new PetespecieBO();
+			listPetespecie = petespecieBo.Listpetespecie();
+		} catch (Exception e) {
+			e.printStackTrace();
+		    new MessageUtil().showErrorMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 
@@ -458,6 +487,14 @@ public class MascotaHomenajeAdminBean implements Serializable {
 
 	public String getNombreImagen() {
 		return nombreImagen;
+	}
+
+	public List<Petespecie> getListPetespecie() {
+		return listPetespecie;
+	}
+
+	public void setListPetespecie(List<Petespecie> listPetespecie) {
+		this.listPetespecie = listPetespecie;
 	}
 
 }
