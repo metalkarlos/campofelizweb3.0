@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:html="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/templates/template_admin.xhtml"
+	xmlns:my="http://xmlns.jcp.org/jsf/composite/components/buttons">
+
+	<ui:define name="head">
+		<meta name="robots" content="noindex" />
+		<title>Administración - Videos</title>
+	</ui:define>
+
+	<ui:define name="content_page">
+	
+		<!--start-content-->
+		<div class="blog">
+			<div class="container">
+				<div class="blog-top">
+					<div class="col-md-9 blog-grid">
+						<div class="blog-grid3">
+							<div class=" blog-grid2">
+							
+							
+								<h:form id="form-contentpage" prependId="false" enctype="multipart/form-data">
+					
+									<div class="blog-header">
+									<h2>Administración</h2>
+									<h2>Videos</h2>
+									<div class="hr"></div>
+									</div>
+					
+									<!-- <p:growl id="mensajes" showDetail="false" /> -->
+									<p:messages id="mensajes" showDetail="false" />
+					
+									<div class="inner-content">
+										<div class="grupo-admin">
+										<div>
+											<h:outputLabel value="Titulo" for="txtTitulo" /><span class="label" style="color: red;">*</span>
+										</div>
+										<div>
+											<p:inputText id="txtTitulo" required="true" requiredMessage="Ingrese el Título del Video"
+											value="#{homeAdminBean.pethome.encabezado}"
+											style="width: 100%" maxlength="1000"></p:inputText>
+										</div>
+										</div>
+										
+										<div class="grupo-admin">
+											<div>
+												<h:outputLabel value="Url del Video" for="txtUrl" /><span class="label" style="color: red;">*</span>
+											</div>
+											<div>
+												<p:inputText id="txtUrl" maxlength="200" required="true" requiredMessage="Ingrese Url del Video"
+												style="width: 100%" value="#{homeAdminBean.pethome.urlvideo}"></p:inputText>
+											</div>
+										</div>
+					
+										<div class="grupo-admin">
+											<div>
+												<h:outputLabel value="Orden" for="txtOrden" />
+												<span class="label" style="color: red;">*</span>
+											</div>
+											<div>
+												<p:spinner id="txtOrden" required="true" requiredMessage="Ingrese Orden"
+												value="#{homeAdminBean.pethome.orden}" min="1"></p:spinner>
+											</div>
+										</div>
+										
+									</div>
+									
+									<div class="area-botones">
+										<my:buttons renderedButtonAceptar="true"
+											labelButtonAceptar="Grabar"
+											onclickButtonAceptar="vargrabar.show()"
+											immediateButtonAceptar="true"
+											renderedButtonEliminar="#{homeAdminBean.idhome > 0}"
+											onclickButtonEliminar="vardelete.show()"
+											immediateButtonEliminar="true" renderedButtonCancelar="true"
+											labelButtonCancelar="Cancelar"
+											onclickButtonCancelar="redirect('../pages/video.jsf?idhome='+#{homeAdminBean.pethome.idhome});"
+											renderedButtonNewItem="false" />
+									</div>
+									<p:dialog id="dlggrabar" header="Grabar" closable="true"
+										widgetVar="vargrabar" modal="true"
+										style="min-height: 80px; max-width: 450px">
+										<div>
+											<h:outputText id="idlabelgrabar"
+												value="Confirme si desea grabar el registro" />
+										</div>
+										<div style="text-align: right;">
+											<p:commandButton id="btnconfirmargrabar" value="Confirmar"
+												action="#{homeAdminBean.grabar()}"
+												onclick="vargrabar.hide()"
+												update="mensajes,txtTitulo,txtUrl" />
+											<p:commandButton id="btncancelargrabar" value="Cancelar"
+												onclick="vargrabar.hide()" immediate="true" />
+										</div>
+									</p:dialog>
+					
+									<p:dialog id="dlgdelete" header="Eliminar"
+										closable="true" widgetVar="vardelete" modal="true"
+										style="min-height: 80px; max-width: 450px">
+										<div>
+											<h:outputText 
+												value="Confirme si desea eliminar el registro" />
+										</div>
+										<div style="text-align: right;">
+											<p:commandButton id="btnconfirmardelete"
+												value="Confirmar"
+												action="#{homeAdminBean.eliminar()}"
+												onclick="vardelete.hide()"
+												update="mensajes" />
+											<p:commandButton id="btncancelardelete" value="Cancelar"
+												onclick="vardelete.hide()" immediate="true" />
+										</div>
+									</p:dialog>
+					
+								</h:form>
+			
+			
+							</div>
+							<div class="clearfix"></div>
+							<div class="text-center">
+								<h:link styleClass="btn btn-default" outcome="/pages/videos" value="Ver Más Videos" >
+								</h:link>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+
+			</div>
+		</div>
+		<!--end-content-->
+			
+	</ui:define>
+</ui:composition>

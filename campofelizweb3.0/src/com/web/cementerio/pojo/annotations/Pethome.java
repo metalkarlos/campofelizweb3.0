@@ -2,6 +2,8 @@ package com.web.cementerio.pojo.annotations;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  * Pethome
@@ -103,6 +106,23 @@ public class Pethome implements Serializable, Cloneable {
 		this.urlvideo = urlvideo;
 	}
 
+	@Transient
+	public String getIdvideo() {
+		String id = null;
+		
+		if(this.urlvideo != null){
+			String RexExp = "(?<=youtu.be/|watch\\?v=|/videos/|embed\\/)[^#\\&\\?]*";
+			Pattern compiledPattern = Pattern.compile(RexExp);
+	        Matcher matcher = compiledPattern.matcher(this.urlvideo);
+
+	        if(matcher.find()){
+	            id = matcher.group();
+	        }
+		}
+
+        return id;
+	}
+	
 	@Column(name = "orden")
 	public int getOrden() {
 		return orden;
@@ -139,6 +159,15 @@ public class Pethome implements Serializable, Cloneable {
 
 	public void setIplog(String iplog) {
 		this.iplog = iplog;
+	}
+	
+	@Transient
+	public String getEncabezadoNoTags() {
+		if(this.encabezado != null){
+			return this.encabezado.replaceAll("\\<.*?\\>", "");
+		}else{
+			return this.encabezado;
+		}
 	}
 	
 	@Override

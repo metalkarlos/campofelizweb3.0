@@ -17,15 +17,16 @@ import com.web.util.MessageUtil;
 
 @ManagedBean
 @ViewScoped
-public class HomeBean implements Serializable {
+public class VideosBean implements Serializable {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7268920983615910156L;
 	private LazyDataModel<Pethome> lisPethome;
+	private String descripcionParam;
 
-	public HomeBean() {
+	public VideosBean() {
 		consultarVideos();
 	}
 
@@ -39,7 +40,12 @@ public class HomeBean implements Serializable {
 					PethomeBO pethomeBO = new PethomeBO();
 					int args[] = {0};
 					
-					data = pethomeBO.lisPethomeByPage(pageSize, first, args);
+					String[] textoBusqueda = null;
+					if(descripcionParam != null && descripcionParam.trim().length() > 0 && descripcionParam.trim().compareTo("buscar") != 0 ){
+						textoBusqueda = descripcionParam.split(" ");
+					}
+					
+					data = pethomeBO.lisPethomeBusquedaByPage(textoBusqueda, pageSize, first, args);
 					this.setRowCount(args[0]);
 	
 			        return data;
@@ -70,6 +76,14 @@ public class HomeBean implements Serializable {
 
 	public void setLisPethome(LazyDataModel<Pethome> lisPethome) {
 		this.lisPethome = lisPethome;
+	}
+	
+	public String getDescripcionParam() {
+		return descripcionParam;
+	}
+
+	public void setDescripcionParam(String descripcionParam) {
+		this.descripcionParam = descripcionParam;
 	}
 	
 }

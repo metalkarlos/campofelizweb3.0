@@ -3,6 +3,7 @@ package com.web.cementerio.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -56,6 +57,26 @@ public class PethomeDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public List<Pethome> lisPethome(Session session, int cantidad) throws Exception {
+		List<Pethome> lisPethome = null;
+		
+		String hql = " from Pethome ser ";
+		hql += " where ser.setestado.idestado = :idestado ";
+		hql += " order by ser.fecharegistro desc ";
+		
+		Query query = session.createQuery(hql)
+				.setInteger("idestado", 1);
+		
+		if(cantidad > 0){
+			query.setMaxResults(cantidad);
+		}
+		
+		lisPethome = (List<Pethome>) query.list();
+		
+		return lisPethome;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public List<Pethome> lisPethomeByPage(Session session, int pageSize, int pageNumber, int args[]) throws Exception {
 		List<Pethome> lisPethome = null;
 		
@@ -74,6 +95,65 @@ public class PethomeDAO {
 					.add( Restrictions.eq("setestado.idestado", 1))
                     .setProjection( Projections.rowCount());
 
+			Object object = criteriaCount.uniqueResult();
+			int count = (object==null?0:Integer.parseInt(object.toString()));
+			args[0] = count;
+		}
+		else
+		{
+			args[0] = 0;
+		}
+		
+		return lisPethome;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Pethome> lisPethomeBusquedaByPage(Session session, String[] texto, int pageSize, int pageNumber, int args[]) throws Exception {
+		List<Pethome> lisPethome = null;
+		
+		Criteria criteria = session.createCriteria(Pethome.class)
+				.add( Restrictions.eq("setestado.idestado", 1));
+		
+		if(texto != null && texto.length > 0){
+			String query = "(";
+			for(int i=0;i<texto.length;i++)
+			{
+				query += "lower({alias}.encabezado) like lower('%"+texto[i]+"%') ";
+				if(i<texto.length-1){
+					query += "or ";
+				}
+			}
+			query += ")";
+			
+			criteria.add(Restrictions.sqlRestriction(query));
+		}
+		
+        criteria.addOrder(Order.asc("orden"))
+		.setMaxResults(pageSize)
+		.setFirstResult(pageNumber);
+        
+		lisPethome = (List<Pethome>) criteria.list();
+		
+		if(lisPethome != null && lisPethome.size() > 0)
+		{
+			Criteria criteriaCount = session.createCriteria(Pethome.class)
+					.add( Restrictions.eq("setestado.idestado", 1))
+                    .setProjection( Projections.rowCount());
+
+			if(texto != null && texto.length > 0){
+				String query = "(";
+				for(int i=0;i<texto.length;i++)
+				{
+					query += "lower({alias}.encabezado) like lower('%"+texto[i]+"%') ";
+					if(i<texto.length-1){
+						query += "or ";
+					}
+				}
+				query += ")";
+				
+				criteriaCount.add(Restrictions.sqlRestriction(query));
+			}
+			
 			Object object = criteriaCount.uniqueResult();
 			int count = (object==null?0:Integer.parseInt(object.toString()));
 			args[0] = count;

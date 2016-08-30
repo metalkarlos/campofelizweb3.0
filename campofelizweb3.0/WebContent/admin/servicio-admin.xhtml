@@ -104,39 +104,12 @@
 							<h:outputLabel value="Agregar Foto" for="idSubeFotos" />
 						</div>
 						<div>
-							<p:panel id="pnlPrevia" styleClass="panel-previa">
-								<p:graphicImage id="idfotoseleccionada"
-									value="#{usuarioBean.streamedContent}" styleClass="img-responsive"
-									rendered="#{servicioAdminBean.fotoSubida}" cache="false" />
-								<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash"
-									action="#{servicioAdminBean.borrarFotoSubida()}"
-									update="pnlPrevia,pnlObservacionFoto,pnlObservacionFoto2"
-									rendered="#{servicioAdminBean.fotoSubida}" />
-							</p:panel>
 							<p:fileUpload id="idSubeFotos"
 								fileUploadListener="#{servicioAdminBean.handleFileUpload}"
 								mode="advanced" cancelLabel="Cancelar" uploadLabel="Subir Foto"
 								label="Elegir Foto" showButtons="false"
-								update="mensajes, pnlPrevia,pnlObservacionFoto,pnlObservacionFoto2"
-								allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar" />
-						</div>
-					</div>
-					
-					<div class="grupo-admin">
-						<div>
-							<h:panelGroup id="pnlObservacionFoto">
-								<h:outputLabel value="Descripción de la Foto"
-									for="txtObservacionFoto" 
-									rendered="#{servicioAdminBean.fotoSubida}" />
-							</h:panelGroup>
-						</div>
-						<div>
-							<h:panelGroup id="pnlObservacionFoto2">
-								<p:inputTextarea id="txtObservacionFoto"
-									value="#{servicioAdminBean.descripcionFoto}"
-									maxlength="500" autoResize="false" style="width: 100%"
-									rendered="#{servicioAdminBean.fotoSubida}" />
-							</h:panelGroup>
+								update="mensajes"
+								allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar" multiple="true" />
 						</div>
 					</div>
 					
@@ -153,15 +126,15 @@
 					</div>
 					
 					<div class="grupo-admin">
-					<div>
-						<h:outputLabel value="Oficina" for="cmbOficina" /><span class="label" style="color: red;">*</span>
-					</div>
-					<div>
-						<p:selectOneMenu id="cmbOficina" value="#{servicioAdminBean.petservicio.cotoficina.idoficina}" required="true" requiredMessage="Seleccione Oficina" >
-						<f:selectItem itemLabel="Seleccione" itemValue=""/>
-						<f:selectItems value="#{servicioAdminBean.lisCotoficina}" var="cotoficina" itemLabel="#{cotoficina.nombre}" itemValue="#{cotoficina.idoficina}"></f:selectItems>
-						</p:selectOneMenu>
-					</div>
+						<div>
+							<h:outputLabel value="Oficina" for="cmbOficina" /><span class="label" style="color: red;">*</span>
+						</div>
+						<div>
+							<p:selectOneMenu id="cmbOficina" value="#{servicioAdminBean.petservicio.cotoficina.idoficina}" required="true" requiredMessage="Seleccione Oficina" >
+							<f:selectItem itemLabel="Seleccione" itemValue=""/>
+							<f:selectItems value="#{servicioAdminBean.lisCotoficina}" var="cotoficina" itemLabel="#{cotoficina.nombre}" itemValue="#{cotoficina.idoficina}"></f:selectItems>
+							</p:selectOneMenu>
+						</div>
 					</div>
 					
 					<div class="grupo-admin">
@@ -205,7 +178,7 @@
 						onclickButtonEliminar="vardelete.show()"
 						immediateButtonEliminar="true" renderedButtonCancelar="true"
 						labelButtonCancelar="Cancelar"
-						onclickButtonCancelar="redirect('../pages/servicios.jsf');"
+						onclickButtonCancelar="redirect('../pages/servicio.jsf?idservicio='+#{servicioAdminBean.idservicio}+'&amp;idempresa='+#{servicioAdminBean.idempresa});"
 						renderedButtonNewItem="false" />
 				</div>
 				<p:dialog id="dlgprincipalfoto" header="Foto del Perfil"

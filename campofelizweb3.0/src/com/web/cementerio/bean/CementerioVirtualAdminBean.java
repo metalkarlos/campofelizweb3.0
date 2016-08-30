@@ -135,7 +135,7 @@ public class CementerioVirtualAdminBean implements Serializable{
 				fotosubida = true;
 				FacesUtil facesUtil = new FacesUtil();
 				UsuarioBean usuarioBean = (UsuarioBean)facesUtil.getSessionBean("usuarioBean");
-				usuarioBean.setStreamedContent(streamedContent);
+				//usuarioBean.setStreamedContent(streamedContent);
 				facesUtil.setSessionBean("usuarioBean", usuarioBean);
 				new MessageUtil().showInfoMessage("Ingrese la descripción y el orden de presentación de la foto a subir.","");
 			}else{

@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:html="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/templates/template_others.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<ui:define name="head">
+		<title>Videos</title>
+		<meta name="description"
+			content="Contamos con los mejores servicios excequiales para su mascota." />
+		<meta name="keywords" content="servicios" />
+	</ui:define>
+
+	<ui:define name="content_page">
+		<h:form id="form" prependId="false">
+			<!--start-content-->
+			<div class="blog servicios">
+				<div class="container">
+					<div class="blog-top">
+						<div class="col-md-12 blog-grid">
+
+							<!-- Section Gallery -->
+							<section id="gallery">
+							<div class="col-lg-8 col-lg-offset-2">
+								<!-- Section heading -->
+								<div class="section-heading">
+									<h2>Videos</h2>
+									<div class="hr"></div>
+								</div>
+							</div>
+							<div class="wow fadeInDown" data-wow-delay="0.2s">
+
+								<p:messages id="mensajes" showDetail="false" />
+								<p:defaultCommand target="lnkbuscar"></p:defaultCommand>
+
+								<div class="blog-search nav-gallery col-md-12">
+
+									<p:inputText id="txtbusqueda"
+										value="#{homeBean.descripcionParam}"
+										html:placeholder="Video"
+										validatorMessage="Ingrese sólo letras. Corrija y reintente.">
+										<f:validateRegex pattern="[a-zA-Z ]*" />
+									</p:inputText>
+
+									<p:commandButton id="lnkbuscar" image="btn-find"
+										update="resultado mensajes">
+									</p:commandButton>
+
+								</div>
+
+								<p:dataGrid id="resultado"
+									styleClass="nav-gallery col-md-12" var="video"
+									value="#{videosBean.lisPethome}"
+									columns="3" rows="12" efect="true" paginator="true"
+									paginatorPosition="bottom"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+									emptyMessage="No se encontraron registros" lazy="true"
+									layout="grid">
+
+
+									<div class="col-md-12">
+										<div class="thumbnail text-center">
+											<p:graphicImage alt="#{video.encabezado}"
+											title="#{video.encabezado}"
+											url="https://img.youtube.com/vi/#{video.idvideo}/hqdefault.jpg"
+											styleClass="img-responsive" />
+											
+											<div class="caption-adoption">
+												<h6>#{video.encabezado}</h6>
+												<!-- Buttons -->
+												<h:link outcome="/pages/video"
+													styleClass="btn btn-default" value="Ver Video">
+													<f:param name="idhome" value="#{video.idhome}"></f:param>
+												</h:link>
+											</div>
+											
+										</div>
+									</div>
+								</p:dataGrid>
+								
+								<div class="clearfix"></div>
+								<div class="text-center">
+									<h:link styleClass="btn btn-default m-left" outcome="/admin/video-admin" value="Nuevo Video" rendered="#{usuarioBean.autenticado}">
+										<f:param name="idhome" value="0"></f:param>
+									</h:link>
+								</div>
+								
+								
+							</div><!-- /container --> 
+							</section><!-- Section ends -->
+
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+				</div>
+			</div>
+			<!--end-content-->
+
+		</h:form>
+	</ui:define>
+</ui:composition>

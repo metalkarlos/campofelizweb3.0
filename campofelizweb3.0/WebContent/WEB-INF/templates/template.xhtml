@@ -192,7 +192,7 @@
                   <li class="active"><a href="#page-top">Inicio</a></li>
                   <li><a href="#services">Servicios</a></li>
                   <li><a href="#about">Nosotros</a></li>
-                  <li><a href="#prices">Planes</a></li>
+                  <li><a href="#planes">Planes</a></li>
                   <li><a href="#gallery">Galería</a></li>
                   <li><a href="#offers">Eventos</a></li>
 				  				<li><a href="#adoption">Homenaje</a></li>
@@ -215,7 +215,7 @@
 	   <!--Slider -->
 	   <div class="slider">
 	   <!-- Slide 1 -->
-		  <div class="slide slide-0 active">
+		  <div class="slide-parallax slide-0 active">
 			 <div class="slide__bg"></div>
 			 <div class="slide__content">
 				<svg class="slide__overlay" viewBox="0 0 720 405" preserveAspectRatio="xMaxYMax slice">
@@ -233,7 +233,7 @@
 			 </div>
 		  </div> <!-- Slide 1 end-->
 		  <!-- Slide 2-->
-		  <div class="slide slide-1">
+		  <div class="slide-parallax slide-1">
 			 <div class="slide__bg"></div>
 			 <div class="slide__content">
 				<svg class="slide__overlay" viewBox="0 0 720 405" preserveAspectRatio="xMaxYMax slice">
@@ -251,7 +251,7 @@
 			 </div>
 		  </div> <!-- Slide 2 end-->
 		 <!-- Slide 3 -->
-		  <div class="slide slide-2">
+		  <div class="slide-parallax slide-2">
 			 <div class="slide__bg"></div>
 			 <div class="slide__content">
 				<svg class="slide__overlay" viewBox="0 0 720 405" preserveAspectRatio="xMaxYMax slice">
@@ -262,14 +262,14 @@
 				   <div class="hidden-sm hidden-xs">
 					  <p class="lead">Para honrar y preservar por siempre el amor incondicional de tu querida mascota</p>
 					  <div class="page-scroll">
-						 <a href="#prices" class="btn btn-default">Planes</a>
+						 <a href="#planes" class="btn btn-default">Planes</a>
 					  </div>
 				   </div>
 				</div>
 			 </div>
 		  </div> <!-- Slide 3 end-->
 		  <!-- Slide 4-->
-		  <div class="slide slide-3">
+		  <div class="slide-parallax slide-3">
 			 <div class="slide__bg"></div>
 			 <div class="slide__content">
 				<svg class="slide__overlay" viewBox="0 0 720 405" preserveAspectRatio="xMaxYMax slice">
@@ -280,14 +280,14 @@
 				   <div class="hidden-sm hidden-xs">
 					  <p class="lead">El descanso de tu querida mascota en nuestro camposanto, un lugar de paz y tranquilidad</p>
 					  <div class="page-scroll">
-						 <a href="#prices" class="btn btn-default">Planes</a>
+						 <a href="#planes" class="btn btn-default">Planes</a>
 					  </div>
 				   </div>
 				</div>
 			 </div>
 		  </div> <!-- Slide 4 end-->
 		  <!-- Slide 5-->
-		  <div class="slide slide-4">
+		  <div class="slide-parallax slide-4">
 			 <div class="slide__bg"></div>
 			 <div class="slide__content">
 				<svg class="slide__overlay" viewBox="0 0 720 405" preserveAspectRatio="xMaxYMax slice">
@@ -386,6 +386,6 @@
 			<h:outputText value="" />
 		</f:facet>
 	</p:ajaxStatus>
-	<p:idleMonitor timeout="#{session.maxInactiveInterval * 1000}" onidle="redirect(window.location);" />
+	<p:idleMonitor timeout="#{session.maxInactiveInterval * 1000}" onidle="redirect(window.location.hostname);" />
 </h:body>
 </html>

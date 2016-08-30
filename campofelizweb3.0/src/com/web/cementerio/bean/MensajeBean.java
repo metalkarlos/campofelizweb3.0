@@ -21,6 +21,7 @@ public class MensajeBean implements Serializable {
 	private String mensaje;
 	private String link;
 	private String linkTitulo;
+	private String anchor;
 	
 	public MensajeBean() {
 	}
@@ -40,9 +41,12 @@ public class MensajeBean implements Serializable {
 			mensaje = usuarioBean.getMensaje();
 			link = usuarioBean.getLink();
 			linkTitulo = usuarioBean.getLinkTitulo();
+			anchor = usuarioBean.getAnchor();
 			
 			usuarioBean.setMensaje("");
 			usuarioBean.setLink("");
+			usuarioBean.setLinkTitulo("");
+			usuarioBean.setAnchor("");
 			facesUtil.setSessionBean("usuarioBean", usuarioBean);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -72,6 +76,14 @@ public class MensajeBean implements Serializable {
 
 	public void setLinkTitulo(String linkTitulo) {
 		this.linkTitulo = linkTitulo;
+	}
+
+	public String getAnchor() {
+		return anchor;
+	}
+
+	public void setAnchor(String anchor) {
+		this.anchor = anchor;
 	}
 	
 }

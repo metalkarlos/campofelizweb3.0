@@ -7,7 +7,7 @@ import java.util.UUID;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import org.primefaces.model.StreamedContent;
+//import org.primefaces.model.StreamedContent;
 
 import com.web.cementerio.bo.CotoficinaBO;
 import com.web.cementerio.bo.SetpeticionclaveBO;
@@ -36,11 +36,12 @@ public class UsuarioBean implements Serializable{
 	private String ip;
 	private String sid;
 	private boolean autenticado;
-	private StreamedContent streamedContent;
+	//private StreamedContent streamedContent;
 	private Cotoficina cotoficina;
 	private String mensaje;
 	private String link;
 	private String linkTitulo;
+	private String anchor;
 	private Date hoy;
 	
 	public UsuarioBean(){
@@ -52,6 +53,7 @@ public class UsuarioBean implements Serializable{
 		mensaje = "";
 		link = "";
 		linkTitulo = "";
+		anchor = "";
 		hoy = new Date();
 		
 		consultarEmpresa();
@@ -285,13 +287,13 @@ public class UsuarioBean implements Serializable{
 		return "";
 	}
 
-	public StreamedContent getStreamedContent() {
+	/*public StreamedContent getStreamedContent() {
 		return streamedContent;
 	}
 
 	public void setStreamedContent(StreamedContent streamedContent) {
 		this.streamedContent = streamedContent;
-	}
+	}*/
 
 	public Cotoficina getCotoficina() {
 		return cotoficina;
@@ -323,6 +325,14 @@ public class UsuarioBean implements Serializable{
 
 	public void setLinkTitulo(String linkTitulo) {
 		this.linkTitulo = linkTitulo;
+	}
+
+	public String getAnchor() {
+		return anchor;
+	}
+
+	public void setAnchor(String anchor) {
+		this.anchor = anchor;
 	}
 
 	public Date getHoy() {

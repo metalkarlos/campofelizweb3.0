@@ -34,10 +34,10 @@ public class SecurityPhaseListener implements PhaseListener {
 			String param = request.getQueryString();
 			
 			//                LIMPIA ESPACIO USADO POR FOTO VISTA PREVIA DEL UPLOAD
-			if(usuarioBean != null && usuarioBean.getStreamedContent() != null){
+			/*if(usuarioBean != null && usuarioBean.getStreamedContent() != null){
 				usuarioBean.setStreamedContent(null);
 				facesUtil.setSessionBean("usuarioBean", usuarioBean);
-			}
+			}*/
 			
 			//               VALIDACIONES EN PAGINA ADMIN
 			//si ingresa a login y ya esta logoneado redirecciona a home

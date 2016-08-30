@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template_others.xhtml">
+
+	<ui:define name="head">
+		<title>Video - #{videoBean.pethome.encabezado}</title>
+		<meta name="description" content="#{fn:substring(videoBean.pethome.encabezadoNoTags, 0, 200)}" />
+		<meta name="keywords" content="videos, video, vídeo, videos de mascotas, videos de campo feliz, videos del cementerio de mascotas" />
+	</ui:define>
+
+	<ui:define name="content_page">
+		<!--start-content-->
+		<div class="blog">
+			<div class="container">
+				<div class="blog-top">
+					<div class="col-md-9 blog-grid">
+						<div class="section-heading">
+						<h2>#{videoBean.pethome.encabezado}</h2>
+						<div class="hr"></div>
+						</div>
+						<div class="blog-grid3">
+							<div class=" blog-grid2">
+								<!-- Responsive video -->
+					  		<div class="embed-responsive embed-responsive-16by9">
+									<p:media value="http://www.youtube.com/v/#{videoBean.pethome.idvideo}" player="flash"/>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+							<div class="text-center">
+								<h:link styleClass="btn btn-default" outcome="/pages/videos" value="Ver Más Videos" >
+								</h:link>
+								<h:link styleClass="btn btn-default m-left" outcome="/admin/video-admin" value="Editar" rendered="#{usuarioBean.autenticado}">
+									<f:param name="idhome" value="#{videoBean.pethome.idhome}"></f:param>
+								</h:link>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+
+			</div>
+		</div>
+		<!--end-content-->
+	</ui:define>
+</ui:composition>

@@ -129,7 +129,7 @@ public class PetnoticiaBO {
 		return lisPetnoticia;
 	}
 	
-	public boolean ingresar(Petnoticia petnoticia, Petfotonoticia petfotonoticia,byte[] imagenTemporal,String nombreImagen) throws Exception {
+	public boolean ingresar(Petnoticia petnoticia, List<Petfotonoticia> lisPetfotonoticia) throws Exception {
 		boolean ok = false;
 		Session session = null;
 		
@@ -156,10 +156,12 @@ public class PetnoticiaBO {
 			petnoticiaDAO.savePetnoticia(session, petnoticia);
 			
 			//Si subio foto se crea en disco y en base
-			if(imagenTemporal != null){
-				creaFotoDiscoBD(petnoticia, petfotonoticia, imagenTemporal, nombreImagen, session);
+			for(Petfotonoticia petfotonoticia : lisPetfotonoticia){
+				creaFotoDiscoBD(petnoticia, petfotonoticia, session);
+			}
+			if(lisPetfotonoticia != null && lisPetfotonoticia.size() > 0){
 				//se setea la ruta de la foto tambien en petnoticia.rutafoto
-				petnoticia.setRutafoto(petfotonoticia.getRuta());
+				petnoticia.setRutafoto(lisPetfotonoticia.get(0).getRuta());
 				//update
 				petnoticiaDAO.updatePetnoticia(session, petnoticia);
 			}
@@ -240,7 +242,7 @@ public class PetnoticiaBO {
 		return ok;
 	}
 	
-	public boolean modificar(Petnoticia petnoticia, Petnoticia petnoticiaClon, List<Petfotonoticia> lisPetfotonoticia, List<Petfotonoticia> lisPetfotonoticiaClon, Petfotonoticia petfotonoticia,byte[] imagenTemporal,String nombreImagen) throws Exception {
+	public boolean modificar(Petnoticia petnoticia, Petnoticia petnoticiaClon, List<Petfotonoticia> lisPetfotonoticia, List<Petfotonoticia> lisPetfotonoticiaClon) throws Exception {
 		boolean ok = false;
 		Session session = null;
 		
@@ -277,8 +279,8 @@ public class PetnoticiaBO {
 						}
 					}
 				}
+				//si no encuentra lo han borrado
 				if(!encuentra){
-					//no encuentra
 					//inhabilitar
 					Setestado setestado = new Setestado();
 					setestado.setIdestado(2);
@@ -303,12 +305,28 @@ public class PetnoticiaBO {
 				}
 			}
 			
-			//Si subio foto se crea en disco y en base
-			if(imagenTemporal != null){
-				creaFotoDiscoBD(petnoticia, petfotonoticia, imagenTemporal, nombreImagen, session);
+			//Se evalua si han subido nuevas fotos
+			for(Petfotonoticia petfotonoticia : lisPetfotonoticia){
+				boolean encuentra = false;
+				for(Petfotonoticia petfotonoticiaClon : lisPetfotonoticiaClon){
+					if(petfotonoticia.getIdfotonoticia() == petfotonoticiaClon.getIdfotonoticia()){
+						//si encuentra
+						encuentra = true; 
+						break;
+					}
+				}
+				//no encuentra en lista clonada
+				if(!encuentra){
+					//es foto nueva
+					creaFotoDiscoBD(petnoticia, petfotonoticia, session);
+					ok = true;
+				}
+			}
+			
+			if(lisPetfotonoticia != null && lisPetfotonoticia.size() > 0){
 				//si no tiene imagen principal se setea
 				if(petnoticia.getRutafoto() == null || petnoticia.getRutafoto().trim().length() == 0){
-					petnoticia.setRutafoto(petfotonoticia.getRuta());
+					petnoticia.setRutafoto(lisPetfotonoticia.get(0).getRuta());
 				}
 				ok = true;
 			}
@@ -339,7 +357,7 @@ public class PetnoticiaBO {
 		return ok;
 	}
 	
-	private void creaFotoDiscoBD(Petnoticia petnoticia, Petfotonoticia petfotonoticia, byte[] imagenTemporal, String nombreImagen, Session session) throws Exception {
+	private void creaFotoDiscoBD(Petnoticia petnoticia, Petfotonoticia petfotonoticia, Session session) throws Exception {
 		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 		PetfotonoticiaDAO petfotonoticiaDAO = new PetfotonoticiaDAO();
 		
@@ -353,14 +371,14 @@ public class PetnoticiaBO {
 		
 		String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
 		String rutaNoticias =  fileUtil.getPropertyValue("repositorio-noticia") + fecha.get(Calendar.YEAR);
-		String nombreArchivo = fecha.get(Calendar.YEAR) + "-" + (fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + petnoticia.getIdnoticia() + "-" + cantFotosPorNoticia + "." + fileUtil.getFileExtention(nombreImagen).toLowerCase();
+		String nombreArchivo = fecha.get(Calendar.YEAR) + "-" + (fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + petnoticia.getIdnoticia() + "-" + cantFotosPorNoticia + "." + fileUtil.getFileExtention(petfotonoticia.getNombrearchivo()).toLowerCase();
 		
 		String rutaCompleta = rutaImagenes + rutaNoticias;
 		
 		if(fileUtil.createDir(rutaCompleta)){
 			//crear foto en disco
 			String rutaArchivo = rutaCompleta + "/" + nombreArchivo;
-			fileUtil.createFile(rutaArchivo,imagenTemporal);
+			fileUtil.createFile(rutaArchivo,petfotonoticia.getImagen());
 		}
 		
 		//foto en BD

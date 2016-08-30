@@ -89,7 +89,7 @@ public class HomeAdminBean implements Serializable {
 			}else{
 				ok = pethomeBO.modificar(pethome, pethomeClon);
 				if(ok){
-					mostrarPaginaMensaje("Video modificada con exito!!");
+					mostrarPaginaMensaje("Video modificado con exito!!");
 				}else{
 					new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
 				}
@@ -103,6 +103,8 @@ public class HomeAdminBean implements Serializable {
 	private void mostrarPaginaMensaje(String mensaje) throws Exception {
 		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 		usuarioBean.setMensaje(mensaje);
+		usuarioBean.setLink("/pages/video?idhome="+idhome);
+		usuarioBean.setLinkTitulo("Consultar Video");
 		
 		FacesUtil facesUtil = new FacesUtil();
 		facesUtil.redirect("../pages/mensaje.jsf");	 

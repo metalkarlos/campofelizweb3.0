@@ -7,7 +7,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
+import com.web.cementerio.bo.PethomeBO;
 import com.web.cementerio.pojo.annotations.Petfotoinstalacion;
+import com.web.cementerio.pojo.annotations.Pethome;
 import com.web.cementerio.pojo.annotations.Petinformacion;
 import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
 import com.web.cementerio.pojo.annotations.Petnoticia;
@@ -29,7 +31,7 @@ public class InicioBean implements Serializable {
 	private List<Petnoticia> lisPetnoticias;
 	private List<Petvenunciado> listpetvenunciado;
 	private List<Petmascotahomenaje> lisPetmascotahomenaje;
-	//private Cotoficina cotoficinaVeterinaria;
+	private List<Pethome> lisPethome;
 
 	public InicioBean() {
 	
@@ -65,7 +67,12 @@ public class InicioBean implements Serializable {
 		lisPetmascotahomenaje = mascotasPrincipalBean.getLisPetmascotahomenaje();
 		mascotasPrincipalBean = null;
 		
-		//ContactenosBean contactenosBean = new ContactenosBean();
+		PethomeBO pethomeBO = new PethomeBO();
+		try {
+			lisPethome = pethomeBO.lisPethome(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public List<Petservicio> getLisPetservicio() {
@@ -114,6 +121,14 @@ public class InicioBean implements Serializable {
 
 	public void setLisPetmascotahomenaje(List<Petmascotahomenaje> lisPetmascotahomenaje) {
 		this.lisPetmascotahomenaje = lisPetmascotahomenaje;
+	}
+
+	public List<Pethome> getLisPethome() {
+		return lisPethome;
+	}
+
+	public void setLisPethome(List<Pethome> lisPethome) {
+		this.lisPethome = lisPethome;
 	}
 	
 }

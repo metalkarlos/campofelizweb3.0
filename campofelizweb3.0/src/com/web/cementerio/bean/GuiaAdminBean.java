@@ -109,7 +109,7 @@ public class GuiaAdminBean  implements Serializable{
 				
 				FacesUtil facesUtil = new FacesUtil();
 				UsuarioBean usuarioBean = (UsuarioBean)facesUtil.getSessionBean("usuarioBean");
-				usuarioBean.setStreamedContent(streamedContent);
+				//usuarioBean.setStreamedContent(streamedContent);
 				facesUtil.setSessionBean("usuarioBean", usuarioBean);
 				fotoSubida = true;
 				new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");

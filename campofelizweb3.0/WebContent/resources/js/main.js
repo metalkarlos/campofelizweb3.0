@@ -165,7 +165,7 @@ Author URI: http://themeforest.net/user/ingridk
 			  $slideBGs = $(".slide__bg"),
 			  diff = 0,
 			  curSlide = 0,
-			  numOfSlides = $(".slide").length-1,
+			  numOfSlides = $(".slide-parallax").length-1,
 			  animating = false,
 			  animTime = 500,
 			  autoSlideTimeout,

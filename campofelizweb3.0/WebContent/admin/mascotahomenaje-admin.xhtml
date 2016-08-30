@@ -53,7 +53,7 @@
 						<div>
 							<p:dataGrid id="idgalleria"
 								styleClass="nav-gallery col-md-12" var="imagen"
-								value="#{mascotaHomenajeAdminBean.listpetfotomascota}"
+								value="#{mascotaHomenajeAdminBean.lisPetfotomascota}"
 								columns="3" rows="3" efect="true" paginator="true"
 								paginatorPosition="bottom"
 								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -101,42 +101,14 @@
 							<h:outputLabel value="Agregar Foto" for="idSubeFotos" />
 						</div>
 						<div>
-							<p:panel id="pnlPrevia" styleClass="panel-previa">
-								<p:graphicImage id="idfotoseleccionada"
-									value="#{usuarioBean.streamedContent}" styleClass="img-responsive"
-									rendered="#{mascotaHomenajeAdminBean.fotoSubida}" cache="false" />
-								<p:commandButton id="btnBorraFoto" icon="ui-icon ui-icon-trash"
-									action="#{mascotaHomenajeAdminBean.borrarFotoSubida()}"
-									update="pnlPrevia,pnlObservacionFoto,pnlObservacionFoto2"
-									rendered="#{mascotaHomenajeAdminBean.fotoSubida}" />
-							</p:panel>
 							<p:fileUpload id="idSubeFotos"
 								fileUploadListener="#{mascotaHomenajeAdminBean.handleFileUpload}"
 								mode="advanced" cancelLabel="Cancelar" uploadLabel="Subir Foto"
 								label="Elegir Foto" showButtons="false"
-								update="mensajes, pnlPrevia,pnlObservacionFoto,pnlObservacionFoto2"
+								update="mensajes"
 								allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar" />
 						</div>
 					</div>
-					
-					<div class="grupo-admin">
-						<div>
-							<h:panelGroup id="pnlObservacionFoto">
-								<h:outputLabel value="Descripción de la Foto"
-									for="txtObservacionFoto" 
-									rendered="#{mascotaHomenajeAdminBean.fotoSubida}" />
-							</h:panelGroup>
-						</div>
-						<div>
-							<h:panelGroup id="pnlObservacionFoto2">
-								<p:inputTextarea id="txtObservacionFoto"
-									value="#{mascotaHomenajeAdminBean.descripcionFoto}"
-									maxlength="500" autoResize="false" style="width: 100%"
-									rendered="#{mascotaHomenajeAdminBean.fotoSubida}" />
-							</h:panelGroup>
-						</div>
-					</div>
-					
 					
 					<div class="grupo-admin">
 						<div>

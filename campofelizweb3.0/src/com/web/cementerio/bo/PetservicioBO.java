@@ -18,10 +18,7 @@ import com.web.util.HibernateUtil;
 
 public class PetservicioBO {
 
-	private PetservicioDAO petservicioDAO;
-	
 	public PetservicioBO() {
-		petservicioDAO = new PetservicioDAO();
 	}
 	
 	public int getMaxOrden() throws Exception{
@@ -30,6 +27,8 @@ public class PetservicioBO {
 		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
+			PetservicioDAO petservicioDAO = new PetservicioDAO();
+			
 			orden = petservicioDAO.maxOrden(session);
 				
 		} catch (Exception e) {
@@ -47,6 +46,8 @@ public class PetservicioBO {
 		
 		try{
 			session = HibernateUtil.getSessionFactory().openSession();
+			PetservicioDAO petservicioDAO = new PetservicioDAO();
+			
 			lisPetservicio = petservicioDAO.lisPetservicioPrincipales(session, cantidad);
 		}catch(Exception e){
 			throw new Exception(e.getMessage(),e.getCause());
@@ -63,6 +64,8 @@ public class PetservicioBO {
 	
 		try{
 			session = HibernateUtil.getSessionFactory().openSession();
+			PetservicioDAO petservicioDAO = new PetservicioDAO();
+			
 			lisPetservicio = petservicioDAO.lisPetservicio(session, idempresa, idoficina);
 		}catch(Exception e){
 			throw new Exception(e);
@@ -79,6 +82,8 @@ public class PetservicioBO {
 		
 		try{
             session = HibernateUtil.getSessionFactory().openSession();
+            PetservicioDAO petservicioDAO = new PetservicioDAO();
+            
             lisPetservicio = petservicioDAO.lisPetservicioBusquedaByPage(session, texto, idempresa, pageSize, pageNumber, args);
         }
         catch(Exception ex){
@@ -97,6 +102,8 @@ public class PetservicioBO {
 		
 		try{
             session = HibernateUtil.getSessionFactory().openSession();
+            PetservicioDAO petservicioDAO = new PetservicioDAO();
+            
             petservicio = petservicioDAO.getPetservicioConObjetosById(session, idservicio, idempresa);
         }
         catch(Exception ex){
@@ -115,6 +122,8 @@ public class PetservicioBO {
 		
 		try{
             session = HibernateUtil.getSessionFactory().openSession();
+            PetservicioDAO petservicioDAO = new PetservicioDAO();
+            
             petservicio = petservicioDAO.getPetservicioById(session, idservicio);
         }
         catch(Exception ex){
@@ -127,7 +136,7 @@ public class PetservicioBO {
 		return petservicio;
 	}
 	
-	public boolean ingresar(Petservicio petservicio, Petfotoservicio petfotoservicio, byte[] imagenTemporal,String nombreImagen) throws Exception {
+	public boolean ingresar(Petservicio petservicio, List<Petfotoservicio> lisPetfotoservicio) throws Exception {
 		boolean ok = false;
 		Session session = null;
 		
@@ -136,6 +145,7 @@ public class PetservicioBO {
 			session.beginTransaction();
 			
 			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+			PetservicioDAO petservicioDAO = new PetservicioDAO();
 			
 			//servicio
 			int maxIdservicio = petservicioDAO.maxIdservicio(session)+1;
@@ -154,10 +164,12 @@ public class PetservicioBO {
 			petservicioDAO.savePetservicio(session, petservicio);
 			
 			//Si subio foto se crea en disco y en base
-			if(imagenTemporal != null){
-				creaFotoDiscoBD(petservicio, petfotoservicio, imagenTemporal, nombreImagen, session);
+			for(Petfotoservicio petfotoservicio : lisPetfotoservicio){
+				creaFotoDiscoBD(petservicio, petfotoservicio, session);
+			}
+			if(lisPetfotoservicio != null && lisPetfotoservicio.size() > 0){
 				//se setea la ruta de la foto tambien en petnoticia.rutafoto
-				petservicio.setRutafoto(petfotoservicio.getRuta());
+				petservicio.setRutafoto(lisPetfotoservicio.get(0).getRuta());
 				//update
 				petservicioDAO.updatePetservicio(session, petservicio);
 			}
@@ -185,6 +197,7 @@ public class PetservicioBO {
 			session.beginTransaction();
 			
 			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+			PetservicioDAO petservicioDAO = new PetservicioDAO();
 			PetfotoservicioDAO petfotoservicioDAO = new PetfotoservicioDAO();
 			
 			//se eliminan fisicamente las fotos asociadas a la noticia
@@ -238,7 +251,7 @@ public class PetservicioBO {
 		return ok;
 	}
 	
-	public boolean modificar(Petservicio petservicio, Petservicio petservicioClon, List<Petfotoservicio> lisPetfotoservicio, List<Petfotoservicio> lisPetfotoservicioClon, Petfotoservicio petfotoservicio, byte[] imagenTemporal,String nombreImagen) throws Exception {
+	public boolean modificar(Petservicio petservicio, Petservicio petservicioClon, List<Petfotoservicio> lisPetfotoservicio, List<Petfotoservicio> lisPetfotoservicioClon) throws Exception {
 		boolean ok = false;
 		Session session = null;
 		
@@ -247,6 +260,7 @@ public class PetservicioBO {
 			session.beginTransaction();
 			
 			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+			PetservicioDAO petservicioDAO = new PetservicioDAO();
 			PetfotoservicioDAO petfotoservicioDAO = new PetfotoservicioDAO();
 			Date fecharegistro = new Date();
 			FileUtil fileUtil = new FileUtil();
@@ -275,8 +289,8 @@ public class PetservicioBO {
 						}
 					}
 				}
+				//si no encuentra lo han borrado
 				if(!encuentra){
-					//no encuentra
 					//inhabilitar
 					Setestado setestado = new Setestado();
 					setestado.setIdestado(2);
@@ -301,12 +315,28 @@ public class PetservicioBO {
 				}
 			}
 			
-			//Si subio foto se crea en disco y en base
-			if(imagenTemporal != null){
-				creaFotoDiscoBD(petservicio, petfotoservicio, imagenTemporal, nombreImagen, session);
+			//Se evalua si han subido nuevas fotos
+			for(Petfotoservicio petfotoservicio : lisPetfotoservicio){
+				boolean encuentra = false;
+				for(Petfotoservicio petfotoservicioClon : lisPetfotoservicioClon){
+					if(petfotoservicio.getIdfotoservicio() == petfotoservicioClon.getIdfotoservicio()){
+						//si encuentra
+						encuentra = true; 
+						break;
+					}
+				}
+				//no encuentra en lista clonada
+				if(!encuentra){
+					//es foto nueva
+					creaFotoDiscoBD(petservicio, petfotoservicio, session);
+					ok = true;
+				}
+			}
+			
+			if(lisPetfotoservicio != null && lisPetfotoservicio.size() > 0){
 				//si no tiene imagen principal se setea
 				if(petservicio.getRutafoto() == null || petservicio.getRutafoto().trim().length() == 0){
-					petservicio.setRutafoto(petfotoservicio.getRuta());
+					petservicio.setRutafoto(lisPetfotoservicio.get(0).getRuta());
 				}
 				ok = true;
 			}
@@ -337,7 +367,7 @@ public class PetservicioBO {
 		return ok;
 	}
 	
-	private void creaFotoDiscoBD(Petservicio petservicio, Petfotoservicio petfotoservicio, byte[] imagenTemporal, String nombreImagen, Session session) throws Exception {
+	private void creaFotoDiscoBD(Petservicio petservicio, Petfotoservicio petfotoservicio, Session session) throws Exception {
 		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 		PetfotoservicioDAO petfotoservicioDAO = new PetfotoservicioDAO();
 		
@@ -351,14 +381,14 @@ public class PetservicioBO {
 		
 		String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
 		String rutaServicios =  fileUtil.getPropertyValue("repositorio-servicios") + fecha.get(Calendar.YEAR);
-		String nombreArchivo = fecha.get(Calendar.YEAR) + "-" + (fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + petservicio.getIdservicio() + "-" + cantFotosPorServicio + "." + fileUtil.getFileExtention(nombreImagen).toLowerCase();
+		String nombreArchivo = fecha.get(Calendar.YEAR) + "-" + (fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + petservicio.getIdservicio() + "-" + cantFotosPorServicio + "." + fileUtil.getFileExtention(petfotoservicio.getNombrearchivo()).toLowerCase();
 		
 		String rutaCompleta = rutaImagenes + rutaServicios;
 		
 		if(fileUtil.createDir(rutaCompleta)){
 			//crear foto en disco
 			String rutaArchivo = rutaCompleta + "/" + nombreArchivo;
-			fileUtil.createFile(rutaArchivo,imagenTemporal);
+			fileUtil.createFile(rutaArchivo,petfotoservicio.getImagen());
 		}
 		
 		//foto en BD

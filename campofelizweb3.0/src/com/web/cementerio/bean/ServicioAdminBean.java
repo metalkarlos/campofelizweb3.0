@@ -10,8 +10,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 
 import com.web.cementerio.bo.CotoficinaBO;
 import com.web.cementerio.bo.PetservicioBO;
@@ -30,10 +28,8 @@ import com.web.util.MessageUtil;
 @ViewScoped
 public class ServicioAdminBean implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4748535305651371565L;
+	
 	private int idservicio;
 	private int idempresa;
 	private Petservicio petservicio;
@@ -42,12 +38,7 @@ public class ServicioAdminBean implements Serializable {
 	private List<Petfotoservicio> lisPetfotoservicioClon;
 	private List<Cotoficina> lisCotoficina;
 	private Petfotoservicio petfotoservicioSeleccionado;
-	private StreamedContent streamedContent;
-	private String descripcionFoto;
-	private boolean fotoSubida;
 	private long maxfilesize;
-	private byte[] imagenTemporal;
-	private String nombreImagen;
 	
 	public ServicioAdminBean() {
 		petservicio = new Petservicio(0, new Setestado(), null, new Setusuario(), null, null, null, new Cotoficina(), new Cotempresa(), null, null, null, false, new Date(), null, 0);
@@ -56,8 +47,6 @@ public class ServicioAdminBean implements Serializable {
 		lisPetfotoservicioClon = new ArrayList<Petfotoservicio>();
 		lisCotoficina = new ArrayList<Cotoficina>();
 		petfotoservicioSeleccionado = new Petfotoservicio();
-		descripcionFoto = "";
-		fotoSubida = false;
 		maxfilesize = Parametro.TAMAÑO_IMAGEN;
 	}
 	
@@ -122,29 +111,15 @@ public class ServicioAdminBean implements Serializable {
 			}
 		}
 	}
-	
-	/*private void llenarListaEmpresa(){
-		try {
-			CotempresaBO cotempresaBO = new CotempresaBO();
-			lisCotempresa = cotempresaBO.lisCotempresa();
-		} catch (Exception e) {
-			e.printStackTrace();
-		    new MessageUtil().showErrorMessage("Error", "Ha ocurrido un error inesperado. Comunicar al Webmaster!");
-		}
-	}*/
 
 	public void handleFileUpload(FileUploadEvent event) {
 		try{
 			FileUtil fileUtil = new FileUtil();
-			StreamedContent streamedContent = new DefaultStreamedContent(event.getFile().getInputstream(), event.getFile().getContentType());
-			imagenTemporal = event.getFile().getContents();
-			nombreImagen = fileUtil.getFileExtention(event.getFile().getFileName()).toLowerCase();
-			
-			FacesUtil facesUtil = new FacesUtil();
-			UsuarioBean usuarioBean = (UsuarioBean) facesUtil.getSessionBean("usuarioBean");
-			usuarioBean.setStreamedContent(streamedContent);
-			facesUtil.setSessionBean("usuarioBean", usuarioBean);
-			fotoSubida = true;
+
+			Petfotoservicio petfotoservicio = new Petfotoservicio();
+			petfotoservicio.setImagen(event.getFile().getContents());
+			petfotoservicio.setNombrearchivo(fileUtil.getFileExtention(event.getFile().getFileName()).toLowerCase());
+			lisPetfotoservicio.add(petfotoservicio);
 			
 			new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.", "");
 		}catch(Exception x){
@@ -169,31 +144,21 @@ public class ServicioAdminBean implements Serializable {
 		petfotoservicioSeleccionado = new Petfotoservicio();
 	}
 	
-	public void borrarFotoSubida(){
-		imagenTemporal = null;
-		fotoSubida = false;
-	}
-	
 	public void grabar(){
 		try{
 			if (validarcampos()) {
 				PetservicioBO petservicioBO = new PetservicioBO();
-				Petfotoservicio petfotoservicio = new Petfotoservicio();
 				boolean ok = false;
 				
-				if(fotoSubida && descripcionFoto != null && descripcionFoto.trim().length() > 0){
-					petfotoservicio.setDescripcion(descripcionFoto);
-				}
-				
 				if(idservicio == 0){
-					ok = petservicioBO.ingresar(petservicio, petfotoservicio, imagenTemporal, nombreImagen);
+					ok = petservicioBO.ingresar(petservicio, lisPetfotoservicio);
 					if(ok){
 						mostrarPaginaMensaje("Servicio creado con exito!!");
 					}else{
 						new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
 					}
 				}else{
-					ok = petservicioBO.modificar(petservicio, petservicioClon, lisPetfotoservicio, lisPetfotoservicioClon, petfotoservicio, imagenTemporal,nombreImagen);
+					ok = petservicioBO.modificar(petservicio, petservicioClon, lisPetfotoservicio, lisPetfotoservicioClon);
 					if(ok){
 						mostrarPaginaMensaje("Servicio modificado con exito!!");
 					}else{
@@ -234,6 +199,8 @@ public class ServicioAdminBean implements Serializable {
 	private void mostrarPaginaMensaje(String mensaje) throws Exception {
 		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 		usuarioBean.setMensaje(mensaje);
+		usuarioBean.setLink("/pages/servicio.jsf?idservicio="+idservicio+"&idempresa="+idempresa);
+		usuarioBean.setLinkTitulo("Consultar Servicio");
 		
 		FacesUtil facesUtil = new FacesUtil();
 		facesUtil.redirect("../pages/mensaje.jsf");	 
@@ -288,30 +255,6 @@ public class ServicioAdminBean implements Serializable {
 		this.petfotoservicioSeleccionado = petfotoservicioSeleccionado;
 	}
 
-	public StreamedContent getStreamedContent() {
-		return streamedContent;
-	}
-
-	public void setStreamedContent(StreamedContent streamedContent) {
-		this.streamedContent = streamedContent;
-	}
-
-	public boolean isFotoSubida() {
-		return fotoSubida;
-	}
-
-	public void setFotoSubida(boolean fotoSubida) {
-		this.fotoSubida = fotoSubida;
-	}
-
-	public String getDescripcionFoto() {
-		return descripcionFoto;
-	}
-
-	public void setDescripcionFoto(String descripcionFoto) {
-		this.descripcionFoto = descripcionFoto;
-	}
-
 	public long getMaxfilesize() {
 		return maxfilesize;
 	}
@@ -327,14 +270,6 @@ public class ServicioAdminBean implements Serializable {
 	public void setLisCotoficina(List<Cotoficina> lisCotoficina) {
 		this.lisCotoficina = lisCotoficina;
 	}
-
-	/*public List<Cotempresa> getLisCotempresa() {
-		return lisCotempresa;
-	}
-
-	public void setLisCotempresa(List<Cotempresa> lisCotempresa) {
-		this.lisCotempresa = lisCotempresa;
-	}*/
 
 	public int getIdempresa() {
 		return idempresa;

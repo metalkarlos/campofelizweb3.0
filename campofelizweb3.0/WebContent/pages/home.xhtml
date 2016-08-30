@@ -11,6 +11,12 @@
 	template="/WEB-INF/templates/template.xhtml">
 
 	<ui:define name="head">
+		
+		<!-- Gallery CSS -->
+	  <h:outputStylesheet library="css" name="blueimp-gallery.css" />
+	  <h:outputStylesheet library="css" name="blueimp-gallery-indicator.css" />
+	  <h:outputStylesheet library="css" name="blueimp-gallery-video.css" />
+	  
 		<script type="text/javascript">
 			function setCorreo() {
 				var correo = $('#form-home\\:txtEmail').val();
@@ -41,13 +47,11 @@
 						</div>
 						<h4>#{servicio.nombre}</h4>
 						<p class="margin">#{servicio.descripcioncorta} 
-						</p>
-						<div class="text-center">
-							<h:link styleClass="btn btn-default" outcome="/pages/servicio" value="Leer más" >
+							<h:link outcome="/pages/servicio" value="Leer más" >
 								<f:param name="idservicio" value="#{servicio.idservicio}"></f:param>
 								<f:param name="idempresa" value="#{servicio.cotempresa.idempresa}"></f:param>
 							</h:link>
-						</div>
+						</p>
 					</div><!-- /col-md-4-->
 		  	</c:forEach>
 		  </div>
@@ -132,6 +136,11 @@
 						 <div class="col-lg-7 col-md-6 col-sm-12 res-margin wow fadeInRight" data-wow-delay="0.2s">
 							<h3>Cómo nace CAMPO FELIZ</h3>
 							<p><h:outputText value="#{fn:substring(inicioBean.petinformacion.quienessomosNoTags, 0, 400)}..." escape="false" /><h:link outcome="/pages/historia" value="Leer más" /></p>
+							<div class="text-center">
+								<h:link styleClass="btn btn-default m-left" outcome="/admin/quienessomos-admin" value="Editar" rendered="#{usuarioBean.autenticado}">
+									<f:param name="idinformacion" value="#{inicioBean.petinformacion.idinformacion}"></f:param>
+								</h:link>
+							</div>
 						 </div>					 
 						 <div class="col-lg-5 col-md-6 col-sm-12 wow fadeInLeft" data-wow-delay="0.2s">
 							<img src="#{request.contextPath}#{parametro.servletImagenes}/mascota/2011/2011-8-1-1-1.jpg?w=700&amp;h=450&amp;m=both" alt="" class="img-responsive"/>
@@ -178,6 +187,11 @@
 					  <br />
 					  <h3>Visión</h3>
 					  <p><h:outputText value="#{inicioBean.petinformacion.vision}" escape="false" /></p>
+					  <div class="text-center">
+							<h:link styleClass="btn btn-default m-left" outcome="/admin/quienessomos-admin" value="Editar" rendered="#{usuarioBean.autenticado}">
+								<f:param name="idinformacion" value="#{inicioBean.petinformacion.idinformacion}"></f:param>
+							</h:link>
+						</div>
 				   </div>
 				   <div class="col-lg-6 col-md-6 col-sm-12">
 				   	<!-- Responsive video -->
@@ -345,11 +359,11 @@
 	</section>
 	<!-- Section Ends -->  
 	  
-	<!-- Section Prices -->
-	<section id="prices" class="home-section">
+	<!-- Section Planes -->
+	<section id="planes" class="home-section">
 	   <div class="col-lg-8 col-lg-offset-2">
 	   	<!-- Section Heading -->
-		  <div class="section-heading-plan">
+		  <div class="section-heading-small">
 			 <h2>Previsión Exequial</h2>
 			 <div class="hr"></div>
 		  </div>
@@ -360,7 +374,7 @@
 	   <div class="container wow fadeInDown" data-wow-delay="0.2s">
 		  <div class="row pricing-tables">
 		  
-			<!-- Price table 1 Highlighted-->
+			<!-- Plan table 1 Highlighted-->
 			<div class="col-md-3 col-sm-6 res-margin col-md-3-plan">
 				<div class="pricing-table highlight-plan">
 				   <div class="plan-name">
@@ -388,14 +402,14 @@
 					  <div class="price-value">$177<span>.00</span></div>
 					  <div class="interval">Valor total del plan.</div>
 				   </div>
-				   <!-- Price button-->
+				   <!-- Plan button-->
 				   <div class="plan-signup page-scroll">
 					  <a href="#contact" class="btn btn-default">Solicítalo Ya</a>
 				   </div>
 				</div>
 			 </div>	
 			 	
-			<!-- Price table 2 -->
+			<!-- Plan table 2 -->
 			<div class="col-md-3 col-sm-6 col-md-3-plan">
 				<div class="pricing-table res-margin">				
 				   <div class="plan-name">
@@ -422,7 +436,7 @@
 					  <div class="price-value">$450<span>.00</span></div>
 					  <div class="interval">Valor total del plan.</div>
 				   </div>
-				   <!-- Price button-->
+				   <!-- Plan button-->
 				   <div class="plan-signup page-scroll">
 					  <a href="#contact" class="btn btn-default">Solicítalo Ya</a>
 				   </div>
@@ -500,6 +514,68 @@
 	   </div><!-- /container -->
 	</section>
 	<!-- Section ends --> 
+	
+	<!-- Section Videos -->
+	<section id="video" class="home-section">
+	   <div class="col-lg-8 col-lg-offset-2">
+	   	<!-- Section heading -->
+		  <div class="section-heading-small">
+			 <h2>Videos</h2>
+			 <div class="hr"></div>
+		  </div>
+	   </div>
+	   <div class="container clean">
+
+		  <div class="row">
+			  <div class="col-md-6 col-centered">
+			  	<!-- Gallery -->
+				   <!-- The Gallery as inline carousel, can be positioned anywhere on the page -->
+					<div id="blueimp-video-carousel" class="blueimp-gallery blueimp-gallery-controls blueimp-gallery-carousel blueimp-gallery-display blueimp-gallery-playing">
+					    <div class="slides"></div>
+					    <h3 class="title"></h3>
+					    <a class="prev">‹</a>
+					    <a class="next">›</a>
+					    <a class="play-pause"></a>
+					    <ol class="indicator"></ol>
+					</div>
+					<div id="links-video" class="links">
+						<c:forEach items="#{inicioBean.lisPethome}" var="video">
+							<a href="#{video.urlvideo}" type="text/html" data-youtube="#{video.idvideo}" title="#{video.encabezado}" data-gallery=" " ></a>
+						</c:forEach>
+					</div>
+					<!-- Gallery end -->
+				</div>
+		  </div>
+		  <div class="text-center">
+				<h:link styleClass="btn btn-default m-left" outcome="/pages/videos" value="Ver Más Videos" >
+				</h:link>
+			</div>
+		  
+	   </div><!-- /container -->
+	   
+	   
+		<!-- Gallery -->
+		<h:outputScript library="js" name="blueimp-helper.js" />
+		<h:outputScript library="js" name="blueimp-gallery.js" />
+		<h:outputScript library="js" name="blueimp-gallery-fullscreen.js" />
+		<h:outputScript library="js" name="blueimp-gallery-indicator.js" />
+		<h:outputScript library="js" name="blueimp-gallery-video.js" />
+		<h:outputScript library="js" name="blueimp-gallery-vimeo.js" />
+		<h:outputScript library="js" name="blueimp-gallery-youtube.js" />
+		<h:outputScript library="js" name="jquery.blueimp-gallery.js" /> 
+		<script>
+		// Initialize the Gallery as video carousel:
+	  blueimp.Gallery(
+	    document.getElementById('links-video').getElementsByTagName('a'),
+	    {
+	        container: '#blueimp-video-carousel',
+	        carousel: true
+	    }
+		);
+		</script>
+		
+	</section>
+	<!-- Section ends -->
      
 	<!-- Section Offers -->
 	<section id="offers" class="home-section">

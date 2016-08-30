@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "petfotoinstalacion")
@@ -27,6 +28,7 @@ public class Petfotoinstalacion implements java.io.Serializable, Cloneable {
 	private int orden;
 	private String iplog;
 	private int grupo;
+	private byte[] imagen;
 
 	public Petfotoinstalacion() {
 	}
@@ -158,6 +160,15 @@ public class Petfotoinstalacion implements java.io.Serializable, Cloneable {
 	
 	public Petfotoinstalacion clonar() throws Exception {
 		return (Petfotoinstalacion)this.clone();
+	}
+	
+	@Transient
+	public byte[] getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
 	}
 
 	@Override

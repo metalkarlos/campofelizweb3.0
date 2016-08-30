@@ -33,7 +33,7 @@ public class QuienesSomosBean implements java.io.Serializable {
 	private void consultarInformacion(){
 		try{
 			PetinformacionBO petinformacionBO = new PetinformacionBO();
-			petinformacion = petinformacionBO.getPetinformacionById(1,1);
+			petinformacion = petinformacionBO.getPetinformacionById(1);
 			if(petinformacion!=null && petinformacion.getPetfotoinformaciones().size()>0 && !petinformacion.getPetfotoinformaciones().isEmpty() ){
 			  listpetfotoinformacion = new ArrayList<Petfotoinformacion>(petinformacion.getPetfotoinformaciones());
 			}

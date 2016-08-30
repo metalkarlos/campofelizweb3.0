@@ -10,8 +10,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
 
 import com.web.cementerio.bo.PetnoticiaBO;
 import com.web.cementerio.global.Parametro;
@@ -37,12 +35,7 @@ public class NoticiaAdminBean implements Serializable {
 	private List<Petfotonoticia> lisPetfotonoticia;
 	private List<Petfotonoticia> lisPetfotonoticiaClon;
 	private Petfotonoticia petfotonoticiaSeleccionada;
-	private String descripcionFoto;
-	private boolean fotoSubida;
 	private long maxfilesize;
-	private int idfotonoticiaselected;
-	private byte[] imagenTemporal;
-	private String nombreImagen;
 	
 	public NoticiaAdminBean() {
 		petnoticia = new Petnoticia(0, new Setestado(), new Setusuario(), null, null, null, new Date(), null, null, null, new Date(), new Date(), false, 0);
@@ -50,8 +43,6 @@ public class NoticiaAdminBean implements Serializable {
 		lisPetfotonoticia = new ArrayList<Petfotonoticia>();
 		lisPetfotonoticiaClon = new ArrayList<Petfotonoticia>();
 		petfotonoticiaSeleccionada = new Petfotonoticia();
-		descripcionFoto = "";
-		fotoSubida = false;
 		maxfilesize = Parametro.TAMAÑO_IMAGEN;
 	}
 	
@@ -109,15 +100,11 @@ public class NoticiaAdminBean implements Serializable {
 	public void handleFileUpload(FileUploadEvent event) {
 		try{
 			FileUtil fileUtil = new FileUtil();
-			StreamedContent streamedContent = new DefaultStreamedContent(event.getFile().getInputstream(), event.getFile().getContentType());
-			imagenTemporal = event.getFile().getContents();
-			nombreImagen = fileUtil.getFileExtention(event.getFile().getFileName()).toLowerCase();
 			
-			FacesUtil facesUtil = new FacesUtil();
-			UsuarioBean usuarioBean = (UsuarioBean) facesUtil.getSessionBean("usuarioBean");
-			usuarioBean.setStreamedContent(streamedContent);
-			facesUtil.setSessionBean("usuarioBean", usuarioBean);
-			fotoSubida = true;
+			Petfotonoticia petfotonoticia = new Petfotonoticia();
+			petfotonoticia.setImagen(event.getFile().getContents());
+			petfotonoticia.setNombrearchivo(fileUtil.getFileExtention(event.getFile().getFileName()).toLowerCase());
+			lisPetfotonoticia.add(petfotonoticia);
 			
 			new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.", "");
 		}catch(Exception x){
@@ -127,52 +114,36 @@ public class NoticiaAdminBean implements Serializable {
 	}
 	
 	public void ponerFotoPrincipal(){
-		if (petfotonoticiaSeleccionada != null) {
-			petnoticia.setRutafoto(petfotonoticiaSeleccionada.getRuta());
-			new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
-			petfotonoticiaSeleccionada = new Petfotonoticia();
-		}
+		petnoticia.setRutafoto(petfotonoticiaSeleccionada.getRuta());
+		petfotonoticiaSeleccionada = new Petfotonoticia();
+		new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.","");
 	}
 	
 	public void quitarFotoGaleria(){
-		if (petfotonoticiaSeleccionada != null) {
-			if(petfotonoticiaSeleccionada.getRuta().equalsIgnoreCase(petnoticia.getRutafoto())){
-				new MessageUtil()
-				.showInfoMessage(
-						"La foto que desea eliminar es la principal. Seleccione otra foto como principal y vuelva a intentarlo","");
-			} else {
-				lisPetfotonoticia.remove(petfotonoticiaSeleccionada);
-				new MessageUtil().showInfoMessage("Presione grabar para guardar los cambios","");
-			}
-			petfotonoticiaSeleccionada = new Petfotonoticia();
+		if(petfotonoticiaSeleccionada.getRuta().equalsIgnoreCase(petnoticia.getRutafoto())){
+			new MessageUtil().showInfoMessage("La foto que desea eliminar es la principal. Seleccione otra foto como principal y vuelva a intentarlo","");
+		} else {
+			lisPetfotonoticia.remove(petfotonoticiaSeleccionada);
+			new MessageUtil().showInfoMessage("Presione grabar para guardar los cambios","");
 		}
-	}
-	
-	public void borrarFotoSubida(){
-		imagenTemporal = null;
-		fotoSubida = false;
+		petfotonoticiaSeleccionada = new Petfotonoticia();
 	}
 	
 	public void grabar(){
 		try{
 			if (validarcampos()) {
 				PetnoticiaBO petnoticiaBO = new PetnoticiaBO();
-				Petfotonoticia petfotonoticia = new Petfotonoticia();
 				boolean ok = false;
 				
-				if(fotoSubida && descripcionFoto != null && descripcionFoto.trim().length() > 0){
-					petfotonoticia.setDescripcion(descripcionFoto);
-				}
-				
 				if(idnoticia == 0){
-					ok = petnoticiaBO.ingresar(petnoticia, petfotonoticia, imagenTemporal,nombreImagen);
+					ok = petnoticiaBO.ingresar(petnoticia, lisPetfotonoticia);
 					if(ok){
 						mostrarPaginaMensaje("Noticia creada con exito!!");
 					}else{
 						new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
 					}
 				}else{
-					ok = petnoticiaBO.modificar(petnoticia, petnoticiaClon, lisPetfotonoticia, lisPetfotonoticiaClon, petfotonoticia,imagenTemporal,nombreImagen);
+					ok = petnoticiaBO.modificar(petnoticia, petnoticiaClon, lisPetfotonoticia, lisPetfotonoticiaClon);
 					if(ok){
 						mostrarPaginaMensaje("Noticia modificada con exito!!");
 					}else{
@@ -209,8 +180,8 @@ public class NoticiaAdminBean implements Serializable {
 	private void mostrarPaginaMensaje(String mensaje) throws Exception {
 		UsuarioBean usuarioBean = (UsuarioBean) new FacesUtil().getSessionBean("usuarioBean");
 		usuarioBean.setMensaje(mensaje);
-		usuarioBean.setLink("/pages/noticias");
-		usuarioBean.setLinkTitulo("Ver Más Noticias");
+		usuarioBean.setLink("/pages/noticia?idnoticia="+idnoticia);
+		usuarioBean.setLinkTitulo("Consultar Noticia");
 
 		FacesUtil facesUtil = new FacesUtil();
 		facesUtil.redirect("../pages/mensaje.jsf");
@@ -219,11 +190,12 @@ public class NoticiaAdminBean implements Serializable {
 	public void eliminar(){
 		try{
 			PetnoticiaBO petnoticiaBO = new PetnoticiaBO();
+			
 			boolean ok = petnoticiaBO.eliminar(petnoticia);
 			if(ok){
 				mostrarPaginaMensaje("Noticia eliminada con exito!!");
 			}else{
-				new MessageUtil().showWarnMessage("No se ha podido eliminar la Noticia. Comunicar al Webmaster.","");
+				mostrarPaginaMensaje("No se ha podido eliminar la Noticia. Comunicar al Webmaster.");
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -264,22 +236,6 @@ public class NoticiaAdminBean implements Serializable {
 		this.petfotonoticiaSeleccionada = petfotonoticiaSeleccionada;
 	}
 
-	public boolean isFotoSubida() {
-		return fotoSubida;
-	}
-
-	public void setFotoSubida(boolean fotoSubida) {
-		this.fotoSubida = fotoSubida;
-	}
-
-	public String getDescripcionFoto() {
-		return descripcionFoto;
-	}
-
-	public void setDescripcionFoto(String descripcionFoto) {
-		this.descripcionFoto = descripcionFoto;
-	}
-
 	public long getMaxfilesize() {
 		return maxfilesize;
 	}
@@ -288,19 +244,4 @@ public class NoticiaAdminBean implements Serializable {
 		this.maxfilesize = maxfilesize;
 	}
 
-	public int getIdfotonoticiaselected() {
-		return idfotonoticiaselected;
-	}
-
-	public void setIdfotonoticiaselected(int idfotonoticiaselected) {
-		this.idfotonoticiaselected = idfotonoticiaselected;
-	}
-
-	public String getNombreImagen() {
-		return nombreImagen;
-	}
-
-	public void setNombreImagen(String nombreImagen) {
-		this.nombreImagen = nombreImagen;
-	}
 }

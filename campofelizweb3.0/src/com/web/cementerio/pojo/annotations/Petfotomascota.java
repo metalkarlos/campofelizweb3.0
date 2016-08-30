@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 /**
@@ -38,7 +39,7 @@ public class Petfotomascota implements java.io.Serializable, Cloneable{
 	private Date fecharegistro;
 	private Date fechamodificacion;
 	private String iplog;
-
+	private byte[] imagen;
 
 
 	public Petfotomascota() {
@@ -163,7 +164,14 @@ public class Petfotomascota implements java.io.Serializable, Cloneable{
 		this.iplog = iplog;
 	}
 
-	
+	@Transient
+	public byte[] getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
+	}
 
 
 	@Override

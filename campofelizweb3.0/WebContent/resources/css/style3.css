@@ -60,7 +60,7 @@
     font-size: 12px;
     font-weight: 300;
 }
-.section-heading-plan {
+.section-heading-small {
 	margin-bottom:50px;
 	text-align:center;
 }
@@ -70,12 +70,12 @@
 /* max width 991px */
 @media (max-width: 991px) {
 	.section-intro {margin-bottom: 3rem;}/*7*/
-	.section-heading-plan {margin-bottom: 3rem;}
+	.section-heading-small {margin-bottom: 3rem;}
 }
 /* max width 480px */
 @media (max-width: 480px) {
 	.section-intro {margin-bottom: 1em;}/*3*/
-	.section-heading-plan{margin-bottom:1em;}
+	.section-heading-small{margin-bottom:1em;}
 }
 /********estadisticas********/
 .alinear * {

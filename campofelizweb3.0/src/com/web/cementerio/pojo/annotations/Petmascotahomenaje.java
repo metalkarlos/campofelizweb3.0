@@ -3,8 +3,6 @@ package com.web.cementerio.pojo.annotations;
 // Generated 05/03/2014 11:20:16 AM by Hibernate Tools 3.4.0.CR1
 
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;

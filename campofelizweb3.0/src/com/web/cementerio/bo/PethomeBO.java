@@ -15,10 +15,7 @@ import com.web.util.HibernateUtil;
 
 public class PethomeBO {
 
-	PethomeDAO pethomeDAO;
-	
 	public PethomeBO() {
-		pethomeDAO = new PethomeDAO();
 	}
 	
 	public Pethome getPethomebyId(int idhome) throws Exception{
@@ -27,6 +24,7 @@ public class PethomeBO {
 		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
+			PethomeDAO pethomeDAO = new PethomeDAO();
 			pethome = pethomeDAO.getPethomebyId(session, idhome);
 				
 		} catch (Exception e) {
@@ -44,6 +42,7 @@ public class PethomeBO {
 		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
+			PethomeDAO pethomeDAO = new PethomeDAO();
 			orden = pethomeDAO.maxOrden(session);
 				
 		} catch (Exception e) {
@@ -61,6 +60,7 @@ public class PethomeBO {
 		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
+			PethomeDAO pethomeDAO = new PethomeDAO();
 			lisPethome = (List<Pethome>) pethomeDAO.lisPethome(session);
 		} catch (Exception e) {
 			throw new Exception(e);
@@ -72,13 +72,52 @@ public class PethomeBO {
 		return lisPethome; 
 	}
 	
+	public List<Pethome> lisPethome(int cantidad) throws Exception {
+		List<Pethome> lisPethome = null;
+		Session session = null;
+		
+		try {
+			session = HibernateUtil.getSessionFactory().openSession();
+			PethomeDAO pethomeDAO = new PethomeDAO();
+			lisPethome = (List<Pethome>) pethomeDAO.lisPethome(session, cantidad);
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
+		finally{
+			 session.close();
+		}
+		
+		return lisPethome;
+	}
+	
 	public List<Pethome> lisPethomeByPage(int pageSize, int pageNumber, int args[]) throws RuntimeException {
 		List<Pethome> lisPethome = null;
 		Session session = null;
 		
 		try{
             session = HibernateUtil.getSessionFactory().openSession();
+            PethomeDAO pethomeDAO = new PethomeDAO();
             lisPethome = pethomeDAO.lisPethomeByPage(session, pageSize, pageNumber, args);
+        }
+        catch(Exception ex){
+            throw new RuntimeException(ex);
+        }
+        finally{
+            session.close();
+        }
+		
+		return lisPethome;
+	}
+	
+	public List<Pethome> lisPethomeBusquedaByPage(String[] texto, int pageSize, int pageNumber, int args[]) throws RuntimeException {
+		List<Pethome> lisPethome = null;
+		Session session = null;
+		
+		try{
+            session = HibernateUtil.getSessionFactory().openSession();
+            PethomeDAO pethomeDAO = new PethomeDAO();
+            
+            lisPethome = pethomeDAO.lisPethomeBusquedaByPage(session, texto, pageSize, pageNumber, args);
         }
         catch(Exception ex){
             throw new RuntimeException(ex);
@@ -100,6 +139,7 @@ public class PethomeBO {
 			
 			Date fecharegistro = new Date();
 			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+			PethomeDAO pethomeDAO = new PethomeDAO();
 			int maxidhome = pethomeDAO.maxIdhome(session)+1;
 			
 			pethome.setIdhome(maxidhome);
@@ -177,6 +217,7 @@ public class PethomeBO {
 			session.beginTransaction();
 			
 			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+			PethomeDAO pethomeDAO = new PethomeDAO();
 			
 			//se inactiva el registro
 			Setestado setestado = new Setestado();
