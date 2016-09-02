@@ -24,13 +24,13 @@ public class PetfotoinstalacionBO {
 		petfotoinstalacionDAO = new PetfotoinstalacionDAO();
 	}
 	
-	public List<Petfotoinstalacion> lisPetfotoinstalacion(int idestado) throws Exception {
+	public List<Petfotoinstalacion> lisPetfotoinstalacion() throws Exception {
 		List<Petfotoinstalacion> lisPetfotoinstalacion = null;
 		Session session = null;
 	
 		try{
             session = HibernateUtil.getSessionFactory().openSession();
-            lisPetfotoinstalacion = petfotoinstalacionDAO.lisPetfotoinstalacion(session,idestado);
+            lisPetfotoinstalacion = petfotoinstalacionDAO.lisPetfotoinstalacion(session);
         }
         catch(Exception ex){
             throw new Exception(ex);
@@ -138,7 +138,6 @@ public class PetfotoinstalacionBO {
 		return ok;
 	}
 	
-	
 	public boolean modificarPetfotoinstalacion(Petfotoinstalacion petfotoinstalacion ,Petfotoinstalacion petfotoinstalacionclone) throws Exception{
 		Session session = null;
 		boolean ok = false;
@@ -172,6 +171,149 @@ public class PetfotoinstalacionBO {
 		}	
 		
 		return ok;
+	}
+	
+	public boolean grabarLisPetfotoinstalacion(List<Petfotoinstalacion> lisPetfotoinstalacion, List<Petfotoinstalacion> lisPetfotoinstalacionClon) throws Exception {
+		boolean ok = false;
+		Session session = null;
+		
+		try{
+			session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			
+			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+			PetfotoinstalacionDAO petfotoinstalacionDAO = new PetfotoinstalacionDAO();
+			Date fecharegistro = new Date();
+			FileUtil fileUtil = new FileUtil();
+			FacesUtil facesUtil = new FacesUtil();
+			
+			//Se evalua si han habido cambios en la lista de las fotos
+			for(Petfotoinstalacion petfotoinstalacionClon : lisPetfotoinstalacionClon){
+				boolean encuentra = false;
+				for(Petfotoinstalacion petfotoinstalacionItem : lisPetfotoinstalacion){
+					if(petfotoinstalacionClon.getIdfotoinstalacion() == petfotoinstalacionItem.getIdfotoinstalacion()){
+						//si encuentra
+						encuentra = true;
+						
+						if(!petfotoinstalacionClon.equals(petfotoinstalacionItem)){
+							//si han habido cambios se actualiza
+							
+							//auditoria
+							fecharegistro = new Date();
+							petfotoinstalacionItem.setFechamodificacion(fecharegistro);
+							petfotoinstalacionItem.setIplog(usuarioBean.getIp());
+							petfotoinstalacionItem.setSetusuario(usuarioBean.getSetUsuario());
+							
+							//actualizar
+							petfotoinstalacionDAO.updatePetfotoinstalacion(session, petfotoinstalacionItem);
+							ok = true;
+						}
+						
+						break;
+					}
+				}
+				//si no encuentra lo han borrado
+				if(!encuentra){
+					//inhabilitar
+					Setestado setestado = new Setestado();
+					setestado.setIdestado(2);
+					petfotoinstalacionClon.setSetestado(setestado);
+					
+					//auditoria
+					fecharegistro = new Date();
+					petfotoinstalacionClon.setFechamodificacion(fecharegistro);
+					petfotoinstalacionClon.setIplog(usuarioBean.getIp());
+					petfotoinstalacionClon.setSetusuario(usuarioBean.getSetUsuario());
+					
+					//actualizar
+					petfotoinstalacionDAO.updatePetfotoinstalacion(session, petfotoinstalacionClon);
+					
+					//eliminar foto del disco
+					String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
+					
+					String rutaArchivo = rutaImagenes + petfotoinstalacionClon.getRuta();
+					
+					fileUtil.deleteFile(rutaArchivo);
+					ok = true;
+				}
+			}
+			
+			//Se evalua si han subido nuevas fotos
+			for(Petfotoinstalacion petfotoinstalacion : lisPetfotoinstalacion){
+				boolean encuentra = false;
+				for(Petfotoinstalacion petfotoinstalacionClon : lisPetfotoinstalacionClon){
+					if(petfotoinstalacion.getIdfotoinstalacion() == petfotoinstalacionClon.getIdfotoinstalacion()){
+						//si encuentra
+						encuentra = true; 
+						break;
+					}
+				}
+				//no encuentra en lista clonada
+				if(!encuentra){
+					//es foto nueva
+					creaFotoDiscoBD(petfotoinstalacion, session);
+					ok = true;
+				}
+			}
+			
+			if(ok){
+				session.getTransaction().commit();
+			}
+		}catch(Exception e){
+			ok = false;
+			session.getTransaction().rollback();
+			throw new Exception(e); 
+		}finally{
+			session.close();
+		}
+		
+		return ok;
+	}
+	
+	private void creaFotoDiscoBD(Petfotoinstalacion petfotoinstalacion, Session session) throws Exception {
+		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+		PetfotoinstalacionDAO petfotoinstalacionDAO = new PetfotoinstalacionDAO();
+		
+		int maxIdfotoinstalacion = petfotoinstalacionDAO.maxIdfotoinstalacion(session)+1;
+		
+		//foto en disco
+		FileUtil fileUtil = new FileUtil();
+		FacesUtil facesUtil = new FacesUtil();
+		Calendar fecha = Calendar.getInstance();
+		
+		String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
+		String rutaInstalaciones =  fileUtil.getPropertyValue("repositorio-instalaciones") + fecha.get(Calendar.YEAR);
+		String nombreArchivo = fecha.get(Calendar.YEAR) + "-" + (fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + maxIdfotoinstalacion + "." +fileUtil.getFileExtention(petfotoinstalacion.getNombrearchivo()).toLowerCase();
+		
+		String rutaCompleta = rutaImagenes + rutaInstalaciones;
+		
+		if(fileUtil.createDir(rutaCompleta)){
+			//crear foto en disco
+			String rutaArchivo = rutaCompleta + "/" + nombreArchivo;
+			fileUtil.createFile(rutaArchivo, petfotoinstalacion.getImagen());
+		}
+		
+		//foto en BD
+		petfotoinstalacion.setIdfotoinstalacion(maxIdfotoinstalacion);
+		String rutaBD = rutaInstalaciones + "/" + nombreArchivo;
+		petfotoinstalacion.setRuta(rutaBD);
+		petfotoinstalacion.setNombrearchivo(nombreArchivo);
+		Setestado setestadoPetfotoinstalacion = new Setestado();
+		setestadoPetfotoinstalacion.setIdestado(1);
+		petfotoinstalacion.setSetestado(setestadoPetfotoinstalacion);
+		
+		//orden
+		int orden = petfotoinstalacionDAO.maxOrden(session);
+		petfotoinstalacion.setOrden(orden + 1);
+		
+		//auditoria
+		Date fecharegistro = new Date();
+		petfotoinstalacion.setFecharegistro(fecharegistro);
+		petfotoinstalacion.setIplog(usuarioBean.getIp());
+		petfotoinstalacion.setSetusuario(usuarioBean.getSetUsuario());
+		
+		//ingresar foto en BD
+		petfotoinstalacionDAO.savePetfotoinstalacion(session, petfotoinstalacion);
 	}
 	
 	public boolean eliminarPetfotoinstalacion(Petfotoinstalacion petfotoinstalacion ,Petfotoinstalacion petfotoinstalacionclone, int idestado) throws Exception{

@@ -213,6 +213,8 @@ public class PetmascotahomenajeBO {
 							petfotomascotaDAO.modificarFotomascota(session, petfotomascotaItem);
 							ok = true;
 						}
+						
+						break;
 					}
 				}
 				if(!encuentra){

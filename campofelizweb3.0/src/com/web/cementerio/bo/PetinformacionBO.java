@@ -75,6 +75,8 @@ public class PetinformacionBO {
 							petfotoinformacionDAO.modificarFotoinformacion(session, petfotoinformacionItem);
 							ok = true;
 						}
+						
+						break;
 					}
 				}
 				//si no encuentra lo han borrado

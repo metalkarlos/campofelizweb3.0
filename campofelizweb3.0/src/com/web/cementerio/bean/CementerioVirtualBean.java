@@ -33,7 +33,7 @@ public class CementerioVirtualBean implements Serializable {
     	try
 		{
     		PetfotoinstalacionBO petfotoinstalacionBO = new PetfotoinstalacionBO();
-    		lisPetfotoinstalacion = petfotoinstalacionBO.lisPetfotoinstalacion(1);
+    		lisPetfotoinstalacion = petfotoinstalacionBO.lisPetfotoinstalacion();
 		}catch(Exception e){
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!", "");

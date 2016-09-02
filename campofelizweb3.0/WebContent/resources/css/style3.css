@@ -67,6 +67,28 @@
 .section-intro {
 	margin-bottom:50px;
 }
+/*********precios***********/
+.pricing-table .price {
+	padding: 2px 0;
+  background-color:#eee;
+}
+
+.pricing-table .price .price-value {
+	font-size: 20px;
+	line-height: 40px;
+	font-weight: 700;
+}
+
+.pricing-table .price .price-value span {
+	font-size: 15px;
+	font-weight: 300;
+	line-height: 18px;
+}
+
+.pricing-table .price-list li {
+	padding: 5px;
+	font-size: 16px;
+}
 /* max width 991px */
 @media (max-width: 991px) {
 	.section-intro {margin-bottom: 3rem;}/*7*/

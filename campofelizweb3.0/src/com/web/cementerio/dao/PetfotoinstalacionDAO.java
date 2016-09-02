@@ -19,14 +19,22 @@ public class PetfotoinstalacionDAO {
 	public int maxIdfotoinstalacion(Session session) throws Exception {
 		int max=0;
 		
-		Object object = session.createQuery("select max(idfotoinstalacion)+1 as max from Petfotoinstalacion ").uniqueResult();
+		Object object = session.createQuery("select max(idfotoinstalacion) as max from Petfotoinstalacion ").uniqueResult();
 		max = (object==null?0:Integer.parseInt(object.toString()));
 		
 		return max;
 	}
 	
+	public int maxOrden(Session session) throws Exception {
+		int max=0;
+		
+		Object object = session.createQuery("select max(p.orden) as cant from Petfotoinstalacion as p where p.setestado.idestado = 1").uniqueResult();
+		max = (object==null?0:Integer.parseInt(object.toString()));
+		
+		return max;
+	}
 	
-  public Petfotoinstalacion getPetfotoinstalacionById(Session session, int idfotoinstalacion, int idestado) throws Exception {
+	public Petfotoinstalacion getPetfotoinstalacionById(Session session, int idfotoinstalacion, int idestado) throws Exception {
 		
 	  Petfotoinstalacion petfotoinstalacion = null;
 			 Criteria criteria = session.createCriteria(Petfotoinstalacion.class, "foto")
@@ -37,7 +45,7 @@ public class PetfotoinstalacionDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Petfotoinstalacion> lisPetfotoinstalacion(Session session, int idestado) throws Exception {
+	public List<Petfotoinstalacion> lisPetfotoinstalacion(Session session) throws Exception {
 		List<Petfotoinstalacion> lisPetfotoinstalacion = null;
 		
 		String hql = " from Petfotoinstalacion ";
@@ -45,7 +53,7 @@ public class PetfotoinstalacionDAO {
 		hql += " order by orden asc ";
 		
 		Query query = session.createQuery(hql)
-				.setInteger("idestado", idestado);
+				.setInteger("idestado", 1);
 		
 		lisPetfotoinstalacion = (List<Petfotoinstalacion>) query.list();
 		

@@ -277,6 +277,8 @@ public class PetnoticiaBO {
 							petfotonoticiaDAO.updatePetfotonoticia(session, petfotonoticiaItem);
 							ok = true;
 						}
+						
+						break;
 					}
 				}
 				//si no encuentra lo han borrado

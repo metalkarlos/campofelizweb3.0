@@ -35,7 +35,7 @@
 									</div>
 		
 									<h:panelGroup styleClass="text-center" layout="block" rendered="#{mensajeBean.link != null and mensajeBean.link.length() > 0}">
-										<h:link styleClass="btn btn-default" outcome="#about" fragment="#{usuarioBean.anchor}" value="#{mensajeBean.linkTitulo}" ></h:link>
+										<h:link styleClass="btn btn-default" outcome="#{mensajeBean.link}" fragment="#{mensajeBean.anchor}" value="#{mensajeBean.linkTitulo}" ></h:link>
 									</h:panelGroup>
 		
 							</div>

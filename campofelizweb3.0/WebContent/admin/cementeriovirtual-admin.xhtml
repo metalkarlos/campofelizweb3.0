@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:html="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/templates/template_admin.xhtml"
+	xmlns:my="http://xmlns.jcp.org/jsf/composite/components/buttons">
+
+	<ui:define name="head">
+		<meta name="robots" content="noindex" />
+		<title>Administración - Galería</title>
+	</ui:define>
+
+	<ui:define name="content_page">
+	
+		<!--start-content-->
+		<div class="blog">
+			<div class="container">
+				<div class="blog-top">
+					<div class="col-md-9 blog-grid">
+						<div class="blog-grid3">
+							<div class=" blog-grid2">
+							
+							
+			<h:form id="form-contentpage" prependId="false" enctype="multipart/form-data">
+
+				<div class="blog-header">
+				<h2>Administración</h2>
+				<h2>Galería</h2>
+				<div class="hr"></div>
+				</div>
+
+				<!-- <p:growl id="mensajes" showDetail="false" /> -->
+				<p:messages id="mensajes" showDetail="false" />
+
+				<div class="inner-content">
+					<div class="grupo-admin">
+						<div>
+							<h:outputLabel value="Fotos" for="idgalleria" />
+						</div>
+						<div>
+							<p:dataGrid id="idgalleria"
+								styleClass="nav-gallery col-md-12" var="imagen"
+								value="#{cementerioVirtualAdminBean.lisPetfotoinstalacion}"
+								columns="3" rows="21" efect="true" paginator="true"
+								paginatorPosition="bottom"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								emptyMessage="No se encontraron registros" lazy="true"
+								layout="grid">
+
+
+								<div class="col-md-12">
+									<div class="thumbnail text-center">
+										<p:graphicImage 
+											value="#{parametro.servletImagenes}#{imagen.ruta}?w=800&amp;h=640&amp;m=both"
+											styleClass="img-responsive" />
+										<div class="caption-adoption">
+
+											<p:inputTextarea id="txtObservacionFotoItem"
+											value="#{imagen.descripcion}" maxlength="500"
+											style="width: 100%;" />
+											
+											<p:spinner id="txtOrden" value="#{imagen.orden}" min="1"></p:spinner>
+											
+											<p:commandButton id="idbuttondelete2"
+												title="Eliminar foto permanentemente" onclick="vardeletefoto.show()"
+												icon="ui-icon ui-icon-trash" update="idpaneldelete">
+												<f:setPropertyActionListener value="#{imagen}"
+														target="#{cementerioVirtualAdminBean.petfotoinstalacionSeleccionado}" />
+											</p:commandButton>
+
+										</div>
+									</div>
+								</div>
+							</p:dataGrid>
+						</div>
+					</div>
+
+					<div class="grupo-admin">
+						<div>
+							<h:outputLabel value="Agregar Foto" for="idSubeFotos" />
+						</div>
+						<div>
+							<p:fileUpload id="idSubeFotos"
+								fileUploadListener="#{cementerioVirtualAdminBean.handleFileUpload}"
+								mode="advanced" cancelLabel="Cancelar" uploadLabel="Subir Foto"
+								label="Elegir Foto" showButtons="false"
+								update="mensajes"
+								allowTypes="/(\.|\/)(gif|jpe?g|png)$/" widgetVar="widgetVar" multiple="true" />
+						</div>
+					</div>
+				</div>
+				
+				<div class="area-botones">
+					<my:buttons renderedButtonAceptar="true"
+						labelButtonAceptar="Grabar"
+						onclickButtonAceptar="vargrabar.show()"
+						immediateButtonAceptar="true"
+						renderedButtonEliminar="false"
+						renderedButtonCancelar="true"
+						labelButtonCancelar="Cancelar"
+						onclickButtonCancelar="redirect('../pages/home.jsf#gallery');"
+						renderedButtonNewItem="false" />
+				</div>
+
+				<p:dialog id="dlgdeletefoto" header="Eliminar Foto" closable="true"
+					widgetVar="vardeletefoto" modal="true"
+					style="min-height: 80px; max-width: 450px">
+					<h:panelGrid id="idpaneldelete" columns="1" width="100%">
+						<h:column >
+						<p:graphicImage
+							value="#{parametro.servletImagenes}#{cementerioVirtualAdminBean.petfotoinstalacionSeleccionado.ruta}"
+							style="max-height: 50px" />
+						<h:outputText value="¿Quitar foto?" />
+						</h:column>
+						<h:column >
+						<div style="text-align: right;">
+						<p:commandButton id="btnconfirmardeletefoto" value="Confirmar"
+							action="#{cementerioVirtualAdminBean.quitarFotoGaleria()}"
+							onclick="vardeletefoto.hide()"
+							update="mensajes, idgalleria" />
+						<p:commandButton id="btncancelardeletefoto" value="Cancelar"
+							onclick="vardeletefoto.hide()" immediate="true" />
+						</div>
+						</h:column>
+					</h:panelGrid>
+				</p:dialog>
+
+				<p:dialog id="dlggrabar" header="Grabar" closable="true"
+					widgetVar="vargrabar" modal="true"
+					style="min-height: 80px; max-width: 450px">
+					<div>
+						<h:outputText id="idlabelgrabar"
+							value="Confirme si desea grabar el registro" />
+					</div>
+					<div style="text-align: right;">
+						<p:commandButton id="btnconfirmargrabar" value="Confirmar"
+							action="#{cementerioVirtualAdminBean.grabar()}"
+							onclick="vargrabar.hide()"
+							update="mensajes" />
+						<p:commandButton id="btncancelargrabar" value="Cancelar"
+							onclick="vargrabar.hide()" immediate="true" />
+					</div>
+				</p:dialog>
+			</h:form>
+			
+			
+							</div>
+							<div class="clearfix"></div>
+
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+
+			</div>
+		</div>
+		<!--end-content-->
+			
+	</ui:define>
+</ui:composition>

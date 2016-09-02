@@ -287,6 +287,8 @@ public class PetservicioBO {
 							petfotoservicioDAO.updatePetfotoservicio(session, petfotoservicioItem);
 							ok = true;
 						}
+						
+						break;
 					}
 				}
 				//si no encuentra lo han borrado
