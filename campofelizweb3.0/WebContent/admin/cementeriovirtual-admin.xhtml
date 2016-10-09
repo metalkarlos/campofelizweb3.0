@@ -60,6 +60,12 @@
 											styleClass="img-responsive" />
 										<div class="caption-adoption">
 
+											<p:selectOneMenu id="cmbGrupo" value="#{imagen.grupo}" style="width: 100%;">
+												<f:selectItem itemLabel="Seleccione" itemValue="0" />
+												<f:selectItem itemLabel="Camposanto" itemValue="1" />
+												<f:selectItem itemLabel="Oficina" itemValue="2" />
+											</p:selectOneMenu>
+											
 											<p:inputTextarea id="txtObservacionFotoItem"
 											value="#{imagen.descripcion}" maxlength="500"
 											style="width: 100%;" />

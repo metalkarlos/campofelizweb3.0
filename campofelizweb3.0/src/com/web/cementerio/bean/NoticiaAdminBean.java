@@ -180,7 +180,7 @@ public class NoticiaAdminBean implements Serializable {
 	private void mostrarPaginaMensaje(String mensaje) throws Exception {
 		UsuarioBean usuarioBean = (UsuarioBean) new FacesUtil().getSessionBean("usuarioBean");
 		usuarioBean.setMensaje(mensaje);
-		usuarioBean.setLink("/pages/noticia?idnoticia="+idnoticia);
+		usuarioBean.setLink("/pages/noticia?idnoticia="+petnoticia.getIdnoticia());
 		usuarioBean.setLinkTitulo("Consultar Noticia");
 
 		FacesUtil facesUtil = new FacesUtil();

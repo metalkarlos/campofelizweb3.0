@@ -115,6 +115,19 @@
 					
 					<div class="grupo-admin">
 						<div>
+							<h:outputLabel value="Descripción Corta" for="txtDescripcionCorta" />
+							<span style="color: red;">*</span>
+						</div>
+						<div>
+							<p:inputText id="txtDescripcionCorta" maxlength="300" 
+									value="#{servicioAdminBean.petservicio.descripcioncorta}"
+									required="true" requiredMessage="Ingrese la Descripción Corta del Servicio"
+									style="width: 100%;"></p:inputText>
+						</div>
+					</div>
+					
+					<div class="grupo-admin">
+						<div>
 							<h:outputLabel value="Contenido del Servicio" for="txtContenido" />
 							<span style="color: red;">*</span>
 						</div>
@@ -178,7 +191,7 @@
 						onclickButtonEliminar="vardelete.show()"
 						immediateButtonEliminar="true" renderedButtonCancelar="true"
 						labelButtonCancelar="Cancelar"
-						onclickButtonCancelar="redirect('../pages/servicio.jsf?idservicio='+#{servicioAdminBean.idservicio}+'&amp;idempresa='+#{servicioAdminBean.idempresa});"
+						onclickButtonCancelar="redirect('../pages/servicios.jsf');"
 						renderedButtonNewItem="false" />
 				</div>
 				<p:dialog id="dlgprincipalfoto" header="Foto del Perfil"

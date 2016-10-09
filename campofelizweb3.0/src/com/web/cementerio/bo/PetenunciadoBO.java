@@ -17,10 +17,7 @@ import com.web.util.HibernateUtil;
 
 public class PetenunciadoBO {
 
-	 PetenunciadoDAO petenunciadoDAO;
-	 
 	 public PetenunciadoBO(){
-		 petenunciadoDAO = new PetenunciadoDAO();
 	 }
 	 
 	public Petenunciado getPetenunciadobyId(int idestado)throws Exception{
@@ -28,6 +25,7 @@ public class PetenunciadoBO {
 		Session session = null;
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
+			PetenunciadoDAO petenunciadoDAO = new PetenunciadoDAO();
 			petenunciado = petenunciadoDAO.getPetenunciadobyId(session, idestado);
 		} catch (Exception e) {
 			throw new Exception(e);
@@ -44,6 +42,7 @@ public class PetenunciadoBO {
 		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
+			PetenunciadoDAO petenunciadoDAO = new PetenunciadoDAO();
 			orden = petenunciadoDAO.maxOrden(session);
 		} catch (Exception e) {
 			throw new Exception(e);
@@ -85,10 +84,9 @@ public class PetenunciadoBO {
 	   return listpetvPetvenunciado;
 	}
 	
-	public boolean grabar(List<Petenunciado> listpetenunciado, int idestado) throws Exception{
+	public boolean grabar(List<Petenunciado> listpetenunciado) throws Exception{
 		Session session = null;
 		boolean ok = false;
-		int idpadre=0;
 		
 		try {
 			session = HibernateUtil.getSessionFactory().openSession();
@@ -96,49 +94,52 @@ public class PetenunciadoBO {
 			
 			Date fecharegistro = new Date();
 			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
+			PetenunciadoDAO petenunciadoDAO = new PetenunciadoDAO();
+			int idpadre=0;
 
-			Setestado setestado = new Setestado();
-			setestado.setIdestado(idestado);
-
-			Setusuario setusuario = new Setusuario();
-			setusuario.setIdusuario(usuarioBean.getSetUsuario().getIdusuario());
-			
-			
 			for(Petenunciado petenunciado : listpetenunciado){
 			
-				petenunciado.setIdenunciado(petenunciadoDAO.getMaxidenunciado(session));
+				int idenunciado = petenunciadoDAO.getMaxidenunciado(session);
+				petenunciado.setIdenunciado(idenunciado + 1);
 				
 				if(String.valueOf(petenunciado.getTipo()).equals("P")){
 				  idpadre = petenunciado.getIdenunciado();
+				} else {
+					if(String.valueOf(petenunciado.getTipo()).equals("R")){
+					  petenunciado.setIdpadre(idpadre);
+					  idpadre =0;
+					}
 				}
-				else if(String.valueOf(petenunciado.getTipo()).equals("R")){
-				  petenunciado.setIdpadre(idpadre);
-				  idpadre =0;
-				}
+				
+				Setestado setestado = new Setestado();
+				setestado.setIdestado(1);
 				petenunciado.setSetestado(setestado);
-				petenunciado.setSetusuario(setusuario);
+				
 				//Auditoria
+				fecharegistro = new Date();
+				petenunciado.setSetusuario(usuarioBean.getSetUsuario());
 				petenunciado.setFecharegistro(fecharegistro);
 				petenunciado.setIplog(usuarioBean.getIp());
 				
 				petenunciadoDAO.grabar(session, petenunciado);
 			}
 			
-			session.beginTransaction().commit();
+			session.getTransaction().commit();
 			
 			ok = true;
 			
 		} catch (Exception e) {
+			ok = false;
 			session.getTransaction().rollback();
 			throw new Exception(e);
-		}finally{
+		} finally{
 		   session.close();
 		}
 		
 		return ok;
 	}
 	
-	public boolean modificar(List<Petenunciado> listpetenunciado, int idestado)throws Exception{
+	public boolean modificar(List<Petenunciado> listpetenunciado)throws Exception{
 		Session session = null;
 		boolean ok = false;
 		try {
@@ -147,13 +148,14 @@ public class PetenunciadoBO {
 			session.beginTransaction();
 			
 			Date fechamodificacion = new Date();
+			PetenunciadoDAO petenunciadoDAO = new PetenunciadoDAO();
 			
 			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 			Setusuario setusuario = new Setusuario();
 			setusuario.setIdusuario(usuarioBean.getSetUsuario().getIdusuario());
 			
 			Setestado setestado = new Setestado();
-			setestado.setIdestado(idestado);
+			setestado.setIdestado(1);
 			
 			
 			for(Petenunciado petenunciado : listpetenunciado){
@@ -179,7 +181,7 @@ public class PetenunciadoBO {
 		return ok;
 	}
 	
-	public boolean eliminar (List<Petenunciado> listpetenunciado, int idestado)throws Exception{
+	public boolean eliminar (List<Petenunciado> listpetenunciado)throws Exception{
 		Session session = null;
 		boolean ok = false;
 		
@@ -189,9 +191,10 @@ public class PetenunciadoBO {
 			session.beginTransaction();
 			
 			Date fechamodificacion = new Date();
+			PetenunciadoDAO petenunciadoDAO = new PetenunciadoDAO();
 			
 			Setestado setestado = new Setestado();
-			setestado.setIdestado(idestado);
+			setestado.setIdestado(2);
 			
 			UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 			Setusuario setusuario = new Setusuario();
@@ -219,14 +222,6 @@ public class PetenunciadoBO {
 		}
 		
 		return ok;
-	}
-	
-	public PetenunciadoDAO getPetenunciadoDAO() {
-		return petenunciadoDAO;
-	}
-
-	public void setPetenunciadoDAO(PetenunciadoDAO petenunciadoDAO) {
-		this.petenunciadoDAO = petenunciadoDAO;
 	}
 	 
 }

@@ -54,9 +54,9 @@ public class EnunciadoAdminBean implements Serializable {
 				}else{
 					PetenunciadoBO petenunciadoBO = new PetenunciadoBO();
 					int orden = petenunciadoBO.getMaxOrden();
-					if(orden > 0){
-						orden = orden/2;
-					}
+					//if(orden > 0){
+					//	orden = orden/2;
+					//}
 					petenunciadopregunta.setOrden(orden + 1);
 				}
 			}else{
@@ -92,21 +92,24 @@ public class EnunciadoAdminBean implements Serializable {
 				
 				if(idenunciado ==0){
 				   listpetenunciado.add(0,petenunciadopregunta);
+				   
 				   petenunciadorespuesta.setOrden(petenunciadopregunta.getOrden() + 1);
 				   listpetenunciado.add(1,petenunciadorespuesta);
-				   ok = petenunciadoBO.grabar(listpetenunciado, 1);	
+				   
+				   ok = petenunciadoBO.grabar(listpetenunciado);	
+				   
 				   if(ok){
 						mostrarPaginaMensaje("Pregunta ingresada con exito!!");
 					}else{
 						new MessageUtil().showWarnMessage("No se ha podido ingresar la Pregunta. Comunicar al Webmaster.","");
 					}
-				}else if(idenunciado >0){
+				}else if(idenunciado > 0){
 				  for(Petenunciado petenunciadoclone: listpetenunciadoclone){
 					  int indice = 0;
 					  if(petenunciadoclone.getIdenunciado()==petenunciadopregunta.getIdenunciado()){
 						 if(!petenunciadoclone.equals(petenunciadopregunta)){
 							if(petenunciadoclone.getOrden()!=petenunciadopregunta.getOrden()){
-							  petenunciadorespuesta.setOrden(petenunciadopregunta.getOrden());	
+							  petenunciadorespuesta.setOrden(petenunciadopregunta.getOrden() + 1);	
 							}
 					       listpetenunciado.add(indice,petenunciadopregunta);
 						}
@@ -119,13 +122,13 @@ public class EnunciadoAdminBean implements Serializable {
 					  indice++;
 					}
 				   if((listpetenunciado.size()>0) && (!listpetenunciado.isEmpty())){	
-					   ok = petenunciadoBO.modificar(listpetenunciado, 1);
+					   ok = petenunciadoBO.modificar(listpetenunciado);
 				   }
 				   
 				   if(ok){
 					   mostrarPaginaMensaje("Pregunta modificada con exito!!");
 				   }else{
-					   new MessageUtil().showWarnMessage("No se ha podido modificar la Pregunta. Comunicar al Webmaster.","");
+					   new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
 				   }
 				}
 			}	
@@ -150,7 +153,7 @@ public class EnunciadoAdminBean implements Serializable {
 		try {
 			listpetenunciado.add(0,petenunciadopregunta);
 			listpetenunciado.add(1,petenunciadorespuesta);
-			boolean ok = petenunciadoBO.eliminar(listpetenunciado, 2);
+			boolean ok = petenunciadoBO.eliminar(listpetenunciado);
 			if(ok){
 			   mostrarPaginaMensaje("Pregunta eliminada con exito!!");
 		   }else{

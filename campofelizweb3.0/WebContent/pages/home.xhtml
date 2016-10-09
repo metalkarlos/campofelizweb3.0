@@ -781,7 +781,7 @@
 									<!-- Question -->
 									<div class="panel-heading">
 									<h5 class="panel-title">
-									   <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse#{enunciado.idenunciado}">#{enunciado.descripcion}</a>
+										<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse#{enunciado.idenunciado}">#{enunciado.descripcion}</a>
 									</h5>
 									</div>
 									<!-- End Question -->
@@ -790,7 +790,14 @@
 							    <!-- Answer -->
 									<div id="collapse#{enunciado.idpadre}" class="panel-collapse collapse #{enunciado.orden == 2 ? 'in' : ''}" >
 									<div class="panel-body">
-									   <p><h:outputText value="#{enunciado.descripcion}" escape="false"/></p>
+										<p>
+											<h:outputText value="#{enunciado.descripcion}" escape="false"/>
+											<h:panelGroup layout="block" rendered="#{usuarioBean.autenticado}" style="text-align: right">
+												<h:link outcome="/admin/preguntas-admin" value="Editar" >
+													<f:param name="idenunciado" value="#{enunciado.idenunciado}"></f:param>
+												</h:link>
+											</h:panelGroup>
+										</p>
 									</div>
 									</div>
 									<!-- End Answer -->
@@ -799,6 +806,13 @@
 					  </div>
 				   	</c:forEach>
 				   	<!-- End Questions -->
+				   	
+				   	<div class="text-center">
+							<h:link styleClass="btn btn-default m-left" outcome="/admin/preguntas-admin" value="Nueva" rendered="#{usuarioBean.autenticado}">
+								<f:param name="idenunciado" value="0"></f:param>
+							</h:link>
+						</div>
+				   	
 				   </div>
 				</div><!--/col-md-5 -->
 								 

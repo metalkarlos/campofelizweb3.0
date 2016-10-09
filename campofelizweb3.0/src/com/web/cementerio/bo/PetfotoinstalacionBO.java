@@ -302,6 +302,11 @@ public class PetfotoinstalacionBO {
 		setestadoPetfotoinstalacion.setIdestado(1);
 		petfotoinstalacion.setSetestado(setestadoPetfotoinstalacion);
 		
+		//campo santo grupo por defecto en caso de no venir especificado 
+		if(petfotoinstalacion.getGrupo() == 0) {
+			petfotoinstalacion.setGrupo(1);
+		}
+		
 		//orden
 		int orden = petfotoinstalacionDAO.maxOrden(session);
 		petfotoinstalacion.setOrden(orden + 1);

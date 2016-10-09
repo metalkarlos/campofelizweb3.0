@@ -9,10 +9,28 @@
   <loc>http://www.campofeliz.com/pages/historia.jsf</loc>
 </url>
 <url>
+  <loc>http://www.campofeliz.com/pages/mascotahomenaje.jsf</loc>
+</url>
+<url>
   <loc>http://www.campofeliz.com/pages/mascotashomenaje.jsf</loc>
 </url>
 <url>
+  <loc>http://www.campofeliz.com/pages/noticia.jsf</loc>
+</url>
+<url>
   <loc>http://www.campofeliz.com/pages/noticias.jsf</loc>
+</url>
+<url>
+  <loc>http://www.campofeliz.com/pages/servicio.jsf</loc>
+</url>
+<url>
+  <loc>http://www.campofeliz.com/pages/servicios.jsf</loc>
+</url>
+<url>
+  <loc>http://www.campofeliz.com/pages/video.jsf</loc>
+</url>
+<url>
+  <loc>http://www.campofeliz.com/pages/videos.jsf</loc>
 </url>
 
 </urlset>

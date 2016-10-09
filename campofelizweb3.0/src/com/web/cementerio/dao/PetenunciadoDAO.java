@@ -12,7 +12,7 @@ public class PetenunciadoDAO {
 		
 		int maxid=0;
 		
-		Object object = session.createQuery("select max(idenunciado)+1 from Petenunciado ").uniqueResult();
+		Object object = session.createQuery("select max(idenunciado) from Petenunciado ").uniqueResult();
 		maxid = (object ==null ?1: Integer.parseInt(object.toString()));
 		
 		return maxid;
@@ -22,7 +22,7 @@ public class PetenunciadoDAO {
 	public int maxOrden(Session session) throws Exception {
 		int max=0;
 		
-		Object object = session.createQuery("select count(e.orden) as cant from Petenunciado as e where e.setestado.idestado = 1").uniqueResult();
+		Object object = session.createQuery("select max(e.orden) from Petenunciado as e where e.setestado.idestado = 1").uniqueResult();
 		max = (object==null?0:Integer.parseInt(object.toString()));
 		
 		return max;

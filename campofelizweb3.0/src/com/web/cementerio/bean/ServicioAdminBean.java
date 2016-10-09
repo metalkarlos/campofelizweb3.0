@@ -179,6 +179,10 @@ public class ServicioAdminBean implements Serializable {
 				|| petservicio.getNombre().length() == 0) {
 			ok = false;
 			new MessageUtil().showInfoMessage("Ingrese el Nombre del Servicio","");
+		} else if (petservicio.getDescripcioncorta() == null
+				|| petservicio.getDescripcioncorta().length() == 0) {
+			ok = false;
+			new MessageUtil().showInfoMessage("Ingrese la Descripción Corta del Servicio","");
 		} else if (petservicio.getDescripcion() == null
 				|| petservicio.getDescripcion().length() == 0) {
 			ok = false;
@@ -199,7 +203,7 @@ public class ServicioAdminBean implements Serializable {
 	private void mostrarPaginaMensaje(String mensaje) throws Exception {
 		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 		usuarioBean.setMensaje(mensaje);
-		usuarioBean.setLink("/pages/servicio.jsf?idservicio="+idservicio+"&idempresa="+idempresa);
+		usuarioBean.setLink("/pages/servicio.jsf?idservicio="+petservicio.getIdservicio()+"&idempresa="+petservicio.getCotempresa().getIdempresa());
 		usuarioBean.setLinkTitulo("Consultar Servicio");
 		
 		FacesUtil facesUtil = new FacesUtil();

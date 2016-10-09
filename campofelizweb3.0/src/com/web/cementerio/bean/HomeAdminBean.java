@@ -103,7 +103,7 @@ public class HomeAdminBean implements Serializable {
 	private void mostrarPaginaMensaje(String mensaje) throws Exception {
 		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 		usuarioBean.setMensaje(mensaje);
-		usuarioBean.setLink("/pages/video?idhome="+idhome);
+		usuarioBean.setLink("/pages/video?idhome="+pethome.getIdhome());
 		usuarioBean.setLinkTitulo("Consultar Video");
 		
 		FacesUtil facesUtil = new FacesUtil();

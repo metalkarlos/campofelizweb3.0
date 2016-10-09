@@ -66,6 +66,7 @@ public class CementerioVirtualAdminBean implements Serializable{
 			Petfotoinstalacion petfotoinstalacion = new Petfotoinstalacion();
 			petfotoinstalacion.setImagen(event.getFile().getContents());
 			petfotoinstalacion.setNombrearchivo(fileUtil.getFileExtention(event.getFile().getFileName()).toLowerCase());
+			petfotoinstalacion.setDescripcion("Mascohijo");
 			lisPetfotoinstalacion.add(petfotoinstalacion);
 			
 			new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.", "");
