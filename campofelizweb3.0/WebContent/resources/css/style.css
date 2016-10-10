@@ -550,6 +550,17 @@ ul.slider-pagi {padding-left:0px;}
   background-image: url("#{resource['img/slider/slide5.jpg']}");
 }
 
+/* slide5 */
+
+.slide-parallax:nth-child(5) {
+  left: 400%;
+}
+
+.slide-parallax:nth-child(5) .slide__bg {
+  left: -200%;
+  background-image: url("#{resource['img/slider/slide6.jpg']}");
+}
+
 /*===========================
   Services
 ============================ */
