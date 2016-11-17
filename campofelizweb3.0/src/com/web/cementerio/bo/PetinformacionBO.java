@@ -98,7 +98,7 @@ public class PetinformacionBO {
 					//eliminar foto del disco
 					String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
 					
-					String rutaArchivo = rutaImagenes + petfotoinformacionClon.getRuta();
+					String rutaArchivo = rutaImagenes + "/" + petfotoinformacionClon.getRuta();
 					
 					fileUtil.deleteFile(rutaArchivo);
 					ok = true;
@@ -163,10 +163,10 @@ public class PetinformacionBO {
 		Calendar fecha = Calendar.getInstance();
 		
 		String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
-		String rutaQuienesSomos =  fileUtil.getPropertyValue("repositorio-quienessomos") + fecha.get(Calendar.YEAR);
+		String rutaQuienesSomos =  fileUtil.getPropertyValue("repositorio-quienessomos") +"/" + fecha.get(Calendar.YEAR);
 		String nombreArchivo = fecha.get(Calendar.YEAR) + "-" + (fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + petinformacion.getIdinformacion() + "-" + cantFotosPorInformacion + "." + fileUtil.getFileExtention(petfotoinformacion.getNombrearchivo()).toLowerCase();
 		
-		String rutaCompleta = rutaImagenes + rutaQuienesSomos;
+		String rutaCompleta = rutaImagenes + "/" + rutaQuienesSomos;
 		
 		if(fileUtil.createDir(rutaCompleta)){
 			//crear foto en disco
@@ -177,7 +177,7 @@ public class PetinformacionBO {
 		//foto en BD
 		petfotoinformacion.setIdfotoinformacion(maxIdfotoinformacion);
 		petfotoinformacion.setPetinformacion(petinformacion);
-		String rutaBD = rutaQuienesSomos + "/" + nombreArchivo;
+		String rutaBD = "/" + rutaQuienesSomos + "/" + nombreArchivo;
 		petfotoinformacion.setRuta(rutaBD);
 		petfotoinformacion.setNombrearchivo(nombreArchivo);
 		Setestado setestadoPetfotoinformacion = new Setestado();
@@ -218,7 +218,7 @@ public class PetinformacionBO {
 		//eliminar foto del disco
 		String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
 		
-		String rutaArchivo = rutaImagenes + petfotoinformacion.getRuta();
+		String rutaArchivo = rutaImagenes + "/" + petfotoinformacion.getRuta();
 		
 		fileUtil.deleteFile(rutaArchivo);
 	}

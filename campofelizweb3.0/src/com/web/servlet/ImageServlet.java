@@ -122,7 +122,7 @@ public class ImageServlet extends HttpServlet implements Serializable{
 	        //generar uid
 			UUID uid = UUID.randomUUID();
 			String ext = FilenameUtils.getExtension(image.getName());
-			String rutaDestino = imagePathTmp + File.separator + uid.toString() + "." + ext;
+			String rutaDestino = imagePathTmp + "/" + uid.toString() + "." + ext;
 
 			try{
 				BufferedImage img = ImageIO.read(image);

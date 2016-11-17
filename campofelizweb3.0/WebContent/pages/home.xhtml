@@ -62,7 +62,40 @@
 			</div>
 	   </div>
 	</section>
-	<!-- /Section ends -->	  
+	<!-- /Section Services ends -->	  
+	
+	<!-- Section Promociones -->
+	<section id="promociones" class="home-section">
+	   <div class="col-lg-8 col-lg-offset-2">
+		 <!-- Section heading -->
+		  <div class="section-heading">
+			 <h2>Promociones</h2>
+			 <div class="hr"></div>
+		  </div>
+	   </div>
+	   <div class="container">
+		  <div class="row">
+		  	<!-- items -->
+		  	<c:forEach items="#{inicioBean.lisPetguia}" var="promocion">
+		  		<div class="col-md-4 col-sm-12 margin wow fadeInLeft" data-wow-delay="0.2s">
+						<div class="img-wrapper">
+					  	<img src="#{request.contextPath}#{parametro.servletImagenes}#{promocion.rutafoto}?w=900&amp;h=524&amp;m=both" alt="" class="img-responsive" />
+						</div>
+						<p class="margin">#{promocion.descripcioncorta} 
+							<h:link outcome="/pages/promocion" value="Leer más" >
+								<f:param name="idguia" value="#{promocion.idguia}"></f:param>
+							</h:link>
+						</p>
+					</div><!-- /col-md-4-->
+		  	</c:forEach>
+		  </div>
+		  <div class="text-center">
+				<h:link styleClass="btn btn-default" outcome="/pages/promociones" value="Ver Más Promociones" >
+				</h:link>
+			</div>
+	   </div>
+	</section>
+	<!-- /Section Promociones ends -->	
 	
     <!-- Section Stats -->	
     <section id="stats" class="home-section">

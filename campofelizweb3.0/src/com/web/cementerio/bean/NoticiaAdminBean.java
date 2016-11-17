@@ -2,6 +2,7 @@ package com.web.cementerio.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,6 @@ import com.web.cementerio.pojo.annotations.Petnoticia;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
-import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
@@ -83,7 +83,13 @@ public class NoticiaAdminBean implements Serializable {
 					petnoticiaClon = petnoticia.clonar();
 					
 					if(petnoticia.getPetfotonoticias() != null && petnoticia.getPetfotonoticias().size() > 0){
-						lisPetfotonoticia = new ArrayList<Petfotonoticia>(petnoticia.getPetfotonoticias());
+						//lisPetfotonoticia = new ArrayList<Petfotonoticia>(petnoticia.getPetfotonoticias());
+						
+						//ordenar por fecharegistro
+						Petfotonoticia[] arr = new Petfotonoticia[petnoticia.getPetfotonoticias().size()];
+						arr = petnoticia.getPetfotonoticias().toArray(arr);
+						Arrays.sort(arr, Petfotonoticia.FecharegistroComparator);
+						lisPetfotonoticia = new ArrayList<Petfotonoticia>(Arrays.asList(arr));
 						
 						for(Petfotonoticia petfotonoticia : lisPetfotonoticia){
 							lisPetfotonoticiaClon.add(petfotonoticia.clonar());
@@ -99,11 +105,9 @@ public class NoticiaAdminBean implements Serializable {
 
 	public void handleFileUpload(FileUploadEvent event) {
 		try{
-			FileUtil fileUtil = new FileUtil();
-			
 			Petfotonoticia petfotonoticia = new Petfotonoticia();
 			petfotonoticia.setImagen(event.getFile().getContents());
-			petfotonoticia.setNombrearchivo(fileUtil.getFileExtention(event.getFile().getFileName()).toLowerCase());
+			petfotonoticia.setNombrearchivo(event.getFile().getFileName().toLowerCase());
 			lisPetfotonoticia.add(petfotonoticia);
 			
 			new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.", "");

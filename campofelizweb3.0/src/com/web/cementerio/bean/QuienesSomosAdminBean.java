@@ -17,7 +17,6 @@ import com.web.cementerio.pojo.annotations.Petinformacion;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
-import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 
@@ -173,11 +172,9 @@ public class QuienesSomosAdminBean implements Serializable {
 		try{
 			
 			if (event.getFile().getSize() < Parametro.TAMAÑO_IMAGEN){
-				FileUtil fileUtil = new FileUtil();
-
 				Petfotoinformacion petfotoinformacion = new Petfotoinformacion();
 				petfotoinformacion.setImagen(event.getFile().getContents());
-				petfotoinformacion.setNombrearchivo(fileUtil.getFileExtention(event.getFile().getFileName()).toLowerCase());
+				petfotoinformacion.setNombrearchivo(event.getFile().getFileName().toLowerCase());
 				listpetfotoinformacion.add(petfotoinformacion);
 				
 				new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.", "");

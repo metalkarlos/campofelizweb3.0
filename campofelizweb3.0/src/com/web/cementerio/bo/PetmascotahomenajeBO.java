@@ -236,7 +236,7 @@ public class PetmascotahomenajeBO {
 					//eliminar foto del disco
 					String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
 					
-					String rutaArchivo = rutaImagenes + petfotomascotaClon.getRuta();
+					String rutaArchivo = rutaImagenes + "/" + petfotomascotaClon.getRuta();
 					
 					fileUtil.deleteFile(rutaArchivo);
 					ok = true;
@@ -266,7 +266,6 @@ public class PetmascotahomenajeBO {
 				if(petmascotahomenaje.getRutafoto() == null || petmascotahomenaje.getRutafoto().trim().length() == 0){
 					petmascotahomenaje.setRutafoto(lisPetfotomascota.get(0).getRuta());
 				}
-				ok = true;
 			}
 			
 			//Se graba el servicio si han habido cambios
@@ -309,10 +308,10 @@ public class PetmascotahomenajeBO {
 		Calendar fecha = Calendar.getInstance();
 		
 		String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
-		String rutaMascotas =  fileUtil.getPropertyValue("repositorio-mascota") + fecha.get(Calendar.YEAR);
+		String rutaMascotas =  fileUtil.getPropertyValue("repositorio-mascota") + "/" + fecha.get(Calendar.YEAR);
 		String nombreArchivo = fecha.get(Calendar.YEAR) + "-" + (fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + petmascotahomenaje.getIdmascota() + "-" + cantFotosPorMascota + "." + fileUtil.getFileExtention(petfotomascota.getNombrearchivo()).toLowerCase();
 		
-		String rutaCompleta = rutaImagenes + rutaMascotas;
+		String rutaCompleta = rutaImagenes + "/" + rutaMascotas;
 		
 		if(fileUtil.createDir(rutaCompleta)){
 			//crear foto en disco
@@ -323,7 +322,7 @@ public class PetmascotahomenajeBO {
 		//foto en BD
 		petfotomascota.setIdfotomascota(maxIdfotomascota);
 		petfotomascota.setPetmascotahomenaje(petmascotahomenaje);
-		String rutaBD = rutaMascotas + "/" + nombreArchivo;
+		String rutaBD = "/" + rutaMascotas + "/" + nombreArchivo;
 		petfotomascota.setRuta(rutaBD);
 		petfotomascota.setNombrearchivo(nombreArchivo);
 		Setestado setestadoPetfotomascota = new Setestado();
@@ -356,23 +355,23 @@ public class PetmascotahomenajeBO {
 			FacesUtil facesUtil = new FacesUtil();
 			String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
 			
-			for(Petfotomascota tmp : petmascotahomenaje.getPetfotomascotas()){
+			for(Petfotomascota petfotomascota : petmascotahomenaje.getPetfotomascotas()){
 				//se inactivan todas las fotos asociadas a la mascota
 				Setestado setestado = new Setestado();
 				setestado.setIdestado(2);
-				tmp.setSetestado(setestado);
+				petfotomascota.setSetestado(setestado);
 				
 				//auditoria
 				Date fecharegistro = new Date();
-				tmp.setFechamodificacion(fecharegistro);
-				tmp.setIplog(usuarioBean.getIp());
-				tmp.setSetusuario(usuarioBean.getSetUsuario());
+				petfotomascota.setFechamodificacion(fecharegistro);
+				petfotomascota.setIplog(usuarioBean.getIp());
+				petfotomascota.setSetusuario(usuarioBean.getSetUsuario());
 				
 				//actualizar
-				petfotomascotaDAO.modificarFotomascota(session, tmp);
+				petfotomascotaDAO.modificarFotomascota(session, petfotomascota);
 				
 				//se elimina el archivo de imagen
-				String rutaArchivo = rutaImagenes + tmp.getRuta();
+				String rutaArchivo = rutaImagenes + "/" + petfotomascota.getRuta();
 				fileUtil.deleteFile(rutaArchivo);
 			}
 			

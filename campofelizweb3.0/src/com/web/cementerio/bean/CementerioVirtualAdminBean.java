@@ -13,7 +13,6 @@ import org.primefaces.event.FileUploadEvent;
 import com.web.cementerio.bo.PetfotoinstalacionBO;
 import com.web.cementerio.pojo.annotations.Petfotoinstalacion;
 import com.web.util.FacesUtil;
-import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
@@ -61,11 +60,9 @@ public class CementerioVirtualAdminBean implements Serializable{
 	
 	public void handleFileUpload(FileUploadEvent event) {
 		try{
-			FileUtil fileUtil = new FileUtil();
-
 			Petfotoinstalacion petfotoinstalacion = new Petfotoinstalacion();
 			petfotoinstalacion.setImagen(event.getFile().getContents());
-			petfotoinstalacion.setNombrearchivo(fileUtil.getFileExtention(event.getFile().getFileName()).toLowerCase());
+			petfotoinstalacion.setNombrearchivo(event.getFile().getFileName().toLowerCase());
 			petfotoinstalacion.setDescripcion("Mascohijo");
 			lisPetfotoinstalacion.add(petfotoinstalacion);
 			

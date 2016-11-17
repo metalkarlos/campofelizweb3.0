@@ -196,23 +196,23 @@ public class PetnoticiaBO {
 			FacesUtil facesUtil = new FacesUtil();
 			String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
 			
-			for(Petfotonoticia tmp : petnoticia.getPetfotonoticias()){
+			for(Petfotonoticia petfotonoticia : petnoticia.getPetfotonoticias()){
 				//se inactivan todas las fotos asociadas a la noticia
 				Setestado setestado = new Setestado();
 				setestado.setIdestado(2);
-				tmp.setSetestado(setestado);
+				petfotonoticia.setSetestado(setestado);
 				
 				//auditoria
 				Date fecharegistro = new Date();
-				tmp.setFechamodificacion(fecharegistro);
-				tmp.setIplog(usuarioBean.getIp());
-				tmp.setSetusuario(usuarioBean.getSetUsuario());
+				petfotonoticia.setFechamodificacion(fecharegistro);
+				petfotonoticia.setIplog(usuarioBean.getIp());
+				petfotonoticia.setSetusuario(usuarioBean.getSetUsuario());
 				
 				//actualizar
-				petfotonoticiaDAO.updatePetfotonoticia(session, tmp);
+				petfotonoticiaDAO.updatePetfotonoticia(session, petfotonoticia);
 				
 				//se elimina el archivo de imagen
-				String rutaArchivo = rutaImagenes + tmp.getRuta();
+				String rutaArchivo = rutaImagenes + "/" + petfotonoticia.getRuta();
 				fileUtil.deleteFile(rutaArchivo);
 			}			 
 			
@@ -300,7 +300,7 @@ public class PetnoticiaBO {
 					//eliminar foto del disco
 					String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
 					
-					String rutaArchivo = rutaImagenes + petfotonoticiaClon.getRuta();
+					String rutaArchivo = rutaImagenes + "/" + petfotonoticiaClon.getRuta();
 					
 					fileUtil.deleteFile(rutaArchivo);
 					ok = true;
@@ -330,7 +330,6 @@ public class PetnoticiaBO {
 				if(petnoticia.getRutafoto() == null || petnoticia.getRutafoto().trim().length() == 0){
 					petnoticia.setRutafoto(lisPetfotonoticia.get(0).getRuta());
 				}
-				ok = true;
 			}
 			
 			//Se graba la noticia si han habido cambios
@@ -372,10 +371,10 @@ public class PetnoticiaBO {
 		Calendar fecha = Calendar.getInstance();
 		
 		String rutaImagenes = facesUtil.getContextParam("imagesDirectory");
-		String rutaNoticias =  fileUtil.getPropertyValue("repositorio-noticia") + fecha.get(Calendar.YEAR);
+		String rutaNoticias =  fileUtil.getPropertyValue("repositorio-noticia") + "/" + fecha.get(Calendar.YEAR);
 		String nombreArchivo = fecha.get(Calendar.YEAR) + "-" + (fecha.get(Calendar.MONTH) + 1) + "-" + fecha.get(Calendar.DAY_OF_MONTH) + "-" + petnoticia.getIdnoticia() + "-" + cantFotosPorNoticia + "." + fileUtil.getFileExtention(petfotonoticia.getNombrearchivo()).toLowerCase();
 		
-		String rutaCompleta = rutaImagenes + rutaNoticias;
+		String rutaCompleta = rutaImagenes + "/" + rutaNoticias;
 		
 		if(fileUtil.createDir(rutaCompleta)){
 			//crear foto en disco
@@ -386,7 +385,7 @@ public class PetnoticiaBO {
 		//foto en BD
 		petfotonoticia.setIdfotonoticia(maxIdfotonoticia);
 		petfotonoticia.setPetnoticia(petnoticia);
-		String rutaBD = rutaNoticias + "/" + nombreArchivo;
+		String rutaBD = "/" + rutaNoticias + "/" + nombreArchivo;
 		petfotonoticia.setRuta(rutaBD);
 		petfotonoticia.setNombrearchivo(nombreArchivo);
 		petfotonoticia.setPerfil(1);//campo sin uso ya que tabla principal posee ruta de foto de perfil

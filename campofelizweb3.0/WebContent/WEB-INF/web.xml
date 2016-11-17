@@ -15,7 +15,7 @@
     <param-name>imagesDirectory</param-name>
     <!-- <param-value>/var/www/user_campofeliz/data/repositorio</param-value> -->
 		<!-- <param-value>/var/www/sintra_adminweb/data/repositorio</param-value> -->
-    <param-value>C:/repositorio/</param-value>
+    <param-value>C:/repositorio</param-value>
   </context-param>
   <context-param>
     <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
@@ -34,7 +34,7 @@
   <context-param>
     <description>Development, Production</description>
     <param-name>javax.faces.PROJECT_STAGE</param-name>
-    <param-value>Production</param-value>
+    <param-value>Development</param-value>
   </context-param>
   <context-param>
     <description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
@@ -121,7 +121,7 @@
     <url-pattern>*.jsf</url-pattern>
   </servlet-mapping>
   <session-config>
-    <session-timeout>5</session-timeout>
+    <session-timeout>30</session-timeout>
   </session-config>
   <mime-mapping>
     <extension>pdf</extension>

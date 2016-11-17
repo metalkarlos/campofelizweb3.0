@@ -2,6 +2,7 @@ package com.web.cementerio.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -58,7 +59,13 @@ public class NoticiaBean implements Serializable {
 				petnoticia = petnoticiaBO.getPetnoticiaConObjetosById(idnoticia);
 				
 				if(petnoticia != null && petnoticia.getPetfotonoticias() != null && petnoticia.getPetfotonoticias().size() > 0){
-					lisPetfotonoticia = new ArrayList<Petfotonoticia>(petnoticia.getPetfotonoticias());
+					//lisPetfotonoticia = new ArrayList<Petfotonoticia>(petnoticia.getPetfotonoticias());
+					
+					//ordenar por fecharegistro
+					Petfotonoticia[] arr = new Petfotonoticia[petnoticia.getPetfotonoticias().size()];
+					arr = petnoticia.getPetfotonoticias().toArray(arr);
+					Arrays.sort(arr, Petfotonoticia.FecharegistroComparator);
+					lisPetfotonoticia = new ArrayList<Petfotonoticia>(Arrays.asList(arr));
 				}
 			} catch(Exception e) {
 				e.printStackTrace();

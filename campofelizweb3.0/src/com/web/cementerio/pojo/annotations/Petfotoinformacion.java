@@ -1,5 +1,7 @@
 package com.web.cementerio.pojo.annotations;
 
+import java.util.Comparator;
+
 // Generated 05/03/2014 11:20:16 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
@@ -37,6 +39,12 @@ public class Petfotoinformacion implements java.io.Serializable, Cloneable {
 	private String iplog;
 	private byte[] imagen;
 
+	public static Comparator<Petfotoinformacion> FecharegistroComparator = new Comparator<Petfotoinformacion>() {
+		public int compare(Petfotoinformacion petfotoinformacion1, Petfotoinformacion petfotoinformacion2) {
+			return petfotoinformacion1.getFecharegistro().compareTo(petfotoinformacion2.getFecharegistro());
+		}
+	};
+	
 	public Petfotoinformacion() {
 	}
 
@@ -205,10 +213,5 @@ public class Petfotoinformacion implements java.io.Serializable, Cloneable {
 			return false;
 		return true;
 	}
-	
-	
-	
-
-	
 	
 }

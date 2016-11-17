@@ -3,6 +3,7 @@ package com.web.cementerio.bean;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +25,6 @@ import com.web.cementerio.pojo.annotations.Petraza;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
-import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
@@ -109,7 +109,13 @@ public class MascotaHomenajeAdminBean implements Serializable {
 					petmascotahomenajeclone = petmascotahomenaje.clonar();
 					
 					if(petmascotahomenaje.getPetfotomascotas() != null && petmascotahomenaje.getPetfotomascotas().size() > 0){
-						lisPetfotomascota = new ArrayList<Petfotomascota>(petmascotahomenaje.getPetfotomascotas());
+						//lisPetfotomascota = new ArrayList<Petfotomascota>(petmascotahomenaje.getPetfotomascotas());
+						
+						//ordenar por fecharegistro
+						Petfotomascota[] arr = new Petfotomascota[petmascotahomenaje.getPetfotomascotas().size()];
+						arr = petmascotahomenaje.getPetfotomascotas().toArray(arr);
+						Arrays.sort(arr, Petfotomascota.FecharegistroComparator);
+						lisPetfotomascota = new ArrayList<Petfotomascota>(Arrays.asList(arr));
 						
 						for(Petfotomascota petfotomascota : lisPetfotomascota){
 							lisPetfotomascotaclone.add(petfotomascota.clonar());
@@ -178,11 +184,9 @@ public class MascotaHomenajeAdminBean implements Serializable {
 		try {
 			// Tamaño imagen menor a 100KB
 			if (event.getFile().getSize() <= Parametro.TAMAÑO_IMAGEN) {
-				FileUtil fileUtil = new FileUtil();
-				
 				Petfotomascota petfotomascota = new Petfotomascota();
 				petfotomascota.setImagen(event.getFile().getContents());
-				petfotomascota.setNombrearchivo(fileUtil.getFileExtention(event.getFile().getFileName()).toLowerCase());
+				petfotomascota.setNombrearchivo(event.getFile().getFileName().toLowerCase());
 				lisPetfotomascota.add(petfotomascota);
 				
 				new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.", "");

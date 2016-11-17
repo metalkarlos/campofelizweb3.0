@@ -33,8 +33,8 @@
 				<div class="hr"></div>
 				</div>
 
-				<!-- <p:growl id="mensajes" showDetail="false" /> -->
-				<p:messages id="mensajes" showDetail="false" />
+				<p:growl id="mensajes" showDetail="false" sticky="true" />
+				<!-- <p:messages id="mensajes" showDetail="false" /> -->
 
 				<div class="inner-content">
 					<div class="grupo-admin">
@@ -56,7 +56,7 @@
 							<p:dataGrid id="idgalleria"
 								styleClass="nav-gallery col-md-12" var="imagen"
 								value="#{noticiaAdminBean.lisPetfotonoticia}"
-								columns="3" rows="3" efect="true" paginator="true"
+								columns="3" rows="6" efect="true" paginator="true"
 								paginatorPosition="bottom"
 								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 								emptyMessage="No se encontraron registros" lazy="true"
@@ -100,7 +100,7 @@
 
 					<div class="grupo-admin">
 						<div>
-							<h:outputLabel value="Agregar Foto" for="idSubeFotos" />
+							<h:outputLabel value="Agregar Foto (839x1024)" for="idSubeFotos" />
 						</div>
 						<div>
 							<p:fileUpload id="idSubeFotos"

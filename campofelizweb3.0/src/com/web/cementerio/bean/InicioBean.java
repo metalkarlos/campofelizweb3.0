@@ -9,6 +9,7 @@ import javax.faces.bean.RequestScoped;
 
 import com.web.cementerio.bo.PethomeBO;
 import com.web.cementerio.pojo.annotations.Petfotoinstalacion;
+import com.web.cementerio.pojo.annotations.Petguia;
 import com.web.cementerio.pojo.annotations.Pethome;
 import com.web.cementerio.pojo.annotations.Petinformacion;
 import com.web.cementerio.pojo.annotations.Petmascotahomenaje;
@@ -26,6 +27,7 @@ public class InicioBean implements Serializable {
 	private static final long serialVersionUID = -396004214619164180L;
 	
 	private List<Petservicio> lisPetservicio;
+	private List<Petguia> lisPetguia;
 	private Petinformacion petinformacion;
 	private List<Petfotoinstalacion> lisPetfotoinstalacion;
 	private List<Petnoticia> lisPetnoticias;
@@ -46,6 +48,10 @@ public class InicioBean implements Serializable {
 		ServiciosPrincipalesBean serviciosPrincipalesBean = new ServiciosPrincipalesBean();
 		lisPetservicio = serviciosPrincipalesBean.getLisPetservicio();
 		serviciosPrincipalesBean = null;
+		
+		PromocionBean promocionBean = new PromocionBean();
+		lisPetguia = promocionBean.consultarPromocionesPrincipales();
+		promocionBean = null;
 		
 		QuienesSomosBean quienesSomosBean = new QuienesSomosBean();
 		petinformacion = quienesSomosBean.getPetinformacion();
@@ -81,6 +87,14 @@ public class InicioBean implements Serializable {
 
 	public void setLisPetservicio(List<Petservicio> lisPetservicio) {
 		this.lisPetservicio = lisPetservicio;
+	}
+
+	public List<Petguia> getLisPetguia() {
+		return lisPetguia;
+	}
+
+	public void setLisPetguia(List<Petguia> lisPetguia) {
+		this.lisPetguia = lisPetguia;
 	}
 
 	public Petinformacion getPetinformacion() {

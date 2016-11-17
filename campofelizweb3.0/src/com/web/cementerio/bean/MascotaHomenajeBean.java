@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.web.cementerio.bo.PetmascotahomenajeBO;
 import com.web.cementerio.pojo.annotations.Petespecie;
@@ -59,8 +60,13 @@ public class MascotaHomenajeBean implements Serializable {
 			PetmascotahomenajeBO mascotaHomenajeBO= new PetmascotahomenajeBO();
 			petmascotahomenaje = mascotaHomenajeBO.getPetmascotahomenajebyId(idmascota);
 			if((petmascotahomenaje !=null)&&(!petmascotahomenaje.getPetfotomascotas().isEmpty()) && petmascotahomenaje.getPetfotomascotas().size()>0 ){
-				listpetfotomascota = new ArrayList<Petfotomascota>(petmascotahomenaje.getPetfotomascotas());
+				//listpetfotomascota = new ArrayList<Petfotomascota>(petmascotahomenaje.getPetfotomascotas());
 
+				//ordenar por fecharegistro
+				Petfotomascota[] arr = new Petfotomascota[petmascotahomenaje.getPetfotomascotas().size()];
+				arr = petmascotahomenaje.getPetfotomascotas().toArray(arr);
+				Arrays.sort(arr, Petfotomascota.FecharegistroComparator);
+				listpetfotomascota = new ArrayList<Petfotomascota>(Arrays.asList(arr));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

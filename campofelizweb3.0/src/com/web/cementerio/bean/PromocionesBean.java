@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -15,38 +16,37 @@ import com.web.cementerio.bo.PetguiaBO;
 import com.web.cementerio.pojo.annotations.Petguia;
 import com.web.util.MessageUtil;
 
-
 @ManagedBean
 @ViewScoped
-public class GuiaGeneralBean  implements Serializable{
+public class PromocionesBean implements Serializable {
 
-	private static final long serialVersionUID = 1800067820691222840L;
-
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6807607247744580426L;
 	private LazyDataModel<Petguia> lisPetguia;
-	private List<Petguia>listPetguiaprincipal;
 	private String descripcionParam;
+	private int columnsGrid;
+	private int rowsGrid;
 	
-	public GuiaGeneralBean(){
-		descripcionParam="buscar";
-		consultarGuiabyPrincipal();
-		consultarGuia();
-		
+	public PromocionesBean() {
+		setColumnsGrid(2);
+		setRowsGrid(3);
 	}
-
-	public void consultarGuiabyPrincipal(){
-		try {
-			PetguiaBO petguiaBO = new PetguiaBO();
-			listPetguiaprincipal = new ArrayList<Petguia>();
-			listPetguiaprincipal = petguiaBO.getlistPetguiaPrincipal(4);
-		} catch (Exception e) {
+	
+	@PostConstruct
+	public void PostPromocionesBean() {
+		
+		try{
+			consultarPromociones();
+		} catch(Exception e) {
 			e.printStackTrace();
 			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
 		}
 	}
 	
-	
 	@SuppressWarnings("serial")
-	public void consultarGuia(){
+	public void consultarPromociones(){
 		try
 		{
 			lisPetguia = new LazyDataModel<Petguia>() {
@@ -58,10 +58,9 @@ public class GuiaGeneralBean  implements Serializable{
 					String[] textoBusqueda = null;
 					if(descripcionParam != null && descripcionParam.trim().length() > 0 && descripcionParam.trim().compareTo("buscar") != 0 ){
 						textoBusqueda = descripcionParam.split(" ");
-						first = 0;
 					}
 					
-					data = petguiaBO.lisPetguiaBusquedaByPage(textoBusqueda, pageSize, first, args, 1);
+					data = petguiaBO.lisPetguiaBusquedaByPage(textoBusqueda, pageSize, first, args);
 					this.setRowCount(args[0]);
 	
 			        return data;
@@ -102,11 +101,20 @@ public class GuiaGeneralBean  implements Serializable{
 		this.descripcionParam = descripcionParam;
 	}
 
-	public List<Petguia> getListPetguiaprincipal() {
-		return listPetguiaprincipal;
+	public int getColumnsGrid() {
+		return columnsGrid;
 	}
 
-	public void setListPetguiaprincipal(List<Petguia> listPetguiaprincipal) {
-		this.listPetguiaprincipal = listPetguiaprincipal;
+	public void setColumnsGrid(int columnsGrid) {
+		this.columnsGrid = columnsGrid;
 	}
+
+	public int getRowsGrid() {
+		return rowsGrid;
+	}
+
+	public void setRowsGrid(int rowsGrid) {
+		this.rowsGrid = rowsGrid;
+	}
+
 }

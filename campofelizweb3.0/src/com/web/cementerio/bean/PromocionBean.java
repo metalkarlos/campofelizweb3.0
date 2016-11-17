@@ -2,11 +2,12 @@ package com.web.cementerio.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.RequestScoped;
 
 import com.web.cementerio.bo.PetguiaBO;
 import com.web.cementerio.pojo.annotations.Petfotoguia;
@@ -17,27 +18,31 @@ import com.web.util.MessageUtil;
 
 
 @ManagedBean
-@ViewScoped
-public class GuiaBean implements Serializable{
+@RequestScoped
+public class PromocionBean implements Serializable{
 
 	
 	private static final long serialVersionUID = -1862606539425133513L;
 	private int idguia;
 	private Petguia petguia;
 	private List<Petfotoguia> lispetfotoguia;
+	private List<Petguia> lisPetguiaPrincipal;
 	
-	public GuiaBean(){
+	public PromocionBean(){
+		petguia = new Petguia();
+		lispetfotoguia = new ArrayList<Petfotoguia>();
+		lisPetguiaPrincipal = new ArrayList<Petguia>();
 	}
 
 	@PostConstruct
-	public void PostGuiaBean() {
+	public void PostPromocionBean() {
 		FacesUtil facesUtil = new FacesUtil();
 		
 		try{
 			Object par = facesUtil.getParametroUrl("idguia");
 			if(par != null){
 				idguia = Integer.parseInt(par.toString());
-				consultarNoticias();
+				consultarPromociones();
 			}else{
 				facesUtil.redirect("home.jsf");
 			}
@@ -49,16 +54,21 @@ public class GuiaBean implements Serializable{
 		}
 	}
 	
-	private void consultarNoticias(){
+	private void consultarPromociones(){
 		if(this.idguia > 0){
 			try {
 				PetguiaBO petguiaBO = new PetguiaBO();
-				petguia= petguiaBO.getPetguiabyId(idguia, 1);
-				lispetfotoguia = new ArrayList<Petfotoguia>();
-				if(petguia !=null && petguia.getPetfotoguias().size()>0 && !petguia.getPetfotoguias().isEmpty()){
-				  lispetfotoguia = new ArrayList<>(petguia.getPetfotoguias());
-				}
+				petguia= petguiaBO.getPetguiaByIdConObjetos(idguia);
 				
+				if(petguia != null && petguia.getPetfotoguias() != null && petguia.getPetfotoguias().size() > 0){
+					//lispetfotoguia = new ArrayList<>(petguia.getPetfotoguias());
+				  
+					//ordenar por fecharegistro
+					Petfotoguia[] arr = new Petfotoguia[petguia.getPetfotoguias().size()];
+					arr = petguia.getPetfotoguias().toArray(arr);
+					Arrays.sort(arr, Petfotoguia.FecharegistroComparator);
+					lispetfotoguia = new ArrayList<>(Arrays.asList(arr));
+				}
 			} catch(Exception e) {
 				e.printStackTrace();
 				new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
@@ -66,7 +76,18 @@ public class GuiaBean implements Serializable{
 		}
 	}
 	
-	
+	public List<Petguia> consultarPromocionesPrincipales(){
+		
+		try {
+			PetguiaBO petguiaBO = new PetguiaBO();
+			lisPetguiaPrincipal = petguiaBO.lisPetguiaPrincipales(3);
+		} catch (Exception e) {
+			e.printStackTrace();
+			new MessageUtil().showFatalMessage("Ha ocurrido un error inesperado. Comunicar al Webmaster!","");
+		}
+		
+		return lisPetguiaPrincipal;
+	}
 
 	public int getIdguia() {
 		return idguia;
@@ -80,8 +101,6 @@ public class GuiaBean implements Serializable{
 		return petguia;
 	}
 
-	
-
 	public List<Petfotoguia> getLispetfotoguia() {
 		return lispetfotoguia;
 	}
@@ -92,6 +111,14 @@ public class GuiaBean implements Serializable{
 
 	public void setPetguia(Petguia petguia) {
 		this.petguia = petguia;
+	}
+
+	public List<Petguia> getLisPetguiaPrincipal() {
+		return lisPetguiaPrincipal;
+	}
+
+	public void setLisPetguiaPrincipal(List<Petguia> lisPetguiaPrincipal) {
+		this.lisPetguiaPrincipal = lisPetguiaPrincipal;
 	}
 
 }

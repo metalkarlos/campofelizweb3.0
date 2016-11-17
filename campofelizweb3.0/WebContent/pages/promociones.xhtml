@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+	xmlns:html="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/templates/template_others.xhtml"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<ui:define name="head">
+		<title>Promociones</title>
+		<meta name="description"
+			content="Aprovecha nuestras promociones." />
+		<meta name="keywords" content="promociones" />
+	</ui:define>
+
+	<ui:define name="content_page">
+		<h:form id="form" prependId="false">
+			<!--start-content-->
+			<div class="blog servicios">
+				<div class="container">
+					<div class="blog-top">
+						<div class="col-md-12 blog-grid">
+
+							<!-- Section Gallery -->
+							<section id="gallery">
+							<div class="col-lg-8 col-lg-offset-2">
+								<!-- Section heading -->
+								<div class="section-heading">
+									<h2>Promociones</h2>
+									<div class="hr"></div>
+								</div>
+							</div>
+							<div class="wow fadeInDown" data-wow-delay="0.2s">
+
+								<p:messages id="mensajes" showDetail="false" />
+								<p:defaultCommand target="lnkbuscar"></p:defaultCommand>
+
+								<div class="blog-search nav-gallery col-md-12">
+
+									<p:inputText id="txtbusqueda"
+										value="#{promocionesBean.descripcionParam}"
+										html:placeholder="Promoción"
+										validatorMessage="Ingrese sólo letras. Corrija y reintente.">
+										<f:validateRegex pattern="[a-zA-Z ]*" />
+									</p:inputText>
+
+									<p:commandButton id="lnkbuscar" image="btn-find"
+										update="resultado mensajes">
+									</p:commandButton>
+
+								</div>
+
+								<p:dataGrid id="resultado"
+									styleClass="nav-gallery col-md-12" var="promocion"
+									value="#{promocionesBean.lisPetguia}"
+									columns="3" rows="12" efect="true" paginator="true"
+									paginatorPosition="bottom"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+									emptyMessage="No se encontraron registros" lazy="true"
+									layout="grid">
+
+
+									<div class="col-md-12">
+										<div class="thumbnail text-center">
+											<h:link outcome="/pages/promocion">
+												<p:graphicImage alt="#{promocion.titulo}"
+													title="#{promocion.titulo}"
+													value="#{parametro.servletImagenes}#{promocion.rutafoto}?w=800&amp;h=640&amp;m=both"
+													styleClass="img-responsive" />
+													<f:param name="idguia" value="#{promocion.idguia}"></f:param>
+											</h:link>
+											<div class="caption-adoption">
+
+												<!-- Buttons -->
+												<h:link outcome="/pages/promocion"
+													styleClass="btn btn-default" value="Leer Más">
+													<f:param name="idguia" value="#{promocion.idguia}"></f:param>
+												</h:link>
+
+											</div>
+										</div>
+									</div>
+								</p:dataGrid>
+								
+								<div class="clearfix"></div>
+								<div class="text-center">
+									<h:link styleClass="btn btn-default m-left" outcome="/admin/promocion-admin" value="Nueva Promoción" rendered="#{usuarioBean.autenticado}">
+										<f:param name="idguia" value="0"></f:param>
+									</h:link>
+								</div>
+								
+								
+							</div><!-- /container --> 
+							</section><!-- Section ends -->
+
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+				</div>
+			</div>
+			<!--end-content-->
+
+		</h:form>
+	</ui:define>
+</ui:composition>

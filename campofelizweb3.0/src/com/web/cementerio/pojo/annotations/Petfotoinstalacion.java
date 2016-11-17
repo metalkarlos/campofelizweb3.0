@@ -1,5 +1,6 @@
 package com.web.cementerio.pojo.annotations;
 
+import java.util.Comparator;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,6 +30,12 @@ public class Petfotoinstalacion implements java.io.Serializable, Cloneable {
 	private String iplog;
 	private int grupo;
 	private byte[] imagen;
+	
+	public static Comparator<Petfotoinstalacion> FecharegistroComparator = new Comparator<Petfotoinstalacion>() {
+		public int compare(Petfotoinstalacion petfotoinstalacion1, Petfotoinstalacion petfotoinstalacion2) {
+			return petfotoinstalacion1.getFecharegistro().compareTo(petfotoinstalacion2.getFecharegistro());
+		}
+	};
 
 	public Petfotoinstalacion() {
 	}
@@ -254,5 +261,5 @@ public class Petfotoinstalacion implements java.io.Serializable, Cloneable {
 			return false;
 		return true;
 	}
-
+	
 }

@@ -2,6 +2,7 @@ package com.web.cementerio.bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +22,6 @@ import com.web.cementerio.pojo.annotations.Petservicio;
 import com.web.cementerio.pojo.annotations.Setestado;
 import com.web.cementerio.pojo.annotations.Setusuario;
 import com.web.util.FacesUtil;
-import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
@@ -98,7 +98,13 @@ public class ServicioAdminBean implements Serializable {
 					}
 					
 					if(petservicio.getPetfotoservicios() != null && petservicio.getPetfotoservicios().size() > 0){
-						lisPetfotoservicio = new ArrayList<Petfotoservicio>(petservicio.getPetfotoservicios());
+						//lisPetfotoservicio = new ArrayList<Petfotoservicio>(petservicio.getPetfotoservicios());
+						
+						//ordenar por fecharegistro
+						Petfotoservicio[] arr = new Petfotoservicio[petservicio.getPetfotoservicios().size()];
+						arr = petservicio.getPetfotoservicios().toArray(arr);
+						Arrays.sort(arr, Petfotoservicio.FecharegistroComparator);
+						lisPetfotoservicio = new ArrayList<Petfotoservicio>(Arrays.asList(arr));
 						
 						for(Petfotoservicio petfotoservicio : lisPetfotoservicio){
 							lisPetfotoservicioClon.add(petfotoservicio.clonar());
@@ -114,11 +120,9 @@ public class ServicioAdminBean implements Serializable {
 
 	public void handleFileUpload(FileUploadEvent event) {
 		try{
-			FileUtil fileUtil = new FileUtil();
-
 			Petfotoservicio petfotoservicio = new Petfotoservicio();
 			petfotoservicio.setImagen(event.getFile().getContents());
-			petfotoservicio.setNombrearchivo(fileUtil.getFileExtention(event.getFile().getFileName()).toLowerCase());
+			petfotoservicio.setNombrearchivo(event.getFile().getFileName().toLowerCase());
 			lisPetfotoservicio.add(petfotoservicio);
 			
 			new MessageUtil().showInfoMessage("Presione Grabar para guardar los cambios.", "");
