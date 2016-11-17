@@ -135,6 +135,7 @@ public class PetguiaBO {
 			//auditoria
 			Date fecharegistro = new Date();
 			petguia.setFecharegistro(fecharegistro);
+			petguia.setFechapublicacion(fecharegistro);
 			petguia.setIplog(usuarioBean.getIp());
 			petguia.setSetusuario(usuarioBean.getSetUsuario());
 	

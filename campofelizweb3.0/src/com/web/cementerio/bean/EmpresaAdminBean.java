@@ -92,14 +92,14 @@ public class EmpresaAdminBean implements Serializable {
 				
 				if(cotoficina.getIdoficina() > 0){
 					if(ok){
-						mostrarPaginaMensaje("Oficina modificada con exito!!");
+						mostrarPaginaMensaje("Oficina modificada con exito!!", true);
 					}else{
 						new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
 					}
 				}else{
 					ok = cotoficinaBO.grabar(cotoficina);
 					if(ok){
-						mostrarPaginaMensaje("Oficina creada con exito!!");
+						mostrarPaginaMensaje("Oficina creada con exito!!", true);
 					}else{
 						new MessageUtil().showWarnMessage("No se ha podido ingresar la oficina. Comunicar al Webmaster.","");
 					}
@@ -112,7 +112,7 @@ public class EmpresaAdminBean implements Serializable {
 		
 	}
 	
-	private void mostrarPaginaMensaje(String mensaje) throws Exception {
+	private void mostrarPaginaMensaje(String mensaje, boolean mostrarBoton) throws Exception {
 		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 		usuarioBean.setMensaje(mensaje);
 		
@@ -125,7 +125,7 @@ public class EmpresaAdminBean implements Serializable {
 			CotoficinaBO cotoficinaBO = new CotoficinaBO();
 			boolean ok = cotoficinaBO.eliminar(cotoficina);
 			if(ok){
-				mostrarPaginaMensaje("Oficina eliminada con exito!!");
+				mostrarPaginaMensaje("Oficina eliminada con exito!!", false);
 			}else{
 				new MessageUtil().showWarnMessage("No se ha podido eliminar la oficina. Comunicar al Webmaster.","");
 			}

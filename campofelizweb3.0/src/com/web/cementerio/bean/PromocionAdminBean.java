@@ -3,7 +3,6 @@ package com.web.cementerio.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -143,14 +142,14 @@ public class PromocionAdminBean implements Serializable {
 				if(idguia == 0){
 					ok = petguiaBO.ingresar(petguia, lisPetfotoguia);
 					if(ok){
-						mostrarPaginaMensaje("Promoción creada con exito!!");
+						mostrarPaginaMensaje("Promoción creada con exito!!", true);
 					}else{
 						new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
 					}
 				}else{
 					ok = petguiaBO.modificar(petguia, petguiaClon, lisPetfotoguia, lisPetfotoguiaClon);
 					if(ok){
-						mostrarPaginaMensaje("Promoción modificada con exito!!");
+						mostrarPaginaMensaje("Promoción modificada con exito!!", true);
 					}else{
 						new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
 					}
@@ -165,15 +164,11 @@ public class PromocionAdminBean implements Serializable {
 	private boolean validarcampos() {
 		boolean ok = true;
 		
-		Date fechaactual = new Date();
 		String textodescripcion= (petguia.getDescripcion()!=null ? petguia.getDescripcion().replaceAll("\\<.*?\\>", "") : "" );
 		
 		if(textodescripcion==null|| textodescripcion.length()==0){
 			ok = false;
 			new MessageUtil().showInfoMessage("Es necesario ingresar el contenido","");
-		}else if (petguia.getFechapublicacion().after(fechaactual)){
-			ok = false;
-			new MessageUtil().showInfoMessage("Fecha de publicación no pueder ser mayor a la fecha de hoy","");
 		}else if (petguia.getDescripcioncorta() == null
 				|| petguia.getDescripcioncorta().length() == 0) {
 			ok = false;
@@ -186,11 +181,14 @@ public class PromocionAdminBean implements Serializable {
 		return ok;
 	}
 	
-	private void mostrarPaginaMensaje(String mensaje) throws Exception {
+	private void mostrarPaginaMensaje(String mensaje, boolean mostrarBoton) throws Exception {
 		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 		usuarioBean.setMensaje(mensaje);
-		usuarioBean.setLink("/pages/promocion.jsf?idguia="+petguia.getIdguia());
-		usuarioBean.setLinkTitulo("Consultar Promoción");
+		
+		if(mostrarBoton) {
+			usuarioBean.setLink("/pages/promocion.jsf?idguia="+petguia.getIdguia());
+			usuarioBean.setLinkTitulo("Consultar Promoción");
+		}
 		
 		FacesUtil facesUtil = new FacesUtil();
 		facesUtil.redirect("../pages/mensaje.jsf");	 
@@ -202,9 +200,9 @@ public class PromocionAdminBean implements Serializable {
 			
 			boolean ok = petguiaBO.eliminar(petguia);
 			if(ok){
-				mostrarPaginaMensaje("Promoción eliminada con exito!!");
+				mostrarPaginaMensaje("Promoción eliminada con exito!!", false);
 			}else{
-				mostrarPaginaMensaje("No se ha podido eliminar la Promoción. Comunicar al Webmaster.");
+				new MessageUtil().showWarnMessage("No se ha podido eliminar la Promoción. Comunicar al Webmaster.","");
 			}
 		}catch(Exception e){
 			e.printStackTrace();

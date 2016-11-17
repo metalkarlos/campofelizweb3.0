@@ -148,7 +148,7 @@ public class MascotaHomenajeAdminBean implements Serializable {
 				if (idmascota == 0) {
 					ok = petmascotahomenajeBO.ingresarPetmascotahomenajeBO(petmascotahomenaje,lisPetfotomascota);
 					if(ok){
-						mostrarPaginaMensaje("Homenaje creado con exito!!");
+						mostrarPaginaMensaje("Homenaje creado con exito!!", true);
 					}else{
 						new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
 					}
@@ -157,7 +157,7 @@ public class MascotaHomenajeAdminBean implements Serializable {
 							petmascotahomenaje, petmascotahomenajeclone,
 							lisPetfotomascota, lisPetfotomascotaclone);
 					if(ok){
-						mostrarPaginaMensaje("Homenaje modificado con exito!!");
+						mostrarPaginaMensaje("Homenaje modificado con exito!!", true);
 					}else{
 						new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
 					}
@@ -170,11 +170,14 @@ public class MascotaHomenajeAdminBean implements Serializable {
 
 	}
 
-	private void mostrarPaginaMensaje(String mensaje) throws Exception {
+	private void mostrarPaginaMensaje(String mensaje, boolean mostrarBoton) throws Exception {
 		UsuarioBean usuarioBean = (UsuarioBean) new FacesUtil().getSessionBean("usuarioBean");
 		usuarioBean.setMensaje(mensaje);
-		usuarioBean.setLink("/pages/mascotahomenaje.jsf?idmascota="+petmascotahomenaje.getIdmascota());
-		usuarioBean.setLinkTitulo("Consultar Homenaje");
+		
+		if(mostrarBoton) {
+			usuarioBean.setLink("/pages/mascotahomenaje.jsf?idmascota="+petmascotahomenaje.getIdmascota());
+			usuarioBean.setLinkTitulo("Consultar Homenaje");
+		}
 
 		FacesUtil facesUtil = new FacesUtil();
 		facesUtil.redirect("../pages/mensaje.jsf");
@@ -325,7 +328,7 @@ public class MascotaHomenajeAdminBean implements Serializable {
 			
 			boolean ok = petmascotahomenajeBO.eliminarPetmascotahomenajeBO(petmascotahomenaje);
 			if (ok) {
-				mostrarPaginaMensaje("Homenaje eliminado con exito!!");
+				mostrarPaginaMensaje("Homenaje eliminado con exito!!", false);
 			} else {
 				new MessageUtil()
 						.showWarnMessage("No se ha podido eliminar el Homenaje. Comunicar al Webmaster.","");

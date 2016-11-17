@@ -144,7 +144,7 @@ public class QuienesSomosAdminBean implements Serializable {
 					//objeto petmascotahomenaje se ha modificado
 					boolean ok = petinformacionBO.modificarPetinformacion(petinformacion, petinformacionclone,listpetfotoinformacion, listpetfotoinformacionclone);
 					if(ok){
-						mostrarPaginaMensaje("Información modificada con exito!!");
+						mostrarPaginaMensaje("Información modificada con exito!!", true);
 					}else{
 						new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
 					}
@@ -157,7 +157,7 @@ public class QuienesSomosAdminBean implements Serializable {
 		
 	}
 	
-	private void mostrarPaginaMensaje(String mensaje) throws Exception {
+	private void mostrarPaginaMensaje(String mensaje, boolean mostrarBoton) throws Exception {
 		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 		usuarioBean.setMensaje(mensaje);
 		usuarioBean.setLink("/pages/home");

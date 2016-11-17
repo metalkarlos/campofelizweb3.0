@@ -142,14 +142,14 @@ public class NoticiaAdminBean implements Serializable {
 				if(idnoticia == 0){
 					ok = petnoticiaBO.ingresar(petnoticia, lisPetfotonoticia);
 					if(ok){
-						mostrarPaginaMensaje("Noticia creada con exito!!");
+						mostrarPaginaMensaje("Noticia creada con exito!!", true);
 					}else{
 						new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
 					}
 				}else{
 					ok = petnoticiaBO.modificar(petnoticia, petnoticiaClon, lisPetfotonoticia, lisPetfotonoticiaClon);
 					if(ok){
-						mostrarPaginaMensaje("Noticia modificada con exito!!");
+						mostrarPaginaMensaje("Noticia modificada con exito!!", true);
 					}else{
 						new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
 					}
@@ -181,11 +181,14 @@ public class NoticiaAdminBean implements Serializable {
 		return ok;
 	}
 	
-	private void mostrarPaginaMensaje(String mensaje) throws Exception {
+	private void mostrarPaginaMensaje(String mensaje, boolean mostrarBoton) throws Exception {
 		UsuarioBean usuarioBean = (UsuarioBean) new FacesUtil().getSessionBean("usuarioBean");
 		usuarioBean.setMensaje(mensaje);
-		usuarioBean.setLink("/pages/noticia?idnoticia="+petnoticia.getIdnoticia());
-		usuarioBean.setLinkTitulo("Consultar Noticia");
+		
+		if(mostrarBoton) {
+			usuarioBean.setLink("/pages/noticia?idnoticia="+petnoticia.getIdnoticia());
+			usuarioBean.setLinkTitulo("Consultar Noticia");
+		}
 
 		FacesUtil facesUtil = new FacesUtil();
 		facesUtil.redirect("../pages/mensaje.jsf");
@@ -197,9 +200,9 @@ public class NoticiaAdminBean implements Serializable {
 			
 			boolean ok = petnoticiaBO.eliminar(petnoticia);
 			if(ok){
-				mostrarPaginaMensaje("Noticia eliminada con exito!!");
+				mostrarPaginaMensaje("Noticia eliminada con exito!!", false);
 			}else{
-				mostrarPaginaMensaje("No se ha podido eliminar la Noticia. Comunicar al Webmaster.");
+				new MessageUtil().showWarnMessage("No se ha podido eliminar la Noticia. Comunicar al Webmaster.","");
 			}
 		}catch(Exception e){
 			e.printStackTrace();

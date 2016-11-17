@@ -99,7 +99,7 @@ public class EnunciadoAdminBean implements Serializable {
 				   ok = petenunciadoBO.grabar(listpetenunciado);	
 				   
 				   if(ok){
-						mostrarPaginaMensaje("Pregunta ingresada con exito!!");
+						mostrarPaginaMensaje("Pregunta ingresada con exito!!", true);
 					}else{
 						new MessageUtil().showWarnMessage("No se ha podido ingresar la Pregunta. Comunicar al Webmaster.","");
 					}
@@ -126,7 +126,7 @@ public class EnunciadoAdminBean implements Serializable {
 				   }
 				   
 				   if(ok){
-					   mostrarPaginaMensaje("Pregunta modificada con exito!!");
+					   mostrarPaginaMensaje("Pregunta modificada con exito!!", true);
 				   }else{
 					   new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
 				   }
@@ -139,7 +139,7 @@ public class EnunciadoAdminBean implements Serializable {
 		
 	}
 	
-	private void mostrarPaginaMensaje(String mensaje) throws Exception {
+	private void mostrarPaginaMensaje(String mensaje, boolean mostrarBoton) throws Exception {
 		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 		usuarioBean.setMensaje(mensaje);
 		
@@ -155,7 +155,7 @@ public class EnunciadoAdminBean implements Serializable {
 			listpetenunciado.add(1,petenunciadorespuesta);
 			boolean ok = petenunciadoBO.eliminar(listpetenunciado);
 			if(ok){
-			   mostrarPaginaMensaje("Pregunta eliminada con exito!!");
+			   mostrarPaginaMensaje("Pregunta eliminada con exito!!", false);
 		   }else{
 			   new MessageUtil().showWarnMessage("No se ha podido eliminar la Pregunta. Comunicar al Webmaster.","");
 		   }

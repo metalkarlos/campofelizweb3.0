@@ -157,14 +157,14 @@ public class ServicioAdminBean implements Serializable {
 				if(idservicio == 0){
 					ok = petservicioBO.ingresar(petservicio, lisPetfotoservicio);
 					if(ok){
-						mostrarPaginaMensaje("Servicio creado con exito!!");
+						mostrarPaginaMensaje("Servicio creado con exito!!", true);
 					}else{
 						new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
 					}
 				}else{
 					ok = petservicioBO.modificar(petservicio, petservicioClon, lisPetfotoservicio, lisPetfotoservicioClon);
 					if(ok){
-						mostrarPaginaMensaje("Servicio modificado con exito!!");
+						mostrarPaginaMensaje("Servicio modificado con exito!!", true);
 					}else{
 						new MessageUtil().showWarnMessage("No existen cambios que guardar.","");
 					}
@@ -204,11 +204,14 @@ public class ServicioAdminBean implements Serializable {
 		return ok;
 	}
 	
-	private void mostrarPaginaMensaje(String mensaje) throws Exception {
+	private void mostrarPaginaMensaje(String mensaje, boolean mostrarBoton) throws Exception {
 		UsuarioBean usuarioBean = (UsuarioBean)new FacesUtil().getSessionBean("usuarioBean");
 		usuarioBean.setMensaje(mensaje);
-		usuarioBean.setLink("/pages/servicio.jsf?idservicio="+petservicio.getIdservicio()+"&idempresa="+petservicio.getCotempresa().getIdempresa());
-		usuarioBean.setLinkTitulo("Consultar Servicio");
+		
+		if(mostrarBoton) {
+			usuarioBean.setLink("/pages/servicio.jsf?idservicio="+petservicio.getIdservicio()+"&idempresa="+petservicio.getCotempresa().getIdempresa());
+			usuarioBean.setLinkTitulo("Consultar Servicio");
+		}
 		
 		FacesUtil facesUtil = new FacesUtil();
 		facesUtil.redirect("../pages/mensaje.jsf");	 
@@ -220,9 +223,9 @@ public class ServicioAdminBean implements Serializable {
 			
 			boolean ok = petservicioBO.eliminar(petservicio);
 			if(ok){
-				mostrarPaginaMensaje("Servicio eliminado con exito!!");
+				mostrarPaginaMensaje("Servicio eliminado con exito!!", false);
 			}else{
-				mostrarPaginaMensaje("No se ha podido eliminar el Servicio. Comunicar al Webmaster.");
+				new MessageUtil().showWarnMessage("No se ha podido eliminar el Servicio. Comunicar al Webmaster.","");
 			}
 		}catch(Exception e){
 			e.printStackTrace();
