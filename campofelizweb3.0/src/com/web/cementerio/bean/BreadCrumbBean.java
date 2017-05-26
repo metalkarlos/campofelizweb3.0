@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
@@ -16,7 +15,6 @@ import org.primefaces.model.menu.MenuModel;
 //import org.primefaces.model.MenuModel;
 
 @ManagedBean
-@SessionScoped
 public class BreadCrumbBean implements Serializable  {
 
 	/**

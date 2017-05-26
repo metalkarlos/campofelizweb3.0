@@ -58,6 +58,8 @@
   <link rel="shortcut icon" href="#{request.contextPath}/resources/img/logo_m.png" type="image/png" />
   <link rel="icon" href="#{request.contextPath}/resources/img/logo_m.png" type="image/png" />		
 	
+	<h:outputScript library="js" name="javascript.js"/>
+	
 	<!-- Configuración del Calendario de la Agenda -->
 	<script type="text/javascript">
 		PrimeFaces.locales['es'] = {
@@ -242,6 +244,6 @@
 			<h:outputText value="" />
 		</f:facet>
 	</p:ajaxStatus>
-	<p:idleMonitor timeout="#{session.maxInactiveInterval * 1000}" onidle="redirect(window.location);" />
+	<p:idleMonitor timeout="#{session.maxInactiveInterval * 1000}" onidle="location.reload();" />
 </h:body>
 </html>

@@ -244,6 +244,6 @@
 			<h:outputText value="" />
 		</f:facet>
 	</p:ajaxStatus>
-	<p:idleMonitor timeout="#{session.maxInactiveInterval * 1000}" onidle="redirect(window.location);" />
+	<p:idleMonitor timeout="#{session.maxInactiveInterval * 1000}" onidle="location.reload();" />
 </h:body>
 </html>

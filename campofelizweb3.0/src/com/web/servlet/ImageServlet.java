@@ -23,6 +23,8 @@ import org.imgscalr.Scalr;
 import org.imgscalr.Scalr.Method;
 import org.imgscalr.Scalr.Mode;
 
+import com.web.util.FileUtil;
+
 /**
  * Servlet implementation class ImageServlet
  */
@@ -122,8 +124,17 @@ public class ImageServlet extends HttpServlet implements Serializable{
 	        //generar uid
 			UUID uid = UUID.randomUUID();
 			String ext = FilenameUtils.getExtension(image.getName());
-			String rutaDestino = imagePathTmp + "/" + uid.toString() + "." + ext;
+			String rutaDestino = imagePathTmp + "/campofelizweb/" + uid.toString() + "." + ext;
 
+			try {
+				FileUtil fileUtil = new FileUtil();
+				if(!fileUtil.createDir(imagePathTmp  + "/campofelizweb")){
+					throw new Exception("Directorio campofelizweb no creado");
+				}
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			
 			try{
 				BufferedImage img = ImageIO.read(image);
 				BufferedImage scaledImg = null;

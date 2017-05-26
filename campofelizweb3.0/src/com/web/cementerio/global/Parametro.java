@@ -1,13 +1,13 @@
 package com.web.cementerio.global;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import com.web.util.FileUtil;
 import com.web.util.MessageUtil;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class Parametro {
 	public static final String FILE_SEPARATOR = "/";//File.separator;
 	public static final long DAY_IN_MILLISECONDS = (24*60*60*1000);
