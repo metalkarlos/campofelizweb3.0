@@ -47,8 +47,8 @@
 								</div>
 								<div id="links" class="links">
 							    <c:forEach items="#{mascotaHomenajeBean.listpetfotomascota}" var="mascota">
-							    	<a href="#{request.contextPath}#{parametro.servletImagenes}#{mascota.ruta}?w=800&amp;h=600&amp;" title="#{mascota.descripcion}" data-gallery=" " >
-							    		<img src="#{request.contextPath}#{parametro.servletImagenes}#{mascota.ruta}?w=70&amp;h=70&amp;m=both" alt="#{mascota.descripcion}" />
+							    	<a href="#{request.contextPath}#{parametro.servletImagenes}#{mascota.ruta}?w=800&amp;h=600&amp;" title="#{mascotaHomenajeBean.petmascotahomenaje.nombre}" data-gallery=" " >
+							    		<img src="#{request.contextPath}#{parametro.servletImagenes}#{mascota.ruta}?w=70&amp;h=70&amp;m=both" alt="#{mascotaHomenajeBean.petmascotahomenaje.nombre}" />
 							    	</a>
 							    </c:forEach>
 								</div>

@@ -243,10 +243,10 @@
   }
   /*****pie de pagina**********/
   .col-md-3-pie {
-    width: 36% !important;
+    width: 50% !important;
   }
   .col-md-offset-5-pie {
-    margin-left: 30% !important;
+    margin-left: 16% !important;
   }
   /*****admin de homenajes*****/
   .fila-grid .col-md-3 {
