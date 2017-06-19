@@ -146,10 +146,10 @@
 			</div>
 			<div class="box-loggin-body">
 				<h:outputLabel value="Nueva Clave:" for="txtclavenueva" />
-				<p:password id="txtclavenueva" value="#{cambiarClaveBean.claveNueva}" required="true" requiredMessage="Ingrese Clave Nueva" label="Nueva Clave" feedback="true" match="txtclavenuevarep" weakLabel="Bajo" goodLabel="Medio" strongLabel="Excelente" promptLabel="Por favor ingrese clave" ></p:password>
+				<p:password id="txtclavenueva" value="#{cambiarClaveBean.claveNueva}" styleClass="minuscula" required="true" requiredMessage="Ingrese Clave Nueva" label="Nueva Clave" feedback="true" match="txtclavenuevarep" weakLabel="Bajo" goodLabel="Medio" strongLabel="Excelente" promptLabel="Por favor ingrese clave" ></p:password>
 				
 				<h:outputLabel value="Repetir Clave:" for="txtclavenuevarep" />
-				<p:password id="txtclavenuevarep" value="#{cambiarClaveBean.claveNuevaRep}" required="true" requiredMessage="Vuelva a Ingresar la Clave" label="Repetir Clave" feedback="true" weakLabel="Bajo" goodLabel="Medio" strongLabel="Excelente" promptLabel="Por favor ingrese clave" ></p:password>
+				<p:password id="txtclavenuevarep" value="#{cambiarClaveBean.claveNuevaRep}" styleClass="mayuscula-minuscula" required="true" requiredMessage="Vuelva a Ingresar la Clave" label="Repetir Clave" feedback="true" weakLabel="Bajo" goodLabel="Medio" strongLabel="Excelente" promptLabel="Por favor ingrese clave" ></p:password>
 				
 				<p:commandButton id="btnenviar" value="Enviar" action="#{cambiarClaveBean.cambiarClave()}" update=":form-content:mensajes" ></p:commandButton>
 			</div>

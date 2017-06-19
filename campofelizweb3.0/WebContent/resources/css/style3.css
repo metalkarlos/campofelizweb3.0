@@ -270,3 +270,12 @@
   text-align: left;
   line-height: 27px;
 }
+input, textarea {
+	text-transform: uppercase;
+}
+.minuscula {
+	text-transform: lowercase;
+}
+.mayuscula-minuscula {
+	text-transform: none;
+}
