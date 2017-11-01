@@ -53,7 +53,7 @@ public class PetmascotahomenajeDAO {
 
 		Criteria criteria = session.createCriteria(Petmascotahomenaje.class)
 				.add(Restrictions.eq("setestado.idestado", 1))
-				.addOrder(Order.desc("fechapublicacion"))
+				.addOrder(Order.desc("fechafallecimiento"))
 				.createAlias("petespecie", "especie")
 				.setMaxResults(maxresultado);
 		

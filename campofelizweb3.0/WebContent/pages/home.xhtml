@@ -952,7 +952,7 @@
 				   <input type="email" jsf:id="email" name="email" class="form-control input-field minuscula"  placeholder="E-mail" required="true" data-toggle="tooltip" title="" jsf:value="#{contactenosBean.correo}"></input>
 				</div>
 				<div class="form-group">
-				   <input type="email" id="email2" name="email2" class="form-control input-field minuscula"  placeholder="Confirme E-mail" required="true" data-toggle="tooltip" title="" ></input>
+				   <input type="email" id="email2" name="email2" class="form-control input-field minuscula"  placeholder="Confirme E-mail" required="true" data-toggle="tooltip" title="" onpaste="return false;"></input>
 				</div>
 				<div class="form-group">
 				   <input type="identity" jsf:id="identity" name="identity" class="form-control input-field" placeholder="Cedula" required="true" pattern="^([0-9]{10})?$" data-toggle="tooltip" title="" jsf:value="#{contactenosBean.cedula}"></input>

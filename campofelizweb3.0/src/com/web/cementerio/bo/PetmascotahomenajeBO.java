@@ -137,8 +137,6 @@ public class PetmascotahomenajeBO {
 			
 			//mascota
 			petmascotahomenaje.setIdmascota(petmascotahomenajeDAO.maxIdpetmascotahomenaje(session));
-			petmascotahomenaje.setNombre(petmascotahomenaje.getNombre().toUpperCase());
-			petmascotahomenaje.setFamilia(petmascotahomenaje.getFamilia().toUpperCase());
 			Setestado setestado = new Setestado();
 			setestado.setIdestado(1);
 			petmascotahomenaje.setSetestado(setestado);	
