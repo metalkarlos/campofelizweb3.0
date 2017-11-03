@@ -150,11 +150,12 @@ public class PetmascotahomenajeBO {
 			//ingresar mascota
 			petmascotahomenajeDAO.ingresarPetmascotahomenaje(session, petmascotahomenaje);
 			
-			//Si subio foto se crea en disco y en base
-			for(Petfotomascota petfotomascota : lisPetfotomascota){
-				creaFotoDiscoBD(petmascotahomenaje, petfotomascota, session);
-			}
 			if(lisPetfotomascota != null && lisPetfotomascota.size() > 0){
+				//Si subio foto se crea en disco y en base
+				for(Petfotomascota petfotomascota : lisPetfotomascota){
+					creaFotoDiscoBD(petmascotahomenaje, petfotomascota, session);
+				}
+				
 				//se setea la ruta de la foto tambien en petnoticia.rutafoto
 				petmascotahomenaje.setRutafoto(lisPetfotomascota.get(0).getRuta());
 				//update
@@ -241,25 +242,25 @@ public class PetmascotahomenajeBO {
 				}
 			}
 			
-			//Se evalua si han subido nuevas fotos
-			for(Petfotomascota petfotomascota : lisPetfotomascota){
-				boolean encuentra = false;
-				for(Petfotomascota petfotomascotaClon : lisPetfotomascotaClon){
-					if(petfotomascota.getIdfotomascota() == petfotomascotaClon.getIdfotomascota()){
-						//si encuentra
-						encuentra = true; 
-						break;
+			if(lisPetfotomascota != null && lisPetfotomascota.size() > 0){
+				//Se evalua si han subido nuevas fotos
+				for(Petfotomascota petfotomascota : lisPetfotomascota){
+					boolean encuentra = false;
+					for(Petfotomascota petfotomascotaClon : lisPetfotomascotaClon){
+						if(petfotomascota.getIdfotomascota() == petfotomascotaClon.getIdfotomascota()){
+							//si encuentra
+							encuentra = true; 
+							break;
+						}
+					}
+					//no encuentra en lista clonada
+					if(!encuentra){
+						//es foto nueva
+						creaFotoDiscoBD(petmascotahomenaje, petfotomascota, session);
+						ok = true;
 					}
 				}
-				//no encuentra en lista clonada
-				if(!encuentra){
-					//es foto nueva
-					creaFotoDiscoBD(petmascotahomenaje, petfotomascota, session);
-					ok = true;
-				}
-			}
-			
-			if(lisPetfotomascota != null && lisPetfotomascota.size() > 0){
+				
 				//si no tiene imagen principal se setea
 				if(petmascotahomenaje.getRutafoto() == null || petmascotahomenaje.getRutafoto().trim().length() == 0){
 					petmascotahomenaje.setRutafoto(lisPetfotomascota.get(0).getRuta());

@@ -163,11 +163,12 @@ public class PetservicioBO {
 			//ingresar servicio
 			petservicioDAO.savePetservicio(session, petservicio);
 			
-			//Si subio foto se crea en disco y en base
-			for(Petfotoservicio petfotoservicio : lisPetfotoservicio){
-				creaFotoDiscoBD(petservicio, petfotoservicio, session);
-			}
 			if(lisPetfotoservicio != null && lisPetfotoservicio.size() > 0){
+				//Si subio foto se crea en disco y en base
+				for(Petfotoservicio petfotoservicio : lisPetfotoservicio){
+					creaFotoDiscoBD(petservicio, petfotoservicio, session);
+				}
+				
 				//se setea la ruta de la foto tambien en petnoticia.rutafoto
 				petservicio.setRutafoto(lisPetfotoservicio.get(0).getRuta());
 				//update
@@ -317,25 +318,25 @@ public class PetservicioBO {
 				}
 			}
 			
-			//Se evalua si han subido nuevas fotos
-			for(Petfotoservicio petfotoservicio : lisPetfotoservicio){
-				boolean encuentra = false;
-				for(Petfotoservicio petfotoservicioClon : lisPetfotoservicioClon){
-					if(petfotoservicio.getIdfotoservicio() == petfotoservicioClon.getIdfotoservicio()){
-						//si encuentra
-						encuentra = true; 
-						break;
+			if(lisPetfotoservicio != null && lisPetfotoservicio.size() > 0){
+				//Se evalua si han subido nuevas fotos
+				for(Petfotoservicio petfotoservicio : lisPetfotoservicio){
+					boolean encuentra = false;
+					for(Petfotoservicio petfotoservicioClon : lisPetfotoservicioClon){
+						if(petfotoservicio.getIdfotoservicio() == petfotoservicioClon.getIdfotoservicio()){
+							//si encuentra
+							encuentra = true; 
+							break;
+						}
+					}
+					//no encuentra en lista clonada
+					if(!encuentra){
+						//es foto nueva
+						creaFotoDiscoBD(petservicio, petfotoservicio, session);
+						ok = true;
 					}
 				}
-				//no encuentra en lista clonada
-				if(!encuentra){
-					//es foto nueva
-					creaFotoDiscoBD(petservicio, petfotoservicio, session);
-					ok = true;
-				}
-			}
-			
-			if(lisPetfotoservicio != null && lisPetfotoservicio.size() > 0){
+				
 				//si no tiene imagen principal se setea
 				if(petservicio.getRutafoto() == null || petservicio.getRutafoto().trim().length() == 0){
 					petservicio.setRutafoto(lisPetfotoservicio.get(0).getRuta());

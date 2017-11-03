@@ -242,7 +242,7 @@ public class MascotaHomenajeAdminBean implements Serializable {
 		} else if (petmascotahomenaje.getFamilia() == null
 				|| petmascotahomenaje.getFamilia().length() == 0) {
 			ok = false;
-			new MessageUtil().showInfoMessage("Es necesario ingresar el dueño de la mascota","");
+			new MessageUtil().showInfoMessage("Es necesario ingresar apellidos de la familia dueños de la mascota","");
 		} else if (petmascotahomenaje.getFechanacimiento() == null
 				&& petmascotahomenaje.getFechanacimiento().after(fechaactual)) {
 			ok = false;
