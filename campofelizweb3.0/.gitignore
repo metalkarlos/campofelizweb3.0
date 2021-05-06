@@ -1,1 +1,9 @@
+# Ignora los compilados
 /build
+
+
+# Ignora archivos de configuracion 
+.classpath
+.project
+.tern-project
+/.settings
